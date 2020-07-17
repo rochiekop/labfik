@@ -7,6 +7,7 @@ class Main extends CI_Controller
   {
     parent::__construct();
     $this->load->model('main_model');
+    $this->load->model('user_model');
     $this->load->library('upload');
     $this->load->library('pagination');
     // is_logged_in();
@@ -66,9 +67,47 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium FIK';
     // Session name is $newData
-    if (isset($_SESSION['id'])) {
-      redirect('auth/check');
-    } else {
+    if (isset($_SESSION['id'])) 
+    {
+      $data['strTitle']='';
+      $data['strsubTitle']='';
+      $list=[];
+      if ($this->session->userdata['role_id'] == '4')
+      {
+        $list = $this->User_model->AdminsList();
+        $data['strTitle']='Semua Admin';
+        $data['strsubTitle']='Admin';
+        $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+      }
+      if ($this->session->userdata['role_id'] == '3')
+      {
+        $list = $this->User_model->AdminsList();
+        $data['strTitle']='Semua Admin';
+        $data['strsubTitle']='Admin';
+        $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+      }
+      else
+      {
+        $list = $this->User_model->DosenMhsList();
+        $data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
+        $data['strsubTitle']='Dosen dan Mahasiswa';
+        $data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+      }
+      $userslist=[];
+      foreach($list as $u){
+        $userslist[]=
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'picture_url' => $this->User_model->PictureUrlById($u['id']),
+          'status' => $u['status'],
+        ];
+      }
+      $data['userslist']=$userslist;
+      $this->parser->parse('chat/chatTemplate',$data);
+    } 
+    else 
+    {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');
