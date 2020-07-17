@@ -340,7 +340,13 @@ ALTER TABLE `ruangan`
 -- AUTO_INCREMENT untuk tabel `tb_info`
 --
 ALTER TABLE `tb_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `tb_lab`
+--
+ALTER TABLE `tb_lab`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_slider`

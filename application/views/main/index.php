@@ -128,26 +128,41 @@
   <div class="container">
     <div class="lab-content">
       <div class="owl-carousel owl-theme fik-lab-div-list">
-        <div class="item">
-          <div class="gambar">
-            <img src="<?= base_url('assets/img/7.jpg'); ?>" alt="" />
+        <?php if (!empty($dt_lab)) : ?>
+          <?php foreach ($dt_lab as $l) : ?>
+            <div class="item">
+              <div class="gambar">
+                <img src="<?= base_url('assets/img/laboratorium/') . $l['images']; ?>" alt="<?= $l['title'] ?>" />
+              </div>
+              <div class="item-text">
+                <h6><?= $l['title']; ?></h6>
+                <p><?= $l['body']; ?></p>
+                <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <div class="item">
+            <div class="gambar">
+              <img src="<?= base_url('assets/img/7.jpg'); ?>" alt="" />
+            </div>
+            <div class="item-text">
+              <h6>Lab Cintiq</h6>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+            </div>
           </div>
-          <div class="item-text">
-            <h6>Lab Cintiq</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+          <div class="item">
+            <div class="gambar">
+              <img src="<?= base_url('assets/img/3.jpg'); ?>" alt="" />
+            </div>
+            <div class="item-text">
+              <h6>Lab Mac</h6>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="gambar">
-            <img src="<?= base_url('assets/img/3.jpg'); ?>" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Lab Mac</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
-          </div>
-        </div>
+        <?php endif; ?>
         <!-- <div class="item">
           <div class="gambar">
             <img src="_assets/img/2.jpg" alt="" />

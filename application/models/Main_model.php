@@ -8,11 +8,11 @@ class Main_model extends CI_Model
   // MODEL LABORATORIUM
   public function getAllDtLab()
   {
-    return $this->db->get('informations')->result_array();
+    return $this->db->get('tb_lab')->result_array();
   }
   public function getDtLabById($id)
   {
-    return $this->db->get_where('informations', ['id_info' => $id])->row_array();
+    return $this->db->get_where('tb_lab', ['id' => $id])->row_array();
   }
 
 

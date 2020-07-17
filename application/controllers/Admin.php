@@ -26,25 +26,21 @@ class Admin extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-  public function laboratory()
+  public function dt_lab()
   {
-    $data['title'] = 'Laboratory';
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'LABFIK | Data Laboratorium';
     $data['dt_lab'] = $this->main_model->getAllDtLab();
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/laboratory', $data);
-    $this->load->view('templates/footer');
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/dt_lab', $data);
+    $this->load->view('templates/dashboard/footer');
   }
 
   public function add_dtlab()
   {
-    $data['title'] = 'ADD Laboratory';
+    $data['title'] = 'LABFIK | Tambah Data Laboratorium';
     $this->form_validation->set_rules('body', 'Desc', 'required');
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[informations.title]', [
+    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[tb_lab.title]', [
       'is_unique' => '*Judul ' . $this->input->post('title') . ' sudah terdaftar dalam sistem'
     ]);
     $this->form_validation->set_rules('body', 'Deskripsi', 'required|trim', [
@@ -52,11 +48,10 @@ class Admin extends CI_Controller
     ]);
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dtlab');
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/add_dtlab', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['image']['name'])) {
       // get foto
       $config['upload_path'] = './assets/img/laboratorium';
@@ -73,9 +68,9 @@ class Admin extends CI_Controller
           "title" => $this->input->post('title', true),
           "body" => $this->input->post('body', true),
         ];
-        $this->db->insert('informations', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium has been Add!</div>');
-        redirect('admin/laboratory');
+        $this->db->insert('tb_lab', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium berasil ditambahkan!</div>');
+        redirect('admin/dt_lab');
       } else {
         echo $this->upload->display_errors();
       }
@@ -85,9 +80,9 @@ class Admin extends CI_Controller
         "title" => $this->input->post('title', true),
         "body" => $this->input->post('body', true),
       ];
-      $this->db->insert('informations', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium has been Add!</div>');
-      redirect('admin/laboratory');
+      $this->db->insert('tb_lab', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium berhasil ditambahkan!</div>');
+      redirect('admin/dt_lab');
     }
   }
 
@@ -106,11 +101,10 @@ class Admin extends CI_Controller
     $path = './assets/img/laboratorium/';
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/edit_dtlab');
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/edit_dtlab', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['image']['name'])) {
       $config['upload_path'] = './assets/img/laboratorium';
       $config['allowed_types'] = 'jpg|png|jpeg|gif';
@@ -131,9 +125,9 @@ class Admin extends CI_Controller
           'title'       => $this->input->post('title'),
           'body'     => $this->input->post('body'),
         );
-        $this->db->update('informations', $data, ['id_info' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium has been Updated!</div>');
-        redirect('admin/laboratory');
+        $this->db->update('tb_lab', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium berhasil diubah!</div>');
+        redirect('admin/dt_lab');
       } else {
         echo $this->upload->display_errors();
       }
@@ -143,9 +137,9 @@ class Admin extends CI_Controller
         'title' => $this->input->post('title'),
         'body'     => $this->input->post('body'),
       );
-      $this->db->update('informations', $data, ['id_info' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
-      redirect('admin/laboratory');
+      $this->db->update('tb_lab', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium berhasil diubah!</div>');
+      redirect('admin/dt_lab');
     }
   }
 
@@ -177,10 +171,9 @@ class Admin extends CI_Controller
 
   public function add_dtinfo()
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Add Information';
+    $data['title'] = 'LABFIK | Tambah Informasi';
 
-    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[informations.title]', [
+    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[tb_info.title]', [
       'is_unique' => '*Judul ' . $this->input->post('title') . ' sudah terdaftar dalam sistem'
     ]);
     $this->form_validation->set_rules('body', 'Deskripsi', 'required|trim', [
@@ -188,17 +181,16 @@ class Admin extends CI_Controller
     ]);
     $upload = implode("", $this->main_model->upload());
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dtinfo', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/add_dtinfo', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['image']['name'])) {
       $config['upload_path'] = './assets/img/informasi';
       $config['allowed_types'] = 'jpg|png|jpeg|gif';
-      $config['max_size'] = '10048';  //10MB max
-      $config['max_width'] = '4480'; // pixel
-      $config['max_height'] = '4480'; // pixel
+      $config['max_size'] = '20048';  //20MB max
+      $config['max_width'] = '8480'; // pixel
+      $config['max_height'] = '8480'; // pixel
       $config['file_name'] = $_FILES['image']['name'];
       $this->upload->initialize($config);
       if ($this->upload->do_upload('image')) {
@@ -230,9 +222,8 @@ class Admin extends CI_Controller
 
   public function edit_dtinfo($id)
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Edit Data Info';
 
+    $data['title'] = 'LABFIK | Edit Data Informasi';
     $data['dt_info'] = $this->main_model->getDtInfoById($id);
 
     $this->form_validation->set_rules('title', 'Title', 'required|trim');
@@ -241,11 +232,10 @@ class Admin extends CI_Controller
     $path = './assets/img/informasi/';
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/edit_dtinfo');
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/edit_dtinfo', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['image']['name'])) {
       $config['upload_path'] = './assets/img/informasi';
       $config['allowed_types'] = 'jpg|png|jpeg|gif';
@@ -302,29 +292,25 @@ class Admin extends CI_Controller
   // PANEL
   public function dt_panel()
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
     $data['title'] = 'Info Panel';
-    $data['dt_panel'] = $this->main_model->getDtPanel();
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/dt_panel', $data);
-    $this->load->view('templates/footer');
+    // $data['dt_panel'] = $this->main_model->getDtPanel();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/dt_panel', $data);
+    $this->load->view('templates/dashboard/footer');
   }
   public function add_dtpanel()
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Add Data Panel';
+    $data['title'] = 'LABFIK | Tambah Info Panel';
 
     $this->form_validation->set_rules('title', 'Title', 'required|trim');
     $this->form_validation->set_rules('body', 'Body', 'required|trim');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dtpanel', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/add_dtpanel', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['video']['name'])) {
       $config['upload_path'] = './assets/img/panel';
       $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
@@ -341,11 +327,10 @@ class Admin extends CI_Controller
           'video'       => $video['file_name'],
         );
         $this->db->insert('tb_panel', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Information Panel has been Added!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
         redirect('admin/dt_panel');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
-        redirect('admin/add_dtpanel');
+        echo $this->upload->display_errors();
       }
     } else {
       $data = array(
@@ -354,7 +339,7 @@ class Admin extends CI_Controller
         'video'       => "none",
       );
       $this->db->insert('tb_panel', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi Panel Berhasil ditambahkan</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
       redirect('admin/dt_panel');
     }
   }
