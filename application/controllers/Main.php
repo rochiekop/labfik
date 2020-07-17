@@ -99,12 +99,13 @@ class Main extends CI_Controller
         [
           'id' => $u['id'],
           'name' => $u['name'],
-          'picture_url' => $this->user_model->PictureUrlById($u['id']),
+          // 'picture_url' => $this->user_model->PictureUrlById($u['id']),
           'status' => $u['status'],
         ];
       }
       $data['userslist']=$userslist;
-      $this->parser->parse('chat/chatTemplate',$data);
+      // $this->parser->parse('chat/chatTemplate',$data);
+      $this->load->view('chat/chatTemplate',$data);
     } 
     else 
     {

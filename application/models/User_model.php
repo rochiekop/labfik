@@ -181,7 +181,8 @@ class User_model extends CI_Model {
 
 	public function AdminsList() 
 	{  
- 		$this->db->select('id,name,picture_url,is_active');
+        //  $this->db->select('id,name,picture_url,is_active');
+        $this->db->select('id,name,is_active');
 		$this->db->from($this->User);
 		$this->db->where("role_id","1");
 		$this->db->where("is_active","1");
@@ -192,7 +193,8 @@ class User_model extends CI_Model {
 
 	public function DosenMhsList() 
 	{  
- 		$this->db->select('id,name,picture_url,is_active');
+        // $this->db->select('id,name,picture_url,is_active');
+        $this->db->select('id,name,is_active');
 		$this->db->from($this->User);
         $this->db->where("role_id","3");
         $this->db->where("role_id","4");

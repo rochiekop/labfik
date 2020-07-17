@@ -1,5 +1,28 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<?php $this->load->view('include/header');?>
+<!-- </?php $this->load->view('include/header');?> -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- <title>Admin | Dashboard</title> -->
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="<?=base_url('public')?>/components/bootstrap/dist/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="<?=base_url('public')?>/components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="<?=base_url('public')?>/components/Ionicons/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="<?=base_url('public')?>/dist/css/AdminLTE.min.css">
+
+<!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<link rel="stylesheet" href="<?=base_url('public')?>/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="<?=base_url('public')?>/plugins/pace/pace.min.css">
+
 <style>
 	.fileDiv {
   position: relative;
@@ -33,6 +56,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
+
 <?php $this->load->view('templates/dashboard/headerDosenMhs');?>
 
 <!-- Left side column. contains the logo and sidebar -->
@@ -86,13 +110,13 @@
               <div class="input-group">
                 <?php
                   $obj=&get_instance();
-                  $obj->load->model('UserModel');
-                  $profile_url = $obj->UserModel->PictureUrl();
-                  $user=$obj->UserModel->GetUserData();
+                  $obj->load->model('User_model');
+                  // $profile_url = $obj->User_model->PictureUrl();
+                  $user=$obj->User_model->GetUserData();
                 ?>
                     	
                 <input type="hidden" id="Sender_Name" value="<?=$user['name'];?>">
-                <input type="hidden" id="Sender_ProfilePic" value="<?=$profile_url;?>">
+                <!-- <input type="hidden" id="Sender_ProfilePic" value="</?=$profile_url;?>"> -->
                     	
                 <input type="hidden" id="ReciverId_txt">
                 <input type="text" name="message" placeholder="Tulis pesan disini ..." class="form-control message">
@@ -131,8 +155,8 @@
                     foreach($userslist as $u):
                     ?>
                         <li class="selectVendor" id="<?=$u['id'];?>" title="<?=$u['name'];?>">
-                          <img src="<?=$u['picture_url'];?>" alt="<?=$u['name'];?>" title="<?=$u['name'];?>">
-                          <a class="users-list-name" href="#"><?=$v['name'];?></a>
+                          <!-- <img src="</?=$u['picture_url'];?>" alt="</?=$u['name'];?>" title="</?=$u['name'];?>"> -->
+                          <a class="users-list-name" href="#"><?=$u['name'];?></a>
                           <!-- <p style="color: green">online</p> -->
                           <p style="color: green"><?=$u['status']?></p>  
                           <!--<span class="users-list-date">Yesterday</span>-->

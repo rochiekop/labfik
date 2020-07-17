@@ -41,12 +41,13 @@ class Chat extends CI_Controller {
 			[
 				'id' => $u['id'],
 				'name' => $u['name'],
-				'picture_url' => $this->User_model->PictureUrlById($u['id']),
+				// 'picture_url' => $this->User_model->PictureUrlById($u['id']),
 				'status' => $u['status'],
 			];
 		}
 		$data['userslist']=$userslist;
- 		$this->parser->parse('chat/chatTemplate',$data);
+        // $this->parser->parse('chat/chatTemplate',$data);
+        $this->load->view('chat/chatTemplate',$data); 
     }
 	
     public function send_text_message()
@@ -88,7 +89,8 @@ class Chat extends CI_Controller {
 				}
              
  		   echo json_encode($response);
-	}
+    }
+    
 	public function ChatAttachmentUpload(){
 		
 		$file_data='';
@@ -209,15 +211,16 @@ class Chat extends CI_Controller {
 	}
 	
 	public function chat_clear_client_cs(){
-		$receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
-		$messagelist = $this->ChatModel->GetReciverMessageList($receiver_id);
+        // $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
+        $receiver_id = $this->input->get('receiver_id')
+		$messagelist = $this->Chat_model->GetReciverMessageList($receiver_id);
 		foreach($messagelist as $row){
 			
 			if($row['message']=='NULL'){
 				$attachment_name = unlink('uploads/attachment/'.$row['attachment_name']);
 			}
  		}
-		$this->ChatModel->TrashById($receiver_id); 
+		$this->Chat_model->TrashById($receiver_id); 
 	}
 	
 }
