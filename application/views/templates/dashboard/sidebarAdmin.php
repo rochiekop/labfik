@@ -40,8 +40,9 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="fas fa-box"></span>Listing Barang</a>
         <div id="collapse1" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li>
-            <li><a href="<?= base_url('admin/daftarbarang') ?>">Daftar Semua Barang</a></li>
+            <!-- <li><a href="</?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li> -->
+            <li><a href="<?= base_url('item/add') ?>">Tambah Barang</a></li>
+            <li><a href="<?= base_url('item') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Peminjaman</a></li>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="#">Riwayat</a></li>
