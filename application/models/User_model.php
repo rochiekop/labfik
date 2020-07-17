@@ -1,42 +1,43 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class User_model extends CI_Model {
-  	public function __construct()
-        {
-			parent::__construct();
-			// Your own constructor code
-        }
+class User_model extends CI_Model
+{
+	public function __construct()
+	{
+		parent::__construct();
+		// Your own constructor code
+	}
 	private $User = 'user';
 
-  	public function GetUserData()
-	{  
- 		$this->db->select('id,username,name,email,images,role_id,is_active,date_created');
+	public function GetUserData()
+	{
+		$this->db->select('id,username,name,email,images,role_id,is_active,date_created');
 		$this->db->from($this->User);
-		$this->db->where("id",$this->session->userdata['id']);
+		$this->db->where("id", $this->session->userdata['id']);
 		$this->db->limit(1);
-  		$query = $this->db->get();
- 		if ($query) {
+		$query = $this->db->get();
+		if ($query) {
 			return $query->row_array();
-		 } else {
+		} else {
 			return false;
-		 }
-       }
-       
-    public function GetUserDataById($id) 
-	{  
- 		$this->db->select('id,username,name,email,images,role_id,is_active,date_created');
+		}
+	}
+
+	public function GetUserDataById($id)
+	{
+		$this->db->select('id,username,name,email,images,role_id,is_active,date_created');
 		$this->db->from($this->User);
-		$this->db->where("id",$id);
+		$this->db->where("id", $id);
 		$this->db->limit(1);
-  		$query = $this->db->get();
- 		if ($query) {
+		$query = $this->db->get();
+		if ($query) {
 			return $query->row_array();
-		 } else {
+		} else {
 			return false;
-		 }
-   	}
+		}
+	}
 
 	// public function IfExistEmail($email){
 	// 	 $this->db->select('id, email'); 
@@ -51,154 +52,154 @@ class User_model extends CI_Model {
 	// }
 
 	public function PictureUrl()
-	{  
- 		$this->db->select('id,images');
+	{
+		$this->db->select('id,images');
 		$this->db->from($this->User);
-		$this->db->where("id",$this->session->userdata['id']);
+		$this->db->where("id", $this->session->userdata['id']);
 		$this->db->limit(1);
-  		$query = $this->db->get();
+		$query = $this->db->get();
 		$res = $query->row_array();
-		if(!empty($res['picture_url'])){
-			return base_url('uploads/profiles/'.$res['picture_url']);
-		}else{
+		if (!empty($res['picture_url'])) {
+			return base_url('uploads/profiles/' . $res['picture_url']);
+		} else {
 			return base_url('public/images/user-icon.jpg');
 		}
-   	}
+	}
 
 	public function PictureUrlById($id)
-	{  
- 		$this->db->select('id,picture_url');
+	{
+		$this->db->select('id,picture_url');
 		$this->db->from($this->User);
-		$this->db->where("id",$id);
+		$this->db->where("id", $id);
 		$this->db->limit(1);
-  		$query = $this->db->get();
+		$query = $this->db->get();
 		$res = $query->row_array();
-		if(!empty($res['picture_url'])){
-			return base_url('uploads/profiles/'.$res['picture_url']);
-		}else{
+		if (!empty($res['picture_url'])) {
+			return base_url('uploads/profiles/' . $res['picture_url']);
+		} else {
 			return base_url('public/images/user-icon.jpg');
 		}
-   	}
+	}
 
 	public function GetName($id)
-	{  
- 		$this->db->select('id,name');
+	{
+		$this->db->select('id,name');
 		$this->db->from($this->User);
-		$this->db->where("id",$id);
+		$this->db->where("id", $id);
 		$this->db->limit(1);
-  		$query = $this->db->get();
+		$query = $this->db->get();
 		$res = $query->row_array();
- 		return $res['name'];
-   	}
-	
+		return $res['name'];
+	}
+
 	public function GetIDByName($name)
-	{  
- 		$this->db->select('id,name');
+	{
+		$this->db->select('id,name');
 		$this->db->from($this->User);
-		$this->db->where("name",$name);
+		$this->db->where("name", $name);
 		$this->db->limit(1);
-  		$query = $this->db->get();
+		$query = $this->db->get();
 		$res = $query->row_array();
- 		return $res['id'];
-   	}
+		return $res['id'];
+	}
 
 	// public function GetUserAddress($id)
 	// {  
- 	// 	$this->db->select('id,email,mobile_no,address,address_2,city,state,pincode,language');
+	// 	$this->db->select('id,email,mobile_no,address,address_2,city,state,pincode,language');
 	// 	$this->db->from($this->User);
 	// 	$this->db->where("id",$id);
 	// 	$this->db->limit(1);
-  	// 	$query = $this->db->get();
+	// 	$query = $this->db->get();
 	// 	$res = $query->row_array();
- 	// 	return $res;
-   	// }
+	// 	return $res;
+	// }
 
 	// public function UpdateProfileImageByID($data)
 	// {  
- 	// 	$res = $this->db->update($this->User, $data ,['id' => $this->session->userdata['id'] ]); 
+	// 	$res = $this->db->update($this->User, $data ,['id' => $this->session->userdata['id'] ]); 
 	// 	if($res == 1)
 	// 		return true;
 	// 	else
 	// 		return false;
- 	// }
+	// }
 
 	// public function UpdateCustomerProfileImageByID($data)
 	// {  
- 	// 	$res = $this->db->update($this->User, $data ,['id' => $this->session->userdata['User']['id'] ] ); 
+	// 	$res = $this->db->update($this->User, $data ,['id' => $this->session->userdata['User']['id'] ] ); 
 	// 	if($res == 1)
 	// 		return true;
 	// 	else
 	// 		return false;
- 	// }
+	// }
 
-	public function GetMemberNameById($id) 
-	{  
- 		$this->db->select('id,name');
+	public function GetMemberNameById($id)
+	{
+		$this->db->select('id,name');
 		$this->db->from($this->User);
-		$this->db->where("id",$id);
+		$this->db->where("id", $id);
 		$this->db->limit(1);
-  		$query = $this->db->get();
- 		$u=$query->row_array();
+		$query = $this->db->get();
+		$u = $query->row_array();
 		return $u['name'];
-   	}
+	}
 
 	public function AddMember($data)
-	{  
-		$res = $this->db->insert($this->User,$data);
-		if($res == 1)
+	{
+		$res = $this->db->insert($this->User, $data);
+		if ($res == 1)
 			return $this->db->insert_id();
 		else
-			return false;	
-  	}
+			return false;
+	}
 
-	public function StatusUpdateByID($user_id,$status)
-	{  
- 		$res = $this->db->update($this->User,['status' => $status],['id' => $user_id ] ); 
-		if($res == 1)
+	public function StatusUpdateByID($user_id, $status)
+	{
+		$res = $this->db->update($this->User, ['status' => $status], ['id' => $user_id]);
+		if ($res == 1)
 			return true;
 		else
 			return false;
- 	}
+	}
 
 	public function TrashByID($user_id)
-	{  
- 		$res = $this->db->delete($this->User,['id' => $user_id ] ); 
-		if($res == 1)
+	{
+		$res = $this->db->delete($this->User, ['id' => $user_id]);
+		if ($res == 1)
 			return true;
 		else
 			return false;
-	 }
-	 
- 	public function AllRoleTypes($role) 
-	{  
- 		$this->db->select('id,name');
+	}
+
+	public function AllRoleTypes($role)
+	{
+		$this->db->select('id,name');
 		$this->db->from($this->User);
-		$this->db->where("role",$role);
-   		$query = $this->db->get();
- 		$u = $query->num_rows();
+		$this->db->where("role", $role);
+		$query = $this->db->get();
+		$u = $query->num_rows();
 		return $u;
-   	}
+	}
 
-	public function AdminsList() 
-	{  
- 		$this->db->select('id,name,picture_url,is_active');
+	public function AdminsList()
+	{
+		$this->db->select('id,name,picture_url,is_active');
 		$this->db->from($this->User);
-		$this->db->where("role_id","1");
-		$this->db->where("is_active","1");
-   		$query = $this->db->get();
- 		$r=$query->result_array();
+		$this->db->where("role_id", "1");
+		$this->db->where("is_active", "1");
+		$query = $this->db->get();
+		$r = $query->result_array();
 		return $r;
-   	}
+	}
 
-	public function DosenMhsList() 
-	{  
- 		$this->db->select('id,name,picture_url,is_active');
+	public function DosenMhsList()
+	{
+		$this->db->select('id,name,picture_url,is_active');
 		$this->db->from($this->User);
-        $this->db->where("role_id","3");
-        $this->db->where("role_id","4");
-		$this->db->where("is_active","1");
-   		$query = $this->db->get();
- 		$r=$query->result_array();
+		$this->db->where("role_id", "3");
+		$this->db->where("role_id", "4");
+		$this->db->where("is_active", "1");
+		$query = $this->db->get();
+		$r = $query->result_array();
 		return $r;
 	}
 
@@ -212,11 +213,10 @@ class User_model extends CI_Model {
 		$this->db->update('users', $is_active);
 	}
 
-	public function OfflineStatus()
-	{
-		$this->is_active = "offline";
-		$this->db->update($this->User, $this, array('username' => $post['email']));
-	}
+	// public function OfflineStatus()
+	// {
+	// 	$this->is_active = "offline";
+	// 	$this->db->update($this->User, $this, array('username' => $post['email']));
+	// }
 
- }
-
+}

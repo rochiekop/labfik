@@ -292,29 +292,25 @@ class Admin extends CI_Controller
   // PANEL
   public function dt_panel()
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
     $data['title'] = 'Info Panel';
-    $data['dt_panel'] = $this->main_model->getDtPanel();
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/dt_panel', $data);
-    $this->load->view('templates/footer');
+    // $data['dt_panel'] = $this->main_model->getDtPanel();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/dt_panel', $data);
+    $this->load->view('templates/dashboard/footer');
   }
   public function add_dtpanel()
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Add Data Panel';
+    $data['title'] = 'LABFIK | Tambah Info Panel';
 
     $this->form_validation->set_rules('title', 'Title', 'required|trim');
     $this->form_validation->set_rules('body', 'Body', 'required|trim');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dtpanel', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/add_dtpanel', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['video']['name'])) {
       $config['upload_path'] = './assets/img/panel';
       $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
@@ -331,11 +327,10 @@ class Admin extends CI_Controller
           'video'       => $video['file_name'],
         );
         $this->db->insert('tb_panel', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Information Panel has been Added!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
         redirect('admin/dt_panel');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
-        redirect('admin/add_dtpanel');
+        echo $this->upload->display_errors();
       }
     } else {
       $data = array(
@@ -344,7 +339,7 @@ class Admin extends CI_Controller
         'video'       => "none",
       );
       $this->db->insert('tb_panel', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi Panel Berhasil ditambahkan</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
       redirect('admin/dt_panel');
     }
   }

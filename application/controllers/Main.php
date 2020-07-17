@@ -29,6 +29,7 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     // Session name is $newData
+    $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/lab');
     $this->load->view('templates/main/footer');
@@ -68,47 +69,40 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium FIK';
     // Session name is $newData
-    if (isset($_SESSION['id'])) 
-    {
-      $data['strTitle']='';
-      $data['strsubTitle']='';
-      $list=[];
-      if ($this->session->userdata['role_id'] == '4')
-      {
+    if (isset($_SESSION['id'])) {
+      $data['strTitle'] = '';
+      $data['strsubTitle'] = '';
+      $list = [];
+      if ($this->session->userdata['role_id'] == '4') {
         $list = $this->user_model->AdminsList();
-        $data['strTitle']='Semua Admin';
-        $data['strsubTitle']='Admin';
-        $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+        $data['strTitle'] = 'Semua Admin';
+        $data['strsubTitle'] = 'Admin';
+        $data['chatTitle'] = 'Pilih Admin yang ingin anda hubungi';
       }
-      if ($this->session->userdata['role_id'] == '3')
-      {
+      if ($this->session->userdata['role_id'] == '3') {
         $list = $this->user_model->AdminsList();
-        $data['strTitle']='Semua Admin';
-        $data['strsubTitle']='Admin';
-        $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-      }
-      else
-      {
+        $data['strTitle'] = 'Semua Admin';
+        $data['strsubTitle'] = 'Admin';
+        $data['chatTitle'] = 'Pilih Admin yang ingin anda hubungi';
+      } else {
         $list = $this->user_model->DosenMhsList();
-        $data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
-        $data['strsubTitle']='Dosen dan Mahasiswa';
-        $data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+        $data['strTitle'] = 'Semua Dosen dan Mahasiswa yang terhubung';
+        $data['strsubTitle'] = 'Dosen dan Mahasiswa';
+        $data['chatTitle'] = 'Pilih Dosen atau Mahasiswa yang ingin dihubungi';
       }
-      $userslist=[];
-      foreach($list as $u){
-        $userslist[]=
-        [
-          'id' => $u['id'],
-          'name' => $u['name'],
-          'picture_url' => $this->user_model->PictureUrlById($u['id']),
-          'status' => $u['status'],
-        ];
+      $userslist = [];
+      foreach ($list as $u) {
+        $userslist[] =
+          [
+            'id' => $u['id'],
+            'name' => $u['name'],
+            'picture_url' => $this->user_model->PictureUrlById($u['id']),
+            'status' => $u['status'],
+          ];
       }
-      $data['userslist']=$userslist;
-      $this->parser->parse('chat/chatTemplate',$data);
-    } 
-    else 
-    {
+      $data['userslist'] = $userslist;
+      $this->parser->parse('chat/chatTemplate', $data);
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');

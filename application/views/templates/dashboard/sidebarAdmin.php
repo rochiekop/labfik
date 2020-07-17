@@ -20,7 +20,7 @@
             <li <?= $this->uri->segment(2) == 'dt_slider' ? 'class="active"' : '' ?>><a href="<?= base_url('admin/dt_slider'); ?>">Slider</a></li>
             <li><a href="<?= base_url('admin/dt_info'); ?>">Informasi</a></li>
             <li><a href="<?= base_url('admin/dt_lab'); ?>">Laboratorium</a></li>
-            <li><a href="#">Info Panel</a></li>
+            <li><a href="<?= base_url('admin/dt_panel'); ?>">Info Panel</a></li>
           </ul>
         </div>
       </div>
