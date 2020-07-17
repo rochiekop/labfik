@@ -74,21 +74,21 @@ class Main extends CI_Controller
       $list=[];
       if ($this->session->userdata['role_id'] == '4')
       {
-        $list = $this->User_model->AdminsList();
+        $list = $this->user_model->AdminsList();
         $data['strTitle']='Semua Admin';
         $data['strsubTitle']='Admin';
         $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
       }
       if ($this->session->userdata['role_id'] == '3')
       {
-        $list = $this->User_model->AdminsList();
+        $list = $this->user_model->AdminsList();
         $data['strTitle']='Semua Admin';
         $data['strsubTitle']='Admin';
         $data['chatTitle']='Pilih Admin yang ingin anda hubungi';
       }
       else
       {
-        $list = $this->User_model->DosenMhsList();
+        $list = $this->user_model->DosenMhsList();
         $data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
         $data['strsubTitle']='Dosen dan Mahasiswa';
         $data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
@@ -99,7 +99,7 @@ class Main extends CI_Controller
         [
           'id' => $u['id'],
           'name' => $u['name'],
-          'picture_url' => $this->User_model->PictureUrlById($u['id']),
+          'picture_url' => $this->user_model->PictureUrlById($u['id']),
           'status' => $u['status'],
         ];
       }
