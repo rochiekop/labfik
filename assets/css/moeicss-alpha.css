@@ -1,0 +1,52 @@
+/* Moei OL-UL */
+.list-none,.list-none ul{list-style:none}
+.list-none::after,.list-none ul::after{display:block;clear:both;content:' '}
+.list-dot ul,.list-dot-ul{padding:0;list-style:none}
+.list-dot ul li,.list-dot-ul li{position:relative;margin-top:4px;padding-left:10px}
+.list-dot ul li:before,.list-dot-ul li:before{font-weight:bold!important;position:absolute;left:0;content:'•';opacity:.75}
+
+/* Moei Input */
+.form-group{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.custom-form .form-control{border-radius:5px!important}
+.custom-form .form-group{background-color:#fff;position:relative}
+.custom-form .form-group .form-control{position:relative;z-index:1;background-color:transparent}
+.custom-form .form-group label{font-size:13px;font-weight:normal;position:absolute;z-index:0;top:11px;left:10px;display:block;padding:0 6px;transition:.15s ease;color:#999;background-color:#fff;-webkit-padding-before:1px}
+.custom-form .form-group .form-control:focus{position:relative;z-index:0}
+.custom-form .form-group .form-control:focus~label,.custom-form .form-group .form-control.active~label,.custom-form .form-group .form-control:not(:placeholder-shown)~label,.custom-form .form-group .form-control.active~label{font-size:11px;z-index:1;top:-9px!important}
+.custom-form .form-group.has-select label{position:relative;top:unset;left:unset;display:block;padding:0 16px 2px;transition:unset;color:#444;background-color:unset;-webkit-padding-before:1px}
+.custom-form .input-group .form-group{margin-bottom:0;position:relative;-ms-flex:1 1 auto;flex:1 1 auto;width:1%;min-width:0}
+.custom-form .input-group .form-group .form-control{border-radius:0!important;}
+.custom-form .input-group .form-group:last-child .form-control{border-radius:0 5px 5px 0!important}
+.custom-form .input-group .input-group-prepend:first-child .input-group-text{border-radius:5px 0 0 5px!important}
+.custom-form .input-group .input-group-append:last-child .input-group-text{border-radius:0 5px 5px 0!important}
+
+/* Moei Check Radio */
+.form-check{position:relative;margin:4px 0;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none}
+.form-check label{position:relative;padding:0;padding-left:28px}
+.form-check input{position:absolute;width:0;height:0;opacity:0}
+.form-check .custom-mark{position:absolute;top:-1px;left:0;display:block;width:20px!important;height:20px!important;padding:0!important;transition:.25s ease;border-radius:5px;background-color:#e0e0e0}
+.form-check input:checked~.custom-mark::after{position:absolute;top:50%;left:50%;display:block;width:10px;height:0;margin-left:2px;content:' ';transform:translate(-50%,-50%) rotate(-45deg);opacity:1;border-top:2px solid #fff;background-color:#fff}
+.form-check input:checked~.custom-mark::before{position:absolute;top:50%;left:50%;display:block;width:6px;height:0;margin-top:1px;margin-left:-3px;content:' ';transform:translate(-50%,-50%) rotate(45deg);opacity:1;border-top:2px solid #fff;background-color:#fff}
+.form-check input[type="radio"]~.custom-mark{border-radius:20px}
+.form-check input[type="radio"]:checked~.custom-mark::after{height:6px;width:6px;border-radius:3px;margin:0;left:50%;top:50%;transform:translate(-50%,-50%)}
+.form-check input[type="radio"]:checked~.custom-mark::before{display:none}
+.form-check.disabled,.form-check.disabled input,.form-check.disabled label{cursor:not-allowed;opacity:.75}
+.form-check.disabled .custom-mark{background-color:#fff;box-shadow:0 0 0 1px #ced4da inset}
+.form-check-inline label{padding-left:24px;padding-right:16px}
+.form-inline .form-check{margin-left:4px;}
+.form-inline .form-check label{padding-left:24px;padding-right:12px}
+
+/* Moei Custom Owl.Carousel */
+.owl-theme .owl-dots{text-align:center;-webkit-tap-highlight-color:transparent}
+.owl-theme .owl-dots{left:50%;transform:translateX(-50%);position:absolute;bottom:20px;height:9px;z-index:2;height:16px}
+.owl-theme .owl-dots .owl-dot{display:inline-block;zoom:1;height:18px}
+.owl-theme .owl-dots .owl-dot span{width:8px;height:8px;margin:0 8px;background:#fff;opacity:.65;border-radius:20px;display:block;visibility:visible;transition:.2s ease;position:relative}
+.owl-theme .owl-dots .owl-dot:hover span{opacity:1}
+.owl-theme .owl-dots .owl-dot.active span{cursor:default;width:18px;height:18px;background-color:transparent;border:2px solid #fff;opacity:1;}
+.owl-carousel .owl-nav{text-align:center;-webkit-tap-highlight-color:transparent}
+.owl-carousel .owl-nav button{background-color:#fff!important;box-shadow: 0 3px 12px -4px rgba(0, 0, 0, .15);display:inline-block;width:60px;font-size:24px!important;line-height:40px!important;border-radius:20px;margin:0 6px;border:1px solid #e2e2e2 !important;transition:.25s ease;}
+.owl-carousel .owl-nav button:hover{border-color:#FB8C00!important;color:#FB8C00;}
+.owl-carousel .owl-nav button span{top:1px}
+.owl-carousel .owl-nav button.disabled{opacity:.5;cursor:not-allowed;;transition:.25s ease;}
+.owl-carousel .owl-nav button.disabled span{opacity:.5}
+.owl-carousel .owl-nav button.disabled:hover{border-color:#e2e2e2!important;color:unset}

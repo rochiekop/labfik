@@ -1,0 +1,27 @@
+/*
+ * CSS User Segment
+*/
+body{padding:20px!important;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-webkit-touch-callout:none;-khtml-user-select:none}
+.account-container{position:relative;z-index:1;z-index:2;width:100%;max-width:400px;margin:auto;padding:0 0 20px}
+.account-container .content{padding:36px;text-align:center;border-radius:16px;background-color:#fff;box-shadow:0 5px 50px -5px rgba(0,0,0,.1)}
+.account-container .content > img{height:24px;margin:24px 0 8px;}
+.account-container .content > h6{font-size:14px;}
+.account-container .content .login-banner{margin:-36px -36px 0;height:180px;overflow:hidden;border-radius:16px;background-color:#000;}
+.account-container .content .login-banner img{position:relative;width:100%;box-shadow:0 5px 50px -5px rgba(0,0,0,.1);height:100%;object-fit:cover;object-position:center;opacity:.8}
+.account-container .content form{margin-top: 24px}
+.account-container .content .form-group{margin-bottom:16px}
+.account-container .content .login-actions{margin-top:20px}
+.account-container .content .login-extra{margin:28px -36px -36px;padding:28px;border-top:1px dashed #ddd}
+.account-container .content .form-group input{border-bottom:1px solid #cfd8dc;border-radius:0!important;box-shadow:unset!important}
+.custom-form.custom-form-icon label{left:30px}
+.custom-form.custom-form-icon input{padding-left:36px}
+.custom-form.custom-form-icon input[type='checkbox']{padding-left:0;}
+.custom-form.custom-form-icon input[type='checkbox'] ~ label{left:0}
+.custom-form.custom-form-icon .fas{font-size:18px;position:absolute;z-index:3;top:50%;left:0;transform:translateY(-50%)}
+.user-back{font-size:14px;position:relative;display:inline-block;margin-top:12px;padding:12px 0;color:#fff!important}
+.user-back .fas{margin-right:8px;}
+.user-overlay{position:fixed;top:0;bottom:0;left:0;right:0;background:url(assets/img/17.jpg);background-position:center;background-size:cover;}
+.user-overlay::after{position:fixed;top:0;bottom:0;left:0;right:0;content:' ';background-color:#FB8C00;opacity:.85}
+.user-overlay::before{position:fixed;top:0;bottom:0;left:0;right:0;content:' ';background-color:#000;opacity:.5;z-index:1}
+.user-overlay-circle{position:fixed;bottom:0;left:50%;width:50%;width:400px;height:400px;transform:translate(-50%,50%);opacity:.075;background-color:#fff;border-radius:50%}
+.user-overlay-circle2{position:fixed;bottom:0;left:50%;width:50%;width:500px;height:500px;transform:translate(-50%,50%);opacity:.5;border:1px dashed #fff;border-radius:50%}

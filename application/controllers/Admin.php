@@ -1,0 +1,854 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Admin extends CI_Controller
+{
+  public function __construct()
+  {
+    parent::__construct();
+    // $this->load->model('m_dtinfo');
+    // $this->load->model('m_dtpanel');
+    // $this->load->model('m_dtslider');
+    // $this->load->model('m_dtpeminjaman');
+    // $this->load->model('m_dtruangan');
+    $this->load->model('admin_model');
+    $this->load->model('main_model');
+    $this->load->library('upload');
+    $this->load->library('pagination');
+    is_logged_in();
+  }
+  public function index()
+  {
+    $data['title'] = 'Dashboard';
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/index', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function laboratory()
+  {
+    $data['title'] = 'Laboratory';
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['dt_lab'] = $this->main_model->getAllDtLab();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/laboratory', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function add_dtlab()
+  {
+    $data['title'] = 'ADD Laboratory';
+    $this->form_validation->set_rules('body', 'Desc', 'required');
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[informations.title]', [
+      'is_unique' => '*Judul ' . $this->input->post('title') . ' sudah terdaftar dalam sistem'
+    ]);
+    $this->form_validation->set_rules('body', 'Deskripsi', 'required|trim', [
+      'required' => 'Form Deskripsi harus diisi'
+    ]);
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dtlab');
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      // get foto
+      $config['upload_path'] = './assets/img/laboratorium';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20024';  //20MB max
+      $config['max_width'] = '7680'; // pixel
+      $config['max_height'] = '6480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $images = $this->upload->data();
+        $data = [
+          "images" =>  $images['file_name'],
+          "title" => $this->input->post('title', true),
+          "body" => $this->input->post('body', true),
+        ];
+        $this->db->insert('informations', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium has been Add!</div>');
+        redirect('admin/laboratory');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = [
+        "images" => "default.jpg",
+        "title" => $this->input->post('title', true),
+        "body" => $this->input->post('body', true),
+      ];
+      $this->db->insert('informations', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laboratorium has been Add!</div>');
+      redirect('admin/laboratory');
+    }
+  }
+
+  // Edit Data Panel
+
+  public function edit_dtlab($id)
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Edit Data Lab';
+
+    $data['dt_lab'] = $this->main_model->getDtLabById($id);
+
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    $this->form_validation->set_rules('body', 'Body', 'required');
+
+    $path = './assets/img/laboratorium/';
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/edit_dtlab');
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/laboratorium';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20024';  //20MB max
+      $config['max_width'] = '7680'; // pixel
+      $config['max_height'] = '6480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $old_img = $data['dt_lab']['images'];
+        if ($old_img != 'default.jpg') {
+          //delete video in direktori
+          @unlink($path . $this->input->post('image!updated'));
+        }
+        $image = $this->upload->data();
+        $data = array(
+          'images'       => $image['file_name'],
+          'title'       => $this->input->post('title'),
+          'body'     => $this->input->post('body'),
+        );
+        $this->db->update('informations', $data, ['id_info' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium has been Updated!</div>');
+        redirect('admin/laboratory');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = array(
+        'images'       => $this->input->post('image!updated'),
+        'title' => $this->input->post('title'),
+        'body'     => $this->input->post('body'),
+      );
+      $this->db->update('informations', $data, ['id_info' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
+      redirect('admin/laboratory');
+    }
+  }
+
+  public function delete_dtlab($id, $image)
+  {
+    $data['dt_lab'] = $this->main_model->getDtLabById($id);
+    $path = 'assets/img/laboratorium/';
+    $old_img = $data['dt_lab']['images'];
+    if ($old_img != 'default.jpg') {
+      @unlink($path . $image);
+    }
+    $this->db->delete('informations', ['id_info' => $id]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium has been Delete!</div>');
+    redirect('admin/laboratory');
+  }
+
+
+  // INFORMATION
+
+  public function dt_info()
+  {
+    $data['title'] = 'LABFIK | Informasi';
+    $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/dt_info', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function add_dtinfo()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Add Information';
+
+    $this->form_validation->set_rules('title', 'Title', 'required|trim|is_unique[informations.title]', [
+      'is_unique' => '*Judul ' . $this->input->post('title') . ' sudah terdaftar dalam sistem'
+    ]);
+    $this->form_validation->set_rules('body', 'Deskripsi', 'required|trim', [
+      'required' => 'Form Deskripsi harus diisi'
+    ]);
+    $upload = implode("", $this->main_model->upload());
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dtinfo', $data);
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/informasi';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '10048';  //10MB max
+      $config['max_width'] = '4480'; // pixel
+      $config['max_height'] = '4480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $images = $this->upload->data();
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'images'       => $images['file_name'],
+          'body'     => $this->input->post('body'),
+          'uploadby' => $upload,
+        );
+        $this->db->insert('tb_info', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informations Added!</div>');
+        redirect('admin/dt_info');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = [
+        "title" => $this->input->post('title', true),
+        "images" => "default.jpg",
+        "body" => $this->input->post('body', true),
+        "uploadby" => $upload
+      ];
+      $this->db->insert('tb_info', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informations Added!</div>');
+      redirect('admin/dt_info');
+    }
+  }
+
+  public function edit_dtinfo($id)
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Edit Data Info';
+
+    $data['dt_info'] = $this->main_model->getDtInfoById($id);
+
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    $this->form_validation->set_rules('body', 'Body', 'required|trim');
+
+    $path = './assets/img/informasi/';
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/edit_dtinfo');
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/informasi';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '10048';  //10MB max
+      $config['max_width'] = '4480'; // pixel
+      $config['max_height'] = '4480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $old_img = $data['dt_info']['images'];
+        if ($old_img != 'default.jpg') {
+          //delete video in direktori
+          @unlink($path . $this->input->post('image!updated'));
+        }
+        $image = $this->upload->data();
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'images'       => $image['file_name'],
+          'body'     => $this->input->post('body'),
+        );
+        $this->db->update('tb_info', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Info has been Updated!</div>');
+        redirect('admin/dt_info');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = array(
+        'title' => $this->input->post('title'),
+        'images'       => $this->input->post('image!updated'),
+        'body'     => $this->input->post('body'),
+      );
+      $this->db->update('tb_info', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi Berhasil diUpdated</div>');
+      redirect('admin/dt_info');
+    }
+  }
+
+  public function delete_dtinfo($id, $image)
+  {
+    $data['dt_info'] = $this->main_model->getDtInfoById($id);
+    $path = 'assets/img/informasi/';
+    $old_img = $data['dt_info']['images'];
+    if ($old_img != 'default.jpg') {
+      @unlink($path . $image);
+    }
+    $where = array('id' => $id);
+    $this->db->where($where);
+    $this->db->delete('tb_info');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi berhasil dihapus</div>');
+    redirect('admin/dt_info');
+  }
+
+  // PANEL
+  public function dt_panel()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Info Panel';
+    $data['dt_panel'] = $this->main_model->getDtPanel();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/dt_panel', $data);
+    $this->load->view('templates/footer');
+  }
+  public function add_dtpanel()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Add Data Panel';
+
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    $this->form_validation->set_rules('body', 'Body', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dtpanel', $data);
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['video']['name'])) {
+      $config['upload_path'] = './assets/img/panel';
+      $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
+      $config['max_size'] = '500000';  //50MB max
+      $config['max_width'] = '200000000'; // pixel
+      $config['max_height'] = '1000000000000'; // pixel
+      $config['file_name'] = $_FILES['video']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('video')) {
+        $video = $this->upload->data();
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'body'        => $this->input->post('body'),
+          'video'       => $video['file_name'],
+        );
+        $this->db->insert('tb_panel', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Information Panel has been Added!</div>');
+        redirect('admin/dt_panel');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
+        redirect('admin/add_dtpanel');
+      }
+    } else {
+      $data = array(
+        'title'       => $this->input->post('title'),
+        'body'        => $this->input->post('body'),
+        'video'       => "none",
+      );
+      $this->db->insert('tb_panel', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi Panel Berhasil ditambahkan</div>');
+      redirect('admin/dt_panel');
+    }
+  }
+
+
+  public function edit_dtpanel($id)
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Edit Data Panel';
+
+    $data['dt_panel'] = $this->main_model->getDtPanelById($id);
+
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    $this->form_validation->set_rules('body', 'Body', 'required|trim');
+    $path = './assets/img/panel/';
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/edit_dtpanel');
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['video']['name'])) {
+      // get Video
+      $config['upload_path'] = './assets/img/panel';
+      $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
+      $config['max_size'] = '500000';  //50MB max
+      $config['max_width'] = '200000000'; // pixel
+      $config['max_height'] = '1000000000000'; // pixel
+      $config['file_name'] = $_FILES['video']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('video')) {
+        $video = $this->upload->data();
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'body'     => $this->input->post('body'),
+          'video'       => $video['file_name'],
+        );
+        //delete video in direktori
+        @unlink($path . $this->input->post('video!updated'));
+
+        $this->db->update('tb_panel', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
+        redirect('admin/dt_panel');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
+        redirect('admin/dt_panel');
+      }
+    } else {
+      $data = array(
+        'title' => $this->input->post('title'),
+        'body'     => $this->input->post('body'),
+        'video'       => $this->input->post('video!updated'),
+      );
+      $this->db->update('tb_panel', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
+      redirect('admin/dt_panel');
+    }
+  }
+
+
+  public function delete_dtpanel($id, $video)
+  {
+    $path = './assets/img/panel/';
+    unlink($path . $video);
+    $this->main_model->deleteDataPanel($id);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes delete info panel</div>');
+    redirect('admin/dt_panel');
+  }
+
+  // SLIDER
+  public function dt_slider()
+  {
+    $data['title'] = 'Info Slider Informasi';
+    $data['dt_slider'] = $this->main_model->getAllDtSliderDesc();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/dt_slider', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function add_dtslider()
+  {
+    $data['title'] = 'Add Data Slider';
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/add_dtslider', $data);
+      $this->load->view('templates/dashboard/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      // get foto
+      $config['upload_path'] = './assets/img/slider';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20024';  //20MB max
+      $config['max_width'] = '7680'; // pixel
+      $config['max_height'] = '6480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $images = $this->upload->data();
+        $data = [
+          "title" => $this->input->post('title', true),
+          "images" =>  $images['file_name'],
+          "body" => $this->input->post('body', true)
+        ];
+        $this->db->insert('tb_slider', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Slider has been Add!</div>');
+        redirect('admin/dt_slider');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = [
+        "title" => $this->input->post('title', true),
+        "images" => "default.jpg",
+        "body" => $this->input->post('body', true),
+      ];
+      $this->db->insert('tb_slider', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Slider has been Add!</div>');
+      redirect('admin/dt_slider');
+    }
+  }
+
+
+
+  public function edit_dtslider($id)
+  {
+
+    $data['title'] = 'Edit Info Slider';
+    $data['dt_slider'] = $this->main_model->getDtSliderById($id);
+    $this->form_validation->set_rules('title', 'Title', 'required|trim');
+    $path = './assets/img/slider/';
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/edit_dtslider', $data);
+      $this->load->view('templates/dashboard/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/slider';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20048';  //10MB max
+      $config['max_width'] = '8480'; // pixel
+      $config['max_height'] = '8480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $old_img = $data['dt_slider']['images'];
+        if ($old_img != 'default.jpg') {
+          //delete video in direktori
+          @unlink($path . $this->input->post('image!updated'));
+        }
+        $image = $this->upload->data();
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'images'       => $image['file_name'],
+          'body'     => $this->input->post('body'),
+        );
+        $this->db->update('tb_slider', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Info slider berhasil diubah!</div>');
+        redirect('admin/dt_slider');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = array(
+        'title' => $this->input->post('title'),
+        'images'       => $this->input->post('image!updated'),
+        'body'     => $this->input->post('body'),
+      );
+      $this->db->update('tb_slider', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Info slider berhasil diubah!</div>');
+      redirect('admin/dt_slider');
+    }
+  }
+
+  // delete
+  public function delete_dtslider($id, $image)
+  {
+    $data['dt_slider'] = $this->main_model->getDtSliderById($id);
+    $path = 'assets/img/slider/';
+    $old_img = $data['dt_slider']['images'];
+    if ($old_img != 'default.jpg') {
+      @unlink($path . $image);
+    }
+    $where = array('id' => $id);
+    $this->db->where($where);
+    $this->db->delete('tb_slider');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Slider berhasil dihapus</div>');
+    redirect('admin/dt_slider');
+  }
+
+  // Data RUANGAN
+  public function dt_ruangan()
+  {
+    $this->load->library('pagination');
+
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Data Ruangan';
+
+    $config['base_url'] = 'http://localhost/login/admin/dt_ruangan/';
+    $config['per_page'] = 5;
+    $config['total_rows'] = $this->db->get('ruangan')->num_rows();
+
+    $data['start'] = $this->uri->segment(3);
+    $data['dt_ruangan'] = $this->m_dtruangan->getRuangan($config['per_page'], $data['start']);
+    // $data['dt_ruangan'] = $this->m_dtruangan->getAllDtRuangan();
+
+
+    // $data['tot_row'] = $this->db->get('ruangan')->num_rows();
+    // Initialize
+    $this->pagination->initialize($config);
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/dt_ruangan', $data);
+    $this->load->view('templates/footer');
+  }
+
+
+  public function add_dt_ruangan()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Input Ruangan';
+    $this->form_validation->set_rules('ruangan', 'Ruangan', 'required');
+    $this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required|numeric');
+    $this->form_validation->set_rules('gedung', 'Gedung', 'required|min_length[8]');
+    $this->form_validation->set_rules('lantai', 'Lantai', 'required|min_length[8]');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dt_ruangan');
+      $this->load->view('templates/footer');
+    } elseif (!empty($_FILES['images']['name'])) {
+      // get foto
+      $config['upload_path'] = './assets/img/rooms';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '2048';  //2MB max
+      $config['max_width'] = '4480'; // pixel
+      $config['max_height'] = '4480'; // pixel
+      $config['file_name'] = $_FILES['images']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('images')) {
+        $images = $this->upload->data();
+        $data = [
+          "ruangan" => $this->input->post('ruangan', true),
+          "kapasitas" => $this->input->post('kapasitas', true),
+          "gedung" => $this->input->post('gedung', true),
+          "lantai" => $this->input->post('lantai', true),
+          "images" =>  $images['file_name'],
+        ];
+        $this->db->insert('ruangan', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan has been Add!</div>');
+        redirect('admin/dt_ruangan');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan has been Add!</div>');
+        redirect('admin/dt_ruangan');
+      }
+    } else {
+
+      $this->load->view('admin/add_dt_ruangan');
+    }
+  }
+
+
+  // Data Peminjaman
+  public function dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Data Peminjaman';
+    $data['dt_peminjaman'] = $this->m_dtpeminjaman->getAllDtPeminjaman();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/dt_peminjaman', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function add_dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Input Peminjaman';
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/add_dt_peminjaman', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function insert_dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Input data peminjaman';
+
+    // $this->form_validation->set_rules('ruangan', 'Ruangan', 'required');
+    // $this->form_validation->set_rules('waktu', 'Waktu', 'required');
+    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dt_peminjaman');
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        "ruangan" => $this->input->post('ruangan', true),
+        "tanggal" => $this->input->post('tanggal', true),
+        "waktu" => $this->input->post('waktu', true),
+        "peminjam" => $this->input->post('peminjam', true),
+        "keterangan" => $this->input->post('keterangan', true),
+        "status" => $this->input->post('status', true),
+      ];
+      $this->db->insert('tb_peminjaman', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman has been Add!</div>');
+      redirect('admin/dt_peminjaman');
+    }
+  }
+
+
+  // Edit Data Pemijaman
+
+  public function edit_dt_peminjaman($id)
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Edit Data Peminjaman';
+
+    $data['dt_pinjam'] = $this->m_dtpeminjaman->getDtPinjamById($id);
+    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+    //conditon in form_validation, if user input form = false, then load page "ubah" again
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/edit_dt_peminjaman');
+      $this->load->view('templates/footer');
+    } else {
+      $this->m_dtpeminjaman->editDataPeminjaman();
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
+      redirect('admin/dt_peminjaman');
+    }
+  }
+
+  // delete data peminjaman
+  public function delete_dt_peminjaman($id)
+  {
+    $this->m_dtpeminjaman->deleteDataPeminjaman($id);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
+    redirect('admin/dt_peminjaman');
+  }
+
+
+  // TEMPAT
+  public function daftarTempat()
+  {
+
+    $data['title'] = ' LABFIK | Data Tempat';
+    $data['dtempat'] = $this->admin_model->getAllDaftarTempat();
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/daftarTempat', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function tambahTempat()
+  {
+
+    $data['title'] = ' LABFIK | Tambah Tempat';
+    $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim|is_unique[ruangan.ruangan]', [
+      'is_unique' => '*Ruangan ' . $this->input->post('ruangan') . ' sudah terdaftar dalam sistem'
+    ]);
+
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/tambahTempat', $data);
+      $this->load->view('templates/dashboard/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/ruangan';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20048';  //10MB max
+      $config['max_width'] = '8480'; // pixel
+      $config['max_height'] = '8480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $images = $this->upload->data();
+        $data = array(
+          'id_kategori' => $this->input->post('kategori'),
+          'ruangan'     => $this->input->post('ruangan'),
+          'akses' => implode(", ", $this->input->post('akses')),
+          'images' => $images['file_name'],
+        );
+        $this->db->insert('ruangan', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil ditambahkan!</div>');
+        redirect('admin/daftartempat');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = [
+        'id_kategori' => $this->input->post('kategori'),
+        'ruangan'     => $this->input->post('ruangan'),
+        'akses' => implode(", ", $this->input->post('akses')),
+        'images' => 'default.jpg',
+      ];
+      $this->db->insert('ruangan', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil ditambahkan!</div>');
+      redirect('admin/daftartempat');
+    }
+  }
+
+  public function editTempat($id)
+  {
+    $data['title'] = 'LABFIK | Edit Tempat';
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
+    $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
+    $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim');
+    $path = './assets/img/ruangan/';
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/editTempat', $data);
+      $this->load->view('templates/dashboard/footer');
+    } elseif (!empty($_FILES['image']['name'])) {
+      $config['upload_path'] = './assets/img/ruangan';
+      $config['allowed_types'] = 'jpg|png|jpeg|gif';
+      $config['max_size'] = '20048';  //20MB max
+      $config['max_width'] = '8480'; // pixel
+      $config['max_height'] = '8480'; // pixel
+      $config['file_name'] = $_FILES['image']['name'];
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('image')) {
+        $old_img = $data['dtempat']['images']; #ambildaridatayang diubah
+        if ($old_img != 'default.jpg') {
+          //delete image in direktori
+          @unlink($path . $this->input->post('image!updated'));
+        }
+        $image = $this->upload->data();
+        $data = array(
+          'id_kategori' => $this->input->post('kategori'),
+          'ruangan'     => $this->input->post('ruangan'),
+          'akses' => implode(",", $this->input->post('akses')),
+          'images' => $image['file_name'],
+        );
+        $this->db->update('ruangan', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Tempat berhasil diubah!</div>');
+        redirect('admin/daftartempat');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    } else {
+      $data = array(
+        'id_kategori' => $this->input->post('kategori'),
+        'ruangan'     => $this->input->post('ruangan'),
+        'akses' => implode(",", $this->input->post('akses')),
+      );
+      $this->db->update('ruangan', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Tempat berhasil diubah!</div>');
+      redirect('admin/daftartempat');
+    }
+  }
+  public function buatPeminjaman()
+  {
+
+    $data['title'] = ' LABFIK | Buat Peminjaman';
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/buatPeminjaman', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+  // BARANG
+  public function daftarBarang()
+  {
+
+    $data['title'] = ' LABFIK | Data Barang';
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/daftarBarang', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function tambahBarang()
+  {
+    $data['title'] = ' LABFIK | Data Barang';
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/tambahBarang', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+}
