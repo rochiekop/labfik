@@ -17,6 +17,7 @@ class Main extends CI_Controller
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     $data['dt_slider'] = $this->main_model->getDtSlider();
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
+    $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/index');
     $this->load->view('templates/main/footer');

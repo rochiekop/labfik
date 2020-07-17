@@ -9,7 +9,7 @@
 
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>List Semua Informasi</h5>
+      <h5>List Semua Info Slider</h5>
     </div>
     <div class="input-group">
       <div class="input-group-append">
@@ -37,26 +37,30 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no = 1 ?>
-            <?php foreach ($dt_slider as $i) : ?>
-              <tr>
-                <td scope="row" style="width:0px"><?= $no++ ?></td>
-                <td style="width:40px">
-                </td>
-                <td><?= $i['title'] ?></td>
-                <td><?= $i['body'] ?></td>
-                <td>
-                  <div class="img-wrapper">
-                    <img src="<?= base_url('assets/img/slider/') . $i['images']; ?>" alt="">
-                  </div>
-                </td>
-                <td><?= $i['date'] ?></td>
-                <td class="action">
-                  <a data-toggle="modal" id="<?= $i['date'] ?>" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
-                  <a href="<?= base_url(); ?>admin/edit_dtslider/<?= $i['id'] ?>"><span class="fas fa-edit"></span></a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
+            <?php if (empty($dt_slider)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">List Info Slider kosong</td>
+            <?php else : ?>
+              <?php $no = 1 ?>
+              <?php foreach ($dt_slider as $i) : ?>
+                <tr>
+                  <td scope="row" style="width:0px"><?= $no++ ?></td>
+                  <td style="width:40px">
+                  </td>
+                  <td><?= $i['title'] ?></td>
+                  <td><?= $i['body'] ?></td>
+                  <td>
+                    <div class="img-wrapper">
+                      <img src="<?= base_url('assets/img/slider/') . $i['images']; ?>" alt="">
+                    </div>
+                  </td>
+                  <td><?= $i['date'] ?></td>
+                  <td class="action">
+                    <a data-toggle="modal" id="<?= $i['date'] ?>" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
+                    <a href="<?= base_url(); ?>admin/edit_dtslider/<?= $i['id'] ?>"><span class="fas fa-edit"></span></a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </table>
