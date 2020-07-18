@@ -29,9 +29,12 @@ class Borrowing_model extends CI_Model
 
     public function getAllBorrowing()
     {
-        $this->db->select('borrowing.*,item');
-        $this->db->from('borrowing')
+        $this->db->select('borrowing.*,item.*,user.id');
+        $this->db->from('borrowing');
+        $this->db->join('item','item.id=borrowing.item_id');
     }
+
+    public function 
 
 
 }
