@@ -9,6 +9,7 @@ class Auth_model extends CI_Model
     $password = $this->makePassword($this->input->post('password'), $salt);
 
     $data = array(
+      'id' => uniqid(),
       'username' => $this->input->post('username', true),
       'name' => $this->input->post('fullname', true),
       'email' => $this->input->post('email', true),
@@ -96,4 +97,5 @@ class Auth_model extends CI_Model
     $query = $this->db->query($sql, array($email));
     return ($query->num_rows() == 0) ? true : false;
   }
+  
 }

@@ -244,11 +244,14 @@ class Auth extends CI_Controller
   {
     $set = $this->session->userdata('role_id');
     if ($set == 1) {
-      redirect('admin');
+      // redirect('admin');
+      redirect('chat/login_as_admin');
     } elseif ($set == 2) {
-      redirect('kaur');
+      // redirect('kaur');
+      redirect('chat/login_as_kaur');
     } elseif ($set == 3 or $set == 4) {
-      redirect('users/helpdesk');
+      // redirect('users/helpdesk');
+      redirect('chat/login_as_dosenMhs');
     } else {
       redirect('auth');
     }

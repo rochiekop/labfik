@@ -28,9 +28,9 @@
                 <?php $no = 0;
                 foreach ($kruangan as $k) : ?>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['id'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
-                                                                                                                                              echo ('checked="checked"');
-                                                                                                                                            } ?>>
+                    <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['kategori'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
+                                                                                                                                                    echo ('checked="checked"');
+                                                                                                                                                  } ?>>
                     <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
                   </div>
                 <?php endforeach; ?>
@@ -38,13 +38,13 @@
               <div class="lab-category" id="sectionForm" style="margin-bottom:16px;">
                 <b>Akses</b>
                 <div class="form-check options">
-                  <input class="form-check-input" type="checkbox" name="akses[]" id="checkbox11" value="Dosen" <?php if ($tempatbyid['akses'] == 'Dosen' or $tempatbyid['akses'] == 'Dosen,Mahasiswa') {
+                  <input class="form-check-input" type="checkbox" name="akses[]" id="checkbox11" value="Dosen" <?php if ($tempatbyid['akses'] == 'Dosen' or $tempatbyid['akses'] == 'Dosen, Mahasiswa') {
                                                                                                                   echo ('checked="checked"');
                                                                                                                 } ?>>
                   <label class="form-check-label" for="checkbox11">Dosen</label>
                 </div>
                 <div class="form-check options" id="cek">
-                  <input class="form-check-input" type="checkbox" name="akses[]" id="checkbox12" value="Mahasiswa" <?php if ($tempatbyid['akses'] == 'Mahasiswa' or $tempatbyid['akses'] == 'Dosen,Mahasiswa') {
+                  <input class="form-check-input" type="checkbox" name="akses[]" id="checkbox12" value="Mahasiswa" <?php if ($tempatbyid['akses'] == 'Mahasiswa' or $tempatbyid['akses'] == 'Dosen, Mahasiswa') {
                                                                                                                       echo ('checked="checked"');
                                                                                                                     } ?>>
                   <label class="form-check-label" for="checkbox12">Mahasiswa</label>

@@ -7,6 +7,7 @@ class Main extends CI_Controller
   {
     parent::__construct();
     $this->load->model('main_model');
+    $this->load->model('user_model');
     $this->load->library('upload');
     $this->load->library('pagination');
     // is_logged_in();
@@ -17,6 +18,7 @@ class Main extends CI_Controller
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     $data['dt_slider'] = $this->main_model->getDtSlider();
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
+    $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/index');
     $this->load->view('templates/main/footer');
@@ -27,6 +29,7 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     // Session name is $newData
+    $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/lab');
     $this->load->view('templates/main/footer');
@@ -36,9 +39,12 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     // Session name is $newData
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['id'])) 
+    {
       redirect('auth/check');
-    } else {
+    } 
+    else 
+    {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');
@@ -49,9 +55,12 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium FIK';
     // Session name is $newData
-    if (isset($_SESSION['id'])) {
-      redirect('auth/check');
-    } else {
+    if (isset($_SESSION['id'])) 
+    {
+      redirect('auth/helpdeskRedirect');
+    } 
+    else 
+    {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');

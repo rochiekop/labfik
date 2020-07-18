@@ -9,7 +9,7 @@
 
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>List Semua Info</h5>
+      <h5>List Semua Informasi</h5>
     </div>
     <div class="input-group">
       <div class="input-group-append">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
-      <a class="btn btn-primary" href="<?= base_url('admin/add_dtslider') ?>" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> Informasi </a>
+      <a class="btn btn-primary" href="<?= base_url('admin/add_dtinfo') ?>" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> Informasi </a>
     </div>
     <div class="table-responsive admin-list">
       <table class="table">
@@ -55,7 +55,7 @@
                   <td><?= $t['date'] ?></td>
                   <td class="action">
                     <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
-                    <a href="<?= base_url('admin/edittempat/') . $t['id'] ?>"><span class="fas fa-edit"></span></a>
+                    <a href="<?= base_url('admin/edit_dtinfo/') . $t['id'] ?>"><span class="fas fa-edit"></span></a>
                   </td>
                 </tr>
               <?php endforeach; ?>

@@ -10,7 +10,7 @@
       </div>
       <div class="divider show-mobile" style="margin-top:20px"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
+        <a href="<?= base_url('admin') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
       </div>
       <div class="divider"></div>
       <div class="card">
@@ -19,8 +19,8 @@
           <ul>
             <li <?= $this->uri->segment(2) == 'dt_slider' ? 'class="active"' : '' ?>><a href="<?= base_url('admin/dt_slider'); ?>">Slider</a></li>
             <li><a href="<?= base_url('admin/dt_info'); ?>">Informasi</a></li>
-            <li><a href="#">Labratorium</a></li>
-            <li><a href="#">Info Panel</a></li>
+            <li><a href="<?= base_url('admin/dt_lab'); ?>">Laboratorium</a></li>
+            <li><a href="<?= base_url('admin/dt_panel'); ?>">Info Panel</a></li>
           </ul>
         </div>
       </div>
@@ -40,8 +40,9 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="fas fa-box"></span>Listing Barang</a>
         <div id="collapse1" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li>
-            <li><a href="<?= base_url('admin/daftarbarang') ?>">Daftar Semua Barang</a></li>
+            <!-- <li><a href="</?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li> -->
+            <li><a href="<?= base_url('item/add') ?>">Tambah Barang</a></li>
+            <li><a href="<?= base_url('item/listAdmin') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Peminjaman</a></li>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="#">Riwayat</a></li>
@@ -70,7 +71,7 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
         <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button>
