@@ -31,23 +31,6 @@ class Main extends CI_Controller
     $this->load->view('main/lab');
     $this->load->view('templates/main/footer');
   }
-  public function galleryKarya()
-  {
-    $data['title'] = 'Laboratorium FIK';
-    // Session name is $newData
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/galleryKarya');
-    $this->load->view('templates/main/footer');
-  }
-
-  public function galleryView()
-  {
-    $data['title'] = 'Laboratorium FIK';
-    // Session name is $newData
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/galleryView');
-    $this->load->view('templates/main/footer');
-  }
 
   public function peminjaman()
   {

@@ -40,7 +40,7 @@
         <ul class="center">
           <li><a href="<?= base_url() ?>">Home</a></li>
           <li><a href="<?= base_url('main/lab'); ?>">Lab</a></li>
-          <li><a href="<?= base_url('main/gallerykarya'); ?>">Gallery Karya</a></li>
+          <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
           <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
           <li><a href="<?= base_url('main/helpdesk') ?>">Helpdesk</a></li>
         </ul>

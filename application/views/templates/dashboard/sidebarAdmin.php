@@ -49,10 +49,18 @@
         </div>
       </div>
       <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span> Listing Karya</a>
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span>Listing Karya</a>
         <div id="collapse3" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Semua Karya</a></li>
+            <li><a href="<?= base_url('Admin_karya'); ?>">Semua Karya</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5"><span class="fa fa-th"></span>Kategori</a>
+        <div id="collapse5" class="collapse" data-parent="#accordion">
+          <ul>
+            <li><a href="<?= base_url('sub_kategori'); ?>">Sub kategori</a></li>
           </ul>
         </div>
       </div>

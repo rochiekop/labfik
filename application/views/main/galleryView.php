@@ -2,18 +2,24 @@
   <div class="container">
 
     <div class="pembuat-karya">
-      <h6>Judul Lorem Ipsum Lorem</h6>
-      by <b>Chisato</b>
+      <h6><?= $tampilan->judul ?></h6>
+      by <b><?= $tampilan->name ?></b>
       <div class="stat-vote">
-        <a href="#" title="Upvote"><i class="fas fa-chevron-up"></i> 1.2K</a>
-        <a href="#" title="Downvote"><i class="fas fa-chevron-down"></i> 2</a>
-        <a><i class="fas fa-eye"></i> 3.1K</a>
+        <a onclick="javascript:savelike(<?= $tampilan->id_tampilan; ?>);" title="Upvote"><i class="fas fa-chevron-up"></i>
+          <span id="like_<?php echo $tampilan->id_tampilan; ?>">
+            <?php if ($tampilan->likes > 0) {
+              echo $tampilan->likes;
+            } else {
+              echo 'Like';
+            } ?>
+          </span></a>
+        <a><i class="fas fa-eye"></i><?= $tampilan->views ?></a>
       </div>
     </div>
     <div class="karya">
-      <img src="<?= base_url('assets/img/7.jpg'); ?>" alt="">
+      <img src="<?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" alt="">
       <div class="caption">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, quaerat ut ab atque quae sunt quidem aspernatur beatae provident explicabo odio harum nisi laudantium sequi amet! Ipsa amet alias explicabo!
+        <?= $tampilan->deskripsi ?>
       </div>
     </div>
     <h6>You Might Also Like Theese</h6>
@@ -21,70 +27,23 @@
 
     <div class="fik-feed galeri-karya">
       <div class="feed-container">
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <a href="galeri-view.html"><img src="_assets/img/1.jpg" alt="" /></a>
-            </div>
-            <div class="item-text">
-              <h6><a href="galeri-view.html">Judul Karya Lorem Ipsum Dolor Sit Amet</a></h6>
-              <span>by <b>Chisato</b></span>
-              <div class="vote">
-                <a href="#" title="Upvote"><i class="fas fa-chevron-up"></i> <span>1.2K</span></a>
-                <a href="#" title="Downvote"><i class="fas fa-chevron-down"></i> <span>2</span></a>
-                <a><i class="fas fa-eye"></i> <span>3.2K</span></a>
+        <?php foreach ($home as $home) { ?>
+          <div class="feed-item">
+            <div class="card">
+              <div class="gambar">
+                <a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><img src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="" /></a>
+              </div>
+              <div class="item-text">
+                <h6><a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><?= $tampilan->judul ?></a></h6>
+                <span>by <b><?= $home->name ?></b></span>
+                <div class="vote">
+                  <a title="Upvote"><i class="fas fa-chevron-up"></i> <span><?= $home->likes ?></span></a>
+                  <a><i class="fas fa-eye"></i> <span><?= $home->views ?></span></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <a href="galeri-view.html"><img src="_assets/img/1.jpg" alt="" /></a>
-            </div>
-            <div class="item-text">
-              <h6><a href="galeri-view.html">Judul Karya Lorem Ipsum Dolor Sit Amet</a></h6>
-              <span>by <b>Chisato</b></span>
-              <div class="vote">
-                <a href="#" title="Upvote"><i class="fas fa-chevron-up"></i> <span>1.2K</span></a>
-                <a href="#" title="Downvote"><i class="fas fa-chevron-down"></i> <span>2</span></a>
-                <a><i class="fas fa-eye"></i> <span>3.2K</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <a href="galeri-view.html"><img src="_assets/img/1.jpg" alt="" /></a>
-            </div>
-            <div class="item-text">
-              <h6><a href="galeri-view.html">Judul Karya Lorem Ipsum Dolor Sit Amet</a></h6>
-              <span>by <b>Chisato</b></span>
-              <div class="vote">
-                <a href="#" title="Upvote"><i class="fas fa-chevron-up"></i> <span>1.2K</span></a>
-                <a href="#" title="Downvote"><i class="fas fa-chevron-down"></i> <span>2</span></a>
-                <a><i class="fas fa-eye"></i> <span>3.2K</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <a href="galeri-view.html"><img src="_assets/img/1.jpg" alt="" /></a>
-            </div>
-            <div class="item-text">
-              <h6><a href="galeri-view.html">Judul Karya Lorem Ipsum Dolor Sit Amet</a></h6>
-              <span>by <b>Chisato</b></span>
-              <div class="vote">
-                <a href="#" title="Upvote"><i class="fas fa-chevron-up"></i> <span>1.2K</span></a>
-                <a href="#" title="Downvote"><i class="fas fa-chevron-down"></i> <span>2</span></a>
-                <a><i class="fas fa-eye"></i> <span>3.2K</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </div>
     </div>
 
@@ -101,4 +60,17 @@
     autoplayHoverPause: true,
     items: 1
   });
+</script>
+<script type="text/javascript">
+  function savelike(id_tampilan) {
+    $.ajax({
+      type: "post",
+      url: "<?php echo site_url('galery/savelikes'); ?>",
+      data: "id_tampilan=" + id_tampilan,
+      success: function(response) {
+        $("#like_" + id_tampilan).html(response);
+
+      }
+    });
+  }
 </script>
