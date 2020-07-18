@@ -42,7 +42,7 @@
           <ul>
             <!-- <li><a href="</?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li> -->
             <li><a href="<?= base_url('item/add') ?>">Tambah Barang</a></li>
-            <li><a href="<?= base_url('item') ?>">Daftar Semua Barang</a></li>
+            <li><a href="<?= base_url('item/listAdmin') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Peminjaman</a></li>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="#">Riwayat</a></li>
@@ -50,10 +50,18 @@
         </div>
       </div>
       <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span> Listing Karya</a>
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span>Listing Karya</a>
         <div id="collapse3" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Semua Karya</a></li>
+            <li><a href="<?= base_url('Admin_karya'); ?>">Semua Karya</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5"><span class="fa fa-th"></span>Kategori</a>
+        <div id="collapse5" class="collapse" data-parent="#accordion">
+          <ul>
+            <li><a href="<?= base_url('sub_kategori'); ?>">Sub kategori</a></li>
           </ul>
         </div>
       </div>
@@ -63,7 +71,7 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
         <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button>

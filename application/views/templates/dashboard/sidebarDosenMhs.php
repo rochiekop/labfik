@@ -37,8 +37,8 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span> Listing Karya</a>
         <div id="collapse3" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Karya Saya</a></li>
-            <li><a href="#">Upload</a></li>
+            <li><a href="<?= base_url('karya') ?>">Karya Saya</a></li>
+            <li><a href="<?= base_url('karya/tambah') ?>">Upload</a></li>
           </ul>
         </div>
       </div>
@@ -48,7 +48,7 @@
       </div>
       <div class="divider show-mobile"></div>
       <div class="card">
-        <a href="#" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
         <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button>

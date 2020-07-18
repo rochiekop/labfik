@@ -1,115 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+  <!-- Main Container -->
+  <main class="akun-container">
+    <div class="fik-section-title2">
+      <span class="fas fa-door-open zzzz"></span>
+      <h5>Tambah Barang</h5>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <span class="fas fa-image placeholder-img"></span>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <form action="<?php base_url('item/add') ?>" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="custom-form">
+                <div class="form-group">
+                  <input type="text" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Nama Barang</label>
+                </div>
+                <div class="form-group">
+                  <input type="number" name="quantity" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Kuantitas Barang</label>
+                </div>
+                <div class="lab-category" style="margin-bottom:16px;">
+                    <b>Akses</b>
+                  <!-- <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="checkbox11" value="option3">
+                    <label class="form-check-label" for="checkbox11">Dosen</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="checkbox12" value="option3">
+                    <label class="form-check-label" for="checkbox12">Mahasiswa</label>
+                  </div> -->
+                    <select class="form-control" name="access" placeholder="">
+                    <option>Semua</option>
+                    <option>Dosen</option>
+                    <option>Mahasiswa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="description" value="" class="form-control" placeholder="" autocomplete="off" />
+                  <label>Deskripsi</label>
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="exampleFormControlFile1"><b>Tambahkan Gambar</b></label>
+                <input type="file" name="image" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">Tambah</button>
+            </div>
+          </form>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
-    <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
-
-    <!-- Bootstrap core CSS-->
-    <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
-
-    <!-- Page level plugin CSS-->
-    <link href="<?php echo base_url('assets/datatables/dataTables.bootstrap4.css') ?>" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="<?php echo base_url('css/sb-admin.css') ?>" rel="stylesheet">
-</head>
-
-<body id="page-top">
-
-	<!-- </?php $this->load->view("templates/dashboard/headerDosenMhs.php") ?> -->
-	<div id="wrapper">
-
-		<!-- </?php $this->load->view("templates/dashboard/sidebarDosenMhs.php") ?> -->
-
-		<div id="content-wrapper">
-
-			<div class="container-fluid">
-
-				<?php if ($this->session->flashdata('success')): ?>
-				<div class="alert alert-success" role="alert">
-					<?php echo $this->session->flashdata('success'); ?>
-				</div>
-				<?php endif; ?>
-
-				<div class="card mb-3">
-					<div class="card-header">
-						<a href="<?php echo site_url('item') ?>"><i class="fas fa-arrow-left"></i> Kembali</a>
-					</div>
-					<div class="card-body">
-
-						<form action="<?php base_url('item/add') ?>" method="post" enctype="multipart/form-data" >
-							<div class="form-group">
-								<label for="name">Nama Barang*</label>
-								<input class="form-control <?php echo form_error('name') ? 'is-invalid':'' ?>"
-								 type="text" name="name" placeholder="Product name" />
-								<div class="invalid-feedback">
-									<?php echo form_error('name') ?>
-								</div>
-                            </div>
-                            
-                            <div class="form-group">
-								<label for="price">Harga*</label>
-								<input class="form-control <?php echo form_error('price') ? 'is-invalid':'' ?>"
-								 type="number" name="price" min="0" placeholder="Product price" />
-								<div class="invalid-feedback">
-									<?php echo form_error('price') ?>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="category">Yang dapat Meminjam*</label>
-								<select class="form-control <?php echo form_error('access') ? 'is-invalid':'' ?>"
-								name="category" placeholder="Akses barang">
-								<option>Semua</option>
-								<option>Dosen</option>
-								<option>Mahasiswa</option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="name">Gambar*</label>
-								<input class="form-control-file <?php echo form_error('image') ? 'is-invalid':'' ?>"
-								 type="file" name="image" />
-								<div class="invalid-feedback">
-									<?php echo form_error('image') ?>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="name">Deskripsi*</label>
-								<textarea class="form-control <?php echo form_error('description') ? 'is-invalid':'' ?>"
-								 name="description" placeholder="Deskripsi barang..."></textarea>
-								<div class="invalid-feedback">
-									<?php echo form_error('description') ?>
-								</div>
-							</div>
-
-							<input class="btn btn-success" type="submit" name="btn" value="Save" />
-						</form>
-
-					</div>
-
-					<div class="card-footer small text-muted">
-						* harus diisi
-					</div>
-
-
-				</div>
-				<!-- /.container-fluid -->
-
-				<!-- Sticky Footer -->
-				<!-- </?php $this->load->view("templates/dashboard/footer.php") ?> -->
-
-			</div>
-			<!-- /.content-wrapper -->
-
-		</div>
-		<!-- /#wrapper -->
-
-</body>
-
-</html>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- End Main Container -->

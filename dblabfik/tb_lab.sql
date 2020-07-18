@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2020 at 01:21 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Waktu pembuatan: 18 Jul 2020 pada 15.32
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_lab`
+-- Struktur dari tabel `tb_lab`
 --
 
 CREATE TABLE `tb_lab` (
@@ -33,11 +33,11 @@ CREATE TABLE `tb_lab` (
   `images` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
   `body` varchar(500) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_lab`
+-- Dumping data untuk tabel `tb_lab`
 --
 
 INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
@@ -54,17 +54,17 @@ INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
 --
 
 --
--- Indexes for table `tb_lab`
+-- Indeks untuk tabel `tb_lab`
 --
 ALTER TABLE `tb_lab`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tb_lab`
+-- AUTO_INCREMENT untuk tabel `tb_lab`
 --
 ALTER TABLE `tb_lab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
