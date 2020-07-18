@@ -18,15 +18,16 @@
                   <label></label>
                 </div>
                 <div class="lab-category" style="margin-bottom:16px;">
-                  <?php $no = 0;
-                  foreach ($kruangan as $k) : ?>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['id'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
-                                                                                                                                                echo ('checked="checked"');
-                                                                                                                                              } else echo ('disabled'); ?>>
-                      <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
-                    </div>
-                  <?php endforeach; ?>
+
+                  <div class="form-check">
+                    <?php $no = 0;
+                    foreach ($kruangan as $k) : ?>
+                      <?php if ($k['id'] == $tempatbyid['id_kategori']) : ?>
+                        <input class="form-check-input" type="radio" name="kategori" id="inlineRadio1" value="<?= $k['kategori'] ?>" checked>
+                        <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </div>
                 </div>
                 <div class="form-group">
                   <input type="text" name="ruangan" class="form-control" placeholder="" value="<?= $tempatbyid['ruangan'] ?>" required="required" autocomplete="off" disabled />

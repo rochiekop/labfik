@@ -10,7 +10,7 @@
       </div>
       <div class="divider show-mobile" style="margin-top:20px"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
+        <a href="<?= base_url('admin') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
       </div>
       <div class="divider"></div>
       <div class="card">
