@@ -90,6 +90,7 @@ class Admin extends CI_Controller
 
   public function edit_dtlab($id)
   {
+    $id = decrypt_url($id);
     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
     $data['title'] = 'Edit Data Lab';
 
@@ -143,16 +144,18 @@ class Admin extends CI_Controller
     }
   }
 
-  public function delete_dtlab($id, $image)
+  public function deletelab()
   {
+    $id = $this->input->post('id');
+    $image = $this->input->post('image');
     $data['dt_lab'] = $this->main_model->getDtLabById($id);
     $path = 'assets/img/laboratorium/';
     $old_img = $data['dt_lab']['images'];
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
     }
-    $this->db->delete('informations', ['id_info' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium has been Delete!</div>');
+    $this->db->delete('dt_lab', ['id_info' => $id]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium berhasil dihapus!</div>');
     redirect('admin/laboratory');
   }
 
@@ -222,7 +225,7 @@ class Admin extends CI_Controller
 
   public function edit_dtinfo($id)
   {
-
+    $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Edit Data Informasi';
     $data['dt_info'] = $this->main_model->getDtInfoById($id);
 
@@ -274,8 +277,11 @@ class Admin extends CI_Controller
     }
   }
 
-  public function delete_dtinfo($id, $image)
+  public function deleteinfo()
   {
+
+    $id = $this->input->post('id');
+    $image = $this->input->post('image');
     $data['dt_info'] = $this->main_model->getDtInfoById($id);
     $path = 'assets/img/informasi/';
     $old_img = $data['dt_info']['images'];
@@ -293,7 +299,7 @@ class Admin extends CI_Controller
   public function dt_panel()
   {
     $data['title'] = 'Info Panel';
-    // $data['dt_panel'] = $this->main_model->getDtPanel();
+    $data['dt_panel'] = $this->main_model->getDtPanel();
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/dt_panel', $data);
@@ -314,7 +320,7 @@ class Admin extends CI_Controller
     } elseif (!empty($_FILES['video']['name'])) {
       $config['upload_path'] = './assets/img/panel';
       $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
-      $config['max_size'] = '500000';  //50MB max
+      $config['max_size'] = '1000000';  //100MB max
       $config['max_width'] = '200000000'; // pixel
       $config['max_height'] = '1000000000000'; // pixel
       $config['file_name'] = $_FILES['video']['name'];
@@ -336,7 +342,7 @@ class Admin extends CI_Controller
       $data = array(
         'title'       => $this->input->post('title'),
         'body'        => $this->input->post('body'),
-        'video'       => "none",
+        'video'       => "video_placeholder.png",
       );
       $this->db->insert('tb_panel', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
@@ -345,9 +351,9 @@ class Admin extends CI_Controller
   }
 
 
-  public function edit_dtpanel($id)
+  public function editpanel($id)
   {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $id = decrypt_url($id);
     $data['title'] = 'Edit Data Panel';
 
     $data['dt_panel'] = $this->main_model->getDtPanelById($id);
@@ -356,36 +362,38 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('body', 'Body', 'required|trim');
     $path = './assets/img/panel/';
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/edit_dtpanel');
-      $this->load->view('templates/footer');
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/edit_dtpanel', $data);
+      $this->load->view('templates/dashboard/footer');
     } elseif (!empty($_FILES['video']['name'])) {
       // get Video
       $config['upload_path'] = './assets/img/panel';
       $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
-      $config['max_size'] = '500000';  //50MB max
+      $config['max_size'] = '1000000';  //100MB max
       $config['max_width'] = '200000000'; // pixel
       $config['max_height'] = '1000000000000'; // pixel
       $config['file_name'] = $_FILES['video']['name'];
       $this->upload->initialize($config);
       if ($this->upload->do_upload('video')) {
+        $old_img = $data['dt_panel']['video'];
+        if ($old_img != 'video_placeholder.png') {
+          //delete video in direktori
+          @unlink($path . $this->input->post('video!updated'));
+        }
         $video = $this->upload->data();
         $data = array(
           'title'       => $this->input->post('title'),
           'body'     => $this->input->post('body'),
           'video'       => $video['file_name'],
         );
-        //delete video in direktori
-        @unlink($path . $this->input->post('video!updated'));
-
         $this->db->update('tb_panel', $data, ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
         redirect('admin/dt_panel');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
-        redirect('admin/dt_panel');
+        echo $this->upload->display_errors();
+        // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
+        // redirect('admin/dt_panel');
       }
     } else {
       $data = array(
@@ -394,18 +402,20 @@ class Admin extends CI_Controller
         'video'       => $this->input->post('video!updated'),
       );
       $this->db->update('tb_panel', $data, ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel has been Updated!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
       redirect('admin/dt_panel');
     }
   }
 
 
-  public function delete_dtpanel($id, $video)
+  public function deletepanel()
   {
+    $id = $this->input->post('id');
+    $video = $this->input->post('video');
     $path = './assets/img/panel/';
     unlink($path . $video);
     $this->main_model->deleteDataPanel($id);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes delete info panel</div>');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data panel berhasil dihapus</div>');
     redirect('admin/dt_panel');
   }
 
@@ -467,7 +477,7 @@ class Admin extends CI_Controller
 
   public function edit_dtslider($id)
   {
-
+    $id = decrypt_url($id);
     $data['title'] = 'Edit Info Slider';
     $data['dt_slider'] = $this->main_model->getDtSliderById($id);
     $this->form_validation->set_rules('title', 'Title', 'required|trim');
@@ -516,8 +526,10 @@ class Admin extends CI_Controller
   }
 
   // delete
-  public function delete_dtslider($id, $image)
+  public function deleteslider()
   {
+    $id = $this->input->post('id');
+    $image = $this->input->post('image');
     $data['dt_slider'] = $this->main_model->getDtSliderById($id);
     $path = 'assets/img/slider/';
     $old_img = $data['dt_slider']['images'];

@@ -34,21 +34,42 @@
 
 <div class="fik-about-overview">
   <div class="container">
-    <div class="card">
-      <div class="content-left">
-        <h6>HI THERE, WELCOME TO</h6>
-        <h4 class="color-primary">Laboratorium, Studio &amp; Bengkel Fakultas Industri Kreatif</h4>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque
-          molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.
-        </p>
-        <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+    <?php if (empty($dt_panel)) : ?>
+      <div class="card">
+        <div class="content-left">
+          <h6>HI THERE, WELCOME TO</h6>
+          <h4 class="color-primary">Laboratorium, Studio &amp; Bengkel Fakultas Industri Kreatif</h4>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque
+            molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.
+          </p>
+          <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+        </div>
+        <video controls="">
+          <source src="<?= base_url('assets/img/livetune.mp4'); ?>" type="video/mp4">
+          Ooops, your browser is not supported this feature
+        </video>
       </div>
-      <video controls="">
-        <source src="<?= base_url('assets/img/livetune.mp4'); ?>" type="video/mp4">
-        Ooops, your browser is not supported this feature
-      </video>
-    </div>
+    <?php else : ?>
+      <div class="card">
+        <div class="content-left">
+          <h6>HI THERE, WELCOME TO</h6>
+          <h4 class="color-primary"><?= $dt_panel['title']; ?></h4>
+          <p>
+            <?= $dt_panel['body']; ?>
+          </p>
+          <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+        </div>
+        <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
+          <video controls="">
+            <source src="<?= base_url('assets/img/panel/') . $dt_panel['video']; ?>" type="video/mp4">
+            Ooops, your browser is not supported this feature
+          </video>
+        <?php else : ?>
+          <img src="<?= base_url('assets/img/panel/video_placeholder.png'); ?>" class="video-placeholder" alt="Placeholder Video Profile">
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
   </div>
 </div>
 

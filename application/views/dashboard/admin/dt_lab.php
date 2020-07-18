@@ -52,8 +52,8 @@
                   <td><?= $t['body'] ?></td>
                   <td><?= $t['date'] ?></td>
                   <td class="action">
-                    <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
-                    <a href="<?= base_url('admin/edit_dtlab/') . $t['id'] ?>"><span class="fas fa-edit"></span></a>
+                    <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-trash"></span></a>
+                    <a href="<?= base_url('admin/edit_dtlab/') . encrypt_url($t['id']); ?>"><span class="fas fa-edit"></span></a>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -64,22 +64,26 @@
     </div>
   </main>
   <!-- End Main Container -->
-
-  <div class="modal fade bd-example-modal-sm" id=tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          Hapus IK.04.04?
-        </div>
-        <form action="admin/delete_dtslider" method="post">
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+  <!-- Modal Delete -->
+  <?php foreach ($dt_lab as $t) : ?>
+    <div class="modal fade bd-example-modal-sm" id="deletemodal<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            Hapus Lab <?= $t['title']; ?> ?
           </div>
-        </form>
+          <form action="deleteinfo" method="post" enctype="multipart/form-data">
+            <div class="modal-footer">
+              <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+              <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>">
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+              <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Hapus</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+  <?php endforeach; ?>
 
   <style>
     .desc {

@@ -19,6 +19,7 @@ class Main extends CI_Controller
     $data['dt_slider'] = $this->main_model->getDtSlider();
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
     $data['dt_lab'] = $this->main_model->getAllDtLab();
+    $data['dt_panel'] = $this->main_model->getDtPanel();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/index');
     $this->load->view('templates/main/footer');
@@ -91,21 +92,19 @@ class Main extends CI_Controller
         $data['chatTitle'] = 'Pilih Dosen atau Mahasiswa yang ingin dihubungi';
       }
       $userslist = [];
-      foreach($list as $u){
+      foreach ($list as $u) {
         $userslist[] =
-        [
-          'id' => $u['id'],
-          'name' => $u['name'],
-          // 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-          'status' => $u['status'],
-        ];
+          [
+            'id' => $u['id'],
+            'name' => $u['name'],
+            // 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+            'status' => $u['status'],
+          ];
       }
       $data['userslist'] = $userslist;
       // $this->parser->parse('chat/chatTemplate',$data);
-      $this->load->view('chat/chatTemplate',$data);
-    } 
-    else 
-    {
+      $this->load->view('chat/chatTemplate', $data);
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');
