@@ -195,10 +195,10 @@ class User_model extends CI_Model
 	public function DosenMhsList()
 	{
 		// $this->db->select('id,name,picture_url,is_active');
-		$this->db->select('id,name,is_active');
+		$this->db->select('id,name,is_active,status');
 		$this->db->from($this->User);
 		$this->db->where("role_id", "3");
-		$this->db->where("role_id", "4");
+		$this->db->or_where("role_id", "4");
 		$this->db->where("is_active", "1");
 		$query = $this->db->get();
 		$r = $query->result_array();

@@ -42,7 +42,7 @@
           <ul>
             <!-- <li><a href="</?= base_url('admin/tambahbarang') ?>">Tambah Barang</a></li> -->
             <li><a href="<?= base_url('item/add') ?>">Tambah Barang</a></li>
-            <li><a href="<?= base_url('item') ?>">Daftar Semua Barang</a></li>
+            <li><a href="<?= base_url('item/listAdmin') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Peminjaman</a></li>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="#">Riwayat</a></li>

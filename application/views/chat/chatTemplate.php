@@ -57,11 +57,11 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-<?php $this->load->view('templates/dashboard/headerDosenMhs');?>
+<!-- </?php $this->load->view('templates/dashboard/headerDosenMhs');?> -->
 
 <!-- Left side column. contains the logo and sidebar -->
 
-<?php $this->load->view('templates/dashboard/sidebarDosenMhs');?>
+<!-- </?php $this->load->view('templates/dashboard/sidebarDosenMhs');?> -->
 
 <!-- Content Wrapper. Contains page content -->
 
@@ -165,7 +165,7 @@
                     
                    <?php }else{?>
                    	<li>
-                       <a class="users-list-name" href="#">No Vendor's Found...</a>
+                       <a class="users-list-name" href="#">Tidak ada Pengguna</a>
                      </li>
                   	<?php } ?>
                     
@@ -217,7 +217,7 @@
   </div>
 <!-- Modal -->
   
-<?php $this->load->view('templates/dashboard/footer');?>
+<!-- </?php $this->load->view('templates/dashboard/footer');?> -->
 <script src="<?=base_url('public/chat/chat.js');?>"></script> 
  
 </body>

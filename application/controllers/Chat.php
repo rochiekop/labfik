@@ -5,50 +5,138 @@ class Chat extends CI_Controller {
  	public function __construct()
     {
 		parent::__construct();
-		$this->load->model(['Chat_model','User_model']);
+		$this->load->model(['chat_model','user_model']);
 		$this->load->helper('string');
 	}
 	
 	public function index()
 	{
+		// $data['strTitle']='';
+		// $data['strsubTitle']='';
+		// $list=[];
+        // if ($this->session->userdata['role_id'] == '4')
+        // {
+		// 	$list = $this->user_model->AdminsList();
+		// 	$data['strTitle']='Semua Admin';
+		// 	$data['strsubTitle']='Admin';
+		// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+        // }
+        // if ($this->session->userdata['role_id'] == '3')
+        // {
+        //     $list = $this->user_model->AdminsList();
+		// 	$data['strTitle']='Semua Admin';
+		// 	$data['strsubTitle']='Admin';
+		// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+        // }
+        // else
+        // {
+		// 	$list = $this->user_model->DosenMhsList();
+		// 	$data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
+		// 	$data['strsubTitle']='Dosen dan Mahasiswa';
+		// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+		// }
+		// $userslist=[];
+		// foreach($list as $u){
+		// 	$userslist[]=
+		// 	[
+		// 		'id' => $u['id'],
+		// 		'name' => $u['name'],
+		// 		// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+		// 		'status' => $u['status'],
+		// 	];
+		// }
+		// $data['userslist']=$userslist;
+        // // $this->parser->parse('chat/chatTemplate',$data);
+        // $this->load->view('chat/chatTemplate',$data); 
+	}
+	
+	public function login_as_admin()
+	{
+		$data['title']='';
 		$data['strTitle']='';
 		$data['strsubTitle']='';
 		$list=[];
-        if ($this->session->userdata['role_id'] == '4')
-        {
-			$list = $this->User_model->AdminsList();
-			$data['strTitle']='Semua Admin';
-			$data['strsubTitle']='Admin';
-			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-        }
-        if ($this->session->userdata['role_id'] == '3')
-        {
-            $list = $this->User_model->AdminsList();
-			$data['strTitle']='Semua Admin';
-			$data['strsubTitle']='Admin';
-			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-        }
-        else
-        {
-			$list = $this->User_model->DosenMhsList();
-			$data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
-			$data['strsubTitle']='Dosen dan Mahasiswa';
-			$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-		}
+		$list = $this->user_model->DosenMhsList();
+		$data['title']='Laboratorium FIK';
+		$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
+		$data['strsubTitle']='Dosen dan Mahasiswa';
+		$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
 		$userslist=[];
 		foreach($list as $u){
 			$userslist[]=
 			[
 				'id' => $u['id'],
 				'name' => $u['name'],
-				// 'picture_url' => $this->User_model->PictureUrlById($u['id']),
+				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
 				'status' => $u['status'],
 			];
 		}
 		$data['userslist']=$userslist;
         // $this->parser->parse('chat/chatTemplate',$data);
-        $this->load->view('chat/chatTemplate',$data); 
-    }
+		$this->load->view('templates/dashboard/headerAdmin');
+		$this->load->view('templates/dashboard/sidebarAdmin');
+		$this->load->view('chat/chatTemplate',$data); 
+		// $this->load->view('templates/dashboard/sidebarAdmin');
+		$this->load->view('templates/dashboard/footer');
+	}
+
+	public function login_as_kaur()
+	{
+		$data['title']='';
+		$data['strTitle']='';
+		$data['strsubTitle']='';
+		$list=[];
+		$list = $this->user_model->DosenMhsList();
+		$data['title']='Laboratorium FIK';
+		$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
+		$data['strsubTitle']='Dosen dan Mahasiswa';
+		$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+		$userslist=[];
+		foreach($list as $u){
+			$userslist[]=
+			[
+				'id' => $u['id'],
+				'name' => $u['name'],
+				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+				'status' => $u['status'],
+			];
+		}
+		$data['userslist']=$userslist;
+        // $this->parser->parse('chat/chatTemplate',$data);
+        $this->load->view('templates/dashboard/headerKaur');
+		$this->load->view('chat/chatTemplate',$data); 
+		$this->load->view('templates/dashboard/sidebarKaur');
+		$this->load->view('templates/dashboard/footer');
+	}
+
+	public function login_as_dosenMhs()
+	{
+		$data['title']='';
+		$data['strTitle']='';
+		$data['strsubTitle']='';
+		$list=[];
+		$list = $this->user_model->AdminsList();
+		$data['title']='Laboratorium FIK';
+		$data['strTitle']='Semua Admin';
+		$data['strsubTitle']='Admin';
+		$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+		$userslist=[];
+		foreach($list as $u){
+			$userslist[]=
+			[
+				'id' => $u['id'],
+				'name' => $u['name'],
+				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+				'status' => $u['status'],
+			];
+		}
+		$data['userslist']=$userslist;
+		// $this->parser->parse('chat/chatTemplate',$data);
+		$this->load->view('templates/dashboard/headerDosenMhs');
+		$this->load->view('chat/chatTemplate',$data); 
+		$this->load->view('templates/dashboard/sidebarDosenMhs');
+		$this->load->view('templates/dashboard/footer');
+	}
 	
     public function send_text_message()
     {
@@ -69,24 +157,26 @@ class Chat extends CI_Controller {
 			$messageTxt = reduce_multiples($post['messageTxt'],' ');
 		}	
 		 
-				$data=[
- 					'sender_id' => $this->session->userdata['Admin']['id'],
-					'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
-					'message' =>   $messageTxt,
-					'attachment_name' => $attachment_name,
-					'file_ext' => $file_ext,
-					'mime_type' => $mime_type,
-					'message_date_time' => date('Y-m-d H:i:s'), //23 Jan 2:05 pm
-					'ip_address' => $this->input->ip_address(),
-				];
-		  
- 				$query = $this->ChatModel->SendTxtMessage($this->OuthModel->xss_clean($data)); 
- 				$response='';
-				if($query == true){
-					$response = ['status' => 1 ,'message' => '' ];
-				}else{
-					$response = ['status' => 0 ,'message' => 'sorry we re having some technical problems. please try again !' 						];
-				}
+			$data=[
+				'sender_id' => $this->session->userdata['id'],
+				// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
+				'receiver_id' => $this->input->post('receiver_id'),
+				'message' =>   $messageTxt,
+				'attachment_name' => $attachment_name,
+				'file_ext' => $file_ext,
+				'mime_type' => $mime_type,
+				'message_date_time' => date('Y-m-d H:i:s'), //23 Jan 2:05 pm
+				'ip_address' => $this->input->ip_address(),
+			];
+		
+			// $query = $this->chat_model->SendTxtMessage($this->OuthModel->xss_clean($data)); 
+			$query = $this->chat_model->SendTxtMessage($this->security->xss_clean($data));
+			$response='';
+			if($query == true){
+				$response = ['status' => 1 ,'message' => '' ];
+			}else{
+				$response = ['status' => 0 ,'message' => 'sorry we re having some technical problems. please try again !' 						];
+			}
              
  		   echo json_encode($response);
     }
@@ -117,28 +207,33 @@ class Chat extends CI_Controller {
 	}
 	
 	public function get_chat_history_by_vendor(){
-		$receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
+		// $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
+		// $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
+		$receiver_id = $this->input->get('receiver_id');
 		
-		$Logged_sender_id = $this->session->userdata['Admin']['id'];
+		$Logged_sender_id = $this->session->userdata['id'];
 		 
-		$history = $this->ChatModel->GetReciverChatHistory($receiver_id);
+		$history = $this->chat_model->GetReciverChatHistory($receiver_id);
 		//print_r($history);
 		foreach($history as $chat):
 			
-			$message_id = $this->OuthModel->Encryptor('encrypt', $chat['id']);
+			// $message_id = $this->OuthModel->Encryptor('encrypt', $chat['id']);
+			$message_id = $chat['id'];
 			$sender_id = $chat['sender_id'];
-			$userName = $this->User_model->GetName($chat['sender_id']);
-			$userPic = $this->User_model->PictureUrlById($chat['sender_id']);
+			$userName = $this->user_model->GetName($chat['sender_id']);
+			$userPic = $this->user_model->PictureUrlById($chat['sender_id']);
 			
 			$message = $chat['message'];
 			$messagedatetime = date('d M H:i A',strtotime($chat['message_date_time']));
 			
 ?>
-    <?php
+<?php
 			$messageBody='';
 			if($message=='NULL'){ //fetach media objects like images,pdf,documents etc
 				$classBtn = 'right';
-				if($Logged_sender_id==$sender_id){$classBtn = 'left';}
+				if($Logged_sender_id==$sender_id){
+					$classBtn = 'left';
+				}
 				
 				$attachment_name = $chat['attachment_name'];
 				$file_ext = $chat['file_ext'];
@@ -161,14 +256,12 @@ class Chat extends CI_Controller {
 						$messageBody.='</div>';
 					$messageBody.='</div>';
 				}
-					
-										
+
 			}else{
 				$messageBody = $message;
 			}
-	?>
-
-		<?php if($Logged_sender_id!=$sender_id){?>     
+?>
+<?php 		if($Logged_sender_id!=$sender_id){		?>     
 				<!-- Message. Default to the left -->
 				<div class="direct-chat-msg">
 					<div class="direct-chat-info clearfix">
@@ -185,7 +278,7 @@ class Chat extends CI_Controller {
 					
 				</div>
 				<!-- /.direct-chat-msg -->
-		<?php }else{?>
+<?php 		}else{		?>
 				<!-- Message to the right -->
 				<div class="direct-chat-msg right">
 					<div class="direct-chat-info clearfix">
@@ -212,15 +305,15 @@ class Chat extends CI_Controller {
 	
 	public function chat_clear_client_cs(){
         // $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
-        $receiver_id = $this->input->get('receiver_id')
-		$messagelist = $this->Chat_model->GetReciverMessageList($receiver_id);
+        $receiver_id = $this->input->get('receiver_id');
+		$messagelist = $this->chat_model->GetReciverMessageList($receiver_id);
 		foreach($messagelist as $row){
 			
 			if($row['message']=='NULL'){
 				$attachment_name = unlink('uploads/attachment/'.$row['attachment_name']);
 			}
  		}
-		$this->Chat_model->TrashById($receiver_id); 
+		$this->chat_model->TrashById($receiver_id); 
 	}
 	
 }

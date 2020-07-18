@@ -22,15 +22,11 @@ class Item_model extends CI_Model
 
             ['field' => 'quantity',
             'label' => 'Quantity',
-            'rules' => 'required'],
+            'rules' => 'numeric'],
 
             ['field' => 'access',
             'label' => 'Price',
-            'rules' => 'numeric'],
-            
-            ['field' => 'description',
-            'label' => 'Description',
-            'rules' => 'required']
+            'rules' => 'required'],
         ];
     }
 
