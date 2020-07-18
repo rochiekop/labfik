@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 16.35
+-- Waktu pembuatan: 18 Jul 2020 pada 16.55
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -188,6 +188,34 @@ INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `images`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `schedule_id` varchar(64) NOT NULL,
+  `room_id` varchar(64) NOT NULL,
+  `06:30-07:30` varchar(255) NOT NULL,
+  `07:30-08:30` varchar(255) NOT NULL,
+  `08:30-09:30` varchar(255) NOT NULL,
+  `09:30-10-30` varchar(255) NOT NULL,
+  `10:30-11:30` varchar(255) NOT NULL,
+  `11:30-12.30` varchar(255) NOT NULL,
+  `12:30-13:30` varchar(255) NOT NULL,
+  `13:30-14:30` varchar(255) NOT NULL,
+  `14:30-15:30` varchar(255) NOT NULL,
+  `15:30-16:30` varchar(255) NOT NULL,
+  `16:30-17:30` varchar(255) NOT NULL,
+  `17:30-18:30` varchar(255) NOT NULL,
+  `18:30-19:30` varchar(255) NOT NULL,
+  `19:30-20:30` varchar(255) NOT NULL,
+  `20:30-21:30` varchar(255) NOT NULL,
+  `21:30-22:30` varchar(255) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_info`
 --
 
@@ -364,6 +392,13 @@ ALTER TABLE `kategoriruangan`
 --
 ALTER TABLE `ruangan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`schedule_id`),
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indeks untuk tabel `tb_info`
