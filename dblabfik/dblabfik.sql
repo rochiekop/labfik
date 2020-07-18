@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 16.24
+-- Waktu pembuatan: 18 Jul 2020 pada 16.35
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `borrowing` (
-  `id` varchar(64) NOT NULL,
-  `item_id` varchar(64) NOT NULL,
+  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `item_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `borrow_quantity` int(11) NOT NULL,
   `borrow_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('Menunggu Izin','Diterima','Ditolak','Selesai') NOT NULL
@@ -115,12 +115,12 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 --
 
 CREATE TABLE `item` (
-  `id` varchar(64) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `quantity` int(255) NOT NULL,
-  `access` enum('Semua','Dosen','Mahasiswa') NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `description` text NOT NULL
+  `access` enum('Semua','Dosen','Mahasiswa') CHARACTER SET utf8mb4 NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `description` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

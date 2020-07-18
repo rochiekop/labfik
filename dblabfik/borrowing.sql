@@ -25,37 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `item`
+-- Struktur dari tabel `borrowing`
 --
 
-CREATE TABLE `item` (
+CREATE TABLE `borrowing` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `quantity` int(255) NOT NULL,
-  `access` enum('Semua','Dosen','Mahasiswa') CHARACTER SET utf8mb4 NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `description` text CHARACTER SET utf8 NOT NULL
+  `item_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `borrow_quantity` int(11) NOT NULL,
+  `borrow_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('Menunggu Izin','Diterima','Ditolak','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `item`
---
-
-INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) VALUES
-('5f12ccfe4afe8', '403 gambar', 10, 'Semua', '5f12ccfe4afe8.PNG', 'test'),
-('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
-('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
-('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `item`
+-- Indeks untuk tabel `borrowing`
 --
-ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `borrowing`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_id` (`item_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
