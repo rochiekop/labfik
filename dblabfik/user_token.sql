@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 15.31
+-- Waktu pembuatan: 18 Jul 2020 pada 15.33
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -25,36 +25,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `item`
+-- Struktur dari tabel `user_token`
 --
 
-CREATE TABLE `item` (
-  `id` varchar(64) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `quantity` int(255) NOT NULL,
-  `access` enum('Semua','Dosen','Mahasiswa') NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `item`
---
-
-INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) VALUES
-('5f12ccfe4afe8', '403 gambar', 10, 'Semua', '5f12ccfe4afe8.PNG', 'test'),
-('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
-('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
-('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `item`
+-- Indeks untuk tabel `user_token`
 --
-ALTER TABLE `item`
+ALTER TABLE `user_token`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 

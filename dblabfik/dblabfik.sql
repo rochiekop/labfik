@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jul 2020 pada 12.17
+-- Waktu pembuatan: 18 Jul 2020 pada 15.31
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -97,6 +97,31 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `item`
+--
+
+CREATE TABLE `item` (
+  `id` varchar(64) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `quantity` int(255) NOT NULL,
+  `access` enum('Semua','Dosen','Mahasiswa') NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `item`
+--
+
+INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) VALUES
+('5f12ccfe4afe8', '403 gambar', 10, 'Semua', '5f12ccfe4afe8.PNG', 'test'),
+('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
+('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
+('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kategoriruangan`
 --
 
@@ -178,6 +203,33 @@ INSERT INTO `tb_info` (`id`, `title`, `images`, `body`, `uploadby`, `date`) VALU
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_lab`
+--
+
+CREATE TABLE `tb_lab` (
+  `id` int(11) NOT NULL,
+  `images` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `body` varchar(500) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_lab`
+--
+
+INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
+(3, 'IMG_9534_edit.jpg', 'Lab Batik', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
+(12, 'IMG_9314.JPG', 'Lab Bengkel', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
+(13, 'IMG_9274.JPG', 'Lab CGI', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
+(16, 'IMG_9189_edit.jpg', 'Lab Mac', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
+(17, 'IMG_9166_edit.jpg', 'Lab Multimedia', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium\r\n', '2020-07-17 08:20:46'),
+(22, 'IMG_9675_edit.jpg', 'Lab Pola dan Jahit', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium ', '2020-07-17 08:20:46'),
+(44, 'IMG_9181_edit.jpg', 'Lab Sintik', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_slider`
 --
 
@@ -205,12 +257,14 @@ INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` varchar(64) NOT NULL,
+  `booking_id` varchar(64) NOT NULL,
+  `borrow_id` varchar(64) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `images` varchar(128) NOT NULL,
-  `password` varchar(256) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `images` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
   `role_id` int(11) NOT NULL,
   `is_active` int(1) NOT NULL,
@@ -222,11 +276,11 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `name`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
-(8, 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0'),
-(38, 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
-(39, 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
-(44, 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0');
+INSERT INTO `user` (`id`, `booking_id`, `borrow_id`, `username`, `name`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
+('38', '', '', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
+('39', '', '', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
+('44', '', '', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
+('8', '', '', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
 
 -- --------------------------------------------------------
 
@@ -273,6 +327,12 @@ ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `item`
+--
+ALTER TABLE `item`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `kategoriruangan`
 --
 ALTER TABLE `kategoriruangan`
@@ -291,6 +351,12 @@ ALTER TABLE `tb_info`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tb_lab`
+--
+ALTER TABLE `tb_lab`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `tb_slider`
 --
 ALTER TABLE `tb_slider`
@@ -300,7 +366,9 @@ ALTER TABLE `tb_slider`
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `booking_id` (`booking_id`),
+  ADD KEY `borrow_id` (`borrow_id`);
 
 --
 -- Indeks untuk tabel `user_role`
@@ -340,37 +408,13 @@ ALTER TABLE `ruangan`
 -- AUTO_INCREMENT untuk tabel `tb_info`
 --
 ALTER TABLE `tb_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `tb_lab`
+-- AUTO_INCREMENT untuk tabel `tb_lab`
 --
 ALTER TABLE `tb_lab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- AUTO_INCREMENT untuk tabel `tb_slider`
---
-ALTER TABLE `tb_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT untuk tabel `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
---
--- AUTO_INCREMENT untuk tabel `user_role`
---
-ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT untuk tabel `user_token`
---
-ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

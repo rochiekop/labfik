@@ -63,7 +63,7 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
         <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button>

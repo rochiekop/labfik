@@ -75,8 +75,8 @@ class Chat extends CI_Controller {
         // $this->parser->parse('chat/chatTemplate',$data);
 		$this->load->view('templates/dashboard/headerAdmin');
 		$this->load->view('templates/dashboard/sidebarAdmin');
-		$this->load->view('chat/chatTemplate',$data); 
-		// $this->load->view('templates/dashboard/sidebarAdmin');
+		// $this->load->view('chat/chatTemplate',$data); 
+		$this->load->view('chat/chat',$data); 
 		$this->load->view('templates/dashboard/footer');
 	}
 
@@ -104,7 +104,8 @@ class Chat extends CI_Controller {
 		$data['userslist']=$userslist;
         // $this->parser->parse('chat/chatTemplate',$data);
         $this->load->view('templates/dashboard/headerKaur');
-		$this->load->view('chat/chatTemplate',$data); 
+		// $this->load->view('chat/chatTemplate',$data); 
+		$this->load->view('chat/chat',$data); 
 		$this->load->view('templates/dashboard/sidebarKaur');
 		$this->load->view('templates/dashboard/footer');
 	}
@@ -133,7 +134,8 @@ class Chat extends CI_Controller {
 		$data['userslist']=$userslist;
 		// $this->parser->parse('chat/chatTemplate',$data);
 		$this->load->view('templates/dashboard/headerDosenMhs');
-		$this->load->view('chat/chatTemplate',$data); 
+		// $this->load->view('chat/chatTemplate',$data); 
+		$this->load->view('chat/chat',$data); 
 		$this->load->view('templates/dashboard/sidebarDosenMhs');
 		$this->load->view('templates/dashboard/footer');
 	}

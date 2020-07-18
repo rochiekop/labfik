@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 15.31
+-- Waktu pembuatan: 18 Jul 2020 pada 15.33
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -25,36 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `item`
+-- Struktur dari tabel `tb_slider`
 --
 
-CREATE TABLE `item` (
-  `id` varchar(64) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `quantity` int(255) NOT NULL,
-  `access` enum('Semua','Dosen','Mahasiswa') NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_slider` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `images` varchar(100) NOT NULL,
+  `body` varchar(500) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `item`
+-- Dumping data untuk tabel `tb_slider`
 --
 
-INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) VALUES
-('5f12ccfe4afe8', '403 gambar', 10, 'Semua', '5f12ccfe4afe8.PNG', 'test'),
-('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
-('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
-('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
+INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
+(5, '', 'Classroom-without-windows-Pixabay.jpg', 'Lab. FIK Sekarang Sudah Aktif!', '2020-06-19 02:33:56'),
+(10, 'Fakultas Industri Kreatif V2 Edit', 'IMG_9271_edit.jpg', 'LAB FIK TEL-U', '2020-07-12 10:33:55'),
+(14, 'Laboratorium Fakultas Industri Kreatif', 'IMG_9274.JPG', 'Laboratorium Fakultas Industri Kreatif', '2020-07-12 11:09:12');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `item`
+-- Indeks untuk tabel `tb_slider`
 --
-ALTER TABLE `item`
+ALTER TABLE `tb_slider`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 
