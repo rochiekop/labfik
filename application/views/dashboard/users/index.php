@@ -34,7 +34,7 @@
       <h5>List Tempat</h5>
     </div>
     <div class="row grid-bartemp">
-      <div class="col-md-2">
+      <!-- <div class="col-md-2">
         <a href="akun-tempat-view.html" class="trigger2"></a>
         <div class="img-wrapper">
           <img src="<?= base_url('assets/img/6.jpg') ?>" alt="">
@@ -46,12 +46,24 @@
       <div class="col-md-2">
         <a href="akun-tempat-view.html" class="trigger2"></a>
         <div class="img-wrapper">
-          <img src="<?= base_url('assets/img/1.jpg'); ?>" alt="">
+          <img src="<?= base_url('assets/img/6.jpg') ?>" alt="">
         </div>
         <div class="info">
-          <b>IK.04.12</b> <br> Kelas Biasa
+          <b>IK.04.04</b> <br> Lab
         </div>
-      </div>
+      </div> -->
+      <?php foreach ($dt_tempat as $t) : ?>
+        <div class="col-md-2">
+          <a href="<?= base_url('users/pinjamt/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+          <div class="img-wrapper">
+            <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
+          </div>
+          <div class="info">
+            <b><?= $t['ruangan'] ?></b> <br> <?= $t['kategori'] ?>
+          </div>
+          <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
   <div class="fik-rekomen">
@@ -73,7 +85,7 @@
   </div>
 </main>
 <!-- End Main Container -->
-
+<!-- <?php var_dump($dt_tempat) ?> -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">

@@ -788,7 +788,7 @@ class Admin extends CI_Controller
         $data = array(
           'id_kategori' => $this->input->post('kategori'),
           'ruangan'     => $this->input->post('ruangan'),
-          'akses' => implode(",", $this->input->post('akses')),
+          'akses' => implode(", ", $this->input->post('akses')),
           'images' => $image['file_name'],
         );
         $this->db->update('ruangan', $data, ['id' => $id]);
@@ -801,7 +801,7 @@ class Admin extends CI_Controller
       $data = array(
         'id_kategori' => $this->input->post('kategori'),
         'ruangan'     => $this->input->post('ruangan'),
-        'akses' => implode(",", $this->input->post('akses')),
+        'akses' => implode(", ", $this->input->post('akses')),
       );
       $this->db->update('ruangan', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Tempat berhasil diubah!</div>');

@@ -6,7 +6,7 @@
         <h3>Lab</h3>
       </div>
       <div class="feed-container">
-        <?php if (!empty($dt_lab)) : ?>
+        <?php if (empty($dt_lab)) : ?>
           <h4>Data Laboratorium Kosong</h4>
         <?php else : ?>
           <?php foreach ($dt_lab as $l) : ?>

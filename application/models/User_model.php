@@ -180,10 +180,10 @@ class User_model extends CI_Model
 		return $u;
 	}
 
-	public function AdminsList() 
-	{  
-        // $this->db->select('id,name,picture_url,is_active');
-        $this->db->select('id,name,is_active');
+	public function AdminsList()
+	{
+		// $this->db->select('id,name,picture_url,is_active');
+		$this->db->select('id,name,is_active');
 		$this->db->from($this->User);
 		$this->db->where("role_id", "1");
 		$this->db->where("is_active", "1");
@@ -192,10 +192,10 @@ class User_model extends CI_Model
 		return $r;
 	}
 
-	public function DosenMhsList() 
-	{  
-        // $this->db->select('id,name,picture_url,is_active');
-        $this->db->select('id,name,is_active');
+	public function DosenMhsList()
+	{
+		// $this->db->select('id,name,picture_url,is_active');
+		$this->db->select('id,name,is_active');
 		$this->db->from($this->User);
 		$this->db->where("role_id", "3");
 		$this->db->where("role_id", "4");
@@ -221,4 +221,13 @@ class User_model extends CI_Model
 	// 	$this->db->update($this->User, $this, array('username' => $post['email']));
 	// }
 
+
+	// Model User Untuk Peminjaman
+	public function getAllDtTempat()
+	{
+		$query = "SELECT `kategoriruangan`.*,`ruangan`.* 
+		FROM `kategoriruangan` JOIN `ruangan` 
+		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
+		return $this->db->query($query)->result_array();
+	}
 }
