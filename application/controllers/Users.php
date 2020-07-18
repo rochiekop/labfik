@@ -17,7 +17,7 @@ class Users extends CI_Controller
   public function index()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
-    $data['dt_tempat'] = $this->user_model->getAllDtTempat();
+    $data['dt_tempat'] = $this->user_model->getDtTempat();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/index');
@@ -29,13 +29,25 @@ class Users extends CI_Controller
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     $id = decrypt_url($id);
     $data['kruangan'] = $this->admin_model->kategoriruangan();
-    $data['dt_tempat'] = $this->user_model->getAllDtTempat();
     $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/pinjamtempat');
     $this->load->view('templates/dashboard/footer');
   }
+
+  public function daftarsemuatempat()
+  {
+    $data['title'] = 'LABFIK | Semua Tempat';
+    $data['dt_tempat'] = $this->user_model->getAllDtTempat();
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/daftartempat');
+    $this->load->view('templates/dashboard/footer');
+  }
+
+
+
   public function helpdesk()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';

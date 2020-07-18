@@ -223,17 +223,17 @@ class User_model extends CI_Model
 
 
 	// Model User Untuk Peminjaman
-	public function getAllDtTempat()
+	public function getDtTempat()
 	{
 		$query = "SELECT `kategoriruangan`.*,`ruangan`.* 
 		FROM `kategoriruangan` JOIN `ruangan` 
-		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
+		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori` LIMIT 6";
 		return $this->db->query($query)->result_array();
 	}
 
-	public function getAllRuanganByKategori()
+	public function getAllDtTempat()
 	{
-		$query = "SELECT `kategoriruangan`.`id`,`ruangan`.`id`,`ruangan`.`id_kategori`
+		$query = "SELECT `kategoriruangan`.*,`ruangan`.* 
 		FROM `kategoriruangan` JOIN `ruangan` 
 		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
 		return $this->db->query($query)->result_array();
