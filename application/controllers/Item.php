@@ -9,17 +9,12 @@ class Item extends CI_Controller
         parent::__construct();
         $this->load->model("item_model");
         $this->load->library('form_validation');
-        $this->load->model("user_model");
         is_logged_in();
     }
 
     public function index()
     {
-        // $data["item"] = $this->item_model->getAll();
-        // $this->load->view("templates/dashboard/headerDosenMhs");
-        // $this->load->view("templates/dashboard/sidebarDosenMhs");
-        // $this->load->view("item/admin/list", $data);
-        // $this->load->view("templates/dashboard/footer");
+
     }
 
     public function listAdmin()
