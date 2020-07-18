@@ -6,7 +6,7 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <img src="_assets/img/6.jpg" alt="">
+        <img src="<?= base_url('assets/img/ruangan/') . $tempatbyid['images'] ?>" alt="$tempatbyid['title']">
       </div>
       <div class="col-md-8">
         <div class="card">
@@ -14,61 +14,34 @@
             <div class="card-body">
               <div class="custom-form">
                 <div class="form-group" style="margin-bottom:12px">
-                  <input type="text" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
-                  <label>Nama Lengkap</label>
+                  <input type="text" name="" class="form-control" placeholder="" value="<?= $this->session->userdata('name') ?>" required="required" autocomplete="off" />
+                  <label></label>
                 </div>
                 <div class="lab-category" style="margin-bottom:16px;">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Lab Macintosh</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Lab Cintiq</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2">
-                    <label class="form-check-label" for="inlineRadio3">Lab Batik</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
-                    <label class="form-check-label" for="inlineRadio4">Lab Lukis</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option2">
-                    <label class="form-check-label" for="inlineRadio5">Lab Sablon</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option2">
-                    <label class="form-check-label" for="inlineRadio6">Lab Multimedia</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option2">
-                    <label class="form-check-label" for="inlineRadio7">Lab Pola dan Jahit</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option2">
-                    <label class="form-check-label" for="inlineRadio8">Studio Musik</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9" value="option3">
-                    <label class="form-check-label" for="inlineRadio9">Studio Fotografi</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10" value="option3">
-                    <label class="form-check-label" for="inlineRadio10">Studio Videografi</label>
-                  </div>
+                  <?php $no = 0;
+                  foreach ($kruangan as $k) : ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['id'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
+                                                                                                                                                echo ('checked="checked"');
+                                                                                                                                              } else echo ('disabled'); ?>>
+                      <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
+                    </div>
+                  <?php endforeach; ?>
                 </div>
                 <div class="form-group">
-                  <select class="form-control" id="PilihRuangan" title="Silakan pilih kategori ruangan" disabled>
+                  <input type="text" name="ruangan" class="form-control" placeholder="" value="<?= $tempatbyid['ruangan'] ?>" required="required" autocomplete="off" disabled />
+                  <label></label>
+                  <!-- <select class="form-control" id="PilihRuangan" title="Silakan pilih kategori ruangan">
                     <option disabled selected>Pilih Ruangan</option>
-                    <option>IK.04.04</option>
-                    <option>IK.04.05</option>
-                    <option>IK.04.05</option>
-                  </select>
+                    <?php foreach ($dt_tempat as $t) : ?>
+                      <?php if ($t['id_kategori'] == $tempatbyid['id_kategori']) : ?>
+                        <option><?= $t['ruangan'] ?></option>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </select> -->
                 </div>
                 <div class="form-group">
-                  <input type="date" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <input type="date" name="tanggal" class="form-control" placeholder="" required="required" autocomplete="off" />
                   <label>Tanggal Peminjaman</label>
                 </div>
                 <div class="form-group">

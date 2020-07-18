@@ -230,4 +230,12 @@ class User_model extends CI_Model
 		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
 		return $this->db->query($query)->result_array();
 	}
+
+	public function getAllRuanganByKategori()
+	{
+		$query = "SELECT `kategoriruangan`.`id`,`ruangan`.`id`,`ruangan`.`id_kategori`
+		FROM `kategoriruangan` JOIN `ruangan` 
+		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
+		return $this->db->query($query)->result_array();
+	}
 }
