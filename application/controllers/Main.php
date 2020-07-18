@@ -19,6 +19,7 @@ class Main extends CI_Controller
     $data['dt_slider'] = $this->main_model->getDtSlider();
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
     $data['dt_lab'] = $this->main_model->getAllDtLab();
+    $data['dt_panel'] = $this->main_model->getDtPanel();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/index');
     $this->load->view('templates/main/footer');

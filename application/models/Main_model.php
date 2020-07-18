@@ -39,7 +39,7 @@ class Main_model extends CI_Model
 
   public function getDtPanel()
   {
-    $query = $this->db->get('tb_panel')->result_array();
+    $query = $this->db->get('tb_panel')->row_array();
     return $query;
   }
 
