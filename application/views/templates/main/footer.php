@@ -27,7 +27,6 @@
     </footer>
   </div>
   <!-- End Footer -->
-
   </body>
 
   </html>
