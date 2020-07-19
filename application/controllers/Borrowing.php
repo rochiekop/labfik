@@ -7,7 +7,8 @@ class Borrowing extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("borrowing_model");
+        $this->load->model('borrowing_model');
+        $this->load->model('item_model');
         $this->load->library('form_validation');
         is_logged_in();
     }
@@ -52,9 +53,31 @@ class Borrowing extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
-    public function add()
+    public function addBorrowing($id = null)
     {
         $borrowing = $this->borrowing_model;
+        $item = $this->item_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($borrowing->rules());
+
+        $data["item"] = $item->getById($id);
+        if (!$data["item"]) show_404();
+
+        if ($validation->run()) {
+            $borrowing->save();
+            $this->session->set_flashdata('success', 'Berhasil disimpan');
+        }
+
+        $this->load->view("templates/dashboard/headerDosenMhs");
+        $this->load->view("templates/dashboard/sidebarDosenMhs");
+        $this->load->view("item/dosenMhs/borrow", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function addBorrowAdmin($id = null)
+    {
+        $borrowing = $this->borrowing_model;
+        $item = $this->item_model;
         $validation = $this->form_validation;
         $validation->set_rules($borrowing->rules());
 
@@ -63,7 +86,35 @@ class Borrowing extends CI_Controller
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
 
-        $this->load->view("item/dosenMhs/borrow");
+        $data["item"] = $item->getById($id);
+        if (!$data["item"]) show_404();
+
+        $this->load->view("templates/dashboard/headerAdmin");
+        $this->load->view("templates/dashboard/sidebarAdmin");
+        $this->load->view("item/admin/borrow", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function edit($id = null)
+    {
+        if (!isset($id)) redirect('auth');
+
+        $borrowing = $this->borrowing_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($borrowing->rules());
+
+        if ($validation->run()) {
+            $borrowing->update();
+            $this->session->set_flashdata('success', 'Berhasil disimpan');
+        }
+
+        $data["item"] = $item->getById($id);
+        if (!$data["item"]) show_404();
+
+        $this->load->view("templates/dashboard/headerAdmin");
+        $this->load->view("templates/dashboard/sidebarAdmin");
+        $this->load->view("item/admin/edit", $data);
+        $this->load->view("templates/dashboard/footer");
     }
 
     public function delete($id = null)

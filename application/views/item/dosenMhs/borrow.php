@@ -2,34 +2,50 @@
   <main class="akun-container">
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>Semua Barang</h5>
+      <h5>Pinjam Barang</h5>
     </div>
-    <div class="input-group">
-      <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Terbaru</a>
-          <a class="dropdown-item" href="#">Dosen</a>
-          <a class="dropdown-item" href="#">Mahasiswa</a>
+    <div class="row">
+      <div class="col-md-4">
+        <!-- <span class="fas fa-image placeholder-img"></span> -->
+        <img src="<?= base_url('uploads/item/'.$item->image) ?>" alt="">
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <form action="<?php base_url('borrowing/addBorrowing') ?>" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="custom-form">
+                <div class="form-group">
+                  <input type="hidden" name="item_id" value="<?= $item->id ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                  <input type="text" name="name" value="<?= $item->name ?>" class="form-control" placeholder="" required="required" autocomplete="off" disabled />
+                  <label>Nama Barang</label>
+                </div>
+                <div class="form-group">
+                  <input type="number" name="quantity" value="1" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Kuantitas Barang</label>
+                </div>
+                <div class="form-group">
+                  <input type="datetime-local" name="start" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Awal Waktu Peminjaman</label>
+                </div>
+                <div class="form-group">
+                  <input type="datetime-local" name="end" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Akhir Waktu Peminjaman</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="reason" value="" class="form-control" placeholder="" autocomplete="off" />
+                  <label>Alasan Peminjaman</label>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">Pinjam Barang</button>
+            </div>
+          </form>
+
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
-    </div>
-    <br>
-    <div class="row grid-bartemp">
-      <?php foreach ($dt_tempat as $t) : ?>
-        <div class="col-md-2">
-          <a href="<?= base_url('users/pinjamt/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
-          <div class="img-wrapper">
-            <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
-          </div>
-          <div class="info">
-            <b><?= $t['ruangan'] ?></b> <br> <?= $t['kategori'] ?>
-          </div>
-          <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
-        </div>
-      <?php endforeach; ?>
     </div>
   </main>
   <!-- End Main Container -->

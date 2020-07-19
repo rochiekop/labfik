@@ -8,12 +8,12 @@ class Borrowing_model extends CI_Model
     private $_table2 = "item";
     private $_table3 = "user";
 
-    public $id;
-    public $user_id;
-    public $item_id;
-    public $borrow_quality;
-    public $borrow_time;
-    public $status;
+    // public $id;
+    // public $user_id;
+    // public $item_id;
+    // public $borrow_quality;
+    // public $borrow_time;
+    // public $status;
 
     public function rules()
     {
@@ -21,10 +21,6 @@ class Borrowing_model extends CI_Model
             ['field' => 'quality',
             'label' => 'Quality',
             'rules' => 'numeric'],
-
-            ['field' => 'status',
-            'label' => 'Status',
-            'rules' => 'required'],
         ];
     }
 

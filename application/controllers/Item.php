@@ -31,7 +31,7 @@ class Item extends CI_Controller
         $data["item"] = $this->item_model->getAll();
         $this->load->view("templates/dashboard/headerDosenMhs");
         $this->load->view("templates/dashboard/sidebarDosenMhs");
-        $this->load->view("item/admin/list", $data);
+        $this->load->view("item/dosenMhs/list", $data);
         $this->load->view("templates/dashboard/footer");
     }
 

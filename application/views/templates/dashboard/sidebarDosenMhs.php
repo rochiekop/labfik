@@ -28,7 +28,7 @@
         <div id="collapse1" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="#">Buat Peminjaman</a></li>
-            <li><a href="#">Daftar Semua Barang</a></li>
+            <li><a href="<?= base_url('item/listDosenMhs') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Riwayat</a></li>
           </ul>
         </div>
