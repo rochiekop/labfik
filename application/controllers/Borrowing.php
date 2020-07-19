@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Borrowing extends CI_Controller
 {
@@ -14,7 +14,6 @@ class Borrowing extends CI_Controller
 
     public function index()
     {
-        
     }
 
     public function listAll()
@@ -37,7 +36,7 @@ class Borrowing extends CI_Controller
 
     public function listAllById($user_id)
     {
-        $data["borrowing"] = $this->borrowing_model->getByUserId($user_id)
+        $data["borrowing"] = $this->borrowing_model->getByUserId($user_id);
         $this->load->view("templates/dashboard/headerAdmin");
         $this->load->view("templates/dashboard/sidebarAdmin");
         $this->load->view("item/kaur/log", $data);
@@ -67,10 +66,10 @@ class Borrowing extends CI_Controller
         $this->load->view("item/dosenMhs/borrow");
     }
 
-    public function delete($id=null)
+    public function delete($id = null)
     {
         if (!isset($id)) show_404();
-        
+
         if ($this->product_model->delete($id)) {
             redirect(site_url('borrowing/listAll'));
         }

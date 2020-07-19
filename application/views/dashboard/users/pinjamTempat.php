@@ -54,10 +54,20 @@
                       <tr>
                         <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
                           <div width="100%" style="overflow:hidden">
+                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="">06:30 - 10:30</a>
+                          </div>
+                        </td>
+                        <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
+                          <div width="100%" style="overflow:hidden">
                             <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
                           </div>
                         </td>
                         <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
+                          <div width="100%" style="overflow:hidden">
+                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
+                          </div>
+                        </td>
+                        <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
                           <div width="100%" style="overflow:hidden">
                             <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
                           </div>

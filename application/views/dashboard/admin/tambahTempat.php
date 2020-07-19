@@ -29,6 +29,11 @@
                   </div>
                 <?php endforeach; ?>
               </div>
+              <div class="form-group" style="margin-bottom:16px">
+                <input type="text" name="kapasitas" value="<?= set_value('kapasitas'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <label>Kapasitas</label>
+                <?php echo form_error('kapasitas', '<small class="text-danger">', '</small>'); ?>
+              </div>
               <div class="lab-category" id="sectionForm" style="margin-bottom:16px;">
                 <b>Akses</b>
                 <div class="form-check options">

@@ -28,12 +28,17 @@
                 <?php $no = 0;
                 foreach ($kruangan as $k) : ?>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['kategori'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
-                                                                                                                                                    echo ('checked="checked"');
-                                                                                                                                                  } ?>>
+                    <input class="form-check-input" type="radio" name="kategori" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['id'] ?>" <?php if ($tempatbyid['id_kategori'] == $k['id']) {
+                                                                                                                                              echo ('checked="checked"');
+                                                                                                                                            } ?>>
                     <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
                   </div>
                 <?php endforeach; ?>
+              </div>
+              <div class="form-group" style="margin-bottom:16px">
+                <input type="text" name="kapasitas" value="<?= $tempatbyid['kapasitas']; ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <label>Kapasitas</label>
+                <?php echo form_error('kapasitas', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="lab-category" id="sectionForm" style="margin-bottom:16px;">
                 <b>Akses</b>

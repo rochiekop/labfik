@@ -41,6 +41,7 @@
               <th scope="col">Ruangan</th>
               <th scope="col">Kategori</th>
               <th scope="col">Akses</th>
+              <th scope="col">Kapasitas</th>
               <th scope="col" class="action">Aksi</th>
             </tr>
           </thead>
@@ -60,9 +61,10 @@
                   <td><?= $t['ruangan'] ?></td>
                   <td><?= $t['kategori'] ?></td>
                   <td><?= $t['akses'] ?></td>
+                  <td><?= $t['kapasitas'] ?></td>
                   <td class="action">
                     <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']) ?>"><span class="fas fa-trash"></span></a>
-                    <a href="<?= base_url('admin/edittempat/') . $t['id'] ?>"><span class="fas fa-edit"></span></a>
+                    <a href="<?= base_url('admin/edittempat/') . encrypt_url($t['id']) ?>?>"><span class="fas fa-edit"></span></a>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -80,9 +82,9 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-body">
-            Hapus Lab <?= $t['title']; ?> ?
+            Hapus Ruangan <?= $t['ruangan']; ?> ?
           </div>
-          <form action="deleteinfo" method="post" enctype="multipart/form-data">
+          <form action="deleteruangan" method="post" enctype="multipart/form-data">
             <div class="modal-footer">
               <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
               <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>">

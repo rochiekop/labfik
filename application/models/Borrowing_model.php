@@ -60,7 +60,7 @@ class Borrowing_model extends CI_Model
         $this->db->where('user.id', $user_id);
         $query = $this->db->get();
         $result = $query->result_array();
-        return $result
+        return $result;
     }
 
     public function getByUserIdWithStatus($user_id, $status)
@@ -73,7 +73,7 @@ class Borrowing_model extends CI_Model
         $this->db->where('status', $status);
         $query = $this->db->get();
         $result = $query->result_array();
-        return $result
+        return $result;
     }
 
     public function save()
@@ -85,7 +85,7 @@ class Borrowing_model extends CI_Model
         $this->start = $post['start'];
         $this->end = $post['end'];
         $this->reason = $post['reason'];
-        $this->status = "Menunggu Izin"
+        $this->status = "Menunggu Izin";
         $this->db->insert($this->_table, $this);
     }
 

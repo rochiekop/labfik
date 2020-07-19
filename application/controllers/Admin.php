@@ -618,6 +618,23 @@ class Admin extends CI_Controller
     }
   }
 
+  public function deleteruangan()
+  {
+    $id = $this->input->post('id');
+    $image = $this->input->post('image');
+    $data['ruangan'] = $this->admin_model->getDtTempatById($id);
+    $path = 'assets/img/ruangan/';
+    $old_img = $data['ruangan']['images'];
+    if ($old_img != 'default.jpg') {
+      @unlink($path . $image);
+    }
+    $where = array('id' => $id);
+    $this->db->where($where);
+    $this->db->delete('ruangan');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil dihapus</div>');
+    redirect('admin/daftartempat');
+  }
+
 
   // Data Peminjaman
   public function dt_peminjaman()
@@ -728,6 +745,9 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim|is_unique[ruangan.ruangan]', [
       'is_unique' => '*Ruangan ' . $this->input->post('ruangan') . ' sudah terdaftar dalam sistem'
     ]);
+    $this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required|trim|numeric', [
+      'numeric' => '*Kapasitas harus dalam angka'
+    ]);
 
     $data['kruangan'] = $this->admin_model->kategoriruangan();
     if ($this->form_validation->run() == false) {
@@ -749,6 +769,7 @@ class Admin extends CI_Controller
           'id_kategori' => $this->input->post('kategori'),
           'ruangan'     => $this->input->post('ruangan'),
           'akses' => implode(", ", $this->input->post('akses')),
+          'kapasitas' => $this->input->post('kapasitas'),
           'images' => $images['file_name'],
         );
         $this->db->insert('ruangan', $data);
@@ -762,6 +783,7 @@ class Admin extends CI_Controller
         'id_kategori' => $this->input->post('kategori'),
         'ruangan'     => $this->input->post('ruangan'),
         'akses' => implode(", ", $this->input->post('akses')),
+        'kapasitas' => $this->input->post('kapasitas'),
         'images' => 'default.jpg',
       ];
       $this->db->insert('ruangan', $data);
@@ -772,10 +794,15 @@ class Admin extends CI_Controller
 
   public function editTempat($id)
   {
+    $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Edit Tempat';
     $data['kruangan'] = $this->admin_model->kategoriruangan();
     $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
     $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim');
+    $this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required|trim|numeric', [
+      'numeric' => '*Kapasitas harus dalam angka'
+    ]);
+
     $path = './assets/img/ruangan/';
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerAdmin', $data);
@@ -791,7 +818,7 @@ class Admin extends CI_Controller
       $config['file_name'] = $_FILES['image']['name'];
       $this->upload->initialize($config);
       if ($this->upload->do_upload('image')) {
-        $old_img = $data['dtempat']['images']; #ambildaridatayang diubah
+        $old_img = $data['tempatbyid']['images']; #ambildaridatayang diubah
         if ($old_img != 'default.jpg') {
           //delete image in direktori
           @unlink($path . $this->input->post('image!updated'));
@@ -801,6 +828,7 @@ class Admin extends CI_Controller
           'id_kategori' => $this->input->post('kategori'),
           'ruangan'     => $this->input->post('ruangan'),
           'akses' => implode(", ", $this->input->post('akses')),
+          'kapasitas' => $this->input->post('kapasitas'),
           'images' => $image['file_name'],
         );
         $this->db->update('ruangan', $data, ['id' => $id]);
@@ -814,12 +842,31 @@ class Admin extends CI_Controller
         'id_kategori' => $this->input->post('kategori'),
         'ruangan'     => $this->input->post('ruangan'),
         'akses' => implode(", ", $this->input->post('akses')),
+        'kapasitas' => $this->input->post('kapasitas'),
       );
       $this->db->update('ruangan', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Tempat berhasil diubah!</div>');
       redirect('admin/daftartempat');
     }
   }
+
+  public function deletetempat()
+  {
+    $id = $this->input->post('id');
+    $image = $this->input->post('image');
+    $data['ruangan'] = $this->admin_model->getDtTempatById($id);
+    $path = 'assets/img/ruangan/';
+    $old_img = $data['ruangan']['images'];
+    if ($old_img != 'default.jpg') {
+      @unlink($path . $image);
+    }
+    $where = array('id' => $id);
+    $this->db->where($where);
+    $this->db->delete('ruangan');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil dihapus</div>');
+    redirect('admin/daftartempat');
+  }
+
   public function buatPeminjaman()
   {
 
