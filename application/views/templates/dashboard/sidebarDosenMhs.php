@@ -29,7 +29,7 @@
           <ul>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="<?= base_url('item/listDosenMhs') ?>">Daftar Semua Barang</a></li>
-            <li><a href="#">Riwayat</a></li>
+            <li><a href="<?= base_url('borrowing/listAllById/'.$this->session->userdata('id')) ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>

@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-8">
         <div class="card">
-          <form action="<?= base_url('borrowing/addBorrowingAdmin') ?>" method="post" enctype="multipart/form-data">
+          <form action="<?= base_url('borrowing/addBorrowing') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="custom-form">
                 <div class="form-group">

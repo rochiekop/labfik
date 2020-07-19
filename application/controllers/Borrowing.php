@@ -53,38 +53,24 @@ class Borrowing extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
-
-
-
-
-
-
-    public function listAllWithStatus($status)
-    {
-        
-        $data["borrowing"] = $this->borrowing_model->getAllWithStatus($status);
-        $this->load->view("templates/dashboard/headerKaur");
-        $this->load->view("templates/dashboard/sidebarKaur");
-        $this->load->view("item/kaur/log", $data);
-        $this->load->view("templates/dashboard/footer");
-    }
-
-    public function listAllWithStatusAction($status)
-    {
-        $data["borrowing"] = $this->borrowing_model->getAllWithStatus($status);
-        $this->load->view("templates/dashboard/headerKaur");
-        $this->load->view("templates/dashboard/sidebarKaur");
-        $this->load->view("item/kaur/logAction", $data);
-        $this->load->view("templates/dashboard/footer");
-    }
-
     public function listAllById($user_id)
     {
         $data["borrowing"] = $this->borrowing_model->getByUserId($user_id);
-        $this->load->view("templates/dashboard/headerAdmin");
-        $this->load->view("templates/dashboard/sidebarAdmin");
-        $this->load->view("item/kaur/log", $data);
-        $this->load->view("templates/dashboard/footer");
+
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        {
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("item/dosenMhs/log", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+        else if ($this->session->userdata('role_id') == '1')
+        {
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("item/kaur/log", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
     }
 
     public function listAllByIdWithStatus($user_id, $status)

@@ -57,7 +57,7 @@
                     <a href="<?= site_url('item/edit/'.$i->id) ?>"><span class="fas fa-edit"></span></a>
                     <a href="<?= site_url('item/delete/'.$i->id) ?>"><span class="fas fa-trash"></span></a>
                   </td>
-                  <td class="action"><a href="<?= site_url('borrowing/showItemAdmin/'.$i->id) ?>"><span class="fas fa-plus"></span></a></td>
+                  <td class="action"><a href="<?= site_url('borrowing/showItem/'.$i->id) ?>"><span class="fas fa-plus"></span></a></td>
                 </tr>
               <?php endforeach; ?>
             <?php endif; ?>

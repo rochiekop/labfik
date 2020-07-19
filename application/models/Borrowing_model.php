@@ -94,9 +94,9 @@ class Borrowing_model extends CI_Model
 
     public function getByUserId($user_id)
     {
-        $this->db->select('borrowing.*,item*,user.id');
+        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
         $this->db->from('user');
-        $this->db->join('borrowing','user.borrowing_id=borrowing.id');
+        $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');
         $this->db->where('user.id', $user_id);
         $query = $this->db->get();
