@@ -11,9 +11,12 @@
       </div>
       <div class="col-md-8">
         <div class="card">
-          <form action="<?php base_url('borrowing/addBorrowing') ?>" method="post" enctype="multipart/form-data">
+          <form action="<?= base_url('borrowing/addBorrowingDosenMhs') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="custom-form">
+                <div class="form-group">
+                  <input type="hidden" name="user_id" value="<?= $this->session->userdata('id'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                </div>
                 <div class="form-group">
                   <input type="hidden" name="item_id" value="<?= $item->id ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
                 </div>

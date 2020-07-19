@@ -20,18 +20,61 @@ class Borrowing extends CI_Controller
     public function listAll()
     {
         $data["borrowing"] = $this->borrowing_model->getAllBorrowing();
-        $this->load->view("templates/dashboard/headerAdmin");
-        $this->load->view("templates/dashboard/sidebarAdmin");
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
         $this->load->view("item/kaur/log", $data);
         $this->load->view("templates/dashboard/footer");
     }
 
+    public function listAllWaiting()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllWaiting();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/logAction", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllAccepted()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllAccepted();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllDeclined()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllDeclined();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+
+
+
+
+
+
     public function listAllWithStatus($status)
     {
+        
         $data["borrowing"] = $this->borrowing_model->getAllWithStatus($status);
-        $this->load->view("templates/dashboard/headerAdmin");
-        $this->load->view("templates/dashboard/sidebarAdmin");
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
         $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllWithStatusAction($status)
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllWithStatus($status);
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/logAction", $data);
         $this->load->view("templates/dashboard/footer");
     }
 
@@ -53,47 +96,160 @@ class Borrowing extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
-    public function addBorrowing($id = null)
+    public function showItem($id = null)
     {
-        $borrowing = $this->borrowing_model;
         $item = $this->item_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($borrowing->rules());
-
         $data["item"] = $item->getById($id);
         if (!$data["item"]) show_404();
 
-        if ($validation->run()) {
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        {
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("item/dosenMhs/borrow", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+        else if ($this->session->userdata('role_id') == '1')
+        {
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("item/admin/borrow", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+
+    }
+
+    // public function showItemDosenMhs($id = null)
+    // {
+    //     $item = $this->item_model;
+    //     $data["item"] = $item->getById($id);
+    //     if (!$data["item"]) show_404();
+
+    //     $this->load->view("templates/dashboard/headerDosenMhs");
+    //     $this->load->view("templates/dashboard/sidebarDosenMhs");
+    //     $this->load->view("item/dosenMhs/borrow", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
+
+    // public function showItemAdmin($id = null)
+    // {
+    //     $item = $this->item_model;
+    //     $data["item"] = $item->getById($id);
+    //     if (!$data["item"]) show_404();
+
+    //     $this->load->view("templates/dashboard/headerAdmin");
+    //     $this->load->view("templates/dashboard/sidebarAdmin");
+    //     $this->load->view("item/admin/borrow", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
+
+    public function addBorrowing()
+    {
+        $borrowing = $this->borrowing_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($borrowing->rules());
+
+        if ($validation->run()) 
+        {
             $borrowing->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
 
-        $this->load->view("templates/dashboard/headerDosenMhs");
-        $this->load->view("templates/dashboard/sidebarDosenMhs");
-        $this->load->view("item/dosenMhs/borrow", $data);
-        $this->load->view("templates/dashboard/footer");
-    }
-
-    public function addBorrowAdmin($id = null)
-    {
-        $borrowing = $this->borrowing_model;
-        $item = $this->item_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($borrowing->rules());
-
-        if ($validation->run()) {
-            $borrowing->save();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        {
+            $data["item"] = $this->item_model->getAll();
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("item/dosenMhs/list", $data);
+            $this->load->view("templates/dashboard/footer");
         }
-
-        $data["item"] = $item->getById($id);
-        if (!$data["item"]) show_404();
-
-        $this->load->view("templates/dashboard/headerAdmin");
-        $this->load->view("templates/dashboard/sidebarAdmin");
-        $this->load->view("item/admin/borrow", $data);
-        $this->load->view("templates/dashboard/footer");
+        else if ($this->session->userdata('role_id') == '1')
+        {
+            $data["item"] = $this->item_model->getAll();
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("item/admin/list", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
     }
+
+    // public function addBorrowingDosenMhs()
+    // {
+    //     $borrowing = $this->borrowing_model;
+    //     $validation = $this->form_validation;
+    //     $validation->set_rules($borrowing->rules());
+
+    //     if ($validation->run()) {
+    //         $borrowing->save();
+    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
+    //     }
+
+    //     $data["item"] = $this->item_model->getAll();
+    //     $this->load->view("templates/dashboard/headerDosenMhs");
+    //     $this->load->view("templates/dashboard/sidebarDosenMhs");
+    //     $this->load->view("item/dosenMhs/list", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
+
+    // public function addBorrowingAdmin($id = null)
+    // {
+    //     $borrowing = $this->borrowing_model;
+    //     $validation = $this->form_validation;
+    //     $validation->set_rules($borrowing->rules());
+
+    //     if ($validation->run()) {
+    //         $borrowing->save();
+    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
+    //     }
+
+    //     $data["item"] = $this->item_model->getAll();
+    //     $this->load->view("templates/dashboard/headerAdmin");
+    //     $this->load->view("templates/dashboard/sidebarAdmin");
+    //     $this->load->view("item/admin/list", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
+
+    public function changeStatusAccepted($id)
+    {
+        $this->borrowing_model->updateStatusAccepted($id);
+        redirect(site_url('borrowing/listAllWaiting'));
+    }
+
+    public function changeStatusDeclined($id)
+    {
+        $this->borrowing_model->updateStatusDeclined($id);
+        redirect(site_url('borrowing/listAllWaiting'));
+    }
+
+    public function changeStatusDone($id)
+    {
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        {
+            if ($this->borrowing_model->updateStatusDone($id)) {
+                redirect(site_url('borrowing/listAllByDosenMhs/'.$id));
+            }
+        }
+        else if ($this->session->userdata('role_id') == '1')
+        {
+            if ($this->borrowing_model->updateStatusDone($id)) {
+                redirect(site_url('borrowing/listAllByIdAdmin/'.$id));
+            }
+        }
+    }
+
+    // public function changeStatusDoneDosenMhs($id)
+    // {
+    //     if ($this->borrowing_model->updateStatusDone($id)) {
+    //         redirect(site_url('borrowing/listAllByDosenMhs/'.$id));
+    //     }
+    // }
+
+    // public function changeStatusDoneAdmin($id)
+    // {
+    //     if ($this->borrowing_model->updateStatusDone($id)) {
+    //         redirect(site_url('borrowing/listAllByIdAdmin/'.$id));
+    //     }
+    // }
 
     public function edit($id = null)
     {

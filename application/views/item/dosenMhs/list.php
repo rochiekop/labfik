@@ -20,12 +20,12 @@
     <div class="row grid-bartemp">
       <?php foreach ($item as $i) : ?>
         <div class="col-md-2">
-          <a href="<?= site_url('borrowing/addBorrowing/'.$i->id) ?>" class="trigger2"></a>
+          <a href="<?= site_url('borrowing/showItemDosenMhs/'.$i->id) ?>" class="trigger2"></a>
           <div class="img-wrapper">
             <img src="<?= site_url('uploads/item/'.$i->image)?>" alt="">
           </div>
           <div class="info">
-            <b><?= $i->name ?></b> <br> <?= $i->description ?> <?= $i->quantity ?>
+            <b><?= $i->name ?></b> <br> <?= $i->description ?> <br> <?= $i->quantity ?>
           </div>
         </div>
       <?php endforeach; ?>
