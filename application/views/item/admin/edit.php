@@ -14,9 +14,9 @@
           <form action="<?php base_url('item/edit') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="custom-form">
-                <div class="form-group">
-                  <input type="hidden" name="id" value="<?= $item->id ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-                </div>
+                  <div class="form-group">
+                    <input type="hidden" name="id" value="<?= $item->id ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  </div>
                 <div class="form-group">
                   <input type="text" name="name" value="<?= $item->name ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
                   <label>Nama Barang</label>

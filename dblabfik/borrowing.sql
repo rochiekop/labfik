@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 16.35
+-- Waktu pembuatan: 19 Jul 2020 pada 09.51
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -31,10 +31,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `borrowing` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `item_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `borrow_quantity` int(11) NOT NULL,
-  `borrow_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('Menunggu Izin','Diterima','Ditolak','Selesai') NOT NULL
+  `quantity` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `reason` text CHARACTER SET utf8mb4 NOT NULL,
+  `status` enum('Menunggu Izin','Diterima','Ditolak','Selesai') CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `borrowing`
+--
+
+INSERT INTO `borrowing` (`id`, `item_id`, `quantity`, `start`, `end`, `reason`, `status`) VALUES
+('5f13e4ab5521d', '5f12ce7d3da21', 1, '2020-07-19 16:16:00', '2020-07-19 17:17:00', 'test2', 'Menunggu Izin');
 
 --
 -- Indexes for dumped tables
