@@ -54,7 +54,7 @@
       </div> -->
       <?php foreach ($dt_tempat as $t) : ?>
         <div class="col-md-2">
-          <a href="<?= base_url('users/pinjamt/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+          <a href="<?= base_url('borrowing/tempat/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
           <div class="img-wrapper">
             <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
           </div>
@@ -88,7 +88,7 @@
 <!-- <?php var_dump($dt_tempat) ?> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog wide" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -168,5 +168,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- End Modal -->

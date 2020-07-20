@@ -105,8 +105,9 @@ body {
 	font-size: 18px;
 	position: absolute;
 	z-index: 3;
-	top: auto;
-	margin-top: 22px;
+	top: 50%;
+	/* top: auto;
+	margin-top: 15px; */
 	left: 0;
 	transform: translateY(-50%)
 }

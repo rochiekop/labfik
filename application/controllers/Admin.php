@@ -64,6 +64,7 @@ class Admin extends CI_Controller
       if ($this->upload->do_upload('image')) {
         $images = $this->upload->data();
         $data = [
+          'id' => uniqid(),
           "images" =>  $images['file_name'],
           "title" => $this->input->post('title', true),
           "body" => $this->input->post('body', true),
@@ -76,6 +77,7 @@ class Admin extends CI_Controller
       }
     } else {
       $data = [
+        'id' => uniqid(),
         "images" => "default.jpg",
         "title" => $this->input->post('title', true),
         "body" => $this->input->post('body', true),
@@ -154,9 +156,9 @@ class Admin extends CI_Controller
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
     }
-    $this->db->delete('dt_lab', ['id_info' => $id]);
+    $this->db->delete('tb_lab', ['id' => $id]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium berhasil dihapus!</div>');
-    redirect('admin/laboratory');
+    redirect('admin/dt_lab');
   }
 
 
@@ -199,6 +201,7 @@ class Admin extends CI_Controller
       if ($this->upload->do_upload('image')) {
         $images = $this->upload->data();
         $data = array(
+          'id' => uniqid(),
           'title'       => $this->input->post('title'),
           'images'       => $images['file_name'],
           'body'     => $this->input->post('body'),
@@ -212,6 +215,7 @@ class Admin extends CI_Controller
       }
     } else {
       $data = [
+        'id' => uniqid(),
         "title" => $this->input->post('title', true),
         "images" => "default.jpg",
         "body" => $this->input->post('body', true),
@@ -451,6 +455,7 @@ class Admin extends CI_Controller
       if ($this->upload->do_upload('image')) {
         $images = $this->upload->data();
         $data = [
+          "id" => uniqid(),
           "title" => $this->input->post('title', true),
           "images" =>  $images['file_name'],
           "body" => $this->input->post('body', true)
@@ -463,6 +468,7 @@ class Admin extends CI_Controller
       }
     } else {
       $data = [
+        "id" => uniqid(),
         "title" => $this->input->post('title', true),
         "images" => "default.jpg",
         "body" => $this->input->post('body', true),
@@ -766,6 +772,7 @@ class Admin extends CI_Controller
       if ($this->upload->do_upload('image')) {
         $images = $this->upload->data();
         $data = array(
+          'id' => uniqid(),
           'id_kategori' => $this->input->post('kategori'),
           'ruangan'     => $this->input->post('ruangan'),
           'akses' => implode(", ", $this->input->post('akses')),
@@ -780,6 +787,7 @@ class Admin extends CI_Controller
       }
     } else {
       $data = [
+        'id' => uniqid(),
         'id_kategori' => $this->input->post('kategori'),
         'ruangan'     => $this->input->post('ruangan'),
         'akses' => implode(", ", $this->input->post('akses')),

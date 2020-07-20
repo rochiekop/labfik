@@ -9,6 +9,7 @@ class Borrowing extends CI_Controller
         parent::__construct();
         $this->load->model('borrowing_model');
         $this->load->model('item_model');
+        $this->load->model('admin_model');
         $this->load->library('form_validation');
         is_logged_in();
     }
@@ -123,6 +124,56 @@ class Borrowing extends CI_Controller
 
         if ($this->product_model->delete($id)) {
             redirect(site_url('borrowing/listAll'));
+        }
+    }
+
+    // Peminjaman Tempat
+
+    public function check()
+    {
+        $date = $this->input->post('date');
+        $check = $this->borrowing_model->check($date);
+        if (empty($check)) {
+            // $this->borrowing_model->dateinput($date);
+            $data = [
+                '06.30 - 07.30, 07.30 - 08.30', '08.30 - 09.30',
+                '09.30 - 10.30', '10.30 - 11.30', '11.30 - 12.30', '12.30 - 13.30',
+                '13.30 - 14.30', '14.30 - 15.30', '15.30 - 16.30', '16.30 - 17.30', '17.30 - 18.30',
+                '18.30 - 19.30', '19.30 - 20.30', '20.30 - 21.30', '21.30 - 22.30'
+            ];
+            echo json_encode($data);
+        }
+    }
+
+    public function tempat($id)
+    {
+        $data['title'] = 'FIKLAB | Pinjam Tempat';
+        $id = decrypt_url($id);
+        $data['kruangan'] = $this->admin_model->kategoriruangan();
+        $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
+        $valid = $this->form_validation;
+        $valid->set_rules(
+            'keterangan',
+            'Keterangan',
+            'required|trim',
+            array(
+                'required'      =>  '%s harus diisi',
+            )
+        );
+        if (!$valid->run()) {
+            $this->load->view('templates/dashboard/headerDosenMhs', $data);
+            $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+            $this->load->view('dashboard/users/pinjamtempat');
+            $this->load->view('templates/dashboard/footer');
+        } else {
+            $data = [
+                'id' => uniqid(),
+                'id_ruangan' => $this->input->post('id_ruangan'),
+                'id_peminjam' => $this->input->post('id_peminjam'),
+                'date' => $this->input->post('date'),
+                'keterangan' => $this->input->post('keterangan'),
+                'status' => 'proses',
+            ];
         }
     }
 }

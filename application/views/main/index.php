@@ -45,8 +45,8 @@
           </p>
           <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
-        <video controls="">
-          <source src="<?= base_url('assets/img/livetune.mp4'); ?>" type="video/mp4">
+        <video poster="<?= base_url('assets/img/panel/video_placeholder.png'); ?>">
+          <source>
           Ooops, your browser is not supported this feature
         </video>
       </div>
