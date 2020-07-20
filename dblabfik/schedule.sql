@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 16.55
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.3.3
+-- Generation Time: Jul 19, 2020 at 10:28 AM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,17 +19,19 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `chat_app`
+-- Database: `simplelogin`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `schedule`
+-- Table structure for table `schedule`
 --
 
 CREATE TABLE `schedule` (
-  `schedule_id` varchar(64) NOT NULL,
+  `id` varchar(64) NOT NULL,
+  `id_peminjam` varchar(64) NOT NULL,
+  `id_ruangan` varchar(64) NOT NULL,
   `06:30-07:30` varchar(255) NOT NULL,
   `07:30-08:30` varchar(255) NOT NULL,
   `08:30-09:30` varchar(255) NOT NULL,
@@ -45,8 +47,7 @@ CREATE TABLE `schedule` (
   `18:30-19:30` varchar(255) NOT NULL,
   `19:30-20:30` varchar(255) NOT NULL,
   `20:30-21:30` varchar(255) NOT NULL,
-  `21:30-22:30` varchar(255) NOT NULL,
-  `date` date NOT NULL
+  `21:30-22:30` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -54,10 +55,10 @@ CREATE TABLE `schedule` (
 --
 
 --
--- Indeks untuk tabel `schedule`
+-- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD PRIMARY KEY (`schedule_id`);
+  ADD PRIMARY KEY (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

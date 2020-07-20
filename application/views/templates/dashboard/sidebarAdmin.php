@@ -74,8 +74,27 @@
         <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
+<<<<<<< HEAD
+        <!-- <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button> -->
+        <button class="btn" data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-sign-out-alt"></span> Logout</button>
+=======
         <button class="btn" onclick="location.href='<?= base_url('auth/logout'); ?>';"><span class="fas fa-sign-out-alt"></span> Logout</button>
+>>>>>>> 6df6e230edfd06cf36454d895bee9c62a9c4f8f5
       </div>
     </div>
   </div>
   <!-- End Side Menu -->
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-sm" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="logoutmodal">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>

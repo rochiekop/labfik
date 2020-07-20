@@ -15,7 +15,7 @@
 
   <!-- FIKLAB Style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/style-users.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/style-users1.css'); ?>">
 
   <!-- JQuery 3.3.1 -->
   <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>

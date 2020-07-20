@@ -28,7 +28,7 @@
     <div class="row grid-bartemp">
       <?php foreach ($dt_tempat as $t) : ?>
         <div class="col-md-2">
-          <a href="<?= base_url('users/pinjamt/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+          <a href="<?= base_url('borrowing/tempat/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
           <div class="img-wrapper">
             <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
           </div>

@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Borrowing_model extends CI_Model
 {
@@ -109,8 +109,8 @@ class Borrowing_model extends CI_Model
     {
         $this->db->select('borrowing.*,item*,user.id');
         $this->db->from('user');
-        $this->db->join('borrowing','user.borrowing_id=borrowing.id');
-        $this->db->join('item','borrowing.item_id=item.id');
+        $this->db->join('borrowing', 'user.borrowing_id=borrowing.id');
+        $this->db->join('item', 'borrowing.item_id=item.id');
         $this->db->where('user.id', $user_id);
         $this->db->where('status', $status);
         $query = $this->db->get();
@@ -162,5 +162,14 @@ class Borrowing_model extends CI_Model
         return $this->db->delete($this->_table, array("id" => $id));
     }
 
+    // Peminjaman Tempat
+    public function check($date)
+    {
+        return $this->db->get('schedule', ['date' => $date])->row_array();
+    }
 
+    // public function dateinput($date)
+    // {
+    //     return $this->db->insert('schedule', $date);
+    // }
 }

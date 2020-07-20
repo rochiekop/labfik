@@ -97,5 +97,4 @@ class Auth_model extends CI_Model
     $query = $this->db->query($sql, array($email));
     return ($query->num_rows() == 0) ? true : false;
   }
-  
 }

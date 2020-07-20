@@ -72,7 +72,7 @@
           <div class="modal-body">
             Hapus Lab <?= $t['title']; ?> ?
           </div>
-          <form action="deleteinfo" method="post" enctype="multipart/form-data">
+          <form action="deletelab" method="post" enctype="multipart/form-data">
             <div class="modal-footer">
               <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
               <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>">

@@ -24,17 +24,7 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-  public function pinjamt($id)
-  {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
-    $id = decrypt_url($id);
-    $data['kruangan'] = $this->admin_model->kategoriruangan();
-    $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/pinjamtempat');
-    $this->load->view('templates/dashboard/footer');
-  }
+
 
   public function daftarsemuatempat()
   {
@@ -56,4 +46,23 @@ class Users extends CI_Controller
     $this->load->view('dashboard/users/helpdesk');
     $this->load->view('templates/dashboard/footer');
   }
+
+  // function cektanggal()
+  // {
+  //   $cek = $this->db->get('schedule')->result_array();
+  //   $date = $this->input->post('tanggal');
+  //   if ($date == "") {
+  //     $result['pesan'] = "Tanggal Harus diisi";
+  //   } else {
+  //     $result['pesan'] = "";
+  //     if (empty($cek)) {
+  //       $data = array(
+  //         'date' => $date
+  //       );
+  //       $this->db->insert('schedule', $data);
+  //     }
+  //   }
+  //   echo json_encode($result);
+  // }
+
 }

@@ -40,12 +40,9 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     // Session name is $newData
-    if (isset($_SESSION['id'])) 
-    {
+    if (isset($_SESSION['id'])) {
       redirect('auth/check');
-    } 
-    else 
-    {
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');
@@ -56,12 +53,9 @@ class Main extends CI_Controller
   {
     $data['title'] = 'Laboratorium FIK';
     // Session name is $newData
-    if (isset($_SESSION['id'])) 
-    {
+    if (isset($_SESSION['id'])) {
       redirect('auth/helpdeskRedirect');
-    } 
-    else 
-    {
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
       redirect('auth');
