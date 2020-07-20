@@ -2,98 +2,48 @@
   <main class="akun-container">
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>Pinjam Tempat</h5>
+      <h5>Pinjam Barang</h5>
     </div>
     <div class="row">
       <div class="col-md-4">
-        <img src="<?= base_url('assets/img/ruangan/') . $tempatbyid['images'] ?>" alt="$tempatbyid['title']">
+        <!-- <span class="fas fa-image placeholder-img"></span> -->
+        <img src="<?= base_url('uploads/item/'.$item->image) ?>" alt="">
       </div>
       <div class="col-md-8">
         <div class="card">
-          <form action="#">
+          <form action="<?= base_url('borrowing/addBorrowing') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="custom-form">
-                <div class="form-group" style="margin-bottom:12px">
-                  <input type="text" name="" class="form-control" placeholder="" value="<?= $this->session->userdata('name') ?>" required="required" autocomplete="off" />
-                  <label></label>
-                </div>
-                <div class="lab-category" style="margin-bottom:16px;">
-
-                  <div class="form-check">
-                    <?php $no = 0;
-                    foreach ($kruangan as $k) : ?>
-                      <?php if ($k['id'] == $tempatbyid['id_kategori']) : ?>
-                        <input class="form-check-input" type="radio" name="kategori" id="inlineRadio1" value="<?= $k['kategori'] ?>" checked>
-                        <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </div>
+                <div class="form-group">
+                  <input type="hidden" name="user_id" value="<?= $this->session->userdata('id'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
                 </div>
                 <div class="form-group">
-                  <input type="text" name="ruangan" class="form-control" placeholder="" value="<?= $tempatbyid['ruangan'] ?>" required="required" autocomplete="off" disabled />
-                  <label></label>
-                  <!-- <select class="form-control" id="PilihRuangan" title="Silakan pilih kategori ruangan">
-                    <option disabled selected>Pilih Ruangan</option>
-                    <?php foreach ($dt_tempat as $t) : ?>
-                      <?php if ($t['id_kategori'] == $tempatbyid['id_kategori']) : ?>
-                        <option><?= $t['ruangan'] ?></option>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </select> -->
+                  <input type="hidden" name="item_id" value="<?= $item->id ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
                 </div>
                 <div class="form-group">
-                  <input type="date" name="tanggal" class="form-control" placeholder="" required="required" autocomplete="off" />
-                  <label>Tanggal Peminjaman</label>
+                  <input type="text" name="name" value="<?= $item->name ?>" class="form-control" placeholder="" required="required" autocomplete="off" disabled />
+                  <label>Nama Barang</label>
                 </div>
                 <div class="form-group">
-                  <div class="form-control waktu">Waktu</div>
+                  <input type="number" name="quantity" value="1" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Kuantitas Barang</label>
                 </div>
-                <div class="jadwal-ruangan">
-                  <table border="0" class="table bookings">
-                    <tbody>
-                      <tr>
-                        <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="">06:30 - 10:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                      <tr>
-                    </tbody>
-                  </table>
+                <div class="form-group">
+                  <input type="datetime-local" name="start" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Awal Waktu Peminjaman</label>
                 </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <textarea name="" class="form-control" placeholder="" required="required" autocomplete="off"></textarea>
-                  <label>Keterangan</label>
+                <div class="form-group">
+                  <input type="datetime-local" name="end" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                  <label>Akhir Waktu Peminjaman</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="reason" value="" class="form-control" placeholder="" autocomplete="off" />
+                  <label>Alasan Peminjaman</label>
                 </div>
               </div>
             </div>
             <div class="card-footer">
-              <button class="btn btn-primary">Buat Peminjaman</button>
+              <button class="btn btn-primary">Pinjam Barang</button>
             </div>
           </form>
 

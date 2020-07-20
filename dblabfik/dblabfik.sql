@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jul 2020 pada 16.55
+-- Waktu pembuatan: 19 Jul 2020 pada 19.16
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -30,11 +30,25 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `borrowing` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `item_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `borrow_quantity` int(11) NOT NULL,
-  `borrow_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('Menunggu Izin','Diterima','Ditolak','Selesai') NOT NULL
+  `quantity` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `reason` text CHARACTER SET utf8mb4 NOT NULL,
+  `status` enum('Menunggu_Izin','Diterima','Ditolak','Selesai') CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `borrowing`
+--
+
+INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`, `reason`, `status`) VALUES
+('5f144770c3d1f', '38', '5f12ce7d3da21', 1, '2020-07-19 20:15:00', '2020-07-19 21:16:00', 'muhammad sulthan', 'Diterima'),
+('5f144781517af', '38', '5f12cdf2debfe', 1, '2020-07-20 20:15:00', '2020-07-20 21:16:00', 'talisha eta', 'Menunggu_Izin'),
+('5f1448e35a109', '8', '5f12ccfe4afe8', 1, '2020-07-19 20:21:00', '2020-07-19 21:21:00', 'coba pinjam', 'Ditolak'),
+('5f1448f6a10c3', '8', '5f12cd6abdba2', 1, '2020-07-19 23:21:00', '2020-07-20 01:21:00', 'pinjam yang ini juga', 'Menunggu_Izin'),
+('5f147de8b1006', '8', '5f12ccfe4afe8', 1, '2020-07-20 00:07:00', '2020-07-21 00:07:00', 'untuk uji coba', 'Menunggu_Izin');
 
 -- --------------------------------------------------------
 
@@ -111,6 +125,28 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `child_kategori`
+--
+
+CREATE TABLE `child_kategori` (
+  `id_ck` int(11) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
+  `nama_child` varchar(128) NOT NULL,
+  `post_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `child_kategori`
+--
+
+INSERT INTO `child_kategori` (`id_ck`, `id_kategori`, `nama_child`, `post_update`) VALUES
+(1, 7, 'Fotografi Dasar dan Periklanan', '2020-07-09 11:46:58'),
+(2, 6, 'tata busana', '2020-07-11 23:49:58'),
+(4, 2, 'Semantika Produk', '2020-07-18 14:44:17');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `item`
 --
 
@@ -132,6 +168,31 @@ INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) 
 ('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
 ('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
 ('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `id_kategori` int(11) NOT NULL,
+  `nama_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `slug_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `urutan` int(11) DEFAULT NULL,
+  `tanggal_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `kategori`
+--
+
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `slug_kategori`, `urutan`, `tanggal_update`) VALUES
+(1, 'Desain Komunikasi Visual', 'desain-komunikasi-visual', 1, '2020-06-18 00:47:47'),
+(2, 'Desain Produk', 'desain-produk', 2, '2020-06-18 00:47:53'),
+(5, 'Desain Interior', 'desain-interior', 3, '2020-06-18 02:55:18'),
+(6, 'Desain Fashion', 'desain-fashion', 4, '2020-06-18 02:55:38'),
+(7, 'Seni Rupa', 'seni-rupa', 5, '2020-06-18 02:55:49');
 
 -- --------------------------------------------------------
 
@@ -216,6 +277,38 @@ CREATE TABLE `schedule` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tampilan`
+--
+
+CREATE TABLE `tampilan` (
+  `id_tampilan` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `slug_tampilan` varchar(255) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
+  `id_ck` int(11) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `tanggal_post` datetime NOT NULL,
+  `tanggal_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `views` int(11) NOT NULL DEFAULT '0',
+  `nim` int(20) NOT NULL,
+  `kode_tampilan` varchar(255) NOT NULL,
+  `judul` varchar(30) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `keywords` varchar(255) NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tampilan`
+--
+
+INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`) VALUES
+(39, 8, 'witcher', 7, 1, '222619.jpg', '2020-07-18 11:35:50', '2020-07-18 10:25:24', 6, 1301174665, '001', 'witcher', 'game terbaik tahun 2017', 'witch', 0),
+(40, 38, 'cyberpunk', 7, 1, '1238334.jpg', '2020-07-18 12:36:29', '2020-07-18 10:40:52', 1, 1301174666, '002', 'cyberpunk', 'calon game terbaik 2020', 'punk', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_info`
 --
 
@@ -272,6 +365,27 @@ INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_panel`
+--
+
+CREATE TABLE `tb_panel` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `body` text NOT NULL,
+  `video` varchar(500) NOT NULL,
+  `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_panel`
+--
+
+INSERT INTO `tb_panel` (`id`, `title`, `body`, `video`, `date_create`) VALUES
+(44, 'Laboratorium, Studio & Bengkel Fakultas Industri Kreatif', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.', 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', '2020-07-18 14:57:39');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_slider`
 --
 
@@ -300,8 +414,6 @@ INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
 
 CREATE TABLE `user` (
   `id` varchar(64) NOT NULL,
-  `booking_id` varchar(64) NOT NULL,
-  `borrowing_id` varchar(64) NOT NULL,
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -318,11 +430,11 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `booking_id`, `borrowing_id`, `username`, `name`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
-('38', '', '', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
-('39', '', '', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
-('44', '', '', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
-('8', '', '', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
+INSERT INTO `user` (`id`, `username`, `name`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
+('38', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
+('39', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
+('44', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
+('8', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
 
 -- --------------------------------------------------------
 
@@ -367,7 +479,8 @@ CREATE TABLE `user_token` (
 --
 ALTER TABLE `borrowing`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `item_id` (`item_id`);
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeks untuk tabel `chat`
@@ -376,10 +489,22 @@ ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `child_kategori`
+--
+ALTER TABLE `child_kategori`
+  ADD PRIMARY KEY (`id_ck`);
+
+--
 -- Indeks untuk tabel `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id_kategori`);
 
 --
 -- Indeks untuk tabel `kategoriruangan`
@@ -401,6 +526,12 @@ ALTER TABLE `schedule`
   ADD KEY `room_id` (`room_id`);
 
 --
+-- Indeks untuk tabel `tampilan`
+--
+ALTER TABLE `tampilan`
+  ADD PRIMARY KEY (`id_tampilan`);
+
+--
 -- Indeks untuk tabel `tb_info`
 --
 ALTER TABLE `tb_info`
@@ -413,6 +544,12 @@ ALTER TABLE `tb_lab`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tb_panel`
+--
+ALTER TABLE `tb_panel`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `tb_slider`
 --
 ALTER TABLE `tb_slider`
@@ -422,9 +559,7 @@ ALTER TABLE `tb_slider`
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `booking_id` (`booking_id`),
-  ADD KEY `borrow_id` (`borrowing_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `user_role`
@@ -449,6 +584,18 @@ ALTER TABLE `chat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
+-- AUTO_INCREMENT untuk tabel `child_kategori`
+--
+ALTER TABLE `child_kategori`
+  MODIFY `id_ck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `kategoriruangan`
 --
 ALTER TABLE `kategoriruangan`
@@ -461,6 +608,12 @@ ALTER TABLE `ruangan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT untuk tabel `tampilan`
+--
+ALTER TABLE `tampilan`
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT untuk tabel `tb_info`
 --
 ALTER TABLE `tb_info`
@@ -470,7 +623,24 @@ ALTER TABLE `tb_info`
 -- AUTO_INCREMENT untuk tabel `tb_lab`
 --
 ALTER TABLE `tb_lab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_panel`
+--
+ALTER TABLE `tb_panel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `borrowing`
+--
+ALTER TABLE `borrowing`
+  ADD CONSTRAINT `fk_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

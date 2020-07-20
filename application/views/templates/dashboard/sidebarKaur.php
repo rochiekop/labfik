@@ -28,10 +28,10 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="fas fa-box"></span> Peminjaman Barang</a>
         <div id="collapse1" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Semua Permintaan</a></li>
-            <li><a href="#">Menunggu Acc</a></li>
-            <li><a href="#">Diterima</a></li>
-            <li><a href="#">Ditolak</a></li>
+            <li><a href="<?= site_url('borrowing/listAll') ?>">Semua Permintaan</a></li>
+            <li><a href="<?= site_url('borrowing/listAllWaiting') ?>">Menunggu Acc</a></li>
+            <li><a href="<?= site_url('borrowing/listAllAccepted') ?>">Diterima</a></li>
+            <li><a href="<?= site_url('borrowing/listAllDeclined') ?>">Ditolak</a></li>
           </ul>
         </div>
       </div>
@@ -51,7 +51,7 @@
         <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
-        <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button>
+        <button class="btn" onclick="location.href='<?= base_url('auth/logout'); ?>';"><span class="fas fa-sign-out-alt"></span> Logout</button>
       </div>
     </div>
   </div>

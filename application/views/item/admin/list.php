@@ -27,7 +27,9 @@
               <th scope="col">Barang</th>
               <th scope="col">Kuantitas</th>
               <th scope="col">Akses</th>
+              <th scope="col">Deskripsi</th>
               <th scope="col" class="action">Aksi</th>
+              <th scope="col" class="action">Pinjam</th>
             </tr>
           </thead>
           <tbody>
@@ -47,12 +49,15 @@
                   <td><?= $i->name ?></td>
                   <td><?= $i->quantity ?></td>
                   <td><?= $i->access ?></td>
+                  <td><?= $i->description ?></td>
                   <td class="action">
                     <!-- <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a> -->
                     <!-- <a href="</?= base_url('item/edit').$i['id'] ?>"><span class="fas fa-edit"></span></a> -->
+                    
                     <a href="<?= site_url('item/edit/'.$i->id) ?>"><span class="fas fa-edit"></span></a>
                     <a href="<?= site_url('item/delete/'.$i->id) ?>"><span class="fas fa-trash"></span></a>
                   </td>
+                  <td class="action"><a href="<?= site_url('borrowing/showItem/'.$i->id) ?>"><span class="fas fa-plus"></span></a></td>
                 </tr>
               <?php endforeach; ?>
             <?php endif; ?>

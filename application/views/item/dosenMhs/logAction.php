@@ -32,6 +32,7 @@
               <th scope="col" style="width:90px">&nbsp;</th>
               <th scope="col">Kuantitas</th>
               <th scope="col">Status</th>
+              <th scope="col" class="action">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +56,12 @@
                   </td>
                   <td><?= $b->quantity ?></td>
                   <td><?= $b->status ?></td>
+                  <td class="action">
+                    <!-- <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a> -->
+                    <!-- <a href="</?= base_url('item/edit').$i['id'] ?>"><span class="fas fa-edit"></span></a> -->
+                    <a href="<?= site_url('borrowing/changeStatusAccepted/'.$b->borrowing_id) ?>"><span class="fas fa-check"></span></a>
+                    <a href="<?= site_url('borrowing/changeStatusDeclined/'.$b->borrowing_id) ?>"><span class="fas fa-times"></span></a>
+                  </td>
                 </tr>
               <?php endforeach; ?>
             <?php endif; ?>
