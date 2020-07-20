@@ -74,12 +74,7 @@
         <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
-<<<<<<< HEAD
-        <!-- <button class="btn" onclick="location.href='#';"><span class="fas fa-sign-out-alt"></span> Logout</button> -->
-        <button class="btn" data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-sign-out-alt"></span> Logout</button>
-=======
         <button class="btn" onclick="location.href='<?= base_url('auth/logout'); ?>';"><span class="fas fa-sign-out-alt"></span> Logout</button>
->>>>>>> 6df6e230edfd06cf36454d895bee9c62a9c4f8f5
       </div>
     </div>
   </div>
