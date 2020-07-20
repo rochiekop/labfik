@@ -45,7 +45,7 @@
             <li><a href="<?= base_url('item/listAdmin') ?>">Daftar Semua Barang</a></li>
             <li><a href="#">Peminjaman</a></li>
             <li><a href="#">Buat Peminjaman</a></li>
-            <li><a href="<?= base_url('borrowing/listAllById/'.$this->session->userdata('id')) ?>">Riwayat</a></li>
+            <li><a href="<?= base_url('borrowing/listAllById/' . $this->session->userdata('id')) ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>
