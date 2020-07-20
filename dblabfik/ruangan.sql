@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2020 at 05:54 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Waktu pembuatan: 18 Jul 2020 pada 15.32
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,39 +25,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ruangan`
+-- Struktur dari tabel `ruangan`
 --
 
 CREATE TABLE `ruangan` (
-  `id` varchar(64) NOT NULL,
-  `id_kategori` varchar(64) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
   `ruangan` varchar(255) NOT NULL,
   `akses` varchar(100) NOT NULL,
-  `kapasitas` int(5) NOT NULL,
   `images` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ruangan`
+-- Dumping data untuk tabel `ruangan`
 --
 
-INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `kapasitas`, `images`) VALUES
-('1', '2', 'IK.01.02', 'Mahasiswa', 39, 'default1.jpg'),
-('10', '11', 'IK.01.09', 'Dosen, Mahasiswa', 41, 'default.jpg'),
-('17', '11', 'IK.02.02', 'Dosen, Mahasiswa', 34, 'default.jpg'),
-('4', '9', 'IK.01.01', 'Dosen, Mahasiswa', 40, 'default.jpg'),
-('5', '4', 'IK.01.05', 'Mahasiswa', 21, 'default2.jpg'),
-('6', '3', 'IK.02.04', 'Dosen, Mahasiswa', 25, 'default3.jpg');
+INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `images`) VALUES
+(1, 2, 'IK.01.02', 'Mahasiswa', '8.jpg'),
+(4, 9, 'IK.01.01', 'Dosen,Mahasiswa', 'default.jpg'),
+(5, 4, 'IK.01.05', 'Mahasiswa', '81.jpg'),
+(6, 3, 'IK.02.04', 'Dosen,Mahasiswa', '12.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `ruangan`
+-- Indeks untuk tabel `ruangan`
 --
 ALTER TABLE `ruangan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `ruangan`
+--
+ALTER TABLE `ruangan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
