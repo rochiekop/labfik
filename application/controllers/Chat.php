@@ -13,132 +13,177 @@ class Chat extends CI_Controller {
 	{
 		// $data['strTitle']='';
 		// $data['strsubTitle']='';
+		// $data['strsubTitle2']='';
+		// $data['chatTitle']='';
 		// $list=[];
-        // if ($this->session->userdata['role_id'] == '4')
-        // {
-		// 	$list = $this->user_model->AdminsList();
-		// 	$data['strTitle']='Semua Admin';
-		// 	$data['strsubTitle']='Admin';
-		// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-        // }
-        // if ($this->session->userdata['role_id'] == '3')
-        // {
-        //     $list = $this->user_model->AdminsList();
-		// 	$data['strTitle']='Semua Admin';
-		// 	$data['strsubTitle']='Admin';
-		// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-        // }
-        // else
-        // {
-		// 	$list = $this->user_model->DosenMhsList();
-		// 	$data['strTitle']='Semua Dosen dan Mahasiswa yang terhubung';
-		// 	$data['strsubTitle']='Dosen dan Mahasiswa';
-		// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-		// }
-		// $userslist=[];
-		// foreach($list as $u){
-		// 	$userslist[]=
-		// 	[
-		// 		'id' => $u['id'],
-		// 		'name' => $u['name'],
-		// 		// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-		// 		'status' => $u['status'],
-		// 	];
-		// }
-		// $data['userslist']=$userslist;
-        // // $this->parser->parse('chat/chatTemplate',$data);
-        // $this->load->view('chat/chatTemplate',$data); 
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        {
+			$list = $this->user_model->AdminList();
+			$data['strTitle']='Admin';
+			$data['strsubTitle']='Admin';
+			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+
+			$userslist=[];
+			foreach($list as $u){
+				$userslist[]=
+				[
+					'id' => $u['id'],
+					'name' => $u['name'],
+					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'status' => $u['status'],
+				];
+			}
+			$data['userslist']=$userslist;
+			// $this->parser->parse('chat/chatTemplate',$data);
+			$this->load->view('templates/dashboard/headerDosenMhs');
+			// $this->load->view('chat/chatTemplate',$data); 
+			$this->load->view('chat/chat',$data); 
+			$this->load->view('templates/dashboard/sidebarDosenMhs');
+			$this->load->view('templates/dashboard/footer');
+		}
+        else if ($this->session->userdata('role_id') == '2')
+        {
+			$list = $this->user_model->AdminList();
+			$data['strTitle']='Semua Admin';
+			$data['strsubTitle']='Admin';
+			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+
+			$userslist=[];
+			foreach($list as $u){
+				$userslist[]=
+				[
+					'id' => $u['id'],
+					'name' => $u['name'],
+					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'status' => $u['status'],
+				];
+			}
+			$data['userslist']=$userslist;
+			// $this->parser->parse('chat/chatTemplate',$data);
+			$this->load->view('templates/dashboard/headerKaur');
+			// $this->load->view('chat/chatTemplate',$data); 
+			$this->load->view('chat/chat',$data); 
+			$this->load->view('templates/dashboard/sidebarKaur');
+			$this->load->view('templates/dashboard/footer'); 
+        }
+        else if ($this->session->userdata('role_id') == '1')
+        {
+			// $list = $this->user_model->DosenMhsList();
+			$list = array_merge($this->user_model->KaurList(), $this->user_model->DosenMhsList());
+			$data['strTitle']='Dosen dan Mahasiswa';
+			$data['strsubTitle']='Dosen dan Mahasiswa';
+			$data['strsubTitle2']='Kepala Urusan';
+			$data['chatTitle']='Pilih Kaur, Dosen, atau Mahasiswa yang ingin dihubungi';
+
+			$userslist=[];
+			foreach($list as $u){
+				$userslist[]=
+				[
+					'id' => $u['id'],
+					'name' => $u['name'],
+					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'status' => $u['status'],
+				];
+			}
+			$data['userslist']=$userslist;
+			// $this->parser->parse('chat/chatTemplate',$data);
+			$this->load->view('templates/dashboard/headerAdmin');
+			$this->load->view('templates/dashboard/sidebarAdmin');
+			// $this->load->view('chat/chatTemplate',$data); 
+			$this->load->view('chat/chat',$data); 
+			$this->load->view('templates/dashboard/footer'); 
+		}
 	}
 	
-	public function login_as_admin()
-	{
-		$data['title']='';
-		$data['strTitle']='';
-		$data['strsubTitle']='';
-		$list=[];
-		$list = $this->user_model->DosenMhsList();
-		$data['title']='Laboratorium FIK';
-		$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
-		$data['strsubTitle']='Dosen dan Mahasiswa';
-		$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-		$userslist=[];
-		foreach($list as $u){
-			$userslist[]=
-			[
-				'id' => $u['id'],
-				'name' => $u['name'],
-				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-				'status' => $u['status'],
-			];
-		}
-		$data['userslist']=$userslist;
-        // $this->parser->parse('chat/chatTemplate',$data);
-		$this->load->view('templates/dashboard/headerAdmin');
-		$this->load->view('templates/dashboard/sidebarAdmin');
-		// $this->load->view('chat/chatTemplate',$data); 
-		$this->load->view('chat/chat',$data); 
-		$this->load->view('templates/dashboard/footer');
-	}
+	// public function login_as_admin()
+	// {
+	// 	$data['title']='';
+	// 	$data['strTitle']='';
+	// 	$data['strsubTitle']='';
+	// 	$list=[];
+	// 	$list = $this->user_model->DosenMhsList();
+	// 	$data['title']='Laboratorium FIK';
+	// 	$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
+	// 	$data['strsubTitle']='Dosen dan Mahasiswa';
+	// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+	// 	$userslist=[];
+	// 	foreach($list as $u){
+	// 		$userslist[]=
+	// 		[
+	// 			'id' => $u['id'],
+	// 			'name' => $u['name'],
+	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+	// 			'status' => $u['status'],
+	// 		];
+	// 	}
+	// 	$data['userslist']=$userslist;
+    //     // $this->parser->parse('chat/chatTemplate',$data);
+	// 	$this->load->view('templates/dashboard/headerAdmin');
+	// 	$this->load->view('templates/dashboard/sidebarAdmin');
+	// 	// $this->load->view('chat/chatTemplate',$data); 
+	// 	$this->load->view('chat/chat',$data); 
+	// 	$this->load->view('templates/dashboard/footer');
+	// }
 
-	public function login_as_kaur()
-	{
-		$data['title']='';
-		$data['strTitle']='';
-		$data['strsubTitle']='';
-		$list=[];
-		$list = $this->user_model->DosenMhsList();
-		$data['title']='Laboratorium FIK';
-		$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
-		$data['strsubTitle']='Dosen dan Mahasiswa';
-		$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-		$userslist=[];
-		foreach($list as $u){
-			$userslist[]=
-			[
-				'id' => $u['id'],
-				'name' => $u['name'],
-				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-				'status' => $u['status'],
-			];
-		}
-		$data['userslist']=$userslist;
-        // $this->parser->parse('chat/chatTemplate',$data);
-        $this->load->view('templates/dashboard/headerKaur');
-		// $this->load->view('chat/chatTemplate',$data); 
-		$this->load->view('chat/chat',$data); 
-		$this->load->view('templates/dashboard/sidebarKaur');
-		$this->load->view('templates/dashboard/footer');
-	}
+	// public function login_as_kaur()
+	// {
+	// 	$data['title']='';
+	// 	$data['strTitle']='';
+	// 	$data['strsubTitle']='';
+	// 	$list=[];
+	// 	$list = $this->user_model->DosenMhsList();
+	// 	$data['title']='Laboratorium FIK';
+	// 	$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
+	// 	$data['strsubTitle']='Dosen dan Mahasiswa';
+	// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
+	// 	$userslist=[];
+	// 	foreach($list as $u){
+	// 		$userslist[]=
+	// 		[
+	// 			'id' => $u['id'],
+	// 			'name' => $u['name'],
+	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+	// 			'status' => $u['status'],
+	// 		];
+	// 	}
+	// 	$data['userslist']=$userslist;
+    //     // $this->parser->parse('chat/chatTemplate',$data);
+    //     $this->load->view('templates/dashboard/headerKaur');
+	// 	// $this->load->view('chat/chatTemplate',$data); 
+	// 	$this->load->view('chat/chat',$data); 
+	// 	$this->load->view('templates/dashboard/sidebarKaur');
+	// 	$this->load->view('templates/dashboard/footer');
+	// }
 
-	public function login_as_dosenMhs()
-	{
-		$data['title']='';
-		$data['strTitle']='';
-		$data['strsubTitle']='';
-		$list=[];
-		$list = $this->user_model->AdminsList();
-		$data['title']='Laboratorium FIK';
-		$data['strTitle']='Semua Admin';
-		$data['strsubTitle']='Admin';
-		$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-		$userslist=[];
-		foreach($list as $u){
-			$userslist[]=
-			[
-				'id' => $u['id'],
-				'name' => $u['name'],
-				// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-				'status' => $u['status'],
-			];
-		}
-		$data['userslist']=$userslist;
-		// $this->parser->parse('chat/chatTemplate',$data);
-		$this->load->view('templates/dashboard/headerDosenMhs');
-		// $this->load->view('chat/chatTemplate',$data); 
-		$this->load->view('chat/chat',$data); 
-		$this->load->view('templates/dashboard/sidebarDosenMhs');
-		$this->load->view('templates/dashboard/footer');
-	}
+	// public function login_as_dosenMhs()
+	// {
+	// 	$data['title']='';
+	// 	$data['strTitle']='';
+	// 	$data['strsubTitle']='';
+	// 	$list=[];
+	// 	$list = $this->user_model->AdminList();
+	// 	$data['title']='Laboratorium FIK';
+	// 	$data['strTitle']='Semua Admin';
+	// 	$data['strsubTitle']='Admin';
+	// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+	// 	$userslist=[];
+	// 	foreach($list as $u){
+	// 		$userslist[]=
+	// 		[
+	// 			'id' => $u['id'],
+	// 			'name' => $u['name'],
+	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+	// 			'status' => $u['status'],
+	// 		];
+	// 	}
+	// 	$data['userslist']=$userslist;
+	// 	// $this->parser->parse('chat/chatTemplate',$data);
+	// 	$this->load->view('templates/dashboard/headerDosenMhs');
+	// 	// $this->load->view('chat/chatTemplate',$data); 
+	// 	$this->load->view('chat/chat',$data); 
+	// 	$this->load->view('templates/dashboard/sidebarDosenMhs');
+	// 	$this->load->view('templates/dashboard/footer');
+	// }
 	
     public function send_text_message()
     {
