@@ -31,7 +31,8 @@ $('.upload_attachmentfile').change(function(){
 	form_data.append('receiver_id', receiver_id);
 	
 	$.ajax({
-                url: 'chat-attachment/upload', 
+				// url: 'chat-attachment/upload', 
+				url: 'Chat/send_text_message',
                 dataType: 'json',  
                 cache: false,
                 contentType: false,
@@ -53,7 +54,8 @@ $('.ClearChat').click(function(){
        var receiver_id = $('#ReciverId_txt').val();
   	 			$.ajax({
 						  //dataType : "json",
-  						  url: 'chat-clear?receiver_id='+receiver_id,
+							// url: 'chat-clear?receiver_id='+receiver_id,
+							url: 'Chat/chat_clear_client_cs?receiver_id='+receiver_id,
 						  success:function(data)
 						  {
   							 GetChatHistory(receiver_id);		 
@@ -126,13 +128,13 @@ function sendTxtMessage(message){
 	if(messageTxt!=''){
 		//console.log(message);
  		DisplayMessage(messageTxt);
-		
 				var receiver_id = $('#ReciverId_txt').val();
 				$.ajax({
 						  dataType : "json",
 						  type : 'post',
 						  data : {messageTxt : messageTxt, receiver_id : receiver_id },
-						  url: 'send-message',
+						//   url: 'send-message',
+						  url: 'Chat/send_text_message',
 						  success:function(data)
 						  {
   							GetChatHistory(receiver_id)		 
@@ -141,9 +143,6 @@ function sendTxtMessage(message){
  							 // alert('Local error callback');
 						  }
  					});
-					
-		
-		
 		ScrollDown();
 		$('.message').val('');
 		$('.message').focus();
@@ -155,7 +154,8 @@ function sendTxtMessage(message){
 function GetChatHistory(receiver_id){
 				$.ajax({
 						  //dataType : "json",
-  						  url: 'get-chat-history-vendor?receiver_id='+receiver_id,
+						  //   url: 'get-chat-history-vendor?receiver_id='+receiver_id,
+						  url: 'Chat/get_chat_history_by_vendor?receiver_id='+receiver_id,
 						  success:function(data)
 						  {
   							$('#dumppy').html(data);

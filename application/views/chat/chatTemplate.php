@@ -75,7 +75,8 @@
   
   <section class="content">
     <div class="row">
-      <div class="col-md-8" id="chatSection">
+      <!-- <div class="col-md-8" id="chatSection"> -->
+      <div class="col-md-8">
         <!-- DIRECT CHAT -->
         <div class="box box-warning direct-chat direct-chat-primary">
           <div class="box-header with-border">
