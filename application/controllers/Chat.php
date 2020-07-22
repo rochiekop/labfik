@@ -29,13 +29,14 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'images' => $this->user_model->Images($u['id']),
 					'status' => $u['status'],
 				];
 			}
 			$data['userslist']=$userslist;
 			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerDosenMhs');
+			// $this->load->view('templates/dashboard/helpdesk/headerDosenMhsHelpdesk');
 			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/sidebarDosenMhs');
@@ -54,13 +55,14 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'images' => $this->user_model->ImagesById($u['id']),
 					'status' => $u['status'],
 				];
 			}
 			$data['userslist']=$userslist;
 			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerKaur');
+			// $this->load->view('templates/dashboard/helpdesk/headerKaurHelpdesk');
 			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/sidebarKaur');
@@ -68,7 +70,6 @@ class Chat extends CI_Controller {
         }
         else if ($this->session->userdata('role_id') == '1')
         {
-			// $list = $this->user_model->DosenMhsList();
 			$list = array_merge($this->user_model->KaurList(), $this->user_model->DosenMhsList());
 			$data['strTitle']='Dosen dan Mahasiswa';
 			$data['strsubTitle']='Dosen dan Mahasiswa';
@@ -81,13 +82,14 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
+					'images' => $this->user_model->ImagesById($u['id']),
 					'status' => $u['status'],
 				];
 			}
 			$data['userslist']=$userslist;
 			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerAdmin');
+			// $this->load->view('templates/dashboard/helpdesk/headerAdminHelpdesk');
 			$this->load->view('templates/dashboard/sidebarAdmin');
 			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
@@ -204,28 +206,28 @@ class Chat extends CI_Controller {
 			$messageTxt = reduce_multiples($post['messageTxt'],' ');
 		}	
 		 
-			$data=[
-				'sender_id' => $this->session->userdata['id'],
-				// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
-				'receiver_id' => $this->input->post('receiver_id'),
-				'message' =>   $messageTxt,
-				'attachment_name' => $attachment_name,
-				'file_ext' => $file_ext,
-				'mime_type' => $mime_type,
-				'message_date_time' => date('Y-m-d H:i:s'), //23 Jan 2:05 pm
-				'ip_address' => $this->input->ip_address(),
-			];
-		
-			// $query = $this->chat_model->SendTxtMessage($this->OuthModel->xss_clean($data)); 
-			$query = $this->chat_model->SendTxtMessage($this->security->xss_clean($data));
-			$response='';
-			if($query == true){
-				$response = ['status' => 1 ,'message' => '' ];
-			}else{
-				$response = ['status' => 0 ,'message' => 'sorry we re having some technical problems. please try again !' 						];
-			}
-             
- 		   echo json_encode($response);
+		$data=[
+			'sender_id' => $this->session->userdata['id'],
+			// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
+			'receiver_id' => $this->input->post('receiver_id'),
+			'message' =>   $messageTxt,
+			'attachment_name' => $attachment_name,
+			'file_ext' => $file_ext,
+			'mime_type' => $mime_type,
+			'message_date_time' => date('Y-m-d H:i:s'), //23 Jan 2:05 pm
+			'ip_address' => $this->input->ip_address(),
+		];
+	
+		// $query = $this->chat_model->SendTxtMessage($this->OuthModel->xss_clean($data)); 
+		$query = $this->chat_model->SendTxtMessage($this->security->xss_clean($data));
+		$response='';
+		if($query == true){
+			$response = ['status' => 1 ,'message' => '' ];
+		}else{
+			$response = ['status' => 0 ,'message' => 'sorry we re having some technical problems. please try again !' 						];
+		}
+			
+		echo json_encode($response);
     }
     
 	public function ChatAttachmentUpload(){

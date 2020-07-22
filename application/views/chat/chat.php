@@ -15,13 +15,15 @@
           </div>
           <div class="card-body">
             <ul class="users-list list-none clearfix">
-
+            <center>
             <?php if (!empty($userslist)){
               foreach($userslist as $u): ?>
+              
                 <li class="selectVendor" id="<?=$u['id']?>" title="<?=$u['name']?>">
-                  <div class="img-wrapper"><img src="<?=$u['picture_url']?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
+                  <div class="img-wrapper"><img src="<?=$u['images']?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
                   <span><a class="users-list-name" href="#"><?=$u['name']?></a></span>
-                  <div class="badge badge-success badge-pill"><?=$u['status']?></div>
+                  <div class="badge badge-primary badge-pill"><?=$u['status']?></div>
+                  <div class="badge badge-success badge-pill">1</div>
                 </li>
               <?php endforeach; ?>
 
@@ -30,6 +32,7 @@
                   <a href="" class="selectVendor">Tidak ada Pengguna</a>
                 </li>
               <?php } ?>
+            </center>
 
             </ul>
           </div>
@@ -46,24 +49,28 @@
               </div>
             </div>
             <div class="chat-container">
-              <div class="direct-chat-messages">
-                <div id="dumppy">
-                  <!-- <div class="alert alert-info">
-                    Silakan pilih admin yang ingin kamu hubungi
-                  </div> -->
-                </div>
+              <div class="direct-chat-messages" id="content">
+                <div id="dumppy"></div>
               </div>
             </div>
             <div class="card-footer">
-              <input type="hidden" id="Sender_Name" value="Client 1 xyz">
-              <input type="hidden" id="Sender_ProfilePic" value="http://dresscode.my.id/helpdesk/uploads/profiles/1.png">
-              <input type="hidden" id="ReciverId_txt" value="VUY0dEN3Q2pRazZ2U0FJb1lnSW1QQT09">
+              
+              <?php 
+                $obj = &get_instance();
+                $obj->load->model('User_model');
+                $images = $obj->User_model->Images();
+                $user = $obj->User_model->GetUserData();
+              ?>
+
+              <input type="hidden" id="Sender_Name" value="<?=$user['name']?>">
+              <input type="hidden" id="Sender_ProfilePic" value="<?=$images?>">
+              <input type="hidden" id="ReciverId_txt">
               <div class="input-group">
                 <div class="fileDiv btn">
-                  <input type="file" name="file" class="upload_attachmentfile" disabled="disabled">
+                  <input type="file" name="file" class="upload_attachmentfile" >
                 </div>
-                <input type="text" name="message" placeholder="Tulis pesan disini ..." class="form-control message" disabled="disabled">
-                <button type="button" class="btn btnSend" id="nav_down" disabled="disabled"><span class="fas fa-paper-plane"></span></button>
+                <input type="text" name="message" placeholder="Tulis pesan disini ..." class="form-control message" >
+                <button type="button" class="btn btnSend" id="nav_down" ><span class="fas fa-paper-plane"></span></button>
               </div>
             </div>
           </div>
@@ -76,7 +83,7 @@
 
   <script src="<?=base_url('public/chat/chat.js');?>"></script> 
 
-  <script src="_assets/tambahan.js"></script>
+  <script src="assets/tambahan.js"></script>
   <script>
     $('.fik-carousel-info').owlCarousel({
       margin: 0,

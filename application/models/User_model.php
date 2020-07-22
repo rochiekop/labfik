@@ -51,7 +51,7 @@ class User_model extends CI_Model
 	// 	 }
 	// }
 
-	public function PictureUrl()
+	public function Images()
 	{
 		$this->db->select('id,images');
 		$this->db->from($this->User);
@@ -59,23 +59,23 @@ class User_model extends CI_Model
 		$this->db->limit(1);
 		$query = $this->db->get();
 		$res = $query->row_array();
-		if (!empty($res['picture_url'])) {
-			return base_url('uploads/profiles/' . $res['picture_url']);
+		if (!empty($res['images'])) {
+			return base_url('uploads/profiles/' . $res['images']);
 		} else {
 			return base_url('public/images/user-icon.jpg');
 		}
 	}
 
-	public function PictureUrlById($id)
+	public function ImagesById($id)
 	{
-		$this->db->select('id,picture_url');
+		$this->db->select('id,images');
 		$this->db->from($this->User);
 		$this->db->where("id", $id);
 		$this->db->limit(1);
 		$query = $this->db->get();
 		$res = $query->row_array();
-		if (!empty($res['picture_url'])) {
-			return base_url('uploads/profiles/' . $res['picture_url']);
+		if (!empty($res['images'])) {
+			return base_url('uploads/profiles/' . $res['images']);
 		} else {
 			return base_url('public/images/user-icon.jpg');
 		}
@@ -183,7 +183,7 @@ class User_model extends CI_Model
 	public function AdminList()
 	{
 		// $this->db->select('id,name,picture_url,is_active');
-		$this->db->select('id,name,is_active,status');
+		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
 		$this->db->where("role_id", "1");
 		$this->db->where("is_active", "1");
@@ -195,9 +195,9 @@ class User_model extends CI_Model
 	public function KaurList()
 	{
 		// $this->db->select('id,name,picture_url,is_active');
-		$this->db->select('id,name,is_active,status');
+		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
-		$this->db->where("role_id", "1");
+		$this->db->where("role_id", "2");
 		$this->db->where("is_active", "1");
 		$query = $this->db->get();
 		$r = $query->result_array();
@@ -207,7 +207,7 @@ class User_model extends CI_Model
 	public function DosenMhsList()
 	{
 		// $this->db->select('id,name,picture_url,is_active');
-		$this->db->select('id,name,is_active,status');
+		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
 		$this->db->where("role_id", "3");
 		$this->db->or_where("role_id", "4");
@@ -217,22 +217,21 @@ class User_model extends CI_Model
 		return $r;
 	}
 
-	public function OnlineStatus($data)
-	// mengubah data di kolom is_active pada database menjadi online
+	public function ChangeStatusOnline($id)
 	{
-		$is_active = [
-			'is_active' => 'online',
-		];
-		$this->db->where('username', $data);
-		$this->db->update('users', $is_active);
+		$data = array(
+            'status' => 'Online'
+        );
+        $this->db->update('user',$data,array('id' => $id));
 	}
 
-	// public function OfflineStatus()
-	// {
-	// 	$this->is_active = "offline";
-	// 	$this->db->update($this->User, $this, array('username' => $post['email']));
-	// }
-
+	public function ChangeStatusOffline($id)
+	{
+		$data = array(
+            'status' => 'Offline'
+        );
+        $this->db->update('user',$data,array('id' => $id));
+	}
 
 	// Model User Untuk Peminjaman
 	public function getDtTempat()
