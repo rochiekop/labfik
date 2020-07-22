@@ -17,10 +17,10 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"><span class="fas fa-door-open"></span> Peminjaman Tempat</a>
         <div id="collapse2" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Semua Permintaan</a></li>
-            <li><a href="#">Menunggu Acc</a></li>
-            <li><a href="#">Diterima</a></li>
-            <li><a href="#">Ditolak</a></li>
+            <li><a href="<?= base_url('kaur/listAllBooking') ?>">Semua Permintaan</a></li>
+            <li><a href="<?= base_url('kaur/listWaitingForAcc') ?>">Menunggu Acc</a></li>
+            <li><a href="<?= base_url('kaur/listAllAccepted') ?>">Diterima</a></li>
+            <li><a href="<?= base_url('kaur/listAllDeclined') ?>">Ditolak</a></li>
           </ul>
         </div>
       </div>
