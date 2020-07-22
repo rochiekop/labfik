@@ -32,7 +32,7 @@
             <li><a href="<?= base_url('admin/tambahtempat') ?>">Tambah Tempat</a></li>
             <li><a href="<?= base_url('admin/daftartempat') ?>">Daftar Semua Tempat</a></li>
             <li><a href="<?= base_url('admin/buatpeminjaman') ?>">Buat Peminjaman</a></li>
-            <li><a href="#">Riwayat</a></li>
+            <li><a href="<?= base_url('admin/riwayat') ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>

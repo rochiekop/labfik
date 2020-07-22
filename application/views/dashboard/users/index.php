@@ -1,5 +1,11 @@
 <!-- Main Container -->
 <main class="akun-container">
+  <?php if (validation_errors()) : ?>
+    <div class="alert alert-danger" role="alert">
+      <?= validation_errors(); ?>
+    </div>
+  <?php endif; ?>
+  <?= $this->session->flashdata('message'); ?>
   <div class="row akun-overview">
     <div class="col-md-4">
       <div class="overview-one alert-warning">
@@ -54,7 +60,7 @@
       </div> -->
       <?php foreach ($dt_tempat as $t) : ?>
         <div class="col-md-2">
-          <a href="<?= base_url('borrowing/tempat/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+          <a href="<?= base_url('booking/place/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
           <div class="img-wrapper">
             <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
           </div>
