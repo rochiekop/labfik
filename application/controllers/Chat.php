@@ -63,9 +63,9 @@ class Chat extends CI_Controller {
 			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerKaur');
 			// $this->load->view('templates/dashboard/helpdesk/headerKaurHelpdesk');
+			$this->load->view('templates/dashboard/sidebarKaur');
 			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
-			$this->load->view('templates/dashboard/sidebarKaur');
 			$this->load->view('templates/dashboard/footer'); 
         }
         else if ($this->session->userdata('role_id') == '1')
@@ -207,7 +207,7 @@ class Chat extends CI_Controller {
 		}	
 		 
 		$data=[
-			'sender_id' => $this->session->userdata['id'],
+			'sender_id' => $this->session->userdata('id'),
 			// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
 			'receiver_id' => $this->input->post('receiver_id'),
 			'message' =>   $messageTxt,
@@ -260,7 +260,7 @@ class Chat extends CI_Controller {
 		// $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
 		$receiver_id = $this->input->get('receiver_id');
 		
-		$Logged_sender_id = $this->session->userdata['id'];
+		$Logged_sender_id = $this->session->userdata('id');
 		 
 		$history = $this->chat_model->GetReciverChatHistory($receiver_id);
 		//print_r($history);
@@ -270,7 +270,7 @@ class Chat extends CI_Controller {
 			$message_id = $chat['id'];
 			$sender_id = $chat['sender_id'];
 			$userName = $this->user_model->GetName($chat['sender_id']);
-			$userPic = $this->user_model->PictureUrlById($chat['sender_id']);
+			$userPic = $this->user_model->Images($chat['sender_id']);
 			
 			$message = $chat['message'];
 			$messagedatetime = date('d M H:i A',strtotime($chat['message_date_time']));

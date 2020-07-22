@@ -15,7 +15,7 @@ class User_model extends CI_Model
 	{
 		$this->db->select('id,username,name,email,images,role_id,is_active,date_created');
 		$this->db->from($this->User);
-		$this->db->where("id", $this->session->userdata['id']);
+		$this->db->where("id", $this->session->userdata('id'));
 		$this->db->limit(1);
 		$query = $this->db->get();
 		if ($query) {
@@ -55,7 +55,7 @@ class User_model extends CI_Model
 	{
 		$this->db->select('id,images');
 		$this->db->from($this->User);
-		$this->db->where("id", $this->session->userdata['id']);
+		$this->db->where("id", $this->session->userdata('id'));
 		$this->db->limit(1);
 		$query = $this->db->get();
 		$res = $query->row_array();
