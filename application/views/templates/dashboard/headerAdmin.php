@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendor/fontawesome-free-5.13.0-web/css/all.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendor/owl-carousel/owl.carousel.css'); ?>">
 
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Lab. FIK Main Style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
 
