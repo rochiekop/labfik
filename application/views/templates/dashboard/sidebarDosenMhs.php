@@ -19,7 +19,7 @@
           <ul>
             <li><a data-toggle="modal" data-target="#exampleModal2">Buat Peminjaman</a></li>
             <li><a href="<?= base_url('users/daftarsemuatempat') ?>">Daftar Semua Tempat</a></li>
-            <li><a href="#">Riwayat</a></li>
+            <li><a href="<?= base_url('booking/riwayat') ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <ul>
             <li><a href="#">Buat Peminjaman</a></li>
             <li><a href="<?= base_url('item/listDosenMhs') ?>">Daftar Semua Barang</a></li>
-            <li><a href="<?= base_url('borrowing/listAllById/'.$this->session->userdata('id')) ?>">Riwayat</a></li>
+            <li><a href="<?= base_url('borrowing/listAllById/' . $this->session->userdata('id')) ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>

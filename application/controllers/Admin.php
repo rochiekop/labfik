@@ -903,4 +903,7 @@ class Admin extends CI_Controller
     $this->load->view('dashboard/admin/tambahBarang', $data);
     $this->load->view('templates/dashboard/footer');
   }
+  // 
 }
+
+

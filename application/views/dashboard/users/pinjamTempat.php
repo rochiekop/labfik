@@ -32,98 +32,20 @@
                   <input type="text" name="ruangan" class="form-control" placeholder="" value="<?= $tempatbyid['ruangan'] ?>" required="required" autocomplete="off" disabled />
                   <label></label>
                 </div>
-                <div class="form-group" id="check">
-                  <input type="date" name="date" class="form-control" id="date" placeholder="" required="required" autocomplete="off" />
+                <div class="form-group">
+                  <input type="date" name="date" id="date" class="form-control" id="date" placeholder="" required="required" autocomplete="off" />
                   <label>Tanggal Peminjaman</label>
                 </div>
                 <div class="form-group">
                   <div class="form-control waktu" id="waktu" name="waktu">Waktu</div>
                 </div>
                 <div class="jadwal-ruangan">
-                  <table border="0" class="table bookings">
+                  <table border="0" class="table bookings" id="booking">
                     <tbody>
                       <tr>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">07:30 - 08:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">08:30 - 09:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">09:30 - 10:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">10:30 - 11:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">11:30 - 12:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">12:30 - 13:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">13:30 - 14:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">14:30 - 15:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">15:30 - 16:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">16:30 - 17:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">17:30 - 18:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">19:30 - 20:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">20:30 - 21:30</a>
-                          </div>
-                        </td>
-                        <td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a value="06:30 - 10:30" class="time" id="btn">21:30 - 22:30</a>
-                          </div>
-                        </td>
-                        <!-- <td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
-                          <div width="100%" style="overflow:hidden">
-                            <a><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                          </div>
-                        </td>
-                        <td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
+
+                      </tr>
+                      <!-- <td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden">
                           <div width="100%" style="overflow:hidden">
                             <a><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
                           </div>
@@ -133,7 +55,7 @@
                             <a><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
                           </div>
                         </td> -->
-                      <tr>
+
                     </tbody>
                   </table>
                 </div>
@@ -155,27 +77,128 @@
     </div>
   </main>
   <!-- End Main Container -->
+  <style>
+    a.active {
+      background-color: #479030;
+      /* border: 1px solid; */
+      color: white !important;
+    }
 
+    a.active:hover {
+      border-color: #479030 !important;
+    }
+  </style>
   <script>
+    // const cek = document.querySelectorAll(".cek");
+    // const btn = document.querySelectorAll('.time')
+
+    // for (let i = 0; i < btn.length; i++) {
+    //   btn[i].addEventListener("click", function(e) {
+
+    //     for (let j = 0; j < btn.length; j++) {
+
+    //       // btn[j].removeAttribute("style");
+    //       $('#cek' + j).removeAttr('checked');
+    //       // $('.cek').removeAttr('checked')
+
+    //     }
+    //     // this.style.color = "white";
+    //     // this.style.background = "green";
+    //     // document.getElementById("waktu").innerHTML = ($(this).text())
+    //     // document.getElementById("cek" + i).checked = false;
+    //     $(this).toggleClass('active');
+    //     $('#cek' + i).attr('checked', 'checked');
+    //     // $('#cek' + i).removeAttr('checked')
+
+
+    //     // document.getElementById("cek" + i).checked = true;
+    //   });
+    // }
+
+
+
+    // $(document).ready(function() {
+
+    //   $(".time").click(function() {
+
+    //     clicked = true;
+    //     if (clicked) {
+    //       $(this).toggleClass('active');
+    //       clicked = false;
+    //       $('input:checkbox').attr('checked', 'checked');
+    //     } else {
+    //       $(this).removeClass('active');
+    //       clicked = true;
+    //       $('input:checkbox').removeAttr('checked');
+    //     }
+    //   });
+    // });
     $(document).ready(function() {
 
+      $('#date').change(function() {
+        var date = $('#date').val();
+        var id_ruangan = $("[name= id_ruangan]").val();
+        // alert(ruangan)
+        if (date != '') {
+          $.ajax({
+            url: "<?= base_url(); ?>booking/fetchDate",
+            type: "POST",
+            data: {
+              'date': date,
+              'id_ruangan': id_ruangan,
+            },
+            dataType: 'json',
+            success: function(data) {
+              // console.log(data);
+              var arrTime = [
+                "06.30 - 07.30", "07.30 - 08.30", '08.30 - 09.30',
+                '09.30 - 10.30', '10.30 - 11.30', '11.30 - 12.30',
+                '12.30 - 13.30', '13.30 - 14.30', '14.30 - 15.30',
+                '15.30 - 16.30', '16.30 - 17.30', '17.30 - 18.30',
+                '18.30 - 19.30', '19.30 - 20.30', '20.30 - 21.30',
+                '21.30 - 22.30'
+              ];
 
-      const btn = document.querySelectorAll(".time");
+              console.log(data)
+              if (!data.time) {
+                console.log('Empty');
+                var html = '';
+                var i = 0;
+                for (i in arrTime) {
+                  html += '<td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn"><input type="checkbox" name="time[]" value="' + arrTime[i] + '" class="time" id="time">' + arrTime[i] + '</a></div></td>';
+                  $("tbody tr").html(html);
+                }
+              } else {
+                // console.log('Fill');
+                var html = '';
+                const entries = Object.values(data);
+                // console.log(data)
+                for (i in entries) {
+                  var time = entries[i];
+                  var splitTime = time.split(", ");
+                }
+                console.log(splitTime)
+                // Remove same values array
+                arrTime = arrTime.filter(function(el) {
+                  return splitTime.indexOf(el) < 0;
+                });
 
-      for (let i = 0; i < btn.length; i++) {
-        btn[i].addEventListener("click", function() {
-
-          for (let j = 0; j < btn.length; j++) {
-            // btn[j].addEventListener("click", function() {
-            //   btn[j].removeAttribute("style");
-            // })
-            btn[j].removeAttribute("style");
-          }
-          this.style.background = "green";
-          this.style.color = "white";
-          document.getElementById("waktu").innerHTML = ($(this).text());
-
-        })
-      }
+                for (i in arrTime) {
+                  html += '<td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn"><input type="checkbox" name="time[]" value="' + arrTime[i] + '" class="time" id="time">' + arrTime[i] + '</a></div></td>';
+                  $("tbody tr").html(html);
+                }
+                for (j in splitTime) {
+                  // if (arrTime[i] == splitTime[j]) {
+                  html += '<td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + splitTime[j] + '</a></div></td>';
+                  $("tbody tr").html(html);
+                  // }
+                }
+              }
+            }
+          })
+        } else {
+          // 
+        }
+      });
     });
   </script>
