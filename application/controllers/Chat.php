@@ -219,7 +219,7 @@ class Chat extends CI_Controller {
 		];
 	
 		// $query = $this->chat_model->SendTxtMessage($this->OuthModel->xss_clean($data)); 
-		$query = $this->chat_model->SendTxtMessage($this->security->xss_clean($data));
+		$query = $this->chat_model->SendTxtMessage($data);
 		$response='';
 		if($query == true){
 			$response = ['status' => 1 ,'message' => '' ];

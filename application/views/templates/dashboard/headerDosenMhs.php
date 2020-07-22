@@ -61,7 +61,7 @@
             </a>
           </div>
           <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
-            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="akun-helpdesk.html">
+            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
               <span class="fas fa-life-ring"></span> Helpdesk
             </a>
           </div>
