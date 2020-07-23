@@ -215,7 +215,7 @@ class Chat extends CI_Controller {
 			'file_ext' => $file_ext,
 			'mime_type' => $mime_type,
 			'message_date_time' => date('Y-m-d H:i:s'), //23 Jan 2:05 pm
-			'ip_address' => $this->input->ip_address(),
+			// 'ip_address' => $this->input->ip_address(),
 		];
 	
 		// $query = $this->chat_model->SendTxtMessage($this->OuthModel->xss_clean($data)); 

@@ -292,7 +292,7 @@ a:hover,a:not([href]):not([tabindex]):hover,a:not([href]):hover{color:#FB8C00}
 #chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-text{font-size:12px;position:relative;display:inline-block;margin-top:2px;padding:12px;border-radius:0 8px 8px 8px;background-color:#f0f0f0}
 #chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-text::after{position:absolute;top:0;left:-10px;display:block;width:20px;content:' ';border:16px solid transparent;border-top:16px solid #f0f0f0}
 #chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-info{font-size:10px;font-weight:600;font-style:italic;position:relative;margin-top:6px;opacity:.5}
-/* #chatSection .chat-container #dumppy .direct-chat-msg.right{float:right;padding-right:10px;padding-left:unset} */
+#chatSection .chat-container #dumppy .direct-chat-msg.right{float:right;padding-right:10px;padding-left:unset}
 #chatSection .chat-container #dumppy .direct-chat-msg.right .direct-chat-text{font-size:12px;position:relative;display:inline-block;margin-top:2px;padding:12px;border-radius:8px 0 8px 8px;background-color:#fee8cc}
 #chatSection .chat-container #dumppy .direct-chat-msg.right .direct-chat-text::after{right:-10px;left:unset;border-top-color:#fee8cc}
 #chatSection .card-header{position:relative;height:64px;padding:10px 20px;background-color:#fff}
