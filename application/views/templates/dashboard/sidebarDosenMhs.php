@@ -10,7 +10,7 @@
       </div>
       <div class="divider show-mobile" style="margin-top:20px"></div>
       <div class="card">
-        <a href="<?= base_url('users') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
+        <a href="<?= base_url('users/main') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
       </div>
       <div class="divider"></div>
       <div class="card">
@@ -70,14 +70,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="<?= base_url('booking/bookingplace') ?>" method="POST" enctype="multipart/form-data">
             <div class="custom-form">
               <div class="form-group" style="margin-bottom:12px">
                 <input type="text" name="name" class="form-control" placeholder="" required="required" value="<?= $this->session->userdata('name'); ?>" autocomplete="off" />
                 <label>Nama Lengkap</label>
               </div>
               <div class="form-group">
-                <select class="form-control" name="id_kategori" id="kategoriruangan">
+                <select class="form-control" name="id_kategori" id="kategoriruangan" onchange="disable()">
                   <option disabled selected>Kategori Ruangan</option>
                   <?php foreach ($kruangan as $k) { ?>
                     <option value="<?= $k['id'] ?>">
@@ -87,7 +87,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <select class="form-control" name="ruangan" id="ruangan">
+                <select class="form-control" name="id_ruangan" id="ruangan" onchange="disable()">
                   <option disabled selected>Pilih Ruangan</option>
                 </select>
               </div>
@@ -96,47 +96,26 @@
                 <label>Keterangan</label>
               </div>
               <div class="form-group">
-                <input type="date" name="date" id="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="date" name="tanggal" id="tanggal" onchange="Bookingmodals()" disabled class="form-control" placeholder="" required="required" autocomplete="off" />
                 <label>Tanggal Peminjaman</label>
               </div>
               <div class="form-group" style="margin-bottom:0">
                 <div class="form-control waktu">Waktu</div>
               </div>
+            </div><br>
+            <div class="jadwal-ruangan" id="jadwal">
+              <table border="0" class="table bookings" id="booking">
+                <tbody>
+                  <tr class="display">
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <input type="hidden" name="id_peminjam" class="form-control" placeholder="" value="<?= $this->session->userdata('id') ?>" required="required" autocomplete="off" />
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary btn-pill btn-sm">Kirim Permintaan</button>
             </div>
           </form>
-          <form action="" name="bookings" method="post" class="jadwal-ruangan" accept-charset="utf-8">
-            <input type="hidden" name="room_id" value="781">
-            <table border="0" class="table bookings">
-              <tbody>
-                <tr>
-                  <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                    <div width="100%" style="overflow:hidden">
-                      <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                    </div>
-                  </td>
-                  <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                    <div width="100%" style="overflow:hidden">
-                      <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                    </div>
-                  </td>
-                  <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                    <div width="100%" style="overflow:hidden">
-                      <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                    </div>
-                  </td>
-                  <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                    <div width="100%" style="overflow:hidden">
-                      <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                    </div>
-                  </td>
-                <tr>
-              </tbody>
-            </table>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-pill btn-sm">Kirim Permintaan</button>
         </div>
       </div>
     </div>

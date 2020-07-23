@@ -15,7 +15,7 @@ class Main extends CI_Controller
 
   public function index()
   {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
+    $data['title'] = 'FIKLAB | TEL-U';
     $data['dt_slider'] = $this->main_model->getDtSlider();
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
     $data['dt_lab'] = $this->main_model->getAllDtLab();
@@ -28,11 +28,22 @@ class Main extends CI_Controller
 
   public function lab()
   {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
+    $data['title'] = 'FIKLAB | Laboratorium';
     // Session name is $newData
     $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/lab');
+    $this->load->view('templates/main/footer');
+  }
+
+  public function detailinfo($id)
+  {
+    $id = decrypt_url($id);
+    $data['title'] = 'LABFIK | Detail Informasi';
+    // Session name is $newData
+    $data['detailinfo'] = $this->main_model->getDtInfoById($id);
+    $this->load->view('templates/main/header', $data);
+    $this->load->view('main/detailinfo');
     $this->load->view('templates/main/footer');
   }
 
