@@ -1,5 +1,5 @@
 <!-- Main Container -->
-<main class="akun-container dua">
+<main class="akun-container dua content">
     <div class="row akun-helpdesk dua">
 
       <div class="col-md-4">
@@ -43,12 +43,13 @@
         <div id="chatSection" class="card">
           <div class="direct-chat direct-chat-primary">
             <div class="card-header with-border">
+              <!-- <div class="img-wrapper"><img id="ReciverImg"></div> -->
               <h5 id="ReciverName_txt"><?=$chatTitle?></h5>
               <div class="box-tools pull-right">
                 <!-- <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Clear Chat" data-widget="chat-pane-toggle"><i class="fas fa-trash-alt"></i></button> -->
               </div>
             </div>
-            <div class="chat-container">
+            <div class="chat-container" id="content">
               <div class="direct-chat-messages" id="content">
                 <div id="dumppy"></div>
               </div>

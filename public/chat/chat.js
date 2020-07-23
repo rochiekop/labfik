@@ -15,6 +15,10 @@ $('.selectVendor').click(function(){
 	  $('#ReciverId_txt').val(receiver_id);
 	  $('#ReciverName_txt').html($(this).attr('title'));
 	  
+	//   var images = $('.img-wrapper img').attr('src');
+	//   $('#ReciverImg').html($(this).attr('images'));
+	  
+	  
 	  GetChatHistory(receiver_id);
  				
 });
@@ -110,16 +114,33 @@ function ScrollDown(){
 window.onload = ScrollDown();
 
 function DisplayMessage(message){
-	var Sender_Name = $('#Sender_Name').val();
-	var Sender_ProfilePic = $('#Sender_ProfilePic').val();
+	// var Sender_Name = $('#Sender_Name').val();
+	// var Sender_ProfilePic = $('#Sender_ProfilePic').val();
 	
-		var str = '<div class="direct-chat-msg right">';
-				str+='<div class="direct-chat-info clearfix">';
-				 str+='<span class="direct-chat-name pull-right">'+Sender_Name ;
-				 str+='</span><span class="direct-chat-timestamp pull-left"></span>'; //23 Jan 2:05 pm
-				 str+='</div><img class="direct-chat-img" src="'+Sender_ProfilePic+'" alt="">';
-				 str+='<div class="direct-chat-text">'+message;
-				 str+='</div></div>';
+		// var str = '<div class="direct-chat-msg right">';
+		// 		str+='<div class="direct-chat-info clearfix">';
+		// 		 str+='<span class="direct-chat-name pull-right">'+Sender_Name ;
+		// 		 str+='</span><span class="direct-chat-timestamp pull-left"></span>'; //23 Jan 2:05 pm
+		// 		 str+='</div><img class="direct-chat-img" src="'+Sender_ProfilePic+'" alt="">';
+		// 		 str+='<div class="direct-chat-text">'+message;
+		// 		 str+='</div></div>';
+		// $('#dumppy').append(str);
+
+		// var str = '<div class="direct-chat-msg">';
+		// 	str +='<div class="direct-chat-text">'+message;
+		// 	str +='<div class="direct-chat-info clearfix">';
+		// 	// str +='<span class="direct-chat-name pull-right">'+Sender_Name ;
+		// 	str +='</span><span class="direct-chat-timestamp pull-left"></span>'; //23 Jan 2:05 pm
+		// 	// str +='</div><img class="direct-chat-img" src="'+Sender_ProfilePic+'" alt="">';
+		// 	str +='</div></div>';
+		// $('#dumppy').append(str);
+
+		var str = '<div class="direct-chat-msg">';
+				str +='<div class="direct-chat-text">'+message+'</div>';
+				str +='<div class="direct-chat-info clearfix">';
+					str +='<span class="direct-chat-timestamp pull-left"></span>'; //23 Jan 2:05 pm
+				str +='</div>';
+			str +='</div>';
 		$('#dumppy').append(str);
 }
 
@@ -170,4 +191,4 @@ function GetChatHistory(receiver_id){
 setInterval(function(){ 
 	var receiver_id = $('#ReciverId_txt').val();
 	if(receiver_id!=''){GetChatHistory(receiver_id);}
-}, 3000);
+}, 5000);
