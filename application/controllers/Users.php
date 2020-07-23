@@ -10,6 +10,7 @@ class Users extends CI_Controller
     $this->load->library('pagination');
     $this->load->model('user_model');
     $this->load->model('admin_model');
+    $this->load->model('booking_model');
     $this->load->library('encryption');
     is_logged_in();
   }
@@ -24,8 +25,6 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-
-
   public function daftarsemuatempat()
   {
     $data['title'] = 'LABFIK | Semua Tempat';
@@ -36,8 +35,6 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-
-
   public function helpdesk()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
@@ -47,22 +44,14 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-  // function cektanggal()
-  // {
-  //   $cek = $this->db->get('schedule')->result_array();
-  //   $date = $this->input->post('tanggal');
-  //   if ($date == "") {
-  //     $result['pesan'] = "Tanggal Harus diisi";
-  //   } else {
-  //     $result['pesan'] = "";
-  //     if (empty($cek)) {
-  //       $data = array(
-  //         'date' => $date
-  //       );
-  //       $this->db->insert('schedule', $data);
-  //     }
-  //   }
-  //   echo json_encode($result);
-  // }
-
+  public function riwayat()
+  {
+    $data['title'] = 'FIKLAB | Riwayat Peminjaman Tempat';
+    $user_id = $this->session->userdata('id');
+    $data["mybooking"] = $this->booking_model->getByUserId($user_id);
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/logbooking', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
 }

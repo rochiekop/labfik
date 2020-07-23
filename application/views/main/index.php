@@ -184,36 +184,6 @@
             </div>
           </div>
         <?php endif; ?>
-        <!-- <div class="item">
-          <div class="gambar">
-            <img src="_assets/img/2.jpg" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Lab Bengkel</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="gambar">
-            <img src="_assets/img/1.jpg" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Studio Green Screen</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="gambar">
-            <img src="_assets/img/12.jpg" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Studio Green Screen</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -243,30 +213,6 @@
           </div>
         <?php endforeach; ?>
       <?php endif; ?>
-      <!-- <div class="feed-item">
-        <div class="card">
-          <div class="gambar">
-            <img src="_assets/img/8.jpg" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Charlotte</h6>
-            <p>Posted Jun 15, 2020 by Admin</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-          </div>
-        </div>
-      </div>
-      <div class="feed-item">
-        <div class="card">
-          <div class="gambar">
-            <img src="_assets/img/3.jpg" alt="" />
-          </div>
-          <div class="item-text">
-            <h6>Date A Live</h6>
-            <p>Posted Jun 15, 2020 by Admin</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn" id="loadMore"><span class="fas fa-chevron-down"></span><b>SHOW MORE</b><span class="fas fa-chevron-down"></span></div>
   </div>

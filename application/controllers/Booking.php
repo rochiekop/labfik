@@ -17,7 +17,7 @@ class Booking extends CI_Controller
 
   public function place($id)
   {
-    $data['title'] = 'FIKLAB | Pinjam Tempat';
+    $data['title'] = 'LABFIK | Pinjam Tempat';
     $id = decrypt_url($id);
     $data['kruangan'] = $this->admin_model->kategoriruangan();
     $data['tempatbyid'] = $this->admin_model->getDtTempatById($id);
@@ -43,24 +43,12 @@ class Booking extends CI_Controller
         'date' => $this->input->post('date'),
         'time' => implode(", ", $this->input->post('time')),
         'keterangan' => $this->input->post('keterangan'),
-        'status' => 'proses'
+        'status' => 'Menunggu Acc'
       );
       $this->db->insert('booking', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan berhasil dilakukan dan akan segera diproses!</div>');
       redirect('users');
     }
-  }
-
-  public function riwayat()
-  {
-    $data['title'] = 'FIKLAB | Riwayat Peminjaman Tempat';
-    $user_id = $this->session->userdata('id');
-    $data["booking"] = $this->booking_model->getByUserId($user_id);
-
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/riwayatpeminjamantempat');
-    $this->load->view('templates/dashboard/footer');
   }
 
   public function fetchDate()
@@ -69,5 +57,13 @@ class Booking extends CI_Controller
     $id_ruangan = $this->input->post('id_ruangan');
     $data = $this->booking_model->getDateFromInput($date, $id_ruangan);
     echo json_encode($data);
+  }
+
+  public function fetchRuangan()
+  {
+
+    if ($this->input->post('id_kategori')) {
+      echo $this->booking_model->fetchRuangan($this->input->post('id_kategori'));
+    }
   }
 }

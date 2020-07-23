@@ -17,9 +17,9 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"><span class="fas fa-door-open"></span> Peminjaman Tempat</a>
         <div id="collapse2" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a data-toggle="modal" data-target="#exampleModal2">Buat Peminjaman</a></li>
+            <li><a data-toggle="modal" data-target="#makebooking">Buat Peminjaman</a></li>
             <li><a href="<?= base_url('users/daftarsemuatempat') ?>">Daftar Semua Tempat</a></li>
-            <li><a href="<?= base_url('booking/riwayat') ?>">Riwayat</a></li>
+            <li><a href="<?= base_url('users/riwayat') ?>">Riwayat</a></li>
           </ul>
         </div>
       </div>
@@ -55,9 +55,12 @@
       </div>
     </div>
   </div>
-  <!-- End Side Menu -->
 
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <?php
+  $kruangan = $this->db->get('kategoriruangan')->result_array();
+  ?>
+  <!-- End Side Menu -->
+  <div class="modal fade" id="makebooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog wide" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -70,30 +73,30 @@
           <form action="#">
             <div class="custom-form">
               <div class="form-group" style="margin-bottom:12px">
-                <input type="text" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="text" name="name" class="form-control" placeholder="" required="required" value="<?= $this->session->userdata('name'); ?>" autocomplete="off" />
                 <label>Nama Lengkap</label>
               </div>
               <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select class="form-control" name="id_kategori" id="kategoriruangan">
                   <option disabled selected>Kategori Ruangan</option>
-                  <option>Lab Cintiq</option>
-                  <option>Studio Fotografi</option>
+                  <?php foreach ($kruangan as $k) { ?>
+                    <option value="<?= $k['id'] ?>">
+                      <?= $k['kategori'] ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
               <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select class="form-control" name="ruangan" id="ruangan">
                   <option disabled selected>Pilih Ruangan</option>
-                  <option>IK.04.04</option>
-                  <option>IK.04.05</option>
-                  <option>IK.04.05</option>
                 </select>
               </div>
               <div class="form-group">
-                <textarea name="" class="form-control" placeholder="" required="required" autocomplete="off"></textarea>
+                <textarea name="keterangan" class="form-control" placeholder="" required="required" autocomplete="off"></textarea>
                 <label>Keterangan</label>
               </div>
               <div class="form-group">
-                <input type="text" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="date" name="date" id="" class="form-control" placeholder="" required="required" autocomplete="off" />
                 <label>Tanggal Peminjaman</label>
               </div>
               <div class="form-group" style="margin-bottom:0">
@@ -101,7 +104,7 @@
               </div>
             </div>
           </form>
-          <form action="https://demo.classroombookings.com/bookings/action" name="bookings" method="post" class="jadwal-ruangan" accept-charset="utf-8">
+          <form action="" name="bookings" method="post" class="jadwal-ruangan" accept-charset="utf-8">
             <input type="hidden" name="room_id" value="781">
             <table border="0" class="table bookings">
               <tbody>
@@ -138,3 +141,24 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#kategoriruangan').change(function() {
+        var id_kategori = $('#kategoriruangan').val();
+
+        if (id_kategori != '') {
+          $.ajax({
+            url: "<?= base_url(); ?>booking/fetchRuangan",
+            method: "POST",
+            data: {
+              id_kategori: id_kategori
+            },
+            success: function(data) {
+              $('#ruangan').html(data);
+            }
+          })
+        }
+      });
+    });
+  </script>
