@@ -18,61 +18,12 @@
                 <div class="item-text">
                   <h6><?= $l['title'] ?></h6>
                   <p><?= $l['body'] ?></p>
-                  <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                  <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
                 </div>
               </div>
             </div>
           <?php endforeach; ?>
         <?php endif; ?>
-        <!-- <?php var_dump($dt_lab) ?> -->
-        <!-- <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <img src="<?= base_url('assets/img/8.jpg'); ?>" alt="" />
-            </div>
-            <div class="item-text">
-              <h6>Lab Cintiq</h6>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-            </div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <img src="<?= base_url('assets/img/8.jpg'); ?>" alt="" />
-            </div>
-            <div class="item-text">
-              <h6>Lab Cintiq</h6>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-            </div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <img src="<?= base_url('assets/img/8.jpg'); ?>" alt="" />
-            </div>
-            <div class="item-text">
-              <h6>Lab Cintiq</h6>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-            </div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <img src="<?= base_url('assets/img/8.jpg'); ?>" alt="" />
-            </div>
-            <div class="item-text">
-              <h6>Lab Cintiq</h6>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

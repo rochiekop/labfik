@@ -85,6 +85,39 @@ class Booking extends CI_Controller
   }
 
 
+  public function bookingByadmin()
+  {
+    $data['title'] = 'LABFIK | Pinjam Tempat';
+    $valid = $this->form_validation;
+    $valid->set_rules(
+      'keterangan',
+      'Keterangan',
+      'required|trim',
+      array(
+        'required'      =>  '%s harus diisi',
+      ),
+    );
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/admin/buatPeminjaman');
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $data = array(
+        'id' => uniqid(),
+        'id_peminjam' => $this->input->post('id_peminjam'),
+        'id_ruangan' => $this->input->post('id_ruangan'),
+        'date' => $this->input->post('tanggal'),
+        'time' => implode(", ", $this->input->post('time')),
+        'keterangan' => $this->input->post('keterangan'),
+        'status' => 'Menunggu Acc'
+      );
+      $this->db->insert('booking', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan berhasil dilakukan dan akan segera diproses!</div>');
+      redirect('users/main');
+    }
+  }
+
 
   public function fetchDate()
   {
