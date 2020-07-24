@@ -57,8 +57,14 @@
   </div>
 
   <?php
-  $kruangan = $this->db->get('kategoriruangan')->result_array();
+  // $kruangan = $this->db->get('kategoriruangan')->result_array();
+  $query = "SELECT *
+  FROM `kategoriruangan`
+  ORDER BY `kategori` ASC";
+  $kruangan = $this->db->query($query)->result_array();
+
   ?>
+  <!-- <?php var_dump($kruangan) ?> -->
   <!-- End Side Menu -->
   <div class="modal fade" id="makebooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog wide" role="document">
@@ -77,7 +83,7 @@
                 <label>Nama Lengkap</label>
               </div>
               <div class="form-group">
-                <select class="form-control" name="id_kategori" id="kategoriruangan" onchange="disable()">
+                <select class="form-control" name="id_kategori" id="kategoriruangan" required>
                   <option disabled selected>Kategori Ruangan</option>
                   <?php foreach ($kruangan as $k) { ?>
                     <option value="<?= $k['id'] ?>">
@@ -87,7 +93,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <select class="form-control" name="id_ruangan" id="ruangan" onchange="disable()">
+                <select class="form-control" name="id_ruangan" id="ruangan" onchange="disablemodals()" disabled required>
                   <option disabled selected>Pilih Ruangan</option>
                 </select>
               </div>
@@ -96,7 +102,7 @@
                 <label>Keterangan</label>
               </div>
               <div class="form-group">
-                <input type="date" name="tanggal" id="tanggal" onchange="Bookingmodals()" disabled class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="date" name="tanggal" id="tanggal" onchange="Bookingmodals()" class="form-control" disabled placeholder="" required="required" autocomplete="off" />
                 <label>Tanggal Peminjaman</label>
               </div>
               <div class="form-group" style="margin-bottom:0">
@@ -124,6 +130,7 @@
   <script>
     $(document).ready(function() {
       $('#kategoriruangan').change(function() {
+        document.getElementById("ruangan").disabled = false;
         var id_kategori = $('#kategoriruangan').val();
 
         if (id_kategori != '') {

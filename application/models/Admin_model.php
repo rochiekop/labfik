@@ -8,7 +8,10 @@ class Admin_model extends CI_Model
   // MODEL RUANGAN
   public function kategoriRuangan()
   {
-    return $this->db->get('kategoriruangan')->result_array();
+    $this->db->select('*');
+    $this->db->from('kategoriruangan');
+    $this->db->order_by('kategori', 'ASC');
+    return $this->db->get()->result_array();
   }
   public function getAllDaftarTempat()
   {

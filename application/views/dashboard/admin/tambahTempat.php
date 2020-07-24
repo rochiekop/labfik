@@ -61,7 +61,6 @@
 </main>
 <!-- End Main Container -->
 
-<!-- <script src="<?= base_url('assets/js/checkbox.js'); ?>"></script> -->
 
 <script>
   const image = document.getElementById('exampleFormControlFile1');
@@ -89,16 +88,4 @@
     }
 
   });
-
-  // $(document).ready(function() {
-  //   $('#add').click(function() {
-  //     checked = $("input[type=checkbox]:checked").length;
-
-  //     if (!checked) {
-  //       alert("You must check at least one checkbox.");
-  //       return false;
-  //     }
-
-  //   });
-  // });
 </script>

@@ -26,6 +26,7 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
+  <script type="text/javascript" src="<?= base_url('assets/js/booking.js') ?>"></script>
 
 </head>
 
