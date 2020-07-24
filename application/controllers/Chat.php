@@ -207,6 +207,7 @@ class Chat extends CI_Controller {
 		}	
 		 
 		$data=[
+			// 'id' => uniqid();
 			'sender_id' => $this->session->userdata('id'),
 			// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
 			'receiver_id' => $this->input->post('receiver_id'),

@@ -23,11 +23,38 @@ class Item_model extends CI_Model
         ];
     }
 
-    public function getBorrowingNotificationByUserId($user_id)
+    public function getAllNotificationByUserId($user_id)
     {
-        $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, borrow.date');
-        $this->db->from('user');
-        $this->db->join()
+
+    }
+
+    public function getAllBorrowingNotificationByUserId($user_id)
+    {
+        $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, borrow.date, borrowing.status as borrowing_status, notification.description, notification.status as notification_status, notification.date');
+        $this->db->from('notification');
+        $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
+        $this->db->join('item','borrowing.item_id=item.id');
+        $this->db->where('notification.user_id', $user_id);
+        $query $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
+    public function saveBorrowingNotification($borrowing_id, $description)
+    {
+        $this->id = uniqid();
+        $this->user_id = 
+        $this->borrowing_id = $borrowing_id;
+        $this->description = $description;
+        $this->db->insert($this->_table, $this);
+    }
+
+    public function updateNotificationStatusRead($id)
+    {
+        $data = array(
+            'status' => 'read'
+        )
+        $this->db->update('notification',$data,array('id' => $id));
     }
 
 }
