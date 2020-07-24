@@ -234,7 +234,7 @@ class Auth extends CI_Controller
     } elseif ($set == 2) {
       redirect('kaur');
     } elseif ($set == 3 or $set == 4) {
-      redirect('users');
+      redirect('users/main');
     } else {
       redirect('auth');
     }

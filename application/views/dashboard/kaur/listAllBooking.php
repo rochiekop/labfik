@@ -53,8 +53,8 @@
           <td><?= $l['status'] ?></td>
           <?php if ($l['status'] == 'Menunggu Acc') : ?>
             <td class="action" style="width:110px;text-align:center;">
-              <a href="#" class="btn badge badge-success">Acc</a>
-              <a data-toggle="modal" data-target="#tolakmodal<?= encrypt_url($l['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+              <a href="<?= base_url('kaur/accepted/') . encrypt_url($l['id']); ?>" class="btn badge badge-success">Acc</a>
+              <a data-toggle="modal" data-target="#declinedmodal<?= encrypt_url($l['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
             </td>
           <?php else : ?>
             <td></td>
@@ -63,22 +63,18 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <!-- <?php var_dump($listbooking) ?> -->
 </main>
-<!-- End Main Container -->
-
 <?php foreach ($listbooking as $t) : ?>
-  <div class="modal fade bd-example-modal-sm" id="tolakmodal<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal fade bd-example-modal-sm" id="declined<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          <!-- <input type="text" name="delete_id" id="delete_id" value="<?= encrypt_url($t['id']); ?>"> -->
           Tolak Peminjaman Tempat ?
         </div>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="kaur/changeDeclined" method="post" enctype="multipart/form-data">
           <div class="modal-footer">
-            <input type="text" id="id" name="id" value="<?= $t['id'] ?>">
-            <input type="hidden" id="image" name="image" value="">
+            <input type="hidden" id="id" name="id" value="<?= $t['id'] ?>">
+            <input type="hidden" id="date" name="date" value="<?= $t['date']; ?>">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
             <button type="submit" name="tolakpeminjaman" class="btn btn-danger btn-sm">Tolak</button>
           </div>

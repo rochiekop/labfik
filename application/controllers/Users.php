@@ -15,7 +15,7 @@ class Users extends CI_Controller
     is_logged_in();
   }
 
-  public function index()
+  public function main()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
     $data['dt_tempat'] = $this->user_model->getDtTempat();

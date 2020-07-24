@@ -13,7 +13,7 @@ class Booking extends CI_Controller
   }
 
 
-  // Peminjaman Tempat
+  // Peminjaman Tempat1
 
   public function place($id)
   {
@@ -47,9 +47,44 @@ class Booking extends CI_Controller
       );
       $this->db->insert('booking', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan berhasil dilakukan dan akan segera diproses!</div>');
-      redirect('users');
+      redirect('users/main');
     }
   }
+
+  public function bookingPlace()
+  {
+    $data['title'] = 'LABFIK | Pinjam Tempat';
+    $valid = $this->form_validation;
+    $valid->set_rules(
+      'keterangan',
+      'Keterangan',
+      'required|trim',
+      array(
+        'required'      =>  '%s harus diisi',
+      ),
+    );
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/main');
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $data = array(
+        'id' => uniqid(),
+        'id_peminjam' => $this->input->post('id_peminjam'),
+        'id_ruangan' => $this->input->post('id_ruangan'),
+        'date' => $this->input->post('tanggal'),
+        'time' => implode(", ", $this->input->post('time')),
+        'keterangan' => $this->input->post('keterangan'),
+        'status' => 'Menunggu Acc'
+      );
+      $this->db->insert('booking', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan berhasil dilakukan dan akan segera diproses!</div>');
+      redirect('users/main');
+    }
+  }
+
+
 
   public function fetchDate()
   {
