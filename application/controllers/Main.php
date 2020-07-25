@@ -47,6 +47,17 @@ class Main extends CI_Controller
     $this->load->view('templates/main/footer');
   }
 
+  public function labView($id)
+  {
+    $id = decrypt_url($id);
+    $data['title'] = 'LABFIK | Detail Laboratorium';
+    // Session name is $newData
+    $data['labview'] = $this->main_model->getDtLabById($id);
+    $this->load->view('templates/main/header', $data);
+    $this->load->view('main/labView');
+    $this->load->view('templates/main/footer');
+  }
+
   public function peminjaman()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
@@ -59,7 +70,6 @@ class Main extends CI_Controller
       redirect('auth');
     }
   }
-
   public function helpdesk()
   {
     $data['title'] = 'Laboratorium FIK';

@@ -14,102 +14,46 @@
           <div class="card-body">
             <div class="custom-form">
               <div class="form-group" style="margin-bottom:12px">
-                <input type="text" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="text" name="name" id="name" class="form-control" placeholder="" required="required" autocomplete="off" />
                 <label>Nama Lengkap</label>
               </div>
               <div class="lab-category" style="margin-bottom:16px;">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                  <label class="form-check-label" for="inlineRadio1">Lab Macintosh</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                  <label class="form-check-label" for="inlineRadio2">Lab Cintiq</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2">
-                  <label class="form-check-label" for="inlineRadio3">Lab Batik</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
-                  <label class="form-check-label" for="inlineRadio4">Lab Lukis</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option2">
-                  <label class="form-check-label" for="inlineRadio5">Lab Sablon</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option2">
-                  <label class="form-check-label" for="inlineRadio6">Lab Multimedia</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option2">
-                  <label class="form-check-label" for="inlineRadio7">Lab Pola dan Jahit</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option2">
-                  <label class="form-check-label" for="inlineRadio8">Studio Musik</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio9" value="option3">
-                  <label class="form-check-label" for="inlineRadio9">Studio Fotografi</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio10" value="option3">
-                  <label class="form-check-label" for="inlineRadio10">Studio Videografi</label>
-                </div>
+                <?php $no = 0;
+                foreach ($kategori as $k) : ?>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="kategoriruangan" id=<?= "inlineRadio" . $k['id'] ?> value="<?= $k['id'] ?>">
+                    <label class="form-check-label" for=<?= "inlineRadio" . $k['id'] ?>><?= $k['kategori'] ?></label>
+                  </div>
+                <?php endforeach; ?>
               </div>
               <div class="form-group">
-                <select class="form-control" id="PilihRuangan" title="Silakan pilih kategori ruangan" disabled>
+                <select class="form-control" id="ruangan" name="id_ruangan" onchange="disable()" title="Silakan pilih kategori ruangan" disabled>
                   <option disabled selected>Pilih Ruangan</option>
-                  <option>IK.04.04</option>
-                  <option>IK.04.05</option>
-                  <option>IK.04.05</option>
                 </select>
               </div>
               <div class="form-group">
-                <input type="date" name="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="date" name="datebooking" id="datebooking" onchange="bookingByAdmin()" disabled class="form-control" placeholder="" required="required" autocomplete="off" />
                 <label>Tanggal Peminjaman</label>
               </div>
               <div class="form-group">
                 <div class="form-control waktu">Waktu</div>
               </div>
-              <div class="jadwal-ruangan">
+              <div class="jadwal-ruangan" id="schedule">
                 <table border="0" class="table bookings">
                   <tbody>
-                    <tr>
-                      <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                        <div width="100%" style="overflow:hidden">
-                          <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                        </div>
-                      </td>
-                      <td class="free" align="center" valign="middle" width="13%" style="overflow:hidden">
-                        <div width="100%" style="overflow:hidden">
-                          <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                        </div>
-                      </td>
-                      <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                        <div width="100%" style="overflow:hidden">
-                          <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                        </div>
-                      </td>
-                      <td class="free red" align="center" valign="middle" width="13%" style="overflow:hidden">
-                        <div width="100%" style="overflow:hidden">
-                          <a href="https://demo.classroombookings.com/bookings/book?period=637&amp;room=781&amp;day_num=5&amp;week=1&amp;date=2020-07-10"><img src="https://demo.classroombookings.com/assets/images/ui/accept.png" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle">06:30 - 07:30</a>
-                        </div>
-                      </td>
+                    <tr class="displaydate">
                     <tr>
                   </tbody>
                 </table>
               </div>
               <div class="form-group" style="margin-bottom:0;">
-                <textarea name="" class="form-control" placeholder="" required="required" autocomplete="off"></textarea>
+                <textarea name="keterangan" class="form-control" placeholder="" required="required" autocomplete="off"></textarea>
                 <label>Keterangan</label>
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary">Buat Peminjaman</button>
+            <button class="btn btn-primary" type="submit">Buat Peminjaman</button>
           </div>
         </form>
 
@@ -118,3 +62,23 @@
   </div>
 </main>
 <!-- End Main Container -->
+<script>
+  $(document).ready(function() {
+    $("input[name='kategoriruangan']").click(function() {
+      document.getElementById("ruangan").disabled = false;
+      var id_kategori = $("input[name='kategoriruangan']:checked").val();
+      if (id_kategori != '') {
+        $.ajax({
+          url: "<?= base_url(); ?>booking/fetchRuangan",
+          method: "POST",
+          data: {
+            id_kategori: id_kategori
+          },
+          success: function(data) {
+            $('#ruangan').html(data);
+          }
+        })
+      }
+    });
+  });
+</script>

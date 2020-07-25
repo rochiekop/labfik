@@ -61,7 +61,7 @@
           <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
-          <video controls="">
+          <video controls="" poster="<?= base_url('assets/img/panel/thumbnail.jpg') ?>">
             <source src="<?= base_url('assets/img/panel/') . $dt_panel['video']; ?>" type="video/mp4">
             Ooops, your browser is not supported this feature
           </video>
@@ -158,7 +158,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -168,7 +168,7 @@
               <img src="<?= base_url('assets/img/7.jpg'); ?>" alt="" />
             </div>
             <div class="item-text">
-              <h6>Lab Cintiq</h6>
+              <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
               <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
             </div>
@@ -178,7 +178,7 @@
               <img src="<?= base_url('assets/img/3.jpg'); ?>" alt="" />
             </div>
             <div class="item-text">
-              <h6>Lab Mac</h6>
+              <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
               <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
             </div>

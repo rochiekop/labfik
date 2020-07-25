@@ -60,7 +60,7 @@ class Auth extends CI_Controller
     if ($this->form_validation->run() === true) {
 
       // Insert
-      $this->auth_model->register();
+      // $this->auth_model->register();
       // Token
       $token = base64_encode(random_bytes(32));
       $this->auth_model->user_token($token);
