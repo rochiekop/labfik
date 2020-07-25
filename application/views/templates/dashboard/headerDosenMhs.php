@@ -21,6 +21,7 @@
 
   <!-- JQuery 3.3.1 -->
   <script src="<?= base_url('assets/vendor/jquery.min.js'); ?>"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
 
   <!-- JS Vendor -->
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js') ?>"></script>

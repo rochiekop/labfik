@@ -153,7 +153,7 @@
           <?php foreach ($dt_lab as $l) : ?>
             <div class="item">
               <div class="gambar">
-                <img src="<?= base_url('assets/img/laboratorium/') . $l['images']; ?>" alt="<?= $l['title'] ?>" />
+                <img src="<?= base_url('assets/img/laboratorium/thumbs/') . $l['images']; ?>" alt="<?= $l['title'] ?>" />
               </div>
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
@@ -202,7 +202,7 @@
           <div class="feed-item feed-iteminfo">
             <div class="card">
               <div class="gambar">
-                <img src="<?= base_url('assets/img/informasi/') . $i['images']; ?>" alt="<?= $i['title'] ?>" />
+                <img src="<?= base_url('assets/img/informasi/thumbs/') . $i['images']; ?>" alt="<?= $i['title'] ?>" />
               </div>
               <div class="item-text">
                 <h6><a href="<?= base_url('main/detailinfo/') . encrypt_url($i['id']); ?>"><?= $i['title'] ?></a></h6>
