@@ -109,7 +109,7 @@ ChatSection(0);
 function ScrollDown(){
 	var elmnt = document.getElementById("content");
     var h = elmnt.scrollHeight;
-   $('#content').animate({scrollTop: h}, 5000);
+   $('#content').animate({scrollTop: h}, 1000);
 }
 window.onload = ScrollDown();
 
@@ -191,4 +191,4 @@ function GetChatHistory(receiver_id){
 setInterval(function(){ 
 	var receiver_id = $('#ReciverId_txt').val();
 	if(receiver_id!=''){GetChatHistory(receiver_id);}
-}, 5000);
+}, 3000);
