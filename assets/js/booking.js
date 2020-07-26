@@ -181,7 +181,7 @@ function Booking() {
 					if (!data.time) {
 						var html = '';
 						for (i in arrTime) {
-							html += '<td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
+							html += '<td class="free empty" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
 							$("tbody tr").html(html);
 						}
 					} else {
@@ -196,7 +196,7 @@ function Booking() {
 								html += '<td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
 								$("tbody tr").html(html);
 							} else {
-								html += '<td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
+								html += '<td class="free empty" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
 								$("tbody tr").html(html);
 							}
 						}

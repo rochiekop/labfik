@@ -42,6 +42,7 @@ class Main extends CI_Controller
     $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Detail Informasi';
     // Session name is $newData
+    $data['relatedinfo'] = $this->main_model->getRelatedInfo($id);
     $data['detailinfo'] = $this->main_model->getDtInfoById($id);
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/detailinfo');

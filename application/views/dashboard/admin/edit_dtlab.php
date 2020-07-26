@@ -15,7 +15,7 @@
   <div class="row">
     <div class="col-md-4" id="imagePreview">
       <?php if ($dt_lab['images'] != "default.jpg") : ?>
-        <img src="<?= base_url('assets/img/laboratorium/') . $dt_lab['images'] ?>" alt="<?= $dt_lab['title'] ?>" class="placeholder-img">
+        <img src="<?= base_url('assets/img/laboratorium/thumbs/') . $dt_lab['images'] ?>" alt="<?= $dt_lab['title'] ?>" class="placeholder-img">
       <?php else : ?>
         <img src="<?= base_url('assets/img/laboratorium/default.jpg'); ?>" alt="<?= $dt_lab['title'] ?>" class="placeholder-img">
       <?php endif; ?>

@@ -35,6 +35,15 @@ class Main_model extends CI_Model
     return $this->db->query($query)->row_array();
   }
 
+  public function getRelatedInfo($id)
+  {
+    $this->db->select('*');
+    $this->db->from('tb_info');
+    $this->db->where('id !=', $id);
+    $query = $this->db->get();
+    return $query->result();
+  }
+
   // MODEL FOR PANEL
 
   public function getDtPanel()

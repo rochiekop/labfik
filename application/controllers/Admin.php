@@ -62,16 +62,13 @@ class Admin extends CI_Controller
         $config['source_image'] = './assets/img/laboratorium/' . $images['upload_data']['file_name'];
         $config['new_image']    = './assets/img/laboratorium/thumbs/';
         $config['maintain_ratio'] = TRUE;
-        $config['width']         = 260;
-        $config['height']       = 350;
-
+        $config['width']         = 600;
         $this->load->library('image_lib', $config);
 
         $this->image_lib->resize();
         $data = [
           'id' => uniqid(),
           "images" =>  $images['upload_data']['file_name'],
-          "smallimg" => $images['upload_data']['file_name'],
           "title" => $this->input->post('title', true),
           "body" => $this->input->post('body', true),
         ];
@@ -108,6 +105,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('body', 'Body', 'required');
 
     $path = './assets/img/laboratorium/';
+    $paththumbs = './assets/img/laboratorium/thumbs/';
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerAdmin', $data);
@@ -127,14 +125,14 @@ class Admin extends CI_Controller
         if ($old_img != 'default.jpg') {
           //delete video in direktori
           @unlink($path . $this->input->post('image!updated'));
+          @unlink($paththumbs . $this->input->post('image!updated'));
         }
         $image = array('upload_data' => $this->upload->data());;
         $config['image_library'] = 'gd2';
         $config['source_image'] = './assets/img/laboratorium/' . $image['upload_data']['file_name'];
         $config['new_image']    = './assets/img/laboratorium/thumbs/';
         $config['maintain_ratio'] = TRUE;
-        $config['width']         = 260;
-        $config['height']       = 350;
+        $config['width']         = 600;
         $this->load->library('image_lib', $config);
 
         $this->image_lib->resize();
@@ -167,10 +165,11 @@ class Admin extends CI_Controller
     $image = $this->input->post('image');
     $data['dt_lab'] = $this->main_model->getDtLabById($id);
     $path = 'assets/img/laboratorium/';
-    $path = 'assets/img/laboratorium/thumbs';
+    $paththumbs = 'assets/img/laboratorium/thumbs/';
     $old_img = $data['dt_lab']['images'];
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
+      @unlink($paththumbs . $image);
     }
     $this->db->delete('tb_lab', ['id' => $id]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Laboratorium berhasil dihapus!</div>');
@@ -220,8 +219,7 @@ class Admin extends CI_Controller
         $config['source_image'] = './assets/img/informasi/' . $images['upload_data']['file_name'];
         $config['new_image']    = './assets/img/informasi/thumbs/';
         $config['maintain_ratio'] = TRUE;
-        $config['width']         = 350;
-        $config['height']       = 250;
+        $config['width']         = 500;
         $this->load->library('image_lib', $config);
 
         $this->image_lib->resize();
@@ -262,6 +260,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('body', 'Body', 'required|trim');
 
     $path = './assets/img/informasi/';
+    $paththumbs = './assets/img/informasi/thumbs/';
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerAdmin', $data);
@@ -281,20 +280,20 @@ class Admin extends CI_Controller
         if ($old_img != 'default.jpg') {
           //delete video in direktori
           @unlink($path . $this->input->post('image!updated'));
+          @unlink($paththumbs . $this->input->post('image!updated'));
         }
         $image = array('upload_data' => $this->upload->data());
         $config['image_library'] = 'gd2';
         $config['source_image'] = './assets/img/informasi/' . $image['upload_data']['file_name'];
         $config['new_image']    = './assets/img/informasi/thumbs/';
         $config['maintain_ratio'] = TRUE;
-        $config['width']         = 350;
-        $config['height']       = 250;
+        $config['width']         = 500;
         $this->load->library('image_lib', $config);
 
         $this->image_lib->resize();
         $data = array(
           'title'       => $this->input->post('title'),
-          'images'       => $image['file_name'],
+          'images'       => $image['upload_data']['file_name'],
           'body'     => $this->input->post('body'),
         );
         $this->db->update('tb_info', $data, ['id' => $id]);
@@ -322,10 +321,11 @@ class Admin extends CI_Controller
     $image = $this->input->post('image');
     $data['dt_info'] = $this->main_model->getDtInfoById($id);
     $path = 'assets/img/informasi/';
-    $path = 'assets/img/informasi/thumbs/';
+    $paththumbs = 'assets/img/informasi/thumbs/';
     $old_img = $data['dt_info']['images'];
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
+      @unlink($paththumbs . $image);
     }
     $where = array('id' => $id);
     $this->db->where($where);
@@ -822,6 +822,67 @@ class Admin extends CI_Controller
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/buatPeminjaman', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function daftarkategori()
+  {
+    $data['title'] = ' LABFIK | Daftar Kategori Tempat';
+    $data['kategori'] = $this->admin_model->kategoriRuangan();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/daftarKategori', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+  public function addkategori()
+  {
+    $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim|is_unique[kategoriruangan.kategori]');
+    if ($this->form_validation->run() == false) {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang diinputkan sudah terdaftar dalam sistem!</div>');
+      redirect('admin/daftarkategori');
+    } else {
+      $data = array(
+        "id" => uniqid(),
+        "kategori" => $this->input->post('kategori'),
+      );
+      $this->db->insert('kategoriruangan  ', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kategori berhasil ditambahkan</div>');
+      redirect('admin/daftarkategori');
+    }
+  }
+
+  public function deletekategori()
+  {
+    $id = $this->input->post('id');
+    $this->db->delete('kategoriruangan', ['id' => $id]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kategori berhasil dihapus!</div>');
+    redirect('admin/daftarkategori');
+  }
+
+  public function editkategori()
+  {
+    $id = $this->input->post('id');
+    $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim|is_unique[kategoriruangan.kategori]');
+    if ($this->form_validation->run() == false) {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang diinputkan sudah terdaftar dalam sistem!</div>');
+      redirect('admin/daftarkategori');
+    } else {
+      $data = array(
+        "id" => uniqid(),
+        "kategori" => $this->input->post('kategori'),
+      );
+      $this->db->update('kategoriruangan', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kategori berhasil ditambahkan</div>');
+      redirect('admin/daftarkategori');
+    }
+  }
+
+  public function riwayat()
+  {
+    $data['title'] = ' LABFIK | Riwayat Peminjaman Tempat';
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/riwayat', $data);
     $this->load->view('templates/dashboard/footer');
   }
 }

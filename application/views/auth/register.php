@@ -114,11 +114,6 @@
         success: function(response) {
           if (response.success == true) {
             $('#regisText').html('Redirect... ');
-            // $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">' +
-            //   response.messages +
-            //   '</div>');
-            // $("#registerForm")[0].reset();
-            // $('#regisText').html('Daftar');
             $(".text-danger").remove();
             $(".form-group").removeClass('has-error').removeClass('has-success');
             setTimeout(function() {

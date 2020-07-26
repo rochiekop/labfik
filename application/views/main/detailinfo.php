@@ -55,18 +55,20 @@
     <div class="related-post fik-feed">
       <h6 style="margin-bottom:12px">Related News</h6>
       <div class="feed-container">
-        <div class="feed-item">
-          <div class="card">
-            <div class="gambar">
-              <a href="#"><img src="_assets/img/1.jpg" alt="" /></a>
-            </div>
-            <div class="item-text">
-              <h6><a href="#">Koi to Senkyou to Chocolate</a></h6>
-              <p>Posted Jun 15, 2020 by Admin</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+        <?php foreach ($relatedinfo as $i) : ?>
+          <div class="feed-item">
+            <div class="card">
+              <div class="gambar">
+                <a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>"><img src="<?= base_url('assets/img/informasi/thumbs/') . $i->images ?>" alt="<?= $i->title ?>" /></a>
+              </div>
+              <div class="item-text">
+                <h6><a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>"><?= $i->title ?></a></h6>
+                <p>Posted <?= (new DateTime($i->date))->format('M j, Y'); ?> by <?= $i->uploadby; ?></p>
+                <a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+              </div>
             </div>
           </div>
-        </div>
+        <?php endforeach; ?>
       </div>
     </div>
 
