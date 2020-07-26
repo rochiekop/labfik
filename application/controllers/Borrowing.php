@@ -10,6 +10,7 @@ class Borrowing extends CI_Controller
         $this->load->model('borrowing_model');
         $this->load->model('item_model');
         $this->load->model('admin_model');
+        $this->load->model('notification_model');
         $this->load->library('form_validation');
         is_logged_in();
     }
@@ -127,11 +128,17 @@ class Borrowing extends CI_Controller
     public function addBorrowing()
     {
         $borrowing = $this->borrowing_model;
+        $notification = $this->notification_model;
         $validation = $this->form_validation;
         $validation->set_rules($borrowing->rules());
 
         if ($validation->run()) {
             $borrowing->save();
+
+            // tambah notifikasi
+            $description = 'Barang ini ingin dipinjam';
+            $notification->saveBorrowingNotification($description);
+
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
 
@@ -225,36 +232,36 @@ class Borrowing extends CI_Controller
     //     }
     // }
 
-    public function edit($id = null)
-    {
-        if (!isset($id)) redirect('auth');
+    // public function edit($id = null)
+    // {
+    //     if (!isset($id)) redirect('auth');
 
-        $borrowing = $this->borrowing_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($borrowing->rules());
+    //     $borrowing = $this->borrowing_model;
+    //     $validation = $this->form_validation;
+    //     $validation->set_rules($borrowing->rules());
 
-        if ($validation->run()) {
-            $borrowing->update();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
-        }
+    //     if ($validation->run()) {
+    //         $borrowing->update();
+    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
+    //     }
 
-        $data["item"] = $item->getById($id);
-        if (!$data["item"]) show_404();
+    //     $data["item"] = $item->getById($id);
+    //     if (!$data["item"]) show_404();
 
-        $this->load->view("templates/dashboard/headerAdmin");
-        $this->load->view("templates/dashboard/sidebarAdmin");
-        $this->load->view("item/admin/edit", $data);
-        $this->load->view("templates/dashboard/footer");
-    }
+    //     $this->load->view("templates/dashboard/headerAdmin");
+    //     $this->load->view("templates/dashboard/sidebarAdmin");
+    //     $this->load->view("item/admin/edit", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
 
-    public function delete($id = null)
-    {
-        if (!isset($id)) show_404();
+    // public function delete($id = null)
+    // {
+    //     if (!isset($id)) show_404();
 
-        if ($this->product_model->delete($id)) {
-            redirect(site_url('borrowing/listAll'));
-        }
-    }
+    //     if ($this->product_model->delete($id)) {
+    //         redirect(site_url('borrowing/listAll'));
+    //     }
+    // }
 
 
 }

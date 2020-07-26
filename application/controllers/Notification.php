@@ -23,7 +23,7 @@ class Notification extends CI_Controller
     public function listBorrowingNotificationById()
     {
         $user_id = $this->session->userdata('id');
-        $data["BorrowingNotification"] = $this->notification_model->getAllBorrowingNotificationByUserId($user_id);
+        $data["borrowingNotification"] = $this->notification_model->getAllBorrowingNotificationByUserId($user_id);
 
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
             $this->load->view("templates/dashboard/headerDosenMhs");
