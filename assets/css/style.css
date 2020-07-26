@@ -2436,8 +2436,20 @@ a:not([href]):hover {
 	border: 0
 }
 
+.jadwal-ruangan .table tr td.empty a {
+	background-color: white;
+	color: black;
+	pointer-events: none;
+	border: 1px solid #ccc;
+}
+
+
 .jadwal-ruangan .table tr td a:hover {
 	border-color: #fb8c00;
+}
+
+.jadwal-ruangan .table tr td a.time:hover {
+	border-color: none;
 }
 
 .jadwal-ruangan .table tr td a img {

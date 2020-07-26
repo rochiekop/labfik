@@ -74,74 +74,50 @@
 </div>
 
 <div class="fik-jadwal-ruangan margin-t50">
-  <div class="container fik-custom-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Ruangan</th>
-          <th scope="col">Waktu</th>
-          <th scope="col">Peminjam</th>
-          <th scope="col">Keterangan</th>
-          <th class="status" scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b>IK.04.04</b></td>
-          <td>19:00 - 22:00</td>
-          <td>Fulan</td>
-          <td>Meeting BEM</td>
-          <td class="status">
-            <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
-          </td>
-        </tr>
-        <tr>
-          <td><b>IK.05.05</b></td>
-          <td>19:00 - 22:00</td>
-          <td></td>
-          <td></td>
-          <td class="status">
-            <div class="badge badge-success badge-pill">Tersedia</div>
-          </td>
-        </tr>
-        <tr>
-          <td><b>IK.04.04</b></td>
-          <td>19:00 - 22:00</td>
-          <td>Fulan</td>
-          <td>Meeting BEM</td>
-          <td class="status">
-            <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
-          </td>
-        </tr>
-        <tr>
-          <td><b>IK.04.04</b></td>
-          <td>19:00 - 22:00</td>
-          <td>Fulan</td>
-          <td>Meeting BEM</td>
-          <td class="status">
-            <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
-          </td>
-        </tr>
-        <tr>
-          <td><b>IK.05.05</b></td>
-          <td>19:00 - 22:00</td>
-          <td></td>
-          <td></td>
-          <td class="status">
-            <div class="badge badge-success badge-pill">Tersedia</div>
-          </td>
-        </tr>
-        <tr>
-          <td><b>IK.05.05</b></td>
-          <td>19:00 - 22:00</td>
-          <td></td>
-          <td></td>
-          <td class="status">
-            <div class="badge badge-success badge-pill">Tersedia</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="owl-carousel owl-theme fik-carousel-schedule">
+    <?php $xIteration = ceil(count($dt_schedule) / 5);
+    $iteration = 0;
+    while ($iteration < $xIteration) : ?>
+      <div class="item">
+        <div class="container fik-custom-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Ruangan</th>
+                <th scope="col">Waktu</th>
+                <th scope="col">Peminjam</th>
+                <th scope="col">Keterangan</th>
+                <th class="status" scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($dt_schedule as $d) : ?>
+                <tr>
+                  <?php if ($d['status'] == 'Diterima' or $d['status'] == 'Menunggu Acc') : ?>
+                    <td><b><?= $d['ruangan'] ?></b></td>
+                    <td><?= $d['time'] ?></td>
+                    <td><?= $d['name'] ?></td>
+                    <td><?= $d['keterangan'] ?></td>
+                    <td class="status">
+                      <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
+                    </td>
+                  <?php elseif ($d['status'] == 'Ditolak') : ?>
+                    <td><b><?= $d['ruangan'] ?></b></td>
+                    <td><?= $d['time'] ?></td>
+                    <td> <?php echo $xIteration ?></td>
+                    <td></td>
+                    <td class="status">
+                      <div class="badge badge-success badge-pill">Tersedia</div>
+                    </td>
+                  <?php endif; ?>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <?php $iteration++ ?>
+    <?php endwhile; ?>
   </div>
 </div>
 
@@ -251,5 +227,16 @@
         items: 4
       }
     }
+  });
+  $('.fik-carousel-schedule').owlCarousel({
+    animateOut: 'fadeOut',
+    animateIn: 'fadeIn',
+    margin: 0,
+    margin: 0,
+    loop: true,
+    autoplay: true,
+    autoplayTimeout: 15000,
+    items: 1,
+    dots: false,
   });
 </script>

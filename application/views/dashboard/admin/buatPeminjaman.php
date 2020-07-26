@@ -1,5 +1,6 @@
 <!-- Main Container -->
 <main class="akun-container">
+  <?= $this->session->flashdata('message'); ?>
   <div class="fik-section-title2">
     <span class="fas fa-door-open zzzz"></span>
     <h5>Pinjam Tempat</h5>
@@ -10,12 +11,13 @@
     </div>
     <div class="col-md-8">
       <div class="card">
-        <form action="#">
+        <form action="" method="POST" enctype="multipart/form-data">
           <div class="card-body">
             <div class="custom-form">
               <div class="form-group" style="margin-bottom:12px">
-                <input type="text" name="name" id="name" class="form-control" placeholder="" required="required" autocomplete="off" />
+                <input type="text" name="name" id="name" class="form-control" placeholder="" value="<?= set_value('name'); ?>" required="required" autocomplete="off" />
                 <label>Nama Lengkap</label>
+                <small class="form-text text-danger" style="margin-bottom: -15px;margin-left:15px"><?= form_error('name') ?>.</small>
               </div>
               <div class="lab-category" style="margin-bottom:16px;">
                 <?php $no = 0;
@@ -53,7 +55,7 @@
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary" type="submit">Buat Peminjaman</button>
+            <button class="btn btn-primary" type="submit" id="createbookingbyadmin">Buat Peminjaman</button>
           </div>
         </form>
 

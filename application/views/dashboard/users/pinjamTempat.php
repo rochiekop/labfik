@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <button class="btn btn-primary">Buat Peminjaman</button>
+              <button class="btn btn-primary" id="createbooking">Buat Peminjaman</button>
             </div>
           </form>
         </div>

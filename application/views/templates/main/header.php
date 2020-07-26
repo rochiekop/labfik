@@ -27,6 +27,8 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
 
+  <!-- Owl Carousel Animation -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" />
 </head>
 
 <body>

@@ -85,39 +85,51 @@ class Booking extends CI_Controller
   }
 
 
-  public function bookingByadmin()
+  public function bookingByAdmin()
   {
     $data['title'] = 'LABFIK | Pinjam Tempat';
-    $valid = $this->form_validation;
-    $valid->set_rules(
-      'keterangan',
-      'Keterangan',
-      'required|trim',
+    $data['kategori'] = $this->admin_model->kategoriRuangan();
+    $validate_data = array(
       array(
-        'required'      =>  '%s harus diisi',
-      ),
+        'field' => 'name',
+        'label' => 'Nama',
+        'rules' => 'required|callback_validate_name'
+      )
     );
+    $this->form_validation->set_rules($validate_data);
+
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerAdmin', $data);
       $this->load->view('templates/dashboard/sidebarAdmin', $data);
       $this->load->view('dashboard/admin/buatPeminjaman');
       $this->load->view('templates/dashboard/footer');
     } else {
+      $id_peminjam = $this->booking_model->getIdByname($this->input->post('name'));
       $data = array(
         'id' => uniqid(),
-        'id_peminjam' => $this->input->post('id_peminjam'),
+        'id_peminjam' => $id_peminjam,
         'id_ruangan' => $this->input->post('id_ruangan'),
-        'date' => $this->input->post('tanggal'),
+        'date' => $this->input->post('datebooking'),
         'time' => implode(", ", $this->input->post('time')),
         'keterangan' => $this->input->post('keterangan'),
         'status' => 'Menunggu Acc'
       );
       $this->db->insert('booking', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan berhasil dilakukan dan akan segera diproses!</div>');
-      redirect('users/main');
+      redirect('booking/bookingByAdmin');
     }
   }
 
+  public function validate_name()
+  {
+    $name = $this->booking_model->validate_name();
+    if ($name == true) {
+      return true;
+    } else {
+      $this->form_validation->set_message('validate_name', 'Nama ' . $this->input->post('name') . ' belum terdaftar dalam sistem.');
+      return false;
+    }
+  }
 
   public function fetchDate()
   {

@@ -119,7 +119,7 @@
             </div>
             <input type="hidden" name="id_peminjam" class="form-control" placeholder="" value="<?= $this->session->userdata('id') ?>" required="required" autocomplete="off" />
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary btn-pill btn-sm">Kirim Permintaan</button>
+              <button type="submit" class="btn btn-primary btn-pill btn-sm" id="createbookingmodals">Kirim Permintaan</button>
             </div>
           </form>
         </div>
