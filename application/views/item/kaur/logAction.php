@@ -59,8 +59,8 @@
                   <td class="action">
                     <!-- <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a> -->
                     <!-- <a href="</?= base_url('item/edit').$i['id'] ?>"><span class="fas fa-edit"></span></a> -->
-                    <a href="<?= site_url('borrowing/changeStatusAccepted/'.$b->borrowing_id) ?>"><span class="fas fa-check"></span></a>
-                    <a href="<?= site_url('borrowing/changeStatusDeclined/'.$b->borrowing_id) ?>"><span class="fas fa-times"></span></a>
+                    <a href="<?= site_url('borrowing/changeStatusAccepted/'.$b->borrowing_id.'/'.$b->user_id) ?>"><span class="fas fa-check"></span></a>
+                    <a href="<?= site_url('borrowing/changeStatusDeclined/'.$b->borrowing_id.'/'.$b->user_id) ?>"><span class="fas fa-times"></span></a>
                   </td>
                 </tr>
               <?php endforeach; ?>

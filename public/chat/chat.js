@@ -109,7 +109,7 @@ ChatSection(0);
 function ScrollDown(){
 	var elmnt = document.getElementById("content");
     var h = elmnt.scrollHeight;
-   $('#content').animate({scrollTop: h}, 1000);
+   $('#content').animate({scrollTop: h}, 5000);
 }
 window.onload = ScrollDown();
 

@@ -42,7 +42,7 @@ class Borrowing_model extends CI_Model
 
     public function getAllWaiting()
     {
-        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
+        $this->db->select('user.id as user_id, user.name as user_name, item.access, borrowing.start, borrowing.end, borrowing.reason, item.name as item_name, item.image, borrowing.quantity, borrowing.id as borrowing_id, borrowing.status');
         $this->db->from('user');
         $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');
@@ -55,7 +55,7 @@ class Borrowing_model extends CI_Model
 
     public function getAllAccepted()
     {
-        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
+        $this->db->select('user.id as user_id, user.name as user_name, item.access, borrowing.start, borrowing.end, borrowing.reason, item.name as item_name, item.image, borrowing.quantity, borrowing.id as borrowing_id, borrowing.status');
         $this->db->from('user');
         $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');
@@ -68,7 +68,7 @@ class Borrowing_model extends CI_Model
 
     public function getAllDeclined()
     {
-        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
+        $this->db->select('user.id as user_id, user.name as user_name, item.access, borrowing.start, borrowing.end, borrowing.reason, item.name as item_name, item.image, borrowing.quantity, borrowing.id as borrowing_id, borrowing.status');
         $this->db->from('user');
         $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');
@@ -81,7 +81,7 @@ class Borrowing_model extends CI_Model
 
     public function getAllDone()
     {
-        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
+        $this->db->select('user.id as user_id, user.name as user_name, item.access, borrowing.start, borrowing.end, borrowing.reason, item.name as item_name, item.image, borrowing.quantity, borrowing.id as borrowing_id, borrowing.status');
         $this->db->from('user');
         $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');
@@ -94,7 +94,7 @@ class Borrowing_model extends CI_Model
 
     public function getByUserId($user_id)
     {
-        $this->db->select('user.name as user_name,item.access,borrowing.start,borrowing.end,borrowing.reason,item.name as item_name,item.image,borrowing.quantity,borrowing.id as borrowing_id,borrowing.status');
+        $this->db->select('user.id as user_id, user.name as user_name, item.access, borrowing.start, borrowing.end, borrowing.reason, item.name as item_name, item.image, borrowing.quantity, borrowing.id as borrowing_id, borrowing.status');
         $this->db->from('user');
         $this->db->join('borrowing','borrowing.user_id=user.id');
         $this->db->join('item','borrowing.item_id=item.id');

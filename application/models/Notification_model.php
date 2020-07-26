@@ -28,29 +28,57 @@ class Notification_model extends CI_Model
 
     }
 
-    public function getAllBorrowingNotificationByUserId($user_id)
+    // public function getAllBorrowingNotificationByUserId($user_id)
+    // {
+    //     $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, borrowing.status as borrowing_status, notification.description, notification.status as notification_status, notification.date');
+    //     $this->db->from('notification');
+    //     $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
+    //     $this->db->join('item','borrowing.item_id=item.id');
+    //     $this->db->where('notification.user_id', $user_id);
+    //     $query = $this->db->get();
+    //     $result = $query->result();
+    //     return $result;
+    // }
+
+    public function getAllBorrowingNotification($status, $user_id)
     {
-        $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, borrowing.status as borrowing_status, notification.description, notification.status as notification_status, notification.date');
-        $this->db->from('notification');
-        $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-        $this->db->join('item','borrowing.item_id=item.id');
-        $this->db->where('notification.user_id', $user_id);
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
+        if ($status == 'request')
+        {
+            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
+            $this->db->from('notification');
+            $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
+            $this->db->join('item','borrowing.item_id=item.id');
+            $this->db->where('notification.description', 'Barang ini ingin dipinjam');
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+        else if ($status == 'respond')
+        {
+            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
+            $this->db->from('notification');
+            $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
+            $this->db->join('item','borrowing.item_id=item.id');
+            $this->db->where('borrowing.user_id', $user_id);
+            $this->db->where('notification.description', 'Peminjaman diizinkan');
+            $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
     }
 
-    public function getAllBorrowingRequestNotification()
-    {
-        $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, notification.description, notification.date');
-        $this->db->from('notification');
-        $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-        $this->db->join('item','borrowing.item_id=item.id');
-        $this->db->where('notification.description', 'Barang ini ingin dipinjam');
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
-    }
+    // public function getAllBorrowingRequestNotification()
+    // {
+    //     $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
+    //     $this->db->from('notification');
+    //     $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
+    //     $this->db->join('item','borrowing.item_id=item.id');
+    //     $this->db->where('notification.description', 'Barang ini ingin dipinjam');
+    //     $query = $this->db->get();
+    //     $result = $query->result();
+    //     return $result;
+    // }
 
     public function saveBorrowingNotification($description)
     {
@@ -58,6 +86,15 @@ class Notification_model extends CI_Model
         $this->id = uniqid();
         $this->user_id = $post['user_id'];
         $this->borrowing_id = $post['id'];
+        $this->description = $description;
+        $this->db->insert($this->_table, $this);
+    }
+
+    public function assignBorrowingNotification($user_id, $borrowing_id, $description)
+    {
+        $this->id = uniqid();
+        $this->user_id = $user_id;
+        $this->borrowing_id = $borrowing_id;
         $this->description = $description;
         $this->db->insert($this->_table, $this);
     }
