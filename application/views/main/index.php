@@ -74,50 +74,61 @@
 </div>
 
 <div class="fik-jadwal-ruangan margin-t50">
-  <div class="owl-carousel owl-theme fik-carousel-schedule">
-    <?php $xIteration = ceil(count($dt_schedule) / 5);
-    $iteration = 0;
-    while ($iteration < $xIteration) : ?>
-      <div class="item">
-        <div class="container fik-custom-table">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Ruangan</th>
-                <th scope="col">Waktu</th>
-                <th scope="col">Peminjam</th>
-                <th scope="col">Keterangan</th>
-                <th class="status" scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($dt_schedule as $d) : ?>
+  <div class="container">
+    <div class="owl-carousel owl-theme fik-carousel-schedule">
+      <?php $start = 0; ?>
+      <?php $xIteration = ceil(count($dt_schedule) / 5);
+      $iteration = 0;
+      while ($iteration < $xIteration) : ?>
+        <div class="item">
+          <div class="fik-custom-table">
+            <table class="table">
+              <thead>
                 <tr>
-                  <?php if ($d['status'] == 'Diterima' or $d['status'] == 'Menunggu Acc') : ?>
-                    <td><b><?= $d['ruangan'] ?></b></td>
-                    <td><?= $d['time'] ?></td>
-                    <td><?= $d['name'] ?></td>
-                    <td><?= $d['keterangan'] ?></td>
-                    <td class="status">
-                      <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
-                    </td>
-                  <?php elseif ($d['status'] == 'Ditolak') : ?>
-                    <td><b><?= $d['ruangan'] ?></b></td>
-                    <td><?= $d['time'] ?></td>
-                    <td> <?php echo $xIteration ?></td>
-                    <td></td>
-                    <td class="status">
-                      <div class="badge badge-success badge-pill">Tersedia</div>
-                    </td>
-                  <?php endif; ?>
+                  <th scope="col">Ruangan</th>
+                  <th scope="col">Waktu</th>
+                  <th scope="col">Peminjam</th>
+                  <th scope="col">Keterangan</th>
+                  <th class="status" scope="col">Status</th>
                 </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <?php $no = 0;
+                $display = 5; ?>
+                <?php foreach (array_slice($dt_schedule, $start, $display) as $d) : ?>
+                  <tr>
+                    <?php if ($d['status'] == 'Diterima' or $d['status'] == 'Menunggu Acc') : ?>
+                      <td><b><?= $d['ruangan'] ?></b></td>
+                      <td><?= $d['time'] ?></td>
+                      <td><?= $d['name'] ?></td>
+                      <td><?= $d['keterangan'] ?></td>
+                      <td class="status">
+                        <div class="badge badge-danger badge-pill">Tidak Tersedia</div>
+                      </td>
+                    <?php elseif ($d['status'] == 'Ditolak') : ?>
+                      <td><b><?= $d['ruangan'] ?></b></td>
+                      <td><?= $d['time'] ?></td>
+                      <td></td>
+                      <td></td>
+                      <td class="status">
+                        <div class="badge badge-success badge-pill">Tersedia</div>
+                      </td>
+                    <?php endif; ?>
+                    <?php $temp = $no++;
+                    if ($temp == $display - 1) {
+                      $start += $temp + 1;
+                    }
+                    ?>
+                  </tr>
+                <?php
+                endforeach; ?>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <?php $iteration++ ?>
-    <?php endwhile; ?>
+        <?php $iteration++ ?>
+      <?php endwhile; ?>
+    </div>
   </div>
 </div>
 

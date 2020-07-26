@@ -30,6 +30,7 @@
         <div id="collapse2" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('admin/tambahtempat') ?>">Tambah Tempat</a></li>
+            <li><a href="<?= base_url('admin/daftarkategori') ?>">Daftar Semua Kategori</a></li>
             <li><a href="<?= base_url('admin/daftartempat') ?>">Daftar Semua Tempat</a></li>
             <li><a href="<?= base_url('booking/bookingByAdmin') ?>">Buat Peminjaman</a></li>
             <li><a href="<?= base_url('admin/riwayat') ?>">Riwayat</a></li>
@@ -74,21 +75,25 @@
         <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
       <div class="card logout">
-        <button class="btn" onclick="location.href='<?= base_url('auth/logout'); ?>';"><span class="fas fa-sign-out-alt"></span> Logout</button>
+        <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
       </div>
     </div>
   </div>
   <!-- End Side Menu -->
   <!-- Modal -->
-  <div class="modal fade bd-example-modal-sm" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+
+  <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
+        </div>
+        <div class="modal-body">
+          Anda yakin akan keluar?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="logoutmodal">Logout</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" onclick="location.href='<?= base_url('auth/logout'); ?>';" class="btn btn-primary">Keluar</button>
         </div>
       </div>
     </div>

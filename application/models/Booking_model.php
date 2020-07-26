@@ -42,7 +42,7 @@ class Booking_model extends CI_Model
     $this->db->join('user_role', 'user.role_id = user_role.id');
     $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
     $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
-    $this->db->order_by('booking.date', 'asc');
+    $this->db->order_by('booking.date', 'desc');
     return $this->db->get()->result_array();
   }
 

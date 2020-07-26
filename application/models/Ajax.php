@@ -13,6 +13,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->order_by("id_tampilan", "desc");
         $this->db->limit($limit, $start);
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $query = $this->db->get();
         return $query->result();
     }
@@ -27,6 +28,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->where(array('tampilan.id_kategori' => '1'));
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'desc');
         $this->db->limit($limit, $start);
@@ -44,6 +46,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->where(array('tampilan.id_kategori' => '2'));
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'desc');
         $this->db->limit($limit, $start);
@@ -61,6 +64,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->where(array('tampilan.id_kategori' => '5'));
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'desc');
         $this->db->limit($limit, $start);
@@ -78,6 +82,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->where(array('tampilan.id_kategori' => '6'));
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'desc');
         $this->db->limit($limit, $start);
@@ -95,6 +100,7 @@ class Ajax extends CI_Model
         $this->db->join('user', 'user.id = tampilan.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->where(array('tampilan.id_kategori' => '7'));
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'desc');
         $this->db->limit($limit, $start);

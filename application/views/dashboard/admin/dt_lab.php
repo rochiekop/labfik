@@ -45,7 +45,7 @@
                   <td scope="row" style="width:60px"><?= ++$no ?></td>
                   <td style="width:90px">
                     <div class="img-wrapper">
-                      <img src="<?= base_url('assets/img/laboratorium/') . $t['images']; ?>" alt="">
+                      <img src="<?= base_url('assets/img/laboratorium/thumbs/') . $t['images']; ?>" alt="">
                     </div>
                   </td>
                   <td><?= $t['title'] ?></td>
