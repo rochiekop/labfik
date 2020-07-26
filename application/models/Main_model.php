@@ -74,4 +74,14 @@ class Main_model extends CI_Model
     $query = "SELECT * FROM `tb_slider` ORDER BY `id` DESC";
     return $this->db->query($query)->result_array();
   }
+
+  // MODEL FOR SCHEDULE
+
+  public function getDtBookingSchedule()
+  {
+    $query = "SELECT `ruangan`.`ruangan`,`user`.`name`,`booking`.`date`,`booking`.`time`,`booking`.`keterangan`,`booking`.`status`
+    FROM booking JOIN ruangan ON `booking`.`id_ruangan` = `ruangan`.`id` 
+    JOIN user ON `booking`.`id_peminjam` = `user`.`id`";
+    return $this->db->query($query)->result_array();
+  }
 }

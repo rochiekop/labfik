@@ -18,6 +18,8 @@ class Auth_model extends CI_Model
       'salt' => $salt,
       'role_id' => 4,
       'is_active' => 0,
+      'date_created' => time()
+
     );
 
     $this->db->insert('user', $data);
@@ -29,6 +31,7 @@ class Auth_model extends CI_Model
       'id' => uniqid(),
       'email' => $this->input->post('email'),
       'token' => $token,
+      'date_created' => time()
     ];
     $this->db->insert('user_token', $user_token);
   }

@@ -13,7 +13,6 @@
     <h5>Tambah Info Slider</h5>
   </div>
   <div class="row">
-
     <div class="col-md-4" id="imagePreview">
       <img src="" alt="" class="fas fa-image placeholder-img">
       <span class="placeholder-img1"></span>

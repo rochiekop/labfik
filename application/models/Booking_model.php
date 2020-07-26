@@ -115,4 +115,19 @@ class Booking_model extends CI_Model
     }
     return $output;
   }
+  public function validate_name()
+  {
+    $name = $this->input->post('name');
+    $sql = "SELECT * FROM user WHERE name = ?";
+    $query = $this->db->query($sql, array($name));
+    return ($query->num_rows() == 0) ? false : true;
+  }
+
+  public function getIdByname($name)
+  {
+    $this->db->select('id');
+    $this->db->from('user');
+    $this->db->where('name', $name);
+    return $this->db->get()->row()->id;
+  }
 }

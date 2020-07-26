@@ -20,8 +20,9 @@ class Main extends CI_Controller
     $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
     $data['dt_lab'] = $this->main_model->getAllDtLab();
     $data['dt_panel'] = $this->main_model->getDtPanel();
+    $data['dt_schedule'] = $this->main_model->getDtBookingSchedule();
     $this->load->view('templates/main/header', $data);
-    $this->load->view('main/index');
+    $this->load->view('main/index', $data);
     $this->load->view('templates/main/footer');
   }
 
@@ -70,6 +71,7 @@ class Main extends CI_Controller
       redirect('auth');
     }
   }
+
   public function helpdesk()
   {
     $data['title'] = 'Laboratorium FIK';

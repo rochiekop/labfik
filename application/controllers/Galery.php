@@ -282,7 +282,7 @@ class Galery extends CI_Controller
         );
         $this->add_count($slug_tampilan);
         $this->load->view('templates/main/header', $data);
-        $this->load->view('main/galleryview', $data);
+        $this->load->view('main/galleryView', $data);
         $this->load->view('templates/main/footer');
     }
 
