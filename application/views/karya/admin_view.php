@@ -16,6 +16,7 @@
                 <th scope="col">Kategori</th>
                 <th scope="col">Tanggal Post</th>
                 <th scope="col">Views</th>
+                <th scope="col">status</th>
                 <th scope="col">Handle</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                     <td><?= $data->nama_child ?></td>
                     <td><?= $data->tanggal_post ?></td>
                     <td><?= $data->views ?></td>
+                    <td><?= $data->status ?></td>
                     <td>
                         <a href="<?= base_url('admin_karya/edit/' . $data->id_tampilan) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>Edit</a>
                         <a href="<?= base_url('admin_karya/delete/' . $data->id_tampilan); ?>" class="btn btn-danger btn-xs" onclick="return confirm('yakin ingin menghapus data ini?')"><i class="fa fa-trash-o"></i>hapus</a>

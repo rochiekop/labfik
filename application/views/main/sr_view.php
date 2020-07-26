@@ -1,21 +1,19 @@
 <div class="fik-content">
 
     <div class="owl-carousel owl-theme fik-carousel-karya">
-        <?php $codeview = 0 ?>
-        <?php foreach ($tampilan as $tampilan) { ?>
-            <?php $codeview++; ?>
-            <?php if ($codeview == 1) { ?>
+        <?php if (empty($tampilan)) : ?>
+            <div class="item">
+                <img src="<?= base_url('assets/img/slider/empty.jpg'); ?>" alt="empty" />
+                <p>empty</p>
+            </div>
+        <?php else : ?>
+            <?php foreach ($tampilan as $tampilan) : ?>
                 <div class="item">
-                    <img src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>" alt="" />
+                    <img src="<?= base_url('assets/upload/images/thumbs/' . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>" />
                     <p><?= $tampilan->name ?></p>
                 </div>
-            <?php } else { ?>
-                <div class="item">
-                    <img src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>" alt="" />
-                    <p><?= $tampilan->name ?></p>
-                </div>
-        <?php }
-        } ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 
     <div class="container">

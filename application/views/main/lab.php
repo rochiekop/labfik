@@ -13,7 +13,7 @@
             <div class="feed-item">
               <div class="card">
                 <div class="gambar">
-                  <img src="<?= base_url('assets/img/laboratorium/') . $l['images'] ?>" alt="<?= $l['title'] ?>" />
+                  <img src="<?= base_url('assets/img/laboratorium/thumbs/') . $l['images'] ?>" alt="<?= $l['title'] ?>" />
                 </div>
                 <div class="item-text">
                   <h6><?= $l['title'] ?></h6>

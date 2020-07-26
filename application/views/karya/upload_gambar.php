@@ -15,6 +15,7 @@
                 <th scope="col">Kategori</th>
                 <th scope="col">Tanggal Post</th>
                 <th scope="col">Views</th>
+                <th scope="col">status</th>
                 <th scope="col">Handle</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                     <td><?= $data->nama_child ?></td>
                     <td><?= $data->tanggal_post ?></td>
                     <td><?= $data->views ?></td>
+                    <td><?= $data->status ?></td>
                     <td>
                         <a href="<?= base_url('karya/delete/' . $data->id_tampilan); ?>" class="btn btn-danger btn-xs" onclick="return confirm('yakin ingin menghapus data ini?')"><i class="fa fa-trash-o"></i>hapus</a>
                     </td>

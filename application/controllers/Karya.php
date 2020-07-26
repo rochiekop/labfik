@@ -101,7 +101,8 @@ class Karya extends CI_Controller
                     'keywords'    => $i->post('keywords'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
                     'kode_tampilan' =>  $i->post('kode_tampilan'),
-                    'tanggal_post'  =>  date('Y-m-d H:i:s')
+                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
                 redirect(base_url('karya'), 'refresh');
