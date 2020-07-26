@@ -57,10 +57,21 @@ class Admin extends CI_Controller
       $config['file_name'] = $_FILES['image']['name'];
       $this->upload->initialize($config);
       if ($this->upload->do_upload('image')) {
-        $images = $this->upload->data();
+        $images = array('upload_data' => $this->upload->data());
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = './assets/img/laboratorium/' . $images['upload_data']['file_name'];
+        $config['new_image']    = './assets/img/laboratorium/thumbs/';
+        $config['maintain_ratio'] = TRUE;
+        $config['width']         = 260;
+        $config['height']       = 350;
+
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
         $data = [
           'id' => uniqid(),
-          "images" =>  $images['file_name'],
+          "images" =>  $images['upload_data']['file_name'],
+          "smallimg" => $images['upload_data']['file_name'],
           "title" => $this->input->post('title', true),
           "body" => $this->input->post('body', true),
         ];
@@ -117,9 +128,18 @@ class Admin extends CI_Controller
           //delete video in direktori
           @unlink($path . $this->input->post('image!updated'));
         }
-        $image = $this->upload->data();
+        $image = array('upload_data' => $this->upload->data());;
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = './assets/img/laboratorium/' . $image['upload_data']['file_name'];
+        $config['new_image']    = './assets/img/laboratorium/thumbs/';
+        $config['maintain_ratio'] = TRUE;
+        $config['width']         = 260;
+        $config['height']       = 350;
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
         $data = array(
-          'images'       => $image['file_name'],
+          'images'       => $image['upload_data']['file_name'],
           'title'       => $this->input->post('title'),
           'body'     => $this->input->post('body'),
         );
@@ -147,6 +167,7 @@ class Admin extends CI_Controller
     $image = $this->input->post('image');
     $data['dt_lab'] = $this->main_model->getDtLabById($id);
     $path = 'assets/img/laboratorium/';
+    $path = 'assets/img/laboratorium/thumbs';
     $old_img = $data['dt_lab']['images'];
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
@@ -194,11 +215,20 @@ class Admin extends CI_Controller
       $config['file_name'] = $_FILES['image']['name'];
       $this->upload->initialize($config);
       if ($this->upload->do_upload('image')) {
-        $images = $this->upload->data();
+        $images = array('upload_data' => $this->upload->data());
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = './assets/img/informasi/' . $images['upload_data']['file_name'];
+        $config['new_image']    = './assets/img/informasi/thumbs/';
+        $config['maintain_ratio'] = TRUE;
+        $config['width']         = 350;
+        $config['height']       = 250;
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
         $data = array(
           'id' => uniqid(),
           'title'       => $this->input->post('title'),
-          'images'       => $images['file_name'],
+          'images'       => $images['upload_data']['file_name'],
           'body'     => $this->input->post('body'),
           'uploadby' => $upload,
         );
@@ -252,7 +282,16 @@ class Admin extends CI_Controller
           //delete video in direktori
           @unlink($path . $this->input->post('image!updated'));
         }
-        $image = $this->upload->data();
+        $image = array('upload_data' => $this->upload->data());
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = './assets/img/informasi/' . $image['upload_data']['file_name'];
+        $config['new_image']    = './assets/img/informasi/thumbs/';
+        $config['maintain_ratio'] = TRUE;
+        $config['width']         = 350;
+        $config['height']       = 250;
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
         $data = array(
           'title'       => $this->input->post('title'),
           'images'       => $image['file_name'],
@@ -283,6 +322,7 @@ class Admin extends CI_Controller
     $image = $this->input->post('image');
     $data['dt_info'] = $this->main_model->getDtInfoById($id);
     $path = 'assets/img/informasi/';
+    $path = 'assets/img/informasi/thumbs/';
     $old_img = $data['dt_info']['images'];
     if ($old_img != 'default.jpg') {
       @unlink($path . $image);
