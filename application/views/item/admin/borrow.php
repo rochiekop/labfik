@@ -15,6 +15,9 @@
             <div class="card-body">
               <div class="custom-form">
                 <div class="form-group">
+                  <input type="hidden" name="id" value="<?= uniqid(); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                </div>
+                <div class="form-group">
                   <input type="hidden" name="user_id" value="<?= $this->session->userdata('id'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
                 </div>
                 <div class="form-group">

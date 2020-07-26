@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jul 2020 pada 19.16
+-- Waktu pembuatan: 25 Jul 2020 pada 10.19
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -21,6 +21,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `dblabfik`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `booking`
+--
+
+CREATE TABLE `booking` (
+  `id` varchar(64) NOT NULL,
+  `id_peminjam` varchar(64) NOT NULL,
+  `id_ruangan` varchar(64) NOT NULL,
+  `date` date NOT NULL,
+  `date_declined` date NOT NULL,
+  `time` varchar(100) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `booking`
+--
+
+INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined`, `time`, `keterangan`, `status`) VALUES
+('5f17a08ae0d85', '38', '5f15e3276fe2b', '2020-07-23', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30', 'Kelas', 'Diterima'),
+('5f17c81e23361', '5f140497dd7ef', '17', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Kelas Pengganti', 'Diterima'),
+('5f17d4cd66afd', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '10.30 - 11.30, 11.30 - 12.30, 12.30 - 13.30', 'fgfdgf', 'Menunggu Acc'),
+('5f17d96f202c2', '38', '5f15e3276fe2b', '0000-00-00', '2020-07-22', '06.30 - 07.30, 07.30 - 08.30', 'tes', 'Ditolak'),
+('5f18707b13a27', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '13.30 - 14.30', 'fdsdf', 'Menunggu Acc'),
+('5f187a3ecb692', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'fdgf', 'Menunggu Acc');
 
 -- --------------------------------------------------------
 
@@ -45,10 +74,17 @@ CREATE TABLE `borrowing` (
 
 INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`, `reason`, `status`) VALUES
 ('5f144770c3d1f', '38', '5f12ce7d3da21', 1, '2020-07-19 20:15:00', '2020-07-19 21:16:00', 'muhammad sulthan', 'Diterima'),
-('5f144781517af', '38', '5f12cdf2debfe', 1, '2020-07-20 20:15:00', '2020-07-20 21:16:00', 'talisha eta', 'Menunggu_Izin'),
+('5f144781517af', '38', '5f12cdf2debfe', 1, '2020-07-20 20:15:00', '2020-07-20 21:16:00', 'talisha eta', 'Diterima'),
 ('5f1448e35a109', '8', '5f12ccfe4afe8', 1, '2020-07-19 20:21:00', '2020-07-19 21:21:00', 'coba pinjam', 'Ditolak'),
-('5f1448f6a10c3', '8', '5f12cd6abdba2', 1, '2020-07-19 23:21:00', '2020-07-20 01:21:00', 'pinjam yang ini juga', 'Menunggu_Izin'),
-('5f147de8b1006', '8', '5f12ccfe4afe8', 1, '2020-07-20 00:07:00', '2020-07-21 00:07:00', 'untuk uji coba', 'Menunggu_Izin');
+('5f1448f6a10c3', '8', '5f12cd6abdba2', 1, '2020-07-19 23:21:00', '2020-07-20 01:21:00', 'pinjam yang ini juga', 'Diterima'),
+('5f147de8b1006', '8', '5f12ccfe4afe8', 1, '2020-07-20 00:07:00', '2020-07-21 00:07:00', 'untuk uji coba', 'Ditolak'),
+('5f150944e9609', '8', '5f12ccfe4afe8', 1, '2020-07-20 12:02:00', '2020-07-20 13:02:00', 'testing', 'Menunggu_Izin'),
+('5f150c74adc88', '8', '5f12ce7d3da21', 1, '2020-07-20 10:15:00', '2020-07-20 11:16:00', 'untuk kelas', 'Menunggu_Izin'),
+('5f1513bc63bfb', '38', '5f12ce7d3da21', 1, '2020-07-20 10:46:00', '2020-07-20 11:47:00', 'untuk kelas', 'Menunggu_Izin'),
+('5f1be6c8ac198', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:01:00', '2020-07-25 16:01:00', 'testing notifikasi', 'Menunggu_Izin'),
+('5f1be80d5cc11', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:06:00', '2020-07-25 16:06:00', 'test notifikasi', 'Menunggu_Izin'),
+('5f1be87feef78', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:08:00', '2020-07-25 16:08:00', 'test notifikasi peminjaman barang', 'Menunggu_Izin'),
+('5f1be918cc49f', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:11:00', '2020-07-25 16:11:00', 'test peminjaman barang', 'Menunggu_Izin');
 
 -- --------------------------------------------------------
 
@@ -73,54 +109,44 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_name`, `file_ext`, `mime_type`, `message_date_time`, `ip_address`) VALUES
-(46, 196, 185, 'hi vendor2', '', '', '', '2020-06-16 11:28:16', '::1'),
-(80, 196, 196, 'hi there, how may i help you?', '', '', '', '2020-06-17 19:58:00', '::1'),
-(81, 184, 196, 'hi there, how may i help you?', '', '', '', '2020-06-17 19:59:53', '::1'),
-(82, 196, 184, 'hi, I would like to ask about my reservation to a room', '', '', '', '2020-06-17 20:00:14', '::1'),
-(83, 196, 184, 'it seems that the room has been taken by someone else, but when i look at it, turns out i am the one who booked it.', '', '', '', '2020-06-17 20:01:00', '::1'),
-(84, 196, 184, 'but it doesn\'t show up on my transaction log', '', '', '', '2020-06-17 20:01:13', '::1'),
-(85, 184, 196, 'i see.. we\'ll have it done for you', '', '', '', '2020-06-17 20:01:28', '::1'),
-(86, 196, 184, 'thanks man', '', '', '', '2020-06-17 20:01:32', '::1'),
-(87, 184, 196, 'hello client1', '', '', '', '2020-06-18 13:07:24', '::1'),
-(88, 196, 184, 'hi Vendor1', '', '', '', '2020-06-18 13:07:34', '::1'),
-(89, 184, 196, 'testing', '', '', '', '2020-06-18 13:21:07', '::1'),
-(90, 184, 196, 'does it still work?', '', '', '', '2020-06-18 13:21:13', '::1'),
-(91, 196, 184, 'yup', '', '', '', '2020-06-18 13:21:25', '::1'),
-(92, 196, 184, 'it still works', '', '', '', '2020-06-18 13:21:28', '::1'),
-(93, 184, 196, 'awesome', '', '', '', '2020-06-18 13:21:31', '::1'),
-(94, 184, 196, 'testing chatting system', '', '', '', '2020-06-18 13:33:20', '::1'),
-(95, 184, 196, 'well.. it seems so', '', '', '', '2020-06-18 14:00:26', '::1'),
-(96, 184, 196, 'hello]', '', '', '', '2020-06-19 13:23:43', '::1'),
-(97, 196, 184, 'hi', '', '', '', '2020-06-19 13:23:47', '::1'),
-(98, 184, 196, 'ada yang bisa saya bantu?', '', '', '', '2020-06-19 13:23:56', '::1'),
-(99, 184, 197, 'testing', '', '', '', '2020-06-19 13:24:05', '::1'),
-(100, 184, 197, 'hi', '', '', '', '2020-06-19 13:24:07', '::1'),
-(101, 184, 197, 'NULL', 'Use_case_diagram.png', '.png', 'image/png', '2020-06-19 13:24:36', '::1'),
-(102, 197, 185, 'assalamualaikum', '', '', '', '2020-06-19 13:26:08', '::1'),
-(103, 184, 196, 'test cuk', '', '', '', '2020-06-21 21:42:54', '::1'),
-(104, 1, 196, 'hi client 1, ada yang bisa saya bantu?', '', '', '', '2020-06-21 22:41:26', '::1'),
-(105, 1, 197, 'hi client2, ada yang bisa saya bantu?', '', '', '', '2020-06-21 22:42:26', '::1'),
-(106, 197, 200, 'hi muhammad!', '', '', '', '2020-06-21 23:05:14', '::1'),
-(107, 200, 196, 'hi client1', '', '', '', '2020-06-22 13:53:33', '::1'),
-(108, 199, 184, 'hi sulthan angka!', '', '', '', '2020-06-22 15:48:39', '::1'),
-(109, 200, 196, 'test', '', '', '', '2020-06-22 16:51:31', '::1'),
-(110, 184, 196, 'test', '', '', '', '2020-06-28 00:01:19', '::1'),
-(111, 184, 197, 'testing', '', '', '', '2020-06-28 19:52:47', '::1'),
-(112, 184, 197, 'hi client 2', '', '', '', '2020-06-28 19:52:50', '::1'),
-(113, 184, 197, 'how are you doing?', '', '', '', '2020-06-28 19:52:56', '::1'),
-(114, 184, 196, 'hi client 1', '', '', '', '2020-06-28 22:04:31', '::1'),
-(115, 184, 196, 'testing chatting system', '', '', '', '2020-06-28 22:04:40', '::1'),
-(116, 184, 196, 'testing chat system again', '', '', '', '2020-06-28 22:04:48', '::1'),
-(117, 196, 200, 'halo sulthan', '', '', '', '2020-06-29 16:37:20', '::1'),
-(118, 196, 200, 'testing chat system', '', '', '', '2020-06-29 16:37:24', '::1'),
-(119, 184, 196, 'test', '', '', '', '2020-07-02 00:06:50', '::1'),
-(120, 184, 197, 'hi', '', '', '', '2020-07-02 00:06:54', '::1'),
-(121, 184, 199, 'hello', '', '', '', '2020-07-02 00:07:03', '::1'),
-(122, 184, 197, 'hello', '', '', '', '2020-07-02 12:33:16', '::1'),
-(123, 184, 197, 'just letting you know its working', '', '', '', '2020-07-02 12:33:24', '::1'),
-(124, 184, 196, 'hi', '', '', '', '2020-07-10 21:38:40', '::1'),
-(125, 184, 196, 'string', '', '', '', '2020-07-10 21:38:48', '::1'),
-(126, 184, 196, 'hi bro', '', '', '', '2020-07-10 22:40:48', '::1');
+(304, 39, 8, 'ngubah gak ya?', '', '', '', '2020-07-23 10:37:38', ''),
+(305, 39, 8, 'dan.. tidak berubah sama sekali', '', '', '', '2020-07-23 10:37:46', ''),
+(306, 39, 8, 'padahal js nya udah ganti sejak lama', '', '', '', '2020-07-23 10:37:54', ''),
+(307, 8, 39, 'its working here now', '', '', '', '2020-07-23 10:38:32', ''),
+(308, 8, 39, 'for some reason', '', '', '', '2020-07-23 10:38:42', ''),
+(309, 8, 39, 'oh this is just swell...', '', '', '', '2020-07-23 10:38:50', ''),
+(310, 8, 39, 'im totally confused', '', '', '', '2020-07-23 10:38:55', ''),
+(311, 8, 39, 'will this work?', '', '', '', '2020-07-23 10:39:39', ''),
+(312, 8, 39, 'and it still works', '', '', '', '2020-07-23 10:39:47', ''),
+(313, 8, 39, 'change?', '', '', '', '2020-07-23 11:11:58', ''),
+(314, 8, 39, 'nope', '', '', '', '2020-07-23 11:12:01', ''),
+(315, 38, 8, 'test', '', '', '', '2020-07-23 11:15:18', ''),
+(316, 38, 8, 'assalamualaikum', '', '', '', '2020-07-23 11:15:23', ''),
+(317, 38, 8, 'ini test menggunakan smartphone', '', '', '', '2020-07-23 11:16:04', ''),
+(318, 38, 8, 'testing', '', '', '', '2020-07-23 11:16:32', ''),
+(319, 38, 8, 'testing', '', '', '', '2020-07-23 11:16:56', ''),
+(320, 38, 8, 'again', '', '', '', '2020-07-23 11:17:01', ''),
+(321, 38, 8, 'halo', '', '', '', '2020-07-23 11:17:12', ''),
+(322, 8, 38, 'nama saya john doe', '', '', '', '2020-07-23 11:19:00', ''),
+(323, 8, 38, 'saya suka apel', '', '', '', '2020-07-23 11:20:34', ''),
+(324, 38, 8, 'oh ya? saya juga suka', '', '', '', '2020-07-23 11:20:56', ''),
+(325, 8, 38, 'masa sih? sama dong', '', '', '', '2020-07-23 11:21:05', ''),
+(326, 38, 8, 'NULL', 'IMG_20200708_222111.jpg', '.jpg', 'image/jpeg', '2020-07-23 11:21:48', ''),
+(327, 8, 38, 'NANI?!', '', '', '', '2020-07-23 11:22:35', ''),
+(328, 8, 38, 'bisa enggak sekarang?', '', '', '', '2020-07-23 11:45:07', ''),
+(329, 8, 38, 'tetep aja aneh ya', '', '', '', '2020-07-23 11:45:16', ''),
+(330, 8, 38, 'hmm.... kayanya ada yg salah', '', '', '', '2020-07-23 11:45:25', ''),
+(331, 39, 8, 'huft.. this is confusing', '', '', '', '2020-07-23 11:46:44', ''),
+(332, 38, 8, 'padahal img harusnya gak ada tapi tetep aja ada', '', '', '', '2020-07-23 13:28:20', ''),
+(333, 39, 8, 'Test', '', '', '', '2020-07-23 21:17:57', ''),
+(334, 8, 39, 'hi mami', '', '', '', '2020-07-23 21:18:17', ''),
+(335, 39, 8, 'Testing mas', '', '', '', '2020-07-23 21:18:36', ''),
+(336, 8, 39, 'dapet chat nya mam?', '', '', '', '2020-07-23 21:18:36', ''),
+(337, 39, 8, 'Dapet', '', '', '', '2020-07-23 21:18:45', ''),
+(338, 39, 8, 'Alhamdulillah', '', '', '', '2020-07-23 21:18:50', ''),
+(339, 39, 8, 'Semangat terus yaaaa', '', '', '', '2020-07-23 21:18:55', ''),
+(340, 8, 39, 'few bugs', '', '', '', '2020-07-24 13:13:39', ''),
+(341, 8, 39, 'but so far its working', '', '', '', '2020-07-24 13:13:44', '');
 
 -- --------------------------------------------------------
 
@@ -225,14 +251,32 @@ INSERT INTO `kategoriruangan` (`id`, `kategori`, `date_created`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `booking_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `borrowing_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `gallery_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `description` text CHARACTER SET utf8mb4 NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('unread','read') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'unread'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `ruangan`
 --
 
 CREATE TABLE `ruangan` (
-  `id` int(11) NOT NULL,
-  `id_kategori` int(11) NOT NULL,
+  `id` varchar(64) NOT NULL,
+  `id_kategori` varchar(64) NOT NULL,
   `ruangan` varchar(255) NOT NULL,
   `akses` varchar(100) NOT NULL,
+  `kapasitas` int(5) NOT NULL,
   `images` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -240,11 +284,13 @@ CREATE TABLE `ruangan` (
 -- Dumping data untuk tabel `ruangan`
 --
 
-INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `images`) VALUES
-(1, 2, 'IK.01.02', 'Mahasiswa', '8.jpg'),
-(4, 9, 'IK.01.01', 'Dosen,Mahasiswa', 'default.jpg'),
-(5, 4, 'IK.01.05', 'Mahasiswa', '81.jpg'),
-(6, 3, 'IK.02.04', 'Dosen,Mahasiswa', '12.jpg');
+INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `kapasitas`, `images`) VALUES
+('1', '2', 'IK.01.02', 'Mahasiswa', 39, 'default1.jpg'),
+('10', '11', 'IK.01.09', 'Dosen, Mahasiswa', 41, 'default.jpg'),
+('17', '11', 'IK.02.02', 'Dosen, Mahasiswa', 34, 'default.jpg'),
+('4', '9', 'IK.01.01', 'Dosen, Mahasiswa', 40, 'default.jpg'),
+('5', '4', 'IK.01.05', 'Mahasiswa', 21, 'default2.jpg'),
+('6', '3', 'IK.02.04', 'Dosen, Mahasiswa', 25, 'default3.jpg');
 
 -- --------------------------------------------------------
 
@@ -303,8 +349,8 @@ CREATE TABLE `tampilan` (
 --
 
 INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`) VALUES
-(39, 8, 'witcher', 7, 1, '222619.jpg', '2020-07-18 11:35:50', '2020-07-18 10:25:24', 6, 1301174665, '001', 'witcher', 'game terbaik tahun 2017', 'witch', 0),
-(40, 38, 'cyberpunk', 7, 1, '1238334.jpg', '2020-07-18 12:36:29', '2020-07-18 10:40:52', 1, 1301174666, '002', 'cyberpunk', 'calon game terbaik 2020', 'punk', 0);
+(39, 8, 'witcher', 7, 1, '222619.jpg', '2020-07-18 11:35:50', '2020-07-20 03:36:25', 7, 1301174665, '001', 'witcher', 'game terbaik tahun 2017', 'witch', 0),
+(40, 38, 'cyberpunk', 7, 1, '1238334.jpg', '2020-07-18 12:36:29', '2020-07-20 04:50:52', 2, 1301174666, '002', 'cyberpunk', 'calon game terbaik 2020', 'punk', 0);
 
 -- --------------------------------------------------------
 
@@ -475,6 +521,12 @@ CREATE TABLE `user_token` (
 --
 
 --
+-- Indeks untuk tabel `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `borrowing`
 --
 ALTER TABLE `borrowing`
@@ -510,6 +562,12 @@ ALTER TABLE `kategori`
 -- Indeks untuk tabel `kategoriruangan`
 --
 ALTER TABLE `kategoriruangan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `notification`
+--
+ALTER TABLE `notification`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -581,7 +639,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
 
 --
 -- AUTO_INCREMENT untuk tabel `child_kategori`
@@ -600,12 +658,6 @@ ALTER TABLE `kategori`
 --
 ALTER TABLE `kategoriruangan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT untuk tabel `ruangan`
---
-ALTER TABLE `ruangan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tampilan`

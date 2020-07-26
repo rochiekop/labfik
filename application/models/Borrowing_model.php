@@ -122,7 +122,8 @@ class Borrowing_model extends CI_Model
     public function save()
     {
         $post = $this->input->post();
-        $this->id = uniqid();
+        // $this->id = uniqid();
+        $this->id = $post['id'];
         $this->user_id = $post['user_id'];
         $this->item_id = $post['item_id'];
         $this->quantity = $post['quantity'];

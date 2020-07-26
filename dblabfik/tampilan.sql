@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2020 at 05:04 PM
+-- Generation Time: Jul 26, 2020 at 01:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -42,16 +42,17 @@ CREATE TABLE `tampilan` (
   `judul` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
   `keywords` varchar(255) NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT 0
+  `likes` int(11) NOT NULL DEFAULT 0,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tampilan`
 --
 
-INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`) VALUES
-(39, 8, 'witcher', 7, 1, '222619.jpg', '2020-07-18 11:35:50', '2020-07-18 10:25:24', 6, 1301174665, '001', 'witcher', 'game terbaik tahun 2017', 'witch', 0),
-(40, 38, 'cyberpunk', 7, 1, '1238334.jpg', '2020-07-18 12:36:29', '2020-07-18 10:40:52', 1, 1301174666, '002', 'cyberpunk', 'calon game terbaik 2020', 'punk', 0);
+INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`, `status`) VALUES
+(3, 44, 'cyberpunk-001', 7, 1, '1238334.jpg', '2020-07-26 17:43:19', '2020-07-26 10:55:19', 1, 1301196969, '001', 'cyberpunk', 'calon game terbaik tahun 2020', 'punk', 1, 'Diterima'),
+(4, 38, 'witcher-002', 7, 1, '2226191.jpg', '2020-07-26 17:45:48', '2020-07-26 10:47:42', 1, 1301121313, '002', 'witcher', 'game of the year 2017', 'witch', 0, 'Diterima');
 
 --
 -- Indexes for dumped tables
@@ -71,7 +72,7 @@ ALTER TABLE `tampilan`
 -- AUTO_INCREMENT for table `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,6 +6,11 @@ class Admin extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    // $this->load->model('m_dtinfo');
+    // $this->load->model('m_dtpanel');
+    // $this->load->model('m_dtslider');
+    // $this->load->model('m_dtpeminjaman');
+    // $this->load->model('m_dtruangan');
     $this->load->model('admin_model');
     $this->load->model('main_model');
     $this->load->library('upload');
@@ -431,6 +436,8 @@ class Admin extends CI_Controller
         redirect('admin/dt_panel');
       } else {
         echo $this->upload->display_errors();
+        // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
+        // redirect('admin/dt_panel');
       }
     } else {
       $data = array(
@@ -596,6 +603,10 @@ class Admin extends CI_Controller
 
     $data['start'] = $this->uri->segment(3);
     $data['dt_ruangan'] = $this->m_dtruangan->getRuangan($config['per_page'], $data['start']);
+    // $data['dt_ruangan'] = $this->m_dtruangan->getAllDtRuangan();
+
+
+    // $data['tot_row'] = $this->db->get('ruangan')->num_rows();
     // Initialize
     $this->pagination->initialize($config);
 
@@ -669,6 +680,96 @@ class Admin extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil dihapus</div>');
     redirect('admin/daftartempat');
   }
+
+
+  // Data Peminjaman
+  public function dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Data Peminjaman';
+    $data['dt_peminjaman'] = $this->m_dtpeminjaman->getAllDtPeminjaman();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/dt_peminjaman', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function add_dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Input Peminjaman';
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('admin/add_dt_peminjaman', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function insert_dt_peminjaman()
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Input data peminjaman';
+
+    // $this->form_validation->set_rules('ruangan', 'Ruangan', 'required');
+    // $this->form_validation->set_rules('waktu', 'Waktu', 'required');
+    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/add_dt_peminjaman');
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        "ruangan" => $this->input->post('ruangan', true),
+        "tanggal" => $this->input->post('tanggal', true),
+        "waktu" => $this->input->post('waktu', true),
+        "peminjam" => $this->input->post('peminjam', true),
+        "keterangan" => $this->input->post('keterangan', true),
+        "status" => $this->input->post('status', true),
+      ];
+      $this->db->insert('tb_peminjaman', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman has been Add!</div>');
+      redirect('admin/dt_peminjaman');
+    }
+  }
+
+
+  // Edit Data Pemijaman
+
+  public function edit_dt_peminjaman($id)
+  {
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['title'] = 'Edit Data Peminjaman';
+
+    $data['dt_pinjam'] = $this->m_dtpeminjaman->getDtPinjamById($id);
+    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+    //conditon in form_validation, if user input form = false, then load page "ubah" again
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/edit_dt_peminjaman');
+      $this->load->view('templates/footer');
+    } else {
+      $this->m_dtpeminjaman->editDataPeminjaman();
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
+      redirect('admin/dt_peminjaman');
+    }
+  }
+
+  // delete data peminjaman
+  public function delete_dt_peminjaman($id)
+  {
+    $this->m_dtpeminjaman->deleteDataPeminjaman($id);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
+    redirect('admin/dt_peminjaman');
+  }
+
 
   // TEMPAT
   public function daftarTempat()
@@ -818,13 +919,11 @@ class Admin extends CI_Controller
   {
 
     $data['title'] = ' LABFIK | Buat Peminjaman';
-    $data['kategori'] = $this->admin_model->kategoriRuangan();
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/buatPeminjaman', $data);
     $this->load->view('templates/dashboard/footer');
   }
-
   public function daftarkategori()
   {
     $data['title'] = ' LABFIK | Daftar Kategori Tempat';

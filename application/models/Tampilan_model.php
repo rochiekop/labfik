@@ -177,6 +177,9 @@ class Tampilan_model extends CI_Model
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('views', 'desc');
         $this->db->limit(4);
+        $where = "views >= 1";
+        $this->db->where($where);
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $query = $this->db->get();
         return $query->result();
     }

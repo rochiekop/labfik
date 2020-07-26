@@ -39,10 +39,10 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span> Listing Karya</a>
         <div id="collapse3" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Semua Permintaan</a></li>
-            <li><a href="#">Menunggu Acc</a></li>
-            <li><a href="#">Diterima</a></li>
-            <li><a href="#">Ditolak</a></li>
+            <li><a href="<?= base_url('kaur_karya') ?>">Semua Permintaan</a></li>
+            <li><a href="<?= base_url('kaur_karya/minta') ?>">Menunggu Acc</a></li>
+            <li><a href="<?= base_url('kaur_karya/listacc') ?>">Diterima</a></li>
+            <li><a href="<?= base_url('kaur_karya/listdec') ?>">Ditolak</a></li>
           </ul>
         </div>
       </div>
