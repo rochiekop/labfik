@@ -37,12 +37,12 @@
     <div class="container loss">
       <a class="db-menu-trigger show-mobile"><span class="fas fa-th-large"></span></a>
       <div class="navbar-brand akun">
-        <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/logo/logo-dummy.png'); ?>" /></a>
+        <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/logo/logo-dummy.png') ?>" /></a>
       </div>
       <div class="fik-navbar-menu">
         <ul class="left akun fik-username hide-mobile">
           <li>
-            <img src="<?= base_url('assets/img/7.jpg'); ?>">
+            <img src="<?= base_url('assets/img/profile/') . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images; ?>">
           </li>
           <li>
             <b><?= $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->name; ?></b>

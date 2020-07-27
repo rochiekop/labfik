@@ -3,7 +3,7 @@
     <div id="accordion">
       <div class="card show-mobile profil">
         <div class="img-wrapper">
-          <img src="<?= base_url('assets/img/7.jpg'); ?>">
+          <img src="<?= base_url('assets/img/profile/') . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images; ?>">
         </div>
         <b><?= $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->name; ?></b>
         <span><?= $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row()->role; ?></span>
