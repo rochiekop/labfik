@@ -34,7 +34,11 @@
             <?php else : ?>
               <?php $no = 0;
               foreach ($borrowingNotification as $bn) : ?>
+                <?php if ($bn->status == 'unread') : ?>
+                <tr style='border-left: 10px solid #fb8c00'>
+                <?php else : ?>
                 <tr>
+                <?php endif; ?>
                   <a href="<?= base_url('borrowing/listAllWaiting') ?>">
                     <td scope="row" style="width:60px"><?= ++$no ?></td>
                     <td style="width:90px">

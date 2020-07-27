@@ -44,7 +44,7 @@ class Notification_model extends CI_Model
     {
         if ($status == 'request')
         {
-            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
+            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
             $this->db->join('item','borrowing.item_id=item.id');
@@ -55,7 +55,7 @@ class Notification_model extends CI_Model
         }
         else if ($status == 'respond')
         {
-            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
+            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
             $this->db->join('item','borrowing.item_id=item.id');
