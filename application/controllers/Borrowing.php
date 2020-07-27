@@ -91,12 +91,14 @@ class Borrowing extends CI_Controller
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
-            $this->load->view("item/dosenMhs/borrow", $data);
+            // $this->load->view("item/dosenMhs/borrow", $data);
+            $this->load->view("item/borrowing", $data);
             $this->load->view("templates/dashboard/footer");
         } else if ($this->session->userdata('role_id') == '1') {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
-            $this->load->view("item/admin/borrow", $data);
+            // $this->load->view("item/admin/borrow", $data);
+            $this->load->view("item/borrowing", $data);
             $this->load->view("templates/dashboard/footer");
         }
     }
@@ -193,15 +195,23 @@ class Borrowing extends CI_Controller
     //     $this->load->view("templates/dashboard/footer");
     // }
 
-    public function changeStatusAccepted($id)
+    public function changeStatusAccepted($id, $user_id)
     {
         $this->borrowing_model->updateStatusAccepted($id);
+
+        $description = 'Peminjaman diizinkan';
+        $this->notification_model->assignBorrowingNotification($user_id, $id, $description);
+        
         redirect(site_url('borrowing/listAllWaiting'));
     }
 
-    public function changeStatusDeclined($id)
+    public function changeStatusDeclined($id, $user_id)
     {
         $this->borrowing_model->updateStatusDeclined($id);
+
+        $description = 'Peminjaman tidak diizinkan';
+        $this->notification_model->assignBorrowingNotification($user_id, $id, $description);
+
         redirect(site_url('borrowing/listAllWaiting'));
     }
 

@@ -3,7 +3,7 @@
     <?= $this->session->flashdata('message'); ?>
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>List Semua Barang</h5>
+      <h5>Notifikasi</h5>
     </div>
     <div class="input-group">
       <div class="input-group-append">
@@ -25,6 +25,7 @@
               <th scope="col" style="width:48px">No</th>
               <th scope="col" style="width:90px">&nbsp;</th>
               <th scope="col">&nbsp;</th>
+              <th scope="col">&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -34,19 +35,24 @@
               <?php $no = 0;
               foreach ($borrowingNotification as $bn) : ?>
                 <tr>
-                  <td scope="row" style="width:60px"><?= ++$no ?></td>
-                  <td style="width:90px">
-                    <div class="img-wrapper">
-                      <img src="<?= base_url('uploads/item/'.$b->image) ?>"/>
-                      <?= $bn->name ?>
-                    </div>
-                  </td>
-                  <td>
-                    <ul>
-                        <li><?= $bn->borrowing_quantity ?> <?= $bn->description ?></li>
-                        <li><?= $bn->notification_date ?></li>
-                    </ul>
-                  </td>
+                  <a href="<?= base_url('borrowing/listAllWaiting') ?>">
+                    <td scope="row" style="width:60px"><?= ++$no ?></td>
+                    <td style="width:90px">
+                      <div class="img-wrapper">
+                        <img src="<?= base_url('uploads/item/'.$bn->image) ?>"/>
+                        <?= $bn->name ?>
+                      </div>
+                    </td>
+                    <td>
+                      <ul style="list-style-type:none;">
+                          <li><?= $bn->quantity ?> <?= $bn->description ?></li>
+                          <li><?= $bn->date ?></li>
+                      </ul>
+                    </td>
+                    <td>
+                      <a href="<?= site_url('notification/changeStatusReadBorrowing/'.$bn->id) ?>"><span class="fas fa-arrow-right"></span></a>
+                    </td>
+                  </a>
                 </tr>
               <?php endforeach; ?>
             <?php endif; ?>

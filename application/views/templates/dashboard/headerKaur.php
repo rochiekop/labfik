@@ -52,7 +52,7 @@
         </ul>
         <ul class="right akun">
           <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="#">
+            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/request/'.$this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= $title ?></title>
+  <title>Laboratorium FIK</title>
 
   <!-- CSS Vendor -->
   <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/css/bootstrap.min.css'); ?>">
@@ -52,7 +52,7 @@
         </ul>
         <ul class="right akun">
           <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="#">
+            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
