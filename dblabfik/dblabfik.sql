@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Jul 2020 pada 10.19
+-- Waktu pembuatan: 27 Jul 2020 pada 10.06
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -78,13 +78,15 @@ INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`,
 ('5f1448e35a109', '8', '5f12ccfe4afe8', 1, '2020-07-19 20:21:00', '2020-07-19 21:21:00', 'coba pinjam', 'Ditolak'),
 ('5f1448f6a10c3', '8', '5f12cd6abdba2', 1, '2020-07-19 23:21:00', '2020-07-20 01:21:00', 'pinjam yang ini juga', 'Diterima'),
 ('5f147de8b1006', '8', '5f12ccfe4afe8', 1, '2020-07-20 00:07:00', '2020-07-21 00:07:00', 'untuk uji coba', 'Ditolak'),
-('5f150944e9609', '8', '5f12ccfe4afe8', 1, '2020-07-20 12:02:00', '2020-07-20 13:02:00', 'testing', 'Menunggu_Izin'),
-('5f150c74adc88', '8', '5f12ce7d3da21', 1, '2020-07-20 10:15:00', '2020-07-20 11:16:00', 'untuk kelas', 'Menunggu_Izin'),
-('5f1513bc63bfb', '38', '5f12ce7d3da21', 1, '2020-07-20 10:46:00', '2020-07-20 11:47:00', 'untuk kelas', 'Menunggu_Izin'),
-('5f1be6c8ac198', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:01:00', '2020-07-25 16:01:00', 'testing notifikasi', 'Menunggu_Izin'),
-('5f1be80d5cc11', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:06:00', '2020-07-25 16:06:00', 'test notifikasi', 'Menunggu_Izin'),
-('5f1be87feef78', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:08:00', '2020-07-25 16:08:00', 'test notifikasi peminjaman barang', 'Menunggu_Izin'),
-('5f1be918cc49f', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:11:00', '2020-07-25 16:11:00', 'test peminjaman barang', 'Menunggu_Izin');
+('5f150944e9609', '8', '5f12ccfe4afe8', 1, '2020-07-20 12:02:00', '2020-07-20 13:02:00', 'testing', 'Diterima'),
+('5f150c74adc88', '8', '5f12ce7d3da21', 1, '2020-07-20 10:15:00', '2020-07-20 11:16:00', 'untuk kelas', 'Diterima'),
+('5f1513bc63bfb', '38', '5f12ce7d3da21', 1, '2020-07-20 10:46:00', '2020-07-20 11:47:00', 'untuk kelas', 'Diterima'),
+('5f1be6c8ac198', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:01:00', '2020-07-25 16:01:00', 'testing notifikasi', 'Diterima'),
+('5f1be80d5cc11', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:06:00', '2020-07-25 16:06:00', 'test notifikasi', 'Ditolak'),
+('5f1be87feef78', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:08:00', '2020-07-25 16:08:00', 'test notifikasi peminjaman barang', 'Ditolak'),
+('5f1be918cc49f', '8', '5f12ccfe4afe8', 1, '2020-07-25 15:11:00', '2020-07-25 16:11:00', 'test peminjaman barang', 'Ditolak'),
+('5f1e7dfa80b9d', '5f1e7dc5ca07e', '5f12ce7d3da21', 1, '2020-07-02 14:10:00', '2020-07-03 14:10:00', 'kelas', 'Diterima'),
+('5f1e8016bf045', '5f1e7dc5ca07e', '5f12ccfe4afe8', 1, '2020-07-27 14:19:00', '2020-07-27 15:20:00', 'test notifikasi', 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,26 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 (338, 39, 8, 'Alhamdulillah', '', '', '', '2020-07-23 21:18:50', ''),
 (339, 39, 8, 'Semangat terus yaaaa', '', '', '', '2020-07-23 21:18:55', ''),
 (340, 8, 39, 'few bugs', '', '', '', '2020-07-24 13:13:39', ''),
-(341, 8, 39, 'but so far its working', '', '', '', '2020-07-24 13:13:44', '');
+(341, 8, 39, 'but so far its working', '', '', '', '2020-07-24 13:13:44', ''),
+(342, 38, 8, 'test john', '', '', '', '2020-07-27 00:06:09', ''),
+(343, 38, 8, 'jalan gak john?', '', '', '', '2020-07-27 00:06:25', ''),
+(344, 38, 8, 'kayanya sih jalan harusnya', '', '', '', '2020-07-27 00:06:31', ''),
+(345, 38, 8, 'ya... lumayan deh', '', '', '', '2020-07-27 00:11:52', ''),
+(346, 38, 8, 'test', '', '', '', '2020-07-27 14:03:07', ''),
+(347, 38, 8, 'berfungsi', '', '', '', '2020-07-27 14:03:14', ''),
+(348, 5, 8, 'test', '', '', '', '2020-07-27 14:22:21', ''),
+(349, 5, 8, 'halo john', '', '', '', '2020-07-27 14:22:28', ''),
+(350, 38, 8, 'test', '', '', '', '2020-07-27 14:22:51', ''),
+(351, 38, 8, 'test', '', '', '', '2020-07-27 14:22:55', ''),
+(352, 38, 8, 'test', '', '', '', '2020-07-27 14:22:57', ''),
+(353, 38, 8, 'test', '', '', '', '2020-07-27 14:22:58', ''),
+(354, 38, 8, 'halooo', '', '', '', '2020-07-27 14:23:01', ''),
+(355, 8, 5, 'hi sulthan', '', '', '', '2020-07-27 14:23:33', ''),
+(356, 8, 5, 'wadaw pusing', '', '', '', '2020-07-27 14:23:40', ''),
+(357, 5, 8, 'test', '', '', '', '2020-07-27 14:24:02', ''),
+(358, 5, 8, 'jalan sih kan??', '', '', '', '2020-07-27 14:24:12', ''),
+(359, 5, 8, 'hmm', '', '', '', '2020-07-27 14:24:56', ''),
+(360, 5, 8, 'NULL', 'logo_FIK.PNG', '.PNG', 'image/png', '2020-07-27 14:25:05', '');
 
 -- --------------------------------------------------------
 
@@ -265,6 +286,23 @@ CREATE TABLE `notification` (
   `status` enum('unread','read') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `notification`
+--
+
+INSERT INTO `notification` (`id`, `user_id`, `booking_id`, `borrowing_id`, `gallery_id`, `description`, `date`, `status`) VALUES
+('5f1e7e0404fe8', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', 'Barang ini ingin dipinjam', '2020-07-27 14:11:00', 'read'),
+('5f1e7e24aab87', '38', '', '5f1513bc63bfb', '', 'Peminjaman diizinkan', '2020-07-27 14:11:32', 'unread'),
+('5f1e7e7a57880', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', 'Peminjaman diizinkan', '2020-07-27 14:12:58', 'read'),
+('5f1e7e7bb5380', '8', '', '5f150944e9609', '', 'Peminjaman diizinkan', '2020-07-27 14:12:59', 'unread'),
+('5f1e7e7d9a262', '8', '', '5f1be6c8ac198', '', 'Peminjaman diizinkan', '2020-07-27 14:13:01', 'unread'),
+('5f1e7e7ea0652', '8', '', '5f1be80d5cc11', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:02', 'read'),
+('5f1e7e8074c4b', '8', '', '5f1be87feef78', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:04', 'read'),
+('5f1e7e840cb93', '8', '', '5f1be918cc49f', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:08', 'unread'),
+('5f1e8023404c9', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', 'Barang ini ingin dipinjam', '2020-07-27 14:20:03', 'read'),
+('5f1e803d57bb6', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', 'Peminjaman diizinkan', '2020-07-27 14:20:29', 'read'),
+('5f1e804056b12', '8', '', '5f150c74adc88', '', 'Peminjaman diizinkan', '2020-07-27 14:20:32', 'unread');
+
 -- --------------------------------------------------------
 
 --
@@ -341,16 +379,17 @@ CREATE TABLE `tampilan` (
   `judul` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
   `keywords` varchar(255) NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT '0'
+  `likes` int(11) NOT NULL DEFAULT '0',
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tampilan`
 --
 
-INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`) VALUES
-(39, 8, 'witcher', 7, 1, '222619.jpg', '2020-07-18 11:35:50', '2020-07-20 03:36:25', 7, 1301174665, '001', 'witcher', 'game terbaik tahun 2017', 'witch', 0),
-(40, 38, 'cyberpunk', 7, 1, '1238334.jpg', '2020-07-18 12:36:29', '2020-07-20 04:50:52', 2, 1301174666, '002', 'cyberpunk', 'calon game terbaik 2020', 'punk', 0);
+INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `gambar`, `tanggal_post`, `tanggal_update`, `views`, `nim`, `kode_tampilan`, `judul`, `deskripsi`, `keywords`, `likes`, `status`) VALUES
+(3, 44, 'cyberpunk-001', 7, 1, '1238334.jpg', '2020-07-26 17:43:19', '2020-07-26 10:55:19', 1, 1301196969, '001', 'cyberpunk', 'calon game terbaik tahun 2020', 'punk', 1, 'Diterima'),
+(4, 38, 'witcher-002', 7, 1, '2226191.jpg', '2020-07-26 17:45:48', '2020-07-26 10:47:42', 1, 1301121313, '002', 'witcher', 'game of the year 2017', 'witch', 0, 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -359,7 +398,7 @@ INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id
 --
 
 CREATE TABLE `tb_info` (
-  `id` int(11) NOT NULL,
+  `id` varchar(64) NOT NULL,
   `title` varchar(100) NOT NULL,
   `images` varchar(100) NOT NULL,
   `body` varchar(600) NOT NULL,
@@ -372,14 +411,10 @@ CREATE TABLE `tb_info` (
 --
 
 INSERT INTO `tb_info` (`id`, `title`, `images`, `body`, `uploadby`, `date`) VALUES
-(11, 'Fakultas Industri Kreatif', 'fik.png', '	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium magnam nihil reprehenderit sed omnis ipsam perspiciatis impedit, quasi voluptas nobis eligendi corporis deserunt aliquid.', '', '2020-07-08 00:00:00'),
-(14, 'Fakultas Industri Kreatif', '50027080802_bbb3236058_c.jpg', 'adsad', '', '2020-07-08 00:00:00'),
-(16, 'Fakultas Industri Kreatif', 'Classroom-without-windows-Pixabay.jpg', 'dad', '', '2020-07-08 00:00:00'),
-(17, 'Fakultas Industri Kreatif', 'Classroom-without-windows-Pixabay1.jpg', 'fsdf', '', '2020-07-08 00:00:00'),
-(19, 'Fakultas Industri Kreatif', 'Classroom-without-windows-Pixabay3.jpg', 'fsdd', 'Kaurlab', '2020-07-08 00:00:00'),
-(20, 'Fakultas Industri Kreatif', 'Classroom-without-windows-Pixabay4.jpg', 'fsd', 'Kaurlab', '2020-07-08 00:00:00'),
-(27, 'Informasi 12', 'Classroom-without-windows-Pixabay2.jpg', 'Test', 'Admin', '2020-07-08 00:00:00'),
-(28, 'Informasi 13', 'Classroom-without-windows-Pixabay5.jpg', 'Test', 'Admin', '2020-07-08 00:00:00');
+('5', 'Informasi 1', 'Classroom-without-windows-Pixabay1.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Administrator', '2020-07-25 19:17:55'),
+('5f1c2350e4e4b', 'informasi 2', 'Cat1.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Administrator', '2020-07-25 19:19:28'),
+('5f1d2d6cc3194', 'Informasi Updated', 'IMG_9534_edit.jpg', 'lorem ipsum', 'Admin', '2020-07-26 14:14:52'),
+('5f1d30f88809f', 'Information', 'default.jpg', 'Lorem ipsum dolor amet', 'Admin', '2020-07-26 14:30:00');
 
 -- --------------------------------------------------------
 
@@ -388,7 +423,7 @@ INSERT INTO `tb_info` (`id`, `title`, `images`, `body`, `uploadby`, `date`) VALU
 --
 
 CREATE TABLE `tb_lab` (
-  `id` int(11) NOT NULL,
+  `id` varchar(64) NOT NULL,
   `images` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
   `body` varchar(500) NOT NULL,
@@ -400,13 +435,13 @@ CREATE TABLE `tb_lab` (
 --
 
 INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
-(3, 'IMG_9534_edit.jpg', 'Lab Batik', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
-(12, 'IMG_9314.JPG', 'Lab Bengkel', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
-(13, 'IMG_9274.JPG', 'Lab CGI', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
-(16, 'IMG_9189_edit.jpg', 'Lab Mac', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46'),
-(17, 'IMG_9166_edit.jpg', 'Lab Multimedia', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium\r\n', '2020-07-17 08:20:46'),
-(22, 'IMG_9675_edit.jpg', 'Lab Pola dan Jahit', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium ', '2020-07-17 08:20:46'),
-(44, 'IMG_9181_edit.jpg', 'Lab Sintik', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fugit molestias modi repellendus illo accusantium', '2020-07-17 08:20:46');
+('5f1b8caf058b4', 'IMG_9534_edit1.jpg', 'Lab. Batik', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 01:36:47'),
+('5f1b93c2bdb1f', 'IMG_92741.JPG', 'Lab. CGI', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:06:58'),
+('5f1b95d912037', 'IMG_9189_edit1.jpg', 'Lab. Mac', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:15:53'),
+('5f1b960077560', 'IMG_93141.JPG', 'Lab. Bengkel', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:16:32'),
+('5f1b9649ea263', 'IMG_9166_edit1.jpg', 'Lab. Multimedia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:17:45'),
+('5f1b96dbac690', 'IMG_9675_edit1.jpg', 'Lab. Pola dan Jahit', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:20:11'),
+('5f1ce025887f9', 'IMG_9181_edit.jpg', 'Lab. Sintik', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-26 01:45:09');
 
 -- --------------------------------------------------------
 
@@ -480,6 +515,7 @@ INSERT INTO `user` (`id`, `username`, `name`, `email`, `images`, `password`, `sa
 ('38', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
 ('39', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
 ('44', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
+('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.kurniawan@gmail.com', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 4, 1, 1595833797, 'offline'),
 ('8', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
 
 -- --------------------------------------------------------
@@ -639,7 +675,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
 
 --
 -- AUTO_INCREMENT untuk tabel `child_kategori`
@@ -663,19 +699,7 @@ ALTER TABLE `kategoriruangan`
 -- AUTO_INCREMENT untuk tabel `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT untuk tabel `tb_info`
---
-ALTER TABLE `tb_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT untuk tabel `tb_lab`
---
-ALTER TABLE `tb_lab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_panel`
