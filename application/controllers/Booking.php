@@ -33,7 +33,7 @@ class Booking extends CI_Controller
     if (!$valid->run()) {
       $this->load->view('templates/dashboard/headerDosenMhs', $data);
       $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-      $this->load->view('dashboard/users/pinjamtempat');
+      $this->load->view('dashboard/users/pinjamTempat');
       $this->load->view('templates/dashboard/footer');
     } else {
       $data = array(

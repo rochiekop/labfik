@@ -73,7 +73,7 @@ class Karya extends CI_Controller
                 );
                 $this->load->view('templates/dashboard/headerDosenMhs', $data);
                 $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-                $this->load->view('karya/Tambah', $data);
+                $this->load->view('karya/tambah', $data);
                 $this->load->view('templates/dashboard/footer');
             } else {
                 $upload_gambar = array('upload_data' => $this->upload->data());
@@ -114,7 +114,7 @@ class Karya extends CI_Controller
         );
         $this->load->view('templates/dashboard/headerDosenMhs', $data);
         $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view('karya/Tambah', $data);
+        $this->load->view('karya/tambah', $data);
         $this->load->view('templates/dashboard/footer');
     }
 

@@ -31,7 +31,7 @@ class Users extends CI_Controller
     $data['dt_tempat'] = $this->user_model->getAllDtTempat();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/daftartempat');
+    $this->load->view('dashboard/users/daftarTempat');
     $this->load->view('templates/dashboard/footer');
   }
 
@@ -51,7 +51,7 @@ class Users extends CI_Controller
     $data["mybooking"] = $this->booking_model->getByUserId($user_id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/logbooking', $data);
+    $this->load->view('dashboard/users/logBooking', $data);
     $this->load->view('templates/dashboard/footer');
   }
 }

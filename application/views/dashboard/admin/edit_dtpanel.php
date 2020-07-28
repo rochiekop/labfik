@@ -23,30 +23,35 @@
     </div>
     <div class="col-md-7">
       <div class="card">
-        <form action="" method="post" enctype="multipart/form-data">
-          <div class="card-body">
-            <div class="custom-form">
-              <div class="form-group">
-                <input type="text" name="title" value="<?= $dt_panel['title']; ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-                <label>Judul</label>
-                <small class="form-text text-danger"><?= form_error('title') ?>.</small>
-              </div>
-              <div class="form-group" style="margin-bottom:5px;">
-                <textarea name="body" class="form-control" placeholder="" required="required" autocomplete="off"><?= $dt_panel['body']; ?></textarea>
-                <small class="form-text text-danger"><?= form_error('body') ?>.</small>
-                <label>Deskripsi</label>
-              </div>
+        <?php echo form_open_multipart(''); ?>
+        <div class="card-body">
+          <div class="custom-form">
+            <div class="form-group">
+              <input type="text" name="title" value="<?= $dt_panel['title']; ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+              <label>Judul</label>
+              <small class="form-text text-danger"><?= form_error('title') ?>.</small>
             </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="exampleFormControlFile1"><b>Ganti Video</b></label>
-              <input type="file" class="form-control" name="video" id="exampleFormControlFile1" style="padding:13px 16px">
+            <div class="form-group" style="margin-bottom:5px;">
+              <textarea name="body" class="form-control" placeholder="" required="required" autocomplete="off"><?= $dt_panel['body']; ?></textarea>
+              <small class="form-text text-danger"><?= form_error('body') ?>.</small>
+              <label>Deskripsi</label>
             </div>
-            <input type="hidden" value="<?= $dt_panel['video'] ?>" class="form-control" name="video!updated">
           </div>
-          <div class="card-footer">
-            <button class="btn btn-primary" type="submit" name="submit">Simpan</button>
+          <div class="form-group">
+            <label for="exampleFormControlFile1"><b>Ganti Video</b></label>
+            <input type="file" class="form-control" name="video" id="exampleFormControlFile1" style="padding:13px 16px">
           </div>
-        </form>
+          <div class="form-group">
+            <label for="image"><b>Ganti Thumbnail</b></label>
+            <input type="file" class="form-control" name="image" id="image" style="padding:13px 16px">
+          </div>
+          <input type="hidden" value="<?= $dt_panel['video'] ?>" class="form-control" name="video!updated">
+          <input type="hidden" value="<?= $dt_panel['thumb'] ?>" class="form-control" name="image!updated">
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" type="submit" name="submit">Simpan</button>
+        </div>
+        <?php echo form_close() ?>
       </div>
     </div>
   </div>

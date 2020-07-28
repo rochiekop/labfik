@@ -61,7 +61,7 @@
           <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
-          <video controls="" poster="<?= base_url('assets/img/panel/thumbnail.jpg') ?>">
+          <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>">
             <source src="<?= base_url('assets/img/panel/') . $dt_panel['video']; ?>" type="video/mp4">
             Ooops, your browser is not supported this feature
           </video>

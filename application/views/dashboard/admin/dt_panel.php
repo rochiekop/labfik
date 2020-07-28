@@ -84,10 +84,11 @@
       <div class="modal-body">
         Hapus Panel <?= $dt_panel['title']; ?> ?
       </div>
-      <form action="deleteinfo" method="post" enctype="multipart/form-data">
+      <form action="deletepanel" method="post" enctype="multipart/form-data">
         <div class="modal-footer">
           <input type="hidden" id="id" name="id" value="<?= $dt_panel['id']; ?>">
-          <input type="hidden" id="image" name="image" value="<?= $dt_panel['video']; ?>">
+          <input type="hidden" id="image" name="image" value="<?= $dt_panel['thumb']; ?>">
+          <input type="hidden" id="video" name="video" value="<?= $dt_panel['video']; ?>">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
           <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Hapus</button>
         </div>
