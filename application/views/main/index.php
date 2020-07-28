@@ -75,6 +75,10 @@
 
 <div class="fik-jadwal-ruangan margin-t50">
   <div class="container">
+    <div class="fik-section-title text-center">
+      <h3>INFORMASI RUANGAN</h3>
+      <p>informasi terbaru mengenai ruangan yang terisi maupun yang masih available</p>
+    </div>
     <div class="owl-carousel owl-theme fik-carousel-schedule">
       <?php $start = 0; ?>
       <?php $xIteration = ceil(count($dt_schedule) / 5);
@@ -134,6 +138,10 @@
 
 <div class="fik-lab-div margin-t50">
   <div class="container">
+    <div class="fik-section-title text-center">
+      <h3>LABORATORIUM FAKULTAS</h3>
+      <p>Fasilitas laboratorium di fakultas industri kreatif</p>
+    </div>
     <div class="lab-content">
       <div class="owl-carousel owl-theme fik-lab-div-list">
         <?php if (!empty($dt_lab)) : ?>
@@ -179,7 +187,7 @@
 <div class="fik-feed margin-t50">
   <div class="container text-center">
     <div class="fik-section-title">
-      <h3>News</h3>
+      <h3>NEWS</h3>
       <p>informasi terbaru mengenai lab diupdate disini</p>
     </div>
     <div class="feed-container">
