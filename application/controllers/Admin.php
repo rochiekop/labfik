@@ -6,11 +6,6 @@ class Admin extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    // $this->load->model('m_dtinfo');
-    // $this->load->model('m_dtpanel');
-    // $this->load->model('m_dtslider');
-    // $this->load->model('m_dtpeminjaman');
-    // $this->load->model('m_dtruangan');
     $this->load->model('admin_model');
     $this->load->model('main_model');
     $this->load->library('upload');
@@ -361,20 +356,23 @@ class Admin extends CI_Controller
       $this->load->view('templates/dashboard/sidebarAdmin', $data);
       $this->load->view('dashboard/admin/add_dtpanel', $data);
       $this->load->view('templates/dashboard/footer');
-    } elseif (!empty($_FILES['video']['name'])) {
+    } elseif (!empty($_FILES['video']['name']) and !empty($_FILES['image']['name'])) {
       $config['upload_path'] = './assets/img/panel';
-      $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
+      $config['allowed_types'] = '*';
       $config['max_size'] = '1000000';  //100MB max
       $config['max_width'] = '200000000'; // pixel
       $config['max_height'] = '1000000000000'; // pixel
-      $config['file_name'] = $_FILES['video']['name'];
+      $video = trim(addslashes($_FILES['video']['name']));
+      $video = preg_replace('/\s+/', '_', $video);
+      $image = trim(addslashes($_FILES['image']['name']));
+      $image = preg_replace('/\s+/', '_', $image);
       $this->upload->initialize($config);
-      if ($this->upload->do_upload('video')) {
-        $video = $this->upload->data();
+      if ($this->upload->do_upload('video') and $this->upload->do_upload('image')) {
         $data = array(
           'title'       => $this->input->post('title'),
           'body'        => $this->input->post('body'),
-          'video'       => $video['file_name'],
+          'video'       => $video,
+          'thumb' => $image,
         );
         $this->db->insert('tb_panel', $data);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil ditambahkan!</div>');
@@ -410,40 +408,82 @@ class Admin extends CI_Controller
       $this->load->view('templates/dashboard/sidebarAdmin', $data);
       $this->load->view('dashboard/admin/edit_dtpanel', $data);
       $this->load->view('templates/dashboard/footer');
-    } elseif (!empty($_FILES['video']['name'])) {
+    } elseif (!empty($_FILES['video']['name']) and !empty($_FILES['image']['name'])) {
       // get Video
       $config['upload_path'] = './assets/img/panel';
-      $config['allowed_types'] = 'mp4|3gp|flv|mkv|mp4|jpg|png|jpeg|gif';
+      $config['allowed_types'] = '*';
       $config['max_size'] = '1000000';  //100MB max
       $config['max_width'] = '200000000'; // pixel
       $config['max_height'] = '1000000000000'; // pixel
-      $config['file_name'] = $_FILES['video']['name'];
+      $config['remove_space'] = TRUE;
+      $video = trim(addslashes($_FILES['video']['name']));
+      $video = preg_replace('/\s+/', '_', $video);
+      $image = trim(addslashes($_FILES['image']['name']));
+      $image = preg_replace('/\s+/', '_', $image);
       $this->upload->initialize($config);
-      if ($this->upload->do_upload('video')) {
-        $old_img = $data['dt_panel']['video'];
-        if ($old_img != 'video_placeholder.png') {
+      if ($this->upload->do_upload('video') and $this->upload->do_upload('image')) {
+        if ($video != 'video_placeholder.png') {
           //delete video in direktori
           @unlink($path . $this->input->post('video!updated'));
+          @unlink($path . $this->input->post('image!updated'));
         }
-        $video = $this->upload->data();
         $data = array(
           'title'       => $this->input->post('title'),
           'body'     => $this->input->post('body'),
-          'video'       => $video['file_name'],
+          'video'       => $video,
+          'thumb'       => $image,
+        );
+        $this->db->update('tb_panel', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
+        redirect('admin/dt_panel');
+      }
+    } elseif (!empty($_FILES['video']['name']) or !empty($_FILES['image']['name'])) {
+      // get Video
+      $config['upload_path'] = './assets/img/panel';
+      $config['allowed_types'] = '*';
+      $config['max_size'] = '1000000';  //100MB max
+      $config['max_width'] = '200000000'; // pixel
+      $config['max_height'] = '1000000000000'; // pixel
+      $config['remove_space'] = TRUE;
+      $video = trim(addslashes($_FILES['video']['name']));
+      $video = preg_replace('/\s+/', '_', $video);
+      $image = trim(addslashes($_FILES['image']['name']));
+      $image = preg_replace('/\s+/', '_', $image);
+      $this->upload->initialize($config);
+      if ($this->upload->do_upload('video')) {
+        if ($video != 'video_placeholder.png') {
+          //delete video in direktori
+          @unlink($path . $this->input->post('video!updated'));
+        }
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'body'     => $this->input->post('body'),
+          'video'       => $video,
+          'thumb'       => $this->input->post('image!updated'),
+        );
+        $this->db->update('tb_panel', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
+        redirect('admin/dt_panel');
+      } elseif ($this->upload->do_upload('image')) {
+        @unlink($path . $this->input->post('image!updated'));
+        $data = array(
+          'title'       => $this->input->post('title'),
+          'body'     => $this->input->post('body'),
+          'video'       => $this->input->post('video!updated'),
+          'thumb'       => $image
         );
         $this->db->update('tb_panel', $data, ['id' => $id]);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
         redirect('admin/dt_panel');
       } else {
         echo $this->upload->display_errors();
-        // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Error Upload,Update Failed</div>');
-        // redirect('admin/dt_panel');
       }
     } else {
       $data = array(
         'title' => $this->input->post('title'),
         'body'     => $this->input->post('body'),
         'video'       => $this->input->post('video!updated'),
+        'thumb'       => $this->input->post('image!updated'),
       );
       $this->db->update('tb_panel', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Info Panel berhasil diperbarui!</div>');
@@ -456,8 +496,13 @@ class Admin extends CI_Controller
   {
     $id = $this->input->post('id');
     $video = $this->input->post('video');
+    $image = $this->input->post('image');
     $path = './assets/img/panel/';
-    unlink($path . $video);
+    $panel = $this->db->get_where('tb_panel', ['id' => $id])->row_array();
+    if ($panel->images != 'video_placeholder.png') {
+      unlink($path . $video);
+      unlink($path . $image);
+    }
     $this->main_model->deleteDataPanel($id);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data panel berhasil dihapus</div>');
     redirect('admin/dt_panel');
@@ -588,188 +633,6 @@ class Admin extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Slider berhasil dihapus</div>');
     redirect('admin/dt_slider');
   }
-
-  // Data RUANGAN
-  public function dt_ruangan()
-  {
-    $this->load->library('pagination');
-
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Data Ruangan';
-
-    $config['base_url'] = 'http://localhost/login/admin/dt_ruangan/';
-    $config['per_page'] = 5;
-    $config['total_rows'] = $this->db->get('ruangan')->num_rows();
-
-    $data['start'] = $this->uri->segment(3);
-    $data['dt_ruangan'] = $this->m_dtruangan->getRuangan($config['per_page'], $data['start']);
-    // $data['dt_ruangan'] = $this->m_dtruangan->getAllDtRuangan();
-
-
-    // $data['tot_row'] = $this->db->get('ruangan')->num_rows();
-    // Initialize
-    $this->pagination->initialize($config);
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/dt_ruangan', $data);
-    $this->load->view('templates/footer');
-  }
-
-
-  public function add_dt_ruangan()
-  {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Input Ruangan';
-    $this->form_validation->set_rules('ruangan', 'Ruangan', 'required');
-    $this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required|numeric');
-    $this->form_validation->set_rules('gedung', 'Gedung', 'required|min_length[8]');
-    $this->form_validation->set_rules('lantai', 'Lantai', 'required|min_length[8]');
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dt_ruangan');
-      $this->load->view('templates/footer');
-    } elseif (!empty($_FILES['images']['name'])) {
-      // get foto
-      $config['upload_path'] = './assets/img/rooms';
-      $config['allowed_types'] = 'jpg|png|jpeg|gif';
-      $config['max_size'] = '2048';  //2MB max
-      $config['max_width'] = '4480'; // pixel
-      $config['max_height'] = '4480'; // pixel
-      $config['file_name'] = $_FILES['images']['name'];
-      $this->upload->initialize($config);
-      if ($this->upload->do_upload('images')) {
-        $images = $this->upload->data();
-        $data = [
-          "ruangan" => $this->input->post('ruangan', true),
-          "kapasitas" => $this->input->post('kapasitas', true),
-          "gedung" => $this->input->post('gedung', true),
-          "lantai" => $this->input->post('lantai', true),
-          "images" =>  $images['file_name'],
-        ];
-        $this->db->insert('ruangan', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan has been Add!</div>');
-        redirect('admin/dt_ruangan');
-      } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan has been Add!</div>');
-        redirect('admin/dt_ruangan');
-      }
-    } else {
-
-      $this->load->view('admin/add_dt_ruangan');
-    }
-  }
-
-  public function deleteruangan()
-  {
-    $id = $this->input->post('id');
-    $image = $this->input->post('image');
-    $data['ruangan'] = $this->admin_model->getDtTempatById($id);
-    $path = 'assets/img/ruangan/';
-    $old_img = $data['ruangan']['images'];
-    if ($old_img != 'default.jpg') {
-      @unlink($path . $image);
-    }
-    $where = array('id' => $id);
-    $this->db->where($where);
-    $this->db->delete('ruangan');
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil dihapus</div>');
-    redirect('admin/daftartempat');
-  }
-
-
-  // Data Peminjaman
-  public function dt_peminjaman()
-  {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Data Peminjaman';
-    $data['dt_peminjaman'] = $this->m_dtpeminjaman->getAllDtPeminjaman();
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/dt_peminjaman', $data);
-    $this->load->view('templates/footer');
-  }
-
-  public function add_dt_peminjaman()
-  {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Input Peminjaman';
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('admin/add_dt_peminjaman', $data);
-    $this->load->view('templates/footer');
-  }
-
-  public function insert_dt_peminjaman()
-  {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Input data peminjaman';
-
-    // $this->form_validation->set_rules('ruangan', 'Ruangan', 'required');
-    // $this->form_validation->set_rules('waktu', 'Waktu', 'required');
-    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
-    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/add_dt_peminjaman');
-      $this->load->view('templates/footer');
-    } else {
-      $data = [
-        "ruangan" => $this->input->post('ruangan', true),
-        "tanggal" => $this->input->post('tanggal', true),
-        "waktu" => $this->input->post('waktu', true),
-        "peminjam" => $this->input->post('peminjam', true),
-        "keterangan" => $this->input->post('keterangan', true),
-        "status" => $this->input->post('status', true),
-      ];
-      $this->db->insert('tb_peminjaman', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman has been Add!</div>');
-      redirect('admin/dt_peminjaman');
-    }
-  }
-
-
-  // Edit Data Pemijaman
-
-  public function edit_dt_peminjaman($id)
-  {
-    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-    $data['title'] = 'Edit Data Peminjaman';
-
-    $data['dt_pinjam'] = $this->m_dtpeminjaman->getDtPinjamById($id);
-    $this->form_validation->set_rules('peminjam', 'Peminjam', 'required');
-    $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-    //conditon in form_validation, if user input form = false, then load page "ubah" again
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('admin/edit_dt_peminjaman');
-      $this->load->view('templates/footer');
-    } else {
-      $this->m_dtpeminjaman->editDataPeminjaman();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
-      redirect('admin/dt_peminjaman');
-    }
-  }
-
-  // delete data peminjaman
-  public function delete_dt_peminjaman($id)
-  {
-    $this->m_dtpeminjaman->deleteDataPeminjaman($id);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Succes</div>');
-    redirect('admin/dt_peminjaman');
-  }
-
 
   // TEMPAT
   public function daftarTempat()

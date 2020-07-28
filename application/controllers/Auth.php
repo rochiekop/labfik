@@ -95,7 +95,7 @@ class Auth extends CI_Controller
       'protocol' => 'smtp',
       'smtp_host' => 'ssl://smtp.googlemail.com',
       'smtp_user' => 'syamsululum1010@gmail.com',
-      'smtp_pass' => 'Masjidsyamsululum10',
+      'smtp_pass' => 'NewSyamsulUlum2020',
       'smtp_port' => 465,
       'mailtype' => 'html',
       'charset' => 'utf-8',
@@ -274,25 +274,25 @@ class Auth extends CI_Controller
     $data['title'] = 'LABFIK | Forgot Password';
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
     if ($this->form_validation->run() == false) {
-      $this->load->view('auth/forgotpassword', $data);
+      $this->load->view('auth/forgotPassword', $data);
     } else {
       $email = $this->input->post('email');
       $user = $this->db->get_where('user', ['email' => $email])->row_array();
       if ($user) {
         if ($user['is_active'] != 1) {
           $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">Email is not activated!</div>');
-          redirect('auth/forgotpassword');
+          redirect('auth/forgotPassword');
         } else {
           $token = base64_encode(random_bytes(32));
           $this->auth_model->user_token($token);
           $this->_sendEmail($token, 'forgot');
 
           $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="margin-top:24px;">Please check your email to reset your password.</div>');
-          redirect('auth/forgotpassword');
+          redirect('auth/forgotPassword');
         }
       } else {
         $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">Email is not registered!</div>');
-        redirect('auth/forgotpassword');
+        redirect('auth/forgotPassword');
       }
     }
   }
@@ -339,7 +339,7 @@ class Auth extends CI_Controller
       'min_length' => 'Repeat Password must be at least 6 characters', 'matches' => 'Repeat password not matches'
     ]);
     if ($this->form_validation->run() == false) {
-      $this->load->view('auth/changepassword', $data);
+      $this->load->view('auth/changePassword', $data);
     } else {
       $email = $this->session->userdata('reset_password');
       $this->auth_model->changepass($email);
