@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jul 2020 pada 10.06
+-- Waktu pembuatan: 28 Jul 2020 pada 10.13
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -36,20 +36,30 @@ CREATE TABLE `booking` (
   `date_declined` date NOT NULL,
   `time` varchar(100) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` varchar(50) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `booking`
 --
 
-INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined`, `time`, `keterangan`, `status`) VALUES
-('5f17a08ae0d85', '38', '5f15e3276fe2b', '2020-07-23', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30', 'Kelas', 'Diterima'),
-('5f17c81e23361', '5f140497dd7ef', '17', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Kelas Pengganti', 'Diterima'),
-('5f17d4cd66afd', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '10.30 - 11.30, 11.30 - 12.30, 12.30 - 13.30', 'fgfdgf', 'Menunggu Acc'),
-('5f17d96f202c2', '38', '5f15e3276fe2b', '0000-00-00', '2020-07-22', '06.30 - 07.30, 07.30 - 08.30', 'tes', 'Ditolak'),
-('5f18707b13a27', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '13.30 - 14.30', 'fdsdf', 'Menunggu Acc'),
-('5f187a3ecb692', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'fdgf', 'Menunggu Acc');
+INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined`, `time`, `keterangan`, `status`, `date_created`) VALUES
+('5f17a08ae0d85', '38', '5f15e3276fe2b', '2020-07-23', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30', 'Kelas', 'Diterima', '2020-07-25 18:37:26'),
+('5f17c81e23361', '5f140497dd7ef', '17', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Kelas Pengganti', 'Diterima', '2020-07-25 18:37:26'),
+('5f17d4cd66afd', '38', '5f15e3276fe2b', '0000-00-00', '2020-07-22', '10.30 - 11.30, 11.30 - 12.30, 12.30 - 13.30', 'Kelas', 'Ditolak', '2020-07-25 18:37:26'),
+('5f17d96f202c2', '38', '5f15e3276fe2b', '0000-00-00', '2020-07-22', '06.30 - 07.30, 07.30 - 08.30', 'tes', 'Ditolak', '2020-07-25 18:37:26'),
+('5f18707b13a27', '38', '5f15e3276fe2b', '2020-07-22', '0000-00-00', '13.30 - 14.30', 'Kelas', 'Diterima', '2020-07-25 18:37:26'),
+('5f190ddf205c0', '44', '17', '0000-00-00', '2020-07-23', '06.30 - 07.30, 07.30 - 08.30', 'Test', 'Ditolak', '2020-07-25 18:37:26'),
+('5f1913f13985f', '44', '17', '2020-07-23', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'Testing', 'Menunggu Acc', '2020-07-25 18:37:26'),
+('5f1943bf71f4f', '44', '5f15e3276fe2b', '2020-07-23', '0000-00-00', '09.30 - 10.30, 10.30 - 11.30, 11.30 - 12.30', 'Testing', 'Menunggu Acc', '2020-07-25 18:37:26'),
+('5f1a463028b0b', '44', '5f15e3276fe2b', '0000-00-00', '2020-07-24', '07.30 - 08.30', 'Kelas Pengganti', 'Ditolak', '2020-07-25 18:37:26'),
+('5f1a467fec338', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'Testing', 'Menunggu Acc', '2020-07-25 18:37:26'),
+('5f1a5673a36e5', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '14.30 - 15.30, 15.30 - 16.30, 16.30 - 17.30', 'Testing', 'Menunggu Acc', '2020-07-25 18:37:26'),
+('5f1a5d8261d27', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '12.30 - 13.30, 13.30 - 14.30', 'kelas', 'Menunggu Acc', '2020-07-25 18:37:26'),
+('5f1a5dfe86920', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '06.30 - 07.30, 07.30 - 08.30', 'kelas', 'Diterima', '2020-07-25 18:37:26'),
+('5f1c1a532425f', '5f140497dd7ef', '17', '2020-07-25', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Booking by Admin', 'Menunggu Acc', '2020-07-25 18:41:07'),
+('5f1d2a87278ce', '44', '1', '0000-00-00', '2020-07-26', '13.30 - 14.30, 14.30 - 15.30, 15.30 - 16.30', 'Testing for schedule', 'Ditolak', '2020-07-26 14:02:31');
 
 -- --------------------------------------------------------
 
@@ -454,6 +464,7 @@ CREATE TABLE `tb_panel` (
   `title` varchar(100) NOT NULL,
   `body` text NOT NULL,
   `video` varchar(500) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -461,8 +472,8 @@ CREATE TABLE `tb_panel` (
 -- Dumping data untuk tabel `tb_panel`
 --
 
-INSERT INTO `tb_panel` (`id`, `title`, `body`, `video`, `date_create`) VALUES
-(44, 'Laboratorium, Studio & Bengkel Fakultas Industri Kreatif', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.', 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', '2020-07-18 14:57:39');
+INSERT INTO `tb_panel` (`id`, `title`, `body`, `video`, `thumb`, `date_create`) VALUES
+(99, 'Laboratorium, Studio & Bengkel Fakultas Industri Kreatif', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.', 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', 'thumbnail_panel.jpg', '2020-07-28 13:33:06');
 
 -- --------------------------------------------------------
 
@@ -516,6 +527,7 @@ INSERT INTO `user` (`id`, `username`, `name`, `email`, `images`, `password`, `sa
 ('39', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
 ('44', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
 ('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.kurniawan@gmail.com', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 4, 1, 1595833797, 'offline'),
+('5f1ea45027a6d', 'akathan', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.angka@gmail.com', 'default.jpg', '0d9cc71f962717072438173e06efcd628e0a95d630788447c867c546de19740c', '$2y$10$vba9tEk8s0KuCWTm0F..PuwcqsNy7qaAbJbaM1yIlCh8w3CFUMVcK', 4, 1, 1595843664, 'offline'),
 ('8', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
 
 -- --------------------------------------------------------
@@ -546,7 +558,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 --
 
 CREATE TABLE `user_token` (
-  `id` int(11) NOT NULL,
+  `id` varchar(64) NOT NULL,
   `email` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
   `date_created` int(11) NOT NULL
@@ -705,7 +717,7 @@ ALTER TABLE `tampilan`
 -- AUTO_INCREMENT untuk tabel `tb_panel`
 --
 ALTER TABLE `tb_panel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
