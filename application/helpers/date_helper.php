@@ -16,7 +16,7 @@ if (!function_exists('format_indo')) {
     $waktu = substr($date, 11, 5);
     $hari = date("w", strtotime($date));
     // $result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int)$bulan - 1] . " " . $tahun . " " . $waktu;
-    $result = $tgl . " " . $Bulan[(int)$bulan - 1] . " " . $tahun . " " . $waktu;
+    $result = $tgl . " " . $Bulan[(int)$bulan - 1] . " " . $tahun . " ";
     return $result;
   }
 }

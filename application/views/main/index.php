@@ -24,7 +24,12 @@
         <div class="item">
           <img src="<?= base_url('assets/img/slider/') . $s['images']; ?>" alt="" />
           <div class="item-text text-center">
-            <h1><?= $s['body']; ?></h1>
+            <h1><?= $s['title']; ?></h1>
+            <p style="max-width:480px;margin:20px auto 0">
+              <?= $s['body']; ?>
+              <br>
+              <button type="button" class="btn btn-primary btn-pill" style="margin-top:20px">Download</button>
+            </p>
           </div>
         </div>
       <?php endforeach; ?>

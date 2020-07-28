@@ -16,7 +16,7 @@ class Auth_model extends CI_Model
       'images' => 'default.jpg',
       'password' => $password,
       'salt' => $salt,
-      'role_id' => 4,
+      'role_id' => $this->input->post('role', true),
       'is_active' => 0,
       'date_created' => time()
 

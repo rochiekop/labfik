@@ -62,11 +62,13 @@ class Auth extends CI_Controller
       // Insert
       $this->auth_model->register();
       // Token
-      $token = base64_encode(random_bytes(32));
-      $this->auth_model->user_token($token);
+      if ($this->input->post('role') == '4') {
+        $token = base64_encode(random_bytes(32));
+        $this->auth_model->user_token($token);
+        $this->_sendEmail($token, 'verify');
+      }
       $data['success'] = true;
       $data['messages'] = "Register Success";
-      $this->_sendEmail($token, 'verify');
     } else {
       foreach ($_POST as $key => $value) {
         $data['messages'][$key] = form_error($key);
@@ -225,6 +227,20 @@ class Auth extends CI_Controller
     }
   }
 
+  public function sendtoken()
+  {
+    $user = $this->db->get_where('user', ['id' => $this->input->post('id')])->row_array();
+    if ($user) {
+      $token = base64_encode(random_bytes(32));
+      $this->auth_model->user_token($token);
+      $this->_sendEmail($token, 'verify');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="margin-top:24px;">Token berhasil dikirimkan.</div>');
+      redirect('admin/activationrequest');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">Akun belum terdaftar dalam sistem</div>');
+      redirect('admin/activationrequest');
+    }
+  }
 
   public function check()
   {

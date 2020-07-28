@@ -25,4 +25,14 @@ class Admin_model extends CI_Model
   {
     return $this->db->get_where('ruangan', ['id' => $id])->row_array();
   }
+
+  public function activationrequest()
+  {
+    $this->db->select('user.*');
+    $this->db->from('user');
+    $this->db->join('user_token', 'user.email != user_token.email');
+    $this->db->where('role_id', '3');
+    $this->db->where('is_active', '0');
+    return $this->db->get()->result_array();
+  }
 }

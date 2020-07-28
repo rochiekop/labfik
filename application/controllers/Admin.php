@@ -847,4 +847,27 @@ class Admin extends CI_Controller
     $this->load->view('dashboard/admin/riwayat', $data);
     $this->load->view('templates/dashboard/footer');
   }
+
+  public function activationrequest()
+  {
+    $data['title'] = ' LABFIK | Riwayat Peminjaman Tempat';
+    $data['user'] = $this->admin_model->activationrequest();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/activationrequest', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function deletetokenrequest()
+  {
+    $user = $this->db->get_where('user', ['id' => $this->input->post('id')])->row_array();
+    if ($user) {
+      $this->db->delete('user', ['id' => $this->input->post('id')]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="margin-top:24px;">Hapus data request token berhasil dilakukan.</div>');
+      redirect('admin/activationrequest');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">Akun belum terdaftar dalam sistem.</div>');
+      redirect('admin/activationrequest');
+    }
+  }
 }

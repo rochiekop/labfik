@@ -84,4 +84,13 @@ class Kaur extends CI_Controller
       redirect('kaur/listWaitingForAcc');
     }
   }
+
+  public function rolepengguna()
+  {
+    $data['title'] = 'LABFIK | Pengaturan Role Pengguna';
+    $this->load->view('templates/dashboard/headerKaur', $data);
+    $this->load->view('templates/dashboard/sidebarKaur', $data);
+    $this->load->view('dashboard/kaur/rolepengguna', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
 }

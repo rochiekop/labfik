@@ -1,12 +1,24 @@
 <div class="fik-content">
+
+  <div class="the-title" style="margin-bottom:-48px;">
+    <img src="<?= base_url('assets/img/14.jpg') ?>" alt="">
+    <div class="container">
+      <h1><?= $detailinfo['title'] ?></h1>
+      <div class="post-info">
+        <span class="author-info">
+          <a href="<?= base_url() ?>">beranda</a> / <a href="<?= base_url() ?>">news</a> / <?= $detailinfo['title'] ?>
+          <br>
+          <div style="margin-top:6px;">Diposting pada <?= format_indo($detailinfo['date'], date('d-m-Y')); ?> oleh <?= $detailinfo['uploadby'] ?></div>
+        </span>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
 
-    <div class="pembuat-karya" style="padding-top:36px;">
-      <h6><?= $detailinfo['title'] ?></h6>
-      <p>Diposting pada <?= format_indo($detailinfo['date'], date('d-m-Y')); ?> oleh <?= $detailinfo['uploadby'] ?></p>
-    </div>
-    <div class="post-container karya">
-      <img src="<?= base_url('assets/img/informasi/') . $detailinfo['images'] ?>" alt="<?= $detailinfo['title'] ?>">
+    <div class="post-container karya card card-body" style="border-bottom:0">
+      <img src="<?= base_url('assets/img/informasi/') . $detailinfo['images'] ?>" alt="">
       <div class="post-content caption">
         <?= $detailinfo['body'] ?>
       </div>

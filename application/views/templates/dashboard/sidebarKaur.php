@@ -46,6 +46,10 @@
           </ul>
         </div>
       </div>
+      <div class="divider"></div>
+      <div class="card">
+        <a href="<?= base_url('kaur/rolepengguna') ?>"><span class="fas fa-user-cog"></span> Role Pengguna</a>
+      </div>
       <div class="divider show-mobile"></div>
       <div class="card">
         <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>

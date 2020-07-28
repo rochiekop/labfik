@@ -65,6 +65,18 @@
             <label>Password</label>
           </div>
         </div>
+        <div class="fik-reg-role">
+          <b><i class="fas fa-user-cog"></i>Role</b>
+          <br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="4" checked="checked">
+            <label class="form-check-label" for="inlineRadio1">Mahasiswa</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="role" id="inlineRadio2" value="3">
+            <label class="form-check-label" for="inlineRadio2">Dosen</label>
+          </div>
+        </div>
         <div class="form-check text-left" style="margin-bottom:28px;">
           <input type="checkbox" class="form-check-input" id="sayasetuju" checked=false;>
           <label class="form-check-label" for="sayasetuju">I'm agree with LAB FIK EULA</label>

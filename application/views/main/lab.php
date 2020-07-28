@@ -1,10 +1,21 @@
 <div class="fik-content">
+
+  <div class="the-title" style="margin-bottom:-88px;">
+    <img src="<?= base_url('assets/img/14.jpg') ?>" alt="" style="opacity:.25">
+    <div class="container">
+      <h1>Unit Lab</h1>
+      <div class="post-info">
+        <span class="author-info">
+          ada lebih dari 10 lab tersedia!
+        </span>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
 
     <div class="fik-feed lab text-center" style="padding-top:20px;">
-      <div class="fik-section-title">
-        <h3>Lab</h3>
-      </div>
       <div class="feed-container">
         <?php if (empty($dt_lab)) : ?>
           <h4>Data Laboratorium Kosong</h4>

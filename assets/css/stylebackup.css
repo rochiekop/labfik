@@ -117,11 +117,353 @@ strong {
 	font-weight: 700
 }
 
-code,
-kbd,
-samp {
-	font-family: monospace, monospace;
-	font-size: 1em
+/* Helpdesk Chat */
+.akun-helpdesk .col-md-4 .card-header {
+	padding: 20px;
+	border-bottom: 1px solid #ddd
+}
+
+.akun-helpdesk .col-md-4 .card-body {
+	padding: 0
+}
+
+.users-list {
+	position: relative;
+	margin: 0
+}
+
+.users-list li {
+	position: relative;
+	height: 80px;
+	padding: 20px;
+	padding-left: 68px;
+	border-top: 1px dashed #ddd
+}
+
+.users-list li:first-child {
+	margin-top: 0;
+	border-top: 0
+}
+
+.users-list li .img-wrapper {
+	position: absolute;
+	left: 20px;
+	overflow: hidden;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%
+}
+
+.users-list li .img-wrapper img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center
+}
+
+.users-list li span {
+	font-weight: bold;
+	display: block;
+	overflow: hidden;
+	padding-right: 32px;
+	white-space: nowrap;
+	text-overflow: ellipsis
+}
+
+.users-list li .badge {
+	font-size: 10px;
+	font-weight: 500
+}
+
+.users-list li .users-list-name {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 1px;
+	left: 1px;
+	height: 100%
+}
+
+.users-list li:hover .users-list-name {
+	background-color: rgba(0, 0, 0, .04)
+}
+
+.users-list li.active .users-list-name {
+	background-color: rgba(0, 0, 0, .04)
+}
+
+.users-list li.active .users-list-name::after {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	position: absolute;
+	top: 50%;
+	right: 20px;
+	content: '\f054';
+	transform: translateY(-50%)
+}
+
+.users-list li p {
+	margin: 0
+}
+
+.akun-helpdesk.dua {
+	position: fixed;
+	top: 64px;
+	right: 0;
+	bottom: 64px;
+	left: 0;
+	padding-right: 72px;
+	padding-left: 337px
+}
+
+.akun-helpdesk.dua .col-md-4 {
+	padding-top: 20px
+}
+
+.akun-helpdesk.dua .col-md-4 .card {
+	position: absolute;
+	top: 85px;
+	right: 15px;
+	bottom: 0;
+	left: 15px;
+	margin-bottom: 20px
+}
+
+.akun-helpdesk.dua .col-md-4 .card .card-body {
+	overflow-y: auto
+}
+
+#chatSection {
+	position: absolute;
+	top: 0;
+	right: 15px;
+	bottom: 0;
+	left: 15px;
+	overflow: hidden;
+	margin-bottom: 0;
+	border-radius: 0;
+	box-shadow: 0 3px 20px -4px rgba(0, 0, 0, .1)
+}
+
+#chatSection .chat-container {
+	position: absolute;
+	top: 64px;
+	right: 0;
+	bottom: 60px;
+	left: 0;
+	overflow-y: auto
+}
+
+#chatSection .chat-container #dumppy {
+	padding: 20px
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg {
+	position: relative;
+	max-width: 80%;
+	min-height: 32px;
+	margin-bottom: 12px;
+	padding-left: 10px
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg::after {
+	display: block;
+	clear: both;
+	content: ' '
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-text {
+	font-size: 12px;
+	position: relative;
+	display: inline-block;
+	margin-top: 2px;
+	padding: 12px;
+	border-radius: 0 8px 8px 8px;
+	background-color: #f0f0f0
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-text::after {
+	position: absolute;
+	top: 0;
+	left: -10px;
+	display: block;
+	width: 20px;
+	content: ' ';
+	border: 16px solid transparent;
+	border-top: 16px solid #f0f0f0
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg .direct-chat-info {
+	font-size: 10px;
+	font-weight: 600;
+	font-style: italic;
+	position: relative;
+	margin-top: 6px;
+	opacity: .5
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg.right {
+	float: right;
+	padding-right: 10px;
+	padding-left: unset
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg.right .direct-chat-text {
+	font-size: 12px;
+	position: relative;
+	display: inline-block;
+	margin-top: 2px;
+	padding: 12px;
+	border-radius: 8px 0 8px 8px;
+	background-color: #fee8cc
+}
+
+#chatSection .chat-container #dumppy .direct-chat-msg.right .direct-chat-text::after {
+	right: -10px;
+	left: unset;
+	border-top-color: #fee8cc
+}
+
+#chatSection .card-header {
+	position: relative;
+	height: 64px;
+	padding: 10px 20px;
+	background-color: #fff
+}
+
+#chatSection .card-header #ReciverName_txt {
+	font-size: 16px;
+	position: relative;
+	top: 22px;
+	padding-right: 100px;
+	transform: translateY(-50%)
+}
+
+#chatSection .card-header #ReciverName_txt small {
+	font-size: 11px;
+	font-weight: 600;
+	font-style: italic;
+	display: block;
+	display: block;
+	padding: 1px 0 4px
+}
+
+#chatSection .card-header #ReciverName_txt p {
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis
+}
+
+#chatSection .card-header .img-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background-color: #757575;
+	border: 1px solid #757575;
+}
+
+#chatSection .card-header .img-wrapper img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center
+}
+
+#chatSection .card-header .fas {
+	font-size: 16px
+}
+
+#chatSection .card-header .box-tools {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	padding-right: 12px;
+	transform: translateY(-50%)
+}
+
+#chatSection .card-header .box-tools .btn {
+	padding-right: 8px;
+	padding-left: 8px
+}
+
+#chatSection .card-footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 60px;
+	padding: 7px 8px;
+	background-color: #fff
+}
+
+#chatSection .card-footer .input-group {
+	width: auto
+}
+
+#chatSection .card-footer .input-group>input {
+	border-radius: 6px
+}
+
+#chatSection .card-footer .input-group input:disabled,
+#chatSection .card-footer .input-group button:disabled {
+	cursor: not-allowed !important;
+	opacity: .5;
+	color: #000 !important
+}
+
+#chatSection .card-footer .input-group .btn {
+	font-size: 18px;
+	line-height: 44px;
+	position: relative;
+	overflow: hidden;
+	height: 44px;
+	padding: 0 20px;
+	border-radius: 0;
+	box-shadow: unset !important
+}
+
+#chatSection .card-footer .input-group .btn:hover {
+	color: #fb8c00
+}
+
+#chatSection .card-footer .input-group .fileDiv {
+	width: 58px
+}
+
+#chatSection .card-footer .input-group .fileDiv input {
+	width: 0;
+	height: 0
+}
+
+#chatSection .card-footer .input-group .fileDiv input::after {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	content: '\f1c5';
+	cursor: pointer;
+	text-align: center;
+}
+
+#chatSection .card-footer .input-group input:disabled::after {
+	cursor: not-allowed !important
+}
+
+#chatSection .pull-right {
+	float: right
 }
 
 dfn {
@@ -402,13 +744,6 @@ a:not([href]):not([tabindex]):focus {
 
 main {
 	position: relative
-}
-
-select.form-control {
-	background: #fff url(https://i.ibb.co/2YXPpMY/chevron-down.png);
-	background-repeat: no-repeat;
-	background-position: right center;
-	background-origin: content-box
 }
 
 a:hover,
@@ -1744,12 +2079,7 @@ a:not([href]):hover {
 	opacity: .5
 }
 
-#chatSection .chat-container #dumppy .direct-chat-msg.right {
-	float: right;
-	padding-right: 10px;
-	padding-left: unset
-}
-
+/* #chatSection .chat-container #dumppy .direct-chat-msg.right{float:right;padding-right:10px;padding-left:unset} */
 #chatSection .chat-container #dumppy .direct-chat-msg.right .direct-chat-text {
 	font-size: 12px;
 	position: relative;
@@ -2106,8 +2436,20 @@ a:not([href]):hover {
 	border: 0
 }
 
+.jadwal-ruangan .table tr td.empty a {
+	background-color: white;
+	color: black;
+	pointer-events: none;
+	border: 1px solid #ccc;
+}
+
+
 .jadwal-ruangan .table tr td a:hover {
 	border-color: #fb8c00;
+}
+
+.jadwal-ruangan .table tr td a.time:hover {
+	border-color: none;
 }
 
 .jadwal-ruangan .table tr td a img {
@@ -2187,7 +2529,7 @@ a:not([href]):hover {
 
 .fik-carousel-info .item {
 	position: relative;
-	height: 720px
+	height: 680px
 }
 
 .fik-carousel-info .item img {
@@ -2422,10 +2764,8 @@ a:not([href]):hover {
 	float: left;
 	width: 33.333%;
 	padding: 10px;
-	display: none;
+	display: none
 }
-
-
 
 .fik-feed .feed-container .feed-item .gambar {
 	height: 200px;
@@ -2971,79 +3311,6 @@ a:not([href]):hover {
 	position: absolute;
 	z-index: 0;
 	top: -100px
-}
-
-/* Reg Role */
-.fik-reg-role {
-	text-align: left;
-	margin-bottom: 16px;
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 12px;
-}
-
-.fik-reg-role b {
-	position: relative;
-	padding-left: 36px;
-	font-weight: normal;
-	display: block;
-	margin-bottom: -10px;
-}
-
-.fik-reg-role .form-check-inline {
-	position: relative;
-	margin-left: 0;
-	padding-left: 0
-}
-
-.custom-form.custom-form-icon .fik-reg-role label {
-	left: 0
-}
-
-/* Banner Title */
-.the-title {
-	background: #000;
-	padding: 100px 0 150px;
-	text-align: center;
-	color: #fbfbfb;
-	position: relative;
-	margin-bottom: -48px;
-	overflow: hidden
-}
-
-.the-title a {
-	color: #fff;
-}
-
-.the-title a:hover {
-	text-decoration: underline;
-}
-
-.the-title img {
-	height: 100%;
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
-	position: absolute;
-	left: 0;
-	top: 0;
-	opacity: .5;
-}
-
-.the-title h1 {
-	line-height: 1.1;
-	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-	margin: 5px 0 24px;
-	cursor: default
-}
-
-.the-title .post-info {
-	max-width: 480px;
-	margin: auto;
-}
-
-.nav-tabs .nav-link.active {
-	background-color: transparent;
-	font-weight: bold;
 }
 
 @media (max-width:1000px) {

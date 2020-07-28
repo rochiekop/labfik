@@ -34,7 +34,7 @@
                 <small class="form-text text-danger"><?= form_error('title') ?>.</small>
               </div>
               <div class="form-group" style="margin-bottom:5px;">
-                <textarea name="body" class="form-control" placeholder="" required="required" autocomplete="off"><?= $dt_slider['body'] ?></textarea>
+                <textarea name="body" class="form-control" placeholder="" autocomplete="off"><?= $dt_slider['body'] ?></textarea>
                 <small class="form-text text-danger"><?= form_error('body') ?>.</small>
                 <label>Deskripsi</label>
               </div>
