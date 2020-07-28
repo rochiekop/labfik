@@ -60,8 +60,10 @@ class Notification_model extends CI_Model
             $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
             $this->db->join('item','borrowing.item_id=item.id');
             $this->db->where('borrowing.user_id', $user_id);
-            $this->db->where('notification.description', 'Peminjaman diizinkan');
-            $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+            $this->db->group_start();
+                $this->db->where('notification.description', 'Peminjaman diizinkan');
+                $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+            $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
             return $result;
