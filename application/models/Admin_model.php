@@ -28,11 +28,10 @@ class Admin_model extends CI_Model
 
   public function activationrequest()
   {
-    $this->db->select('user.*');
-    $this->db->from('user');
-    $this->db->join('user_token', 'user.email != user_token.email');
-    $this->db->where('role_id', '3');
-    $this->db->where('is_active', '0');
-    return $this->db->get()->result_array();
+    $query = "SELECT `user`.* FROM 
+              `user` WHERE `user`.`role_id` = 3 AND `user`.`is_active` = 0 AND 
+              NOT EXISTS (SELECT  `user_token`.`email` 
+              FROM `user_token` WHERE  `user`.`email` = `user_token`.`email`)";
+    return $this->db->query($query)->result_array();
   }
 }

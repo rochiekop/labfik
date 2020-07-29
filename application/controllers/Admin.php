@@ -852,6 +852,7 @@ class Admin extends CI_Controller
   {
     $data['title'] = ' LABFIK | Riwayat Peminjaman Tempat';
     $data['user'] = $this->admin_model->activationrequest();
+    // $data['token'] = $this->admin_model->getToken();
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/activationrequest', $data);
