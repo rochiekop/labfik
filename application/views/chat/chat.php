@@ -16,27 +16,41 @@
           <div class="card-body">
             <ul class="users-list list-none clearfix">
             <!-- <center> -->
-            <?php if (!empty($userslist)){
-              foreach($userslist as $u): ?>
-              
-                <li class="selectVendor" id="<?=$u['id']?>" title="<?=$u['name']?>">
-                  <div class="img-wrapper"><img src="<?=$u['images']?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
-                  <span><a class="users-list-name" href="#"><?=$u['name']?></a></span>
-                  <?php if ($u['status'] == 'online') {?>
-                  <div class="badge badge-success badge-pill"><?=$u['status']?></div>
-                  <?php } else if ($u['status'] == 'offline'){?>
-                  <div class="badge badge-danger badge-pill"><?=$u['status']?></div>
+            <?php if (!empty($userslist)){ ?>
+                <?php foreach($userslist as $u): ?>
+                  <?php if ($u['unread_messages'] > 0) {?>
+                    <li class="selectVendor" id="<?=$u['id']?>" title="<?=$u['name']?>">
+                      <div class="img-wrapper"><img src="<?= base_url('assets/img/profile/') . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images; ?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
+                      <span><a class="users-list-name" href="#"><?=$u['name']?></a></span>
+                      <?php if ($u['status'] == 'online') {?>
+                      <div class="badge badge-success badge-pill"><?=$u['status']?></div>
+                      <?php } else if ($u['status'] == 'offline'){?>
+                      <div class="badge badge-danger badge-pill"><?=$u['status']?></div>
+                      <?php } ?>
+                      <div class="badge badge-primary  badge-pill"><?=$u['unread_messages']?> pesan belum dibaca</div>
+                    </li>
+                    <center><a class="badge badge-primary badge-pill" href="<?= site_url('chat/ChangeToRead/'.$u['id']) ?>">tandai sudah dibaca</a></center>
+                    <br>
                   <?php } ?>
-                  <div class="badge badge-secondary  badge-pill">1 pesan belum dibaca</div>
-                  
-                </li>
-              <?php endforeach; ?>
-
-              <?php } else { ?>
-                <li>
-                  <a href="" class="selectVendor">Tidak ada Pengguna</a>
-                </li>
-              <?php } ?>
+                <?php endforeach; ?>
+                <?php foreach($userslist as $u): ?>
+                  <?php if ($u['unread_messages'] == 0) {?>
+                    <li class="selectVendor" id="<?=$u['id']?>" title="<?=$u['name']?>">
+                      <div class="img-wrapper"><img src="<?= base_url('assets/img/profile/') . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images; ?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
+                      <span><a class="users-list-name" href="#"><?=$u['name']?></a></span>
+                      <?php if ($u['status'] == 'online') {?>
+                      <div class="badge badge-success badge-pill"><?=$u['status']?></div>
+                      <?php } else if ($u['status'] == 'offline'){?>
+                      <div class="badge badge-danger badge-pill"><?=$u['status']?></div>
+                      <?php } ?>
+                    </li>
+                    <center><a class="badge badge-primary badge-pill" href="<?= site_url('chat/ChangeToRead/'.$u['id']) ?>">tandai sudah dibaca</a></center>
+                    <br>
+                  <?php } ?>
+                <?php endforeach; ?>
+            <?php } else { ?>
+              <li><a href="" class="selectVendor">Tidak ada Pengguna</a></li>
+            <?php } ?>
             <!-- </center> -->
 
             </ul>
@@ -64,10 +78,10 @@
               <?php 
                 $obj = &get_instance();
                 $obj->load->model('User_model');
-                $images = $obj->User_model->Images();
+                $images = $obj->User_model->Images($this->session->userdata('id'));
                 $user = $obj->User_model->GetUserData();
               ?>
-
+              
               <input type="hidden" id="Sender_Name" value="<?=$user['name']?>">
               <input type="hidden" id="Sender_ProfilePic" value="<?=$images?>">
               <input type="hidden" id="ReciverId_txt">

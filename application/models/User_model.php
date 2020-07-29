@@ -51,16 +51,16 @@ class User_model extends CI_Model
 	// 	 }
 	// }
 
-	public function Images()
+	public function Images($id)
 	{
-		$this->db->select('id,images');
+		$this->db->select('images');
 		$this->db->from($this->User);
-		$this->db->where("id", $this->session->userdata('id'));
-		$this->db->limit(1);
+		$this->db->where("id", $id);
 		$query = $this->db->get();
 		$res = $query->row_array();
 		if (!empty($res['images'])) {
-			return base_url('uploads/profiles/' . $res['images']);
+			// return base_url('uploads/profiles/' . $res['images']);
+			return base_url('assets/img/profile/' . $res['images']);
 		} else {
 			return base_url('public/images/user-icon.jpg');
 		}

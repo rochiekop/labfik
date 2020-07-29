@@ -10,16 +10,19 @@ $('.btnSend').click(function(){
 });
 $('.selectVendor').click(function(){
 	ChatSection(1);
-      var receiver_id = $(this).attr('id');
-	  //alert(receiver_id);
-	  $('#ReciverId_txt').val(receiver_id);
-	  $('#ReciverName_txt').html($(this).attr('title'));
+		var receiver_id = $(this).attr('id');
+		// var sender_id = $('$Sender_Id').val();
+
+		//alert(receiver_id);
+		$('#ReciverId_txt').val(receiver_id);
+		$('#ReciverName_txt').html($(this).attr('title'));
 	  
 	//   var images = $('.img-wrapper img').attr('src');
 	//   $('#ReciverImg').html($(this).attr('images'));
 	  
+		ChangeToRead(receiver_id);
 	  
-	  GetChatHistory(receiver_id);
+		GetChatHistory(receiver_id);
  				
 });
 $('.upload_attachmentfile').change(function(){
@@ -173,19 +176,26 @@ function sendTxtMessage(message){
 }
 
 function GetChatHistory(receiver_id){
-				$.ajax({
-						  //dataType : "json",
-						  //   url: 'get-chat-history-vendor?receiver_id='+receiver_id,
-						  url: 'Chat/get_chat_history_by_vendor?receiver_id='+receiver_id,
-						  success:function(data)
-						  {
-  							$('#dumppy').html(data);
-							ScrollDown();	 
-						  },
-						  error: function (jqXHR, status, err) {
- 							 // alert('Local error callback');
-						  }
- 					});
+	$.ajax({
+		//dataType : "json",
+		//   url: 'get-chat-history-vendor?receiver_id='+receiver_id,
+		url: 'Chat/get_chat_history_by_vendor?receiver_id='+receiver_id,
+		success:function(data)
+		{
+		$('#dumppy').html(data);
+		ScrollDown();	 
+		},
+		error: function (jqXHR, status, err) {
+			// alert('Local error callback');
+		}
+	});
+}
+
+function ChangeToRead(sender_id){
+	$.ajax({
+		url: 'Chat/ChangeToRead?sender_id='+sender_id,
+		type: 'POST',
+	});
 }
 
 setInterval(function(){ 
