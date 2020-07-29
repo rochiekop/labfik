@@ -15,15 +15,20 @@
           </div>
           <div class="card-body">
             <ul class="users-list list-none clearfix">
-            <center>
+            <!-- <center> -->
             <?php if (!empty($userslist)){
               foreach($userslist as $u): ?>
               
                 <li class="selectVendor" id="<?=$u['id']?>" title="<?=$u['name']?>">
                   <div class="img-wrapper"><img src="<?=$u['images']?>" alt="<?=$u['name']?>" title="<?=$u['name']?>"></div>
                   <span><a class="users-list-name" href="#"><?=$u['name']?></a></span>
-                  <div class="badge badge-primary badge-pill"><?=$u['status']?></div>
-                  <div class="badge badge-success badge-pill">1</div>
+                  <?php if ($u['status'] == 'online') {?>
+                  <div class="badge badge-success badge-pill"><?=$u['status']?></div>
+                  <?php } else if ($u['status'] == 'offline'){?>
+                  <div class="badge badge-danger badge-pill"><?=$u['status']?></div>
+                  <?php } ?>
+                  <div class="badge badge-secondary  badge-pill">1 pesan belum dibaca</div>
+                  
                 </li>
               <?php endforeach; ?>
 
@@ -32,7 +37,7 @@
                   <a href="" class="selectVendor">Tidak ada Pengguna</a>
                 </li>
               <?php } ?>
-            </center>
+            <!-- </center> -->
 
             </ul>
           </div>
@@ -84,7 +89,7 @@
 
   <script src="<?=base_url('public/chat/chat.js');?>"></script> 
 
-  <!-- <script src="assets/tambahan.js"></script> -->
+  <!-- <script src="assets/js/tambahan.js"></script> -->
   <script>
     $('.fik-carousel-info').owlCarousel({
       margin: 0,

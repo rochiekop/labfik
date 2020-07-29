@@ -207,7 +207,7 @@ class Chat extends CI_Controller {
 		}	
 		 
 		$data=[
-			// 'id' => uniqid();
+			'id' => uniqid(),
 			'sender_id' => $this->session->userdata('id'),
 			// 'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
 			'receiver_id' => $this->input->post('receiver_id'),
@@ -313,39 +313,35 @@ class Chat extends CI_Controller {
 ?>
 <?php 		if($Logged_sender_id!=$sender_id){		?>     
 				<!-- Message. Default to the left -->
+				
+				<!-- chat-left -->
 				<div class="direct-chat-msg">
-					<div class="direct-chat-info clearfix">
-					<span class="direct-chat-name pull-left"><?=$userName;?></span>
-					<span class="direct-chat-timestamp pull-right"><?=$messagedatetime;?></span>
-					</div>
-					<!-- /.direct-chat-info -->
-					<img class="direct-chat-img" src="<?=$userPic;?>" alt="<?=$userName;?>">
-					<!-- /.direct-chat-img -->
 					<div class="direct-chat-text">
 						<?=$messageBody;?>
 					</div>
-					<!-- /.direct-chat-text -->
-					
+					<div class="direct-chat-info clearfix">
+						<span class="direct-chat-timestamp"><?=$messagedatetime;?></span>
+					</div>
 				</div>
+				<div class="clear"></div>
+				<!-- end chat-left -->
+									
 				<!-- /.direct-chat-msg -->
 <?php 		}else{		?>
 				<!-- Message to the right -->
+				
+				<!-- chat-right -->
 				<div class="direct-chat-msg right">
-					<div class="direct-chat-info clearfix">
-					<span class="direct-chat-name pull-right"><?=$userName;?></span>
-					<span class="direct-chat-timestamp pull-left"><?=$messagedatetime;?></span>
-					</div>
-					<!-- /.direct-chat-info -->
-					<img class="direct-chat-img" src="<?=$userPic;?>" alt="<?=$userName;?>">
-					<!-- /.direct-chat-img -->
 					<div class="direct-chat-text">
-					<?=$messageBody;?>
-						<!--<div class="spiner">
-							<i class="fa fa-circle-o-notch fa-spin"></i>
-						</div>-->
+						<?=$messageBody;?>
 					</div>
-					<!-- /.direct-chat-text -->
+					<div class="direct-chat-info clearfix text-right">
+						<span class="direct-chat-timestamp"><?=$messagedatetime;?></span>
+					</div>
 				</div>
+				<div class="clear"></div>
+				<!-- end chat-right -->
+
 				<!-- /.direct-chat-msg -->
 			<?php }?>
 	

@@ -135,7 +135,7 @@ function DisplayMessage(message){
 		// 	str +='</div></div>';
 		// $('#dumppy').append(str);
 
-		var str = '<div class="direct-chat-msg">';
+		var str = '<div class="direct-chat-msg right">';
 				str +='<div class="direct-chat-text">'+message+'</div>';
 				str +='<div class="direct-chat-info clearfix">';
 					str +='<span class="direct-chat-timestamp pull-left"></span>'; //23 Jan 2:05 pm
