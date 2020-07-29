@@ -9,6 +9,7 @@ class Auth extends CI_Controller
     parent::__construct();
     $this->load->library('form_validation');
     $this->load->model('auth_model');
+    $this->load->model('user_model');
     // is_logged_in();
   }
 
@@ -212,6 +213,7 @@ class Auth extends CI_Controller
       }
     }
     echo json_encode($data);
+    $this->user_model->ChangeStatusOnline($this->session->userdata('id'));
   }
 
   public function loginActivate()
@@ -372,6 +374,8 @@ class Auth extends CI_Controller
     if (!isset($_SESSION['id'])) {
       redirect('main');
     } else {
+      $this->user_model->ChangeStatusOffline($this->session->userdata('id'));
+      
       $this->session->unset_userdata('id');
       $this->session->unset_userdata('name');
       $this->session->unset_userdata('role_id');

@@ -220,7 +220,7 @@ class User_model extends CI_Model
 	public function ChangeStatusOnline($id)
 	{
 		$data = array(
-            'status' => 'Online'
+            'status' => 'online'
         );
         $this->db->update('user',$data,array('id' => $id));
 	}
@@ -228,7 +228,7 @@ class User_model extends CI_Model
 	public function ChangeStatusOffline($id)
 	{
 		$data = array(
-            'status' => 'Offline'
+            'status' => 'offline'
         );
         $this->db->update('user',$data,array('id' => $id));
 	}
