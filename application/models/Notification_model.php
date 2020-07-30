@@ -6,16 +6,6 @@ class Notification_model extends CI_Model
 {
     private $_table = "notification";
 
-    // public $id;
-    // public $booking_id;
-    // public $borrowing_id;
-    // public $chat_id;
-    // public $gallery_id;
-    // public $news_id;
-    // public $description;
-    // public $date;
-    // public $status;
-
     public function rules()
     {
         return [
@@ -27,18 +17,6 @@ class Notification_model extends CI_Model
     {
 
     }
-
-    // public function getAllBorrowingNotificationByUserId($user_id)
-    // {
-    //     $this->db->select('item.image, item.name, borrowing.quantity as borrowing_quantity, borrowing.status as borrowing_status, notification.description, notification.status as notification_status, notification.date');
-    //     $this->db->from('notification');
-    //     $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-    //     $this->db->join('item','borrowing.item_id=item.id');
-    //     $this->db->where('notification.user_id', $user_id);
-    //     $query = $this->db->get();
-    //     $result = $query->result();
-    //     return $result;
-    // }
 
     public function getAllBorrowingNotification($status, $user_id)
     {
@@ -70,17 +48,70 @@ class Notification_model extends CI_Model
         }
     }
 
-    // public function getAllBorrowingRequestNotification()
-    // {
-    //     $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date');
-    //     $this->db->from('notification');
-    //     $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-    //     $this->db->join('item','borrowing.item_id=item.id');
-    //     $this->db->where('notification.description', 'Barang ini ingin dipinjam');
-    //     $query = $this->db->get();
-    //     $result = $query->result();
-    //     return $result;
-    // }
+    public function getAllBookingNotification($status, $user_id)
+    {
+        if ($status == 'request')
+        {
+            $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
+            $this->db->from('notification');
+            $this->db->join('booking', 'notification.booking_id = booking.id');
+            $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+            $this->db->where('notification.description', 'waiting');
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+        else if ($status == 'respond')
+        {
+            $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
+            $this->db->from('notification');
+            $this->db->join('booking', 'notification.booking_id = booking.id');
+            $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+            $this->db->where('booking.id_peminjam', $user_id);
+            $this->db->group_start();
+                $this->db->where('notification.description', 'approved');
+                $this->db->or_where('notification.description', 'declined');
+            $this->db->group_end();
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+    }
+
+    public function getAllCreationNotification($status, $user_id)
+    {
+        if ($status == 'request')
+        {
+            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status')
+            $this->db->from('notification');
+            $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+            $this->db->where('notification.description', 'waiting');
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+        else if ($status == 'respond')
+        {
+            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status')
+            $this->db->from('notification');
+            $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+            $this->db->where('tampilan.id', $user_id);
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+    }
+
+    public function getAllInformationNotification()
+    {
+        $this->db->select('tb_info.title, tb_info.images, notification.date');
+        $this->db->from('notification');
+        $this->db->join('tb_info', 'notification.info_id = tb_info.id');
+    }
+
+
+
+
 
     public function saveBorrowingNotification($description)
     {

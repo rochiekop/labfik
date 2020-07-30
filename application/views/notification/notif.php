@@ -39,15 +39,15 @@
 
                     <?php if ($n->subject == 'Peminjaman Barang') { ?>
                         <?php if ($n->description == 'waiting') { ?>
-                            <?= $n->user_name ?> ingin meminjam <?= $n->item_name ?>
+                            <?= $n->user_name ?> ingin meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?> 
                         <?php } ?>
                         <?php else if ($n->description == 'approved') { ?>
-                            Kepala Urusan memberikan anda izin untuk meminjam <?= $n->item_name ?>
+                            Kepala Urusan memberikan anda izin untuk meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?>
                         <?php } ?>
                         <?php else if ($n->description == 'declined') { ?>
-                            Kepala Urusan tidak memberikan anda izin untuk meminjam <?= $n->item_name ?>
+                            Kepala Urusan tidak memberikan anda izin untuk meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?>
                         <?php } ?>
                     <?php } ?>
