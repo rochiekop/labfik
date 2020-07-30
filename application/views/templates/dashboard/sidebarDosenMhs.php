@@ -44,7 +44,8 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-align-left"></span> PDF Editor</a>
+      <a href="#" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
+        <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
       </div>
       <div class="divider show-mobile"></div>
       <div class="card">

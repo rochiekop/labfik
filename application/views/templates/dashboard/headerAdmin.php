@@ -50,8 +50,8 @@
           </li>
         </ul>
         <ul class="right akun">
-          <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
+          <!-- <div class="not-dropdown" style="margin-right:14px">
+            <a class="btn btn-icon" href="</?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
@@ -59,7 +59,14 @@
             <a class="btn btn-icon" href="#">
               <span class="fas fa-cog"></span>
             </a>
+          </div> -->
+          <div class="dropdown show fik-login-dropdown" style="margin-right:14px">
+            <a class="btn btn-icon" href="#">
+              <span class="fas fa-bell"></span>
+              
+            </a>
           </div>
+          
         </ul>
       </div>
     </div>

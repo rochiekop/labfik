@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-id">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorium FIK</title>
+
+  <!-- CSS Vendor -->
+  <link rel="stylesheet" href="_assets/vendor/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="_assets/vendor/fontawesome-free-5.13.0-web/css/all.min.css">
+  <link rel="stylesheet" href="_assets/vendor/owl-carousel/owl.carousel.css">
+
+  <!-- Lab. FIK Main Style -->
+  <link rel="stylesheet" href="_assets/css/style.css">
+
+  <!-- JQuery 3.3.1 -->
+  <script src="_assets/vendor/jquery.min.js"></script>
+
+  <!-- JS Vendor -->
+  <script src="_assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js"></script>
+  <script src="_assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+  <script src="_assets/vendor/owl-carousel/owl.carousel.min.js"></script>
+
+</head>
+
+<body>
+
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top"></nav>
+  <script src="inc/navbar-akun.js"></script>
+  <!-- End Navbar -->
+
+
+  <!-- Side Menu -->
+  <div class="fik-db-side-menu"></div>
+  <script src="inc/side-akun.js"></script>
+  <!-- End Side Menu -->
+
+
+  <!-- Main Container -->
+  <main class="akun-container">
+    <div class="fik-section-title2">
+      <h5>Notifikasi</h5>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="dropdown">
+          <a href="#" class="btn btn-sm btn-success">Tandai Semua Sudah Dibaca</a>
+          <a href="#" class="btn btn-sm btn-danger">Hapus Semua Notifikasi</a>
+          &nbsp;
+          &nbsp;
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Tampilkan Sudah dibaca</a>
+            <a class="dropdown-item" href="#">Tampilkan Belum dibaca</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="list-group">
+          <a class="list-group-item">
+            <span class="fas fa-bell"></span> &nbsp;
+            <b>Helpdesk</b> <br>
+            Fulan mengirimkan pesan di helpdesk, lihat dan tanggapi.
+          </a>
+          <a class="list-group-item">
+            <span class="far fa-bell"></span> &nbsp;
+            <b>Karya</b> <br>
+            Nama Kepala Urusan sudah meng-acc karya anda dan sudah bisa dilihat di halaman karya Lab!
+          </a>
+          <a class="list-group-item">
+            <span class="far fa-bell"></span> &nbsp;
+            <b>Peminjaman Tempat</b> <br>
+            Nama Kepala Urusan menolak permintaan peminjaman IK.04.04 anda. Coba lagi
+          </a>
+          <div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-secondary active">1</button>
+          <button type="button" class="btn btn-secondary">2</button>
+          <button type="button" class="btn btn-secondary">3</button>
+          <button type="button" class="btn btn-secondary">4</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- End Main Container -->
+
+
+  <!-- Footer -->
+  <div class="footer"></div>
+  <script src="inc/footer-akun.js"></script>
+  <!-- End Footer -->
+
+
+  <script src="_assets/tambahan.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#chatSection').TrackpadScrollEmulator();
+    });
+  </script>
+
+
+</body>
+
+</html>

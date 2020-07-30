@@ -103,30 +103,6 @@ class Borrowing extends CI_Controller
         }
     }
 
-    // public function showItemDosenMhs($id = null)
-    // {
-    //     $item = $this->item_model;
-    //     $data["item"] = $item->getById($id);
-    //     if (!$data["item"]) show_404();
-
-    //     $this->load->view("templates/dashboard/headerDosenMhs");
-    //     $this->load->view("templates/dashboard/sidebarDosenMhs");
-    //     $this->load->view("item/dosenMhs/borrow", $data);
-    //     $this->load->view("templates/dashboard/footer");
-    // }
-
-    // public function showItemAdmin($id = null)
-    // {
-    //     $item = $this->item_model;
-    //     $data["item"] = $item->getById($id);
-    //     if (!$data["item"]) show_404();
-
-    //     $this->load->view("templates/dashboard/headerAdmin");
-    //     $this->load->view("templates/dashboard/sidebarAdmin");
-    //     $this->load->view("item/admin/borrow", $data);
-    //     $this->load->view("templates/dashboard/footer");
-    // }
-
     public function addBorrowing()
     {
         $borrowing = $this->borrowing_model;
@@ -158,42 +134,6 @@ class Borrowing extends CI_Controller
             $this->load->view("templates/dashboard/footer");
         }
     }
-
-    // public function addBorrowingDosenMhs()
-    // {
-    //     $borrowing = $this->borrowing_model;
-    //     $validation = $this->form_validation;
-    //     $validation->set_rules($borrowing->rules());
-
-    //     if ($validation->run()) {
-    //         $borrowing->save();
-    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
-    //     }
-
-    //     $data["item"] = $this->item_model->getAll();
-    //     $this->load->view("templates/dashboard/headerDosenMhs");
-    //     $this->load->view("templates/dashboard/sidebarDosenMhs");
-    //     $this->load->view("item/dosenMhs/list", $data);
-    //     $this->load->view("templates/dashboard/footer");
-    // }
-
-    // public function addBorrowingAdmin($id = null)
-    // {
-    //     $borrowing = $this->borrowing_model;
-    //     $validation = $this->form_validation;
-    //     $validation->set_rules($borrowing->rules());
-
-    //     if ($validation->run()) {
-    //         $borrowing->save();
-    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
-    //     }
-
-    //     $data["item"] = $this->item_model->getAll();
-    //     $this->load->view("templates/dashboard/headerAdmin");
-    //     $this->load->view("templates/dashboard/sidebarAdmin");
-    //     $this->load->view("item/admin/list", $data);
-    //     $this->load->view("templates/dashboard/footer");
-    // }
 
     public function changeStatusAccepted($id, $user_id)
     {
@@ -227,51 +167,5 @@ class Borrowing extends CI_Controller
             }
         }
     }
-
-    // public function changeStatusDoneDosenMhs($id)
-    // {
-    //     if ($this->borrowing_model->updateStatusDone($id)) {
-    //         redirect(site_url('borrowing/listAllByDosenMhs/'.$id));
-    //     }
-    // }
-
-    // public function changeStatusDoneAdmin($id)
-    // {
-    //     if ($this->borrowing_model->updateStatusDone($id)) {
-    //         redirect(site_url('borrowing/listAllByIdAdmin/'.$id));
-    //     }
-    // }
-
-    // public function edit($id = null)
-    // {
-    //     if (!isset($id)) redirect('auth');
-
-    //     $borrowing = $this->borrowing_model;
-    //     $validation = $this->form_validation;
-    //     $validation->set_rules($borrowing->rules());
-
-    //     if ($validation->run()) {
-    //         $borrowing->update();
-    //         $this->session->set_flashdata('success', 'Berhasil disimpan');
-    //     }
-
-    //     $data["item"] = $item->getById($id);
-    //     if (!$data["item"]) show_404();
-
-    //     $this->load->view("templates/dashboard/headerAdmin");
-    //     $this->load->view("templates/dashboard/sidebarAdmin");
-    //     $this->load->view("item/admin/edit", $data);
-    //     $this->load->view("templates/dashboard/footer");
-    // }
-
-    // public function delete($id = null)
-    // {
-    //     if (!isset($id)) show_404();
-
-    //     if ($this->product_model->delete($id)) {
-    //         redirect(site_url('borrowing/listAll'));
-    //     }
-    // }
-
 
 }
