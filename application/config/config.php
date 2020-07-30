@@ -24,7 +24,7 @@ date_default_timezone_set('Asia/Jakarta');
 |
 */
 $config['base_url'] = 'http://localhost/labfik/';
-// $config['base_url'] = 'http://192.168.43.48/labfik/';
+$config['base_url'] = 'http://192.168.43.48/labfik/';
 
 /*
 |--------------------------------------------------------------------------

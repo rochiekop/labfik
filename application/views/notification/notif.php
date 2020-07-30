@@ -36,6 +36,7 @@
                         <span class="far fa-bell"></span> &nbsp;
                     <?php } ?>
                     <b><?= $n->subject ?></b> <br>
+
                     <?php if ($n->subject == 'Peminjaman Barang') { ?>
                         <?php if ($n->description == 'waiting') { ?>
                             <?= $n->user_name ?> ingin meminjam <?= $n->item_name ?>
@@ -63,6 +64,7 @@
                             Kepala Urusan tidak memberikan anda izin untuk meminjam <?= $n->room_name ?>
                             <?= $n->date ?>
                         <?php } ?>
+                    <?php } ?>
                     <?php else if ($n->subject == 'Unggah Karya') { ?>
                         <?php if ($n->description == 'waiting') { ?>
                             <?= $n->user_name ?> ingin mengunggah karyanya berjudul <?= $n->creation_name ?>
@@ -87,10 +89,15 @@
                         <?php if ($n->description == 'correction') { ?>
                             Tugas Akhir anda dikoreksi oleh dosen pembimbing, lihat dan tanggapi
                         <?php } ?>
-
+                        <?php if ($n->description == 'ready') { ?>
+                            Anda telah dinyatakan siap sidang. lihat selengkapnya
+                        <?php } ?>
+                    <?php } ?>
                 </a>
+            <?php } ?>
+        <?php } ?>
 
-        <a class="list-group-item">
+        <!-- <a class="list-group-item">
         <span class="fas fa-bell"></span> &nbsp;
         <b>Helpdesk</b> <br>
         Fulan mengirimkan pesan di helpdesk, lihat dan tanggapi.
@@ -104,7 +111,7 @@
         <span class="far fa-bell"></span> &nbsp;
         <b>Peminjaman Tempat</b> <br>
         Nama Kepala Urusan menolak permintaan peminjaman IK.04.04 anda. Coba lagi
-        </a>
+        </a> -->
 
         <div></div>
     </div>
