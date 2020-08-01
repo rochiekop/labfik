@@ -375,7 +375,7 @@ class Auth extends CI_Controller
       redirect('main');
     } else {
       $this->user_model->ChangeStatusOffline($this->session->userdata('id'));
-      
+
       $this->session->unset_userdata('id');
       $this->session->unset_userdata('name');
       $this->session->unset_userdata('role_id');

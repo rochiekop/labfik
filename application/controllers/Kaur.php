@@ -15,6 +15,7 @@ class Kaur extends CI_Controller
   public function index()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
+    $data['listbooking'] = $this->booking_model->getAllWaitingAccBooking();
     $this->load->view('templates/dashboard/headerKaur', $data);
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/index');

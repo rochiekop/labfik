@@ -41,7 +41,7 @@
                 <td><?= $t['name'] ?></td>
                 <td><?= $t['email'] ?></td>
                 <td class="action">
-                  <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-trash"></span></a>
+                  <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-times"></span></a>
                   <a data-toggle="modal" data-target="#sendtokenmodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-check"></span></a>
                 </td>
               </tr>
@@ -78,13 +78,13 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          Hapus request token <?= $t['name'] ?> ?
+          Tolak request token <?= $t['name'] ?> ?
         </div>
         <form action="deletetokenrequest" method="post" enctype="multipart/form-data">
           <div class="modal-footer">
             <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-            <button type="submit" name="deletetoken" class="btn btn-danger btn-sm">Hapus</button>
+            <button type="submit" name="deletetoken" class="btn btn-danger btn-sm">Tolak</button>
           </div>
         </form>
       </div>
