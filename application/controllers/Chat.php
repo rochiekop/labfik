@@ -11,11 +11,6 @@ class Chat extends CI_Controller {
 	
 	public function index()
 	{
-		// $data['strTitle']='';
-		// $data['strsubTitle']='';
-		// $data['strsubTitle2']='';
-		// $data['chatTitle']='';
-		// $list=[];
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
         {
 			$list = $this->user_model->AdminList();
@@ -29,15 +24,14 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					'images' => $this->user_model->Images($u['id']),
+					// 'images' => $this->user_model->Images($u['id']),
+					'images' => $u['images'],
 					'status' => $u['status'],
+					'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
 				];
 			}
 			$data['userslist']=$userslist;
-			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerDosenMhs');
-			// $this->load->view('templates/dashboard/helpdesk/headerDosenMhsHelpdesk');
-			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/sidebarDosenMhs');
 			$this->load->view('templates/dashboard/footer');
@@ -55,16 +49,15 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					'images' => $this->user_model->ImagesById($u['id']),
+					// 'images' => $this->user_model->ImagesById($u['id']),
+					'images' => $u['images'],
 					'status' => $u['status'],
+					'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
 				];
 			}
 			$data['userslist']=$userslist;
-			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerKaur');
-			// $this->load->view('templates/dashboard/helpdesk/headerKaurHelpdesk');
 			$this->load->view('templates/dashboard/sidebarKaur');
-			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/footer'); 
         }
@@ -82,110 +75,19 @@ class Chat extends CI_Controller {
 				[
 					'id' => $u['id'],
 					'name' => $u['name'],
-					'images' => $this->user_model->ImagesById($u['id']),
+					// 'images' => $this->user_model->ImagesById($u['id']),
+					'images' => $u['images'],
 					'status' => $u['status'],
+					'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
 				];
 			}
 			$data['userslist']=$userslist;
-			// $this->parser->parse('chat/chatTemplate',$data);
 			$this->load->view('templates/dashboard/headerAdmin');
-			// $this->load->view('templates/dashboard/helpdesk/headerAdminHelpdesk');
 			$this->load->view('templates/dashboard/sidebarAdmin');
-			// $this->load->view('chat/chatTemplate',$data); 
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/footer'); 
 		}
 	}
-	
-	// public function login_as_admin()
-	// {
-	// 	$data['title']='';
-	// 	$data['strTitle']='';
-	// 	$data['strsubTitle']='';
-	// 	$list=[];
-	// 	$list = $this->user_model->DosenMhsList();
-	// 	$data['title']='Laboratorium FIK';
-	// 	$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
-	// 	$data['strsubTitle']='Dosen dan Mahasiswa';
-	// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-	// 	$userslist=[];
-	// 	foreach($list as $u){
-	// 		$userslist[]=
-	// 		[
-	// 			'id' => $u['id'],
-	// 			'name' => $u['name'],
-	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-	// 			'status' => $u['status'],
-	// 		];
-	// 	}
-	// 	$data['userslist']=$userslist;
-    //     // $this->parser->parse('chat/chatTemplate',$data);
-	// 	$this->load->view('templates/dashboard/headerAdmin');
-	// 	$this->load->view('templates/dashboard/sidebarAdmin');
-	// 	// $this->load->view('chat/chatTemplate',$data); 
-	// 	$this->load->view('chat/chat',$data); 
-	// 	$this->load->view('templates/dashboard/footer');
-	// }
-
-	// public function login_as_kaur()
-	// {
-	// 	$data['title']='';
-	// 	$data['strTitle']='';
-	// 	$data['strsubTitle']='';
-	// 	$list=[];
-	// 	$list = $this->user_model->DosenMhsList();
-	// 	$data['title']='Laboratorium FIK';
-	// 	$data['strTitle']='Terhubung ke Dosen dan Mahasiswa';
-	// 	$data['strsubTitle']='Dosen dan Mahasiswa';
-	// 	$data['chatTitle']='Pilih Dosen atau Mahasiswa yang ingin dihubungi';
-	// 	$userslist=[];
-	// 	foreach($list as $u){
-	// 		$userslist[]=
-	// 		[
-	// 			'id' => $u['id'],
-	// 			'name' => $u['name'],
-	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-	// 			'status' => $u['status'],
-	// 		];
-	// 	}
-	// 	$data['userslist']=$userslist;
-    //     // $this->parser->parse('chat/chatTemplate',$data);
-    //     $this->load->view('templates/dashboard/headerKaur');
-	// 	// $this->load->view('chat/chatTemplate',$data); 
-	// 	$this->load->view('chat/chat',$data); 
-	// 	$this->load->view('templates/dashboard/sidebarKaur');
-	// 	$this->load->view('templates/dashboard/footer');
-	// }
-
-	// public function login_as_dosenMhs()
-	// {
-	// 	$data['title']='';
-	// 	$data['strTitle']='';
-	// 	$data['strsubTitle']='';
-	// 	$list=[];
-	// 	$list = $this->user_model->AdminList();
-	// 	$data['title']='Laboratorium FIK';
-	// 	$data['strTitle']='Semua Admin';
-	// 	$data['strsubTitle']='Admin';
-	// 	$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
-	// 	$userslist=[];
-	// 	foreach($list as $u){
-	// 		$userslist[]=
-	// 		[
-	// 			'id' => $u['id'],
-	// 			'name' => $u['name'],
-	// 			// 'picture_url' => $this->user_model->PictureUrlById($u['id']),
-	// 			'status' => $u['status'],
-	// 		];
-	// 	}
-	// 	$data['userslist']=$userslist;
-	// 	// $this->parser->parse('chat/chatTemplate',$data);
-	// 	$this->load->view('templates/dashboard/headerDosenMhs');
-	// 	// $this->load->view('chat/chatTemplate',$data); 
-	// 	$this->load->view('chat/chat',$data); 
-	// 	$this->load->view('templates/dashboard/sidebarDosenMhs');
-	// 	$this->load->view('templates/dashboard/footer');
-	// }
 	
     public function send_text_message()
     {
@@ -348,8 +250,15 @@ class Chat extends CI_Controller {
 	<?php
 	endforeach;
 	}
+
+	public function ChangeToRead($sender_id)
+	{
+		$this->chat_model->UpdateStatusRead($this->session->userdata('id'), $sender_id);
+		redirect('chat');
+	}
 	
-	public function chat_clear_client_cs(){
+	public function chat_clear_client_cs()
+	{
         // $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
         $receiver_id = $this->input->get('receiver_id');
 		$messagelist = $this->chat_model->GetReciverMessageList($receiver_id);

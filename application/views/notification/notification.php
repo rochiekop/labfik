@@ -29,12 +29,12 @@
             </tr>
           </thead>
           <tbody>
-            <?php if (empty($borrowingNotification)) : ?>
+            <?php if (empty($notification)) : ?>
               <td colspan="6" style="background-color: whitesmoke;text-align:center">Notifikasi Kosong</td>
             <?php else : ?>
               <?php $no = 0;
-              foreach ($borrowingNotification as $bn) : ?>
-                <?php if ($bn->status == 'unread') : ?>
+              foreach ($notification as $n) : ?>
+                <?php if ($n->status == 'unread') : ?>
                 <tr style='border-left: 10px solid #fb8c00'>
                 <?php else : ?>
                 <tr>
@@ -43,18 +43,18 @@
                     <td scope="row" style="width:60px"><?= ++$no ?></td>
                     <td style="width:90px">
                       <div class="img-wrapper">
-                        <img src="<?= base_url('uploads/item/'.$bn->image) ?>"/>
-                        <?= $bn->name ?>
+                        <img src="<?= base_url('uploads/item/'.$n->image) ?>"/>
+                        <?= $n->name ?>
                       </div>
                     </td>
                     <td>
                       <ul style="list-style-type:none;">
-                          <li><?= $bn->quantity ?> <?= $bn->description ?></li>
-                          <li><?= $bn->date ?></li>
+                          <li><?= $n->quantity ?> <?= $n->description ?></li>
+                          <li><?= $n->date ?></li>
                       </ul>
                     </td>
                     <td>
-                      <a href="<?= site_url('notification/changeStatusReadBorrowing/'.$bn->id) ?>"><span class="fas fa-arrow-right"></span></a>
+                      <a href="<?= site_url('notification/changeStatusReadBorrowing/'.$n->id) ?>"><span class="fas fa-arrow-right"></span></a>
                     </td>
                   </a>
                 </tr>
@@ -66,17 +66,3 @@
     </div>
   </main>
   <!-- End Main Container -->
-
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          Hapus Barang ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-          <a type="button" class="btn btn-danger btn-sm">Hapus</a>
-        </div>
-      </div>
-    </div>
-  </div>

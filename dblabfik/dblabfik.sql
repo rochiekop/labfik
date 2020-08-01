@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Jul 2020 pada 10.13
+-- Waktu pembuatan: 30 Jul 2020 pada 11.01
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -105,79 +105,30 @@ INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`,
 --
 
 CREATE TABLE `chat` (
-  `id` int(11) NOT NULL,
-  `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `message` text NOT NULL,
-  `attachment_name` text NOT NULL,
-  `file_ext` text NOT NULL,
-  `mime_type` text NOT NULL,
-  `message_date_time` text NOT NULL,
-  `ip_address` text NOT NULL
+  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `sender_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `receiver_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `message` text CHARACTER SET utf8mb4 NOT NULL,
+  `attachment_name` text CHARACTER SET utf8mb4 NOT NULL,
+  `file_ext` text CHARACTER SET utf8mb4 NOT NULL,
+  `mime_type` text CHARACTER SET utf8mb4 NOT NULL,
+  `message_date_time` text CHARACTER SET utf8mb4 NOT NULL,
+  `ip_address` text CHARACTER SET utf8mb4 NOT NULL,
+  `status` enum('unread','read') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `chat`
 --
 
-INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_name`, `file_ext`, `mime_type`, `message_date_time`, `ip_address`) VALUES
-(304, 39, 8, 'ngubah gak ya?', '', '', '', '2020-07-23 10:37:38', ''),
-(305, 39, 8, 'dan.. tidak berubah sama sekali', '', '', '', '2020-07-23 10:37:46', ''),
-(306, 39, 8, 'padahal js nya udah ganti sejak lama', '', '', '', '2020-07-23 10:37:54', ''),
-(307, 8, 39, 'its working here now', '', '', '', '2020-07-23 10:38:32', ''),
-(308, 8, 39, 'for some reason', '', '', '', '2020-07-23 10:38:42', ''),
-(309, 8, 39, 'oh this is just swell...', '', '', '', '2020-07-23 10:38:50', ''),
-(310, 8, 39, 'im totally confused', '', '', '', '2020-07-23 10:38:55', ''),
-(311, 8, 39, 'will this work?', '', '', '', '2020-07-23 10:39:39', ''),
-(312, 8, 39, 'and it still works', '', '', '', '2020-07-23 10:39:47', ''),
-(313, 8, 39, 'change?', '', '', '', '2020-07-23 11:11:58', ''),
-(314, 8, 39, 'nope', '', '', '', '2020-07-23 11:12:01', ''),
-(315, 38, 8, 'test', '', '', '', '2020-07-23 11:15:18', ''),
-(316, 38, 8, 'assalamualaikum', '', '', '', '2020-07-23 11:15:23', ''),
-(317, 38, 8, 'ini test menggunakan smartphone', '', '', '', '2020-07-23 11:16:04', ''),
-(318, 38, 8, 'testing', '', '', '', '2020-07-23 11:16:32', ''),
-(319, 38, 8, 'testing', '', '', '', '2020-07-23 11:16:56', ''),
-(320, 38, 8, 'again', '', '', '', '2020-07-23 11:17:01', ''),
-(321, 38, 8, 'halo', '', '', '', '2020-07-23 11:17:12', ''),
-(322, 8, 38, 'nama saya john doe', '', '', '', '2020-07-23 11:19:00', ''),
-(323, 8, 38, 'saya suka apel', '', '', '', '2020-07-23 11:20:34', ''),
-(324, 38, 8, 'oh ya? saya juga suka', '', '', '', '2020-07-23 11:20:56', ''),
-(325, 8, 38, 'masa sih? sama dong', '', '', '', '2020-07-23 11:21:05', ''),
-(326, 38, 8, 'NULL', 'IMG_20200708_222111.jpg', '.jpg', 'image/jpeg', '2020-07-23 11:21:48', ''),
-(327, 8, 38, 'NANI?!', '', '', '', '2020-07-23 11:22:35', ''),
-(328, 8, 38, 'bisa enggak sekarang?', '', '', '', '2020-07-23 11:45:07', ''),
-(329, 8, 38, 'tetep aja aneh ya', '', '', '', '2020-07-23 11:45:16', ''),
-(330, 8, 38, 'hmm.... kayanya ada yg salah', '', '', '', '2020-07-23 11:45:25', ''),
-(331, 39, 8, 'huft.. this is confusing', '', '', '', '2020-07-23 11:46:44', ''),
-(332, 38, 8, 'padahal img harusnya gak ada tapi tetep aja ada', '', '', '', '2020-07-23 13:28:20', ''),
-(333, 39, 8, 'Test', '', '', '', '2020-07-23 21:17:57', ''),
-(334, 8, 39, 'hi mami', '', '', '', '2020-07-23 21:18:17', ''),
-(335, 39, 8, 'Testing mas', '', '', '', '2020-07-23 21:18:36', ''),
-(336, 8, 39, 'dapet chat nya mam?', '', '', '', '2020-07-23 21:18:36', ''),
-(337, 39, 8, 'Dapet', '', '', '', '2020-07-23 21:18:45', ''),
-(338, 39, 8, 'Alhamdulillah', '', '', '', '2020-07-23 21:18:50', ''),
-(339, 39, 8, 'Semangat terus yaaaa', '', '', '', '2020-07-23 21:18:55', ''),
-(340, 8, 39, 'few bugs', '', '', '', '2020-07-24 13:13:39', ''),
-(341, 8, 39, 'but so far its working', '', '', '', '2020-07-24 13:13:44', ''),
-(342, 38, 8, 'test john', '', '', '', '2020-07-27 00:06:09', ''),
-(343, 38, 8, 'jalan gak john?', '', '', '', '2020-07-27 00:06:25', ''),
-(344, 38, 8, 'kayanya sih jalan harusnya', '', '', '', '2020-07-27 00:06:31', ''),
-(345, 38, 8, 'ya... lumayan deh', '', '', '', '2020-07-27 00:11:52', ''),
-(346, 38, 8, 'test', '', '', '', '2020-07-27 14:03:07', ''),
-(347, 38, 8, 'berfungsi', '', '', '', '2020-07-27 14:03:14', ''),
-(348, 5, 8, 'test', '', '', '', '2020-07-27 14:22:21', ''),
-(349, 5, 8, 'halo john', '', '', '', '2020-07-27 14:22:28', ''),
-(350, 38, 8, 'test', '', '', '', '2020-07-27 14:22:51', ''),
-(351, 38, 8, 'test', '', '', '', '2020-07-27 14:22:55', ''),
-(352, 38, 8, 'test', '', '', '', '2020-07-27 14:22:57', ''),
-(353, 38, 8, 'test', '', '', '', '2020-07-27 14:22:58', ''),
-(354, 38, 8, 'halooo', '', '', '', '2020-07-27 14:23:01', ''),
-(355, 8, 5, 'hi sulthan', '', '', '', '2020-07-27 14:23:33', ''),
-(356, 8, 5, 'wadaw pusing', '', '', '', '2020-07-27 14:23:40', ''),
-(357, 5, 8, 'test', '', '', '', '2020-07-27 14:24:02', ''),
-(358, 5, 8, 'jalan sih kan??', '', '', '', '2020-07-27 14:24:12', ''),
-(359, 5, 8, 'hmm', '', '', '', '2020-07-27 14:24:56', ''),
-(360, 5, 8, 'NULL', 'logo_FIK.PNG', '.PNG', 'image/png', '2020-07-27 14:25:05', '');
+INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_name`, `file_ext`, `mime_type`, `message_date_time`, `ip_address`, `status`) VALUES
+('5f219ceaa4e1e', '8', '5f2128a43c90b', 'test', '', '', '', '2020-07-29 22:59:38', '', 'read'),
+('5f219ceec444d', '8', '5f2128a43c90b', 'assalamualaikum', '', '', '', '2020-07-29 22:59:42', '', 'read'),
+('5f219cf5015e4', '8', '5f2128a43c90b', 'testing count unread messages', '', '', '', '2020-07-29 22:59:49', '', 'read'),
+('5f21ad2d1abb3', '5f2128a43c90b', '8', 'yup', '', '', '', '2020-07-30 00:09:01', '', 'read'),
+('5f21b1e39634d', '5f2128a43c90b', '8', 'test', '', '', '', '2020-07-30 00:29:07', '', 'read'),
+('5f21babf33b7a', '8', '39', 'test', '', '', '', '2020-07-30 01:06:55', '', 'unread'),
+('5f2278b77b772', '5f1e7dc5ca07e', '8', 'NULL', 'images_(3).jpeg', '.jpeg', 'image/jpeg', '2020-07-30 14:37:27', '', 'unread');
 
 -- --------------------------------------------------------
 
@@ -290,8 +241,12 @@ CREATE TABLE `notification` (
   `user_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `booking_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `borrowing_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `gallery_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `description` text CHARACTER SET utf8mb4 NOT NULL,
+  `creation_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `chat_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `news_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `subject` enum('','booking','borrowing','creation','chat','news','thesis') CHARACTER SET utf8mb4 NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('unread','read') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -300,18 +255,18 @@ CREATE TABLE `notification` (
 -- Dumping data untuk tabel `notification`
 --
 
-INSERT INTO `notification` (`id`, `user_id`, `booking_id`, `borrowing_id`, `gallery_id`, `description`, `date`, `status`) VALUES
-('5f1e7e0404fe8', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', 'Barang ini ingin dipinjam', '2020-07-27 14:11:00', 'read'),
-('5f1e7e24aab87', '38', '', '5f1513bc63bfb', '', 'Peminjaman diizinkan', '2020-07-27 14:11:32', 'unread'),
-('5f1e7e7a57880', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', 'Peminjaman diizinkan', '2020-07-27 14:12:58', 'read'),
-('5f1e7e7bb5380', '8', '', '5f150944e9609', '', 'Peminjaman diizinkan', '2020-07-27 14:12:59', 'unread'),
-('5f1e7e7d9a262', '8', '', '5f1be6c8ac198', '', 'Peminjaman diizinkan', '2020-07-27 14:13:01', 'unread'),
-('5f1e7e7ea0652', '8', '', '5f1be80d5cc11', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:02', 'read'),
-('5f1e7e8074c4b', '8', '', '5f1be87feef78', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:04', 'read'),
-('5f1e7e840cb93', '8', '', '5f1be918cc49f', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:08', 'unread'),
-('5f1e8023404c9', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', 'Barang ini ingin dipinjam', '2020-07-27 14:20:03', 'read'),
-('5f1e803d57bb6', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', 'Peminjaman diizinkan', '2020-07-27 14:20:29', 'read'),
-('5f1e804056b12', '8', '', '5f150c74adc88', '', 'Peminjaman diizinkan', '2020-07-27 14:20:32', 'unread');
+INSERT INTO `notification` (`id`, `user_id`, `booking_id`, `borrowing_id`, `creation_id`, `chat_id`, `news_id`, `thesis_id`, `subject`, `description`, `date`, `status`) VALUES
+('5f1e7e0404fe8', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', '', '', '', '', 'Barang ini ingin dipinjam', '2020-07-27 14:11:00', 'read'),
+('5f1e7e24aab87', '38', '', '5f1513bc63bfb', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:11:32', 'unread'),
+('5f1e7e7a57880', '5f1e7dc5ca07e', '', '5f1e7dfa80b9d', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:12:58', 'read'),
+('5f1e7e7bb5380', '8', '', '5f150944e9609', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:12:59', 'read'),
+('5f1e7e7d9a262', '8', '', '5f1be6c8ac198', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:13:01', 'unread'),
+('5f1e7e7ea0652', '8', '', '5f1be80d5cc11', '', '', '', '', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:02', 'read'),
+('5f1e7e8074c4b', '8', '', '5f1be87feef78', '', '', '', '', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:04', 'read'),
+('5f1e7e840cb93', '8', '', '5f1be918cc49f', '', '', '', '', '', 'Peminjaman tidak diizinkan', '2020-07-27 14:13:08', 'unread'),
+('5f1e8023404c9', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', '', '', '', '', 'Barang ini ingin dipinjam', '2020-07-27 14:20:03', 'read'),
+('5f1e803d57bb6', '5f1e7dc5ca07e', '', '5f1e8016bf045', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:20:29', 'read'),
+('5f1e804056b12', '8', '', '5f150c74adc88', '', '', '', '', '', 'Peminjaman diizinkan', '2020-07-27 14:20:32', 'unread');
 
 -- --------------------------------------------------------
 
@@ -523,12 +478,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
-('38', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, '0'),
-('39', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, '0'),
-('44', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, '0'),
-('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.kurniawan@gmail.com', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 4, 1, 1595833797, 'offline'),
-('5f1ea45027a6d', 'akathan', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.angka@gmail.com', 'default.jpg', '0d9cc71f962717072438173e06efcd628e0a95d630788447c867c546de19740c', '$2y$10$vba9tEk8s0KuCWTm0F..PuwcqsNy7qaAbJbaM1yIlCh8w3CFUMVcK', 4, 1, 1595843664, 'offline'),
-('8', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, '0');
+('38', 'rochieko', 'Rochi Eko Pambudi', 'snowm60401@gmail.com', 'default.jpg', 'a4dd82e95096136291c033406a6b25f598b0eb0e0444b554706b926690bbc16f', '$2y$10$zBadfaR3yj3UEYWGaFLafOUv5uP6UkMBy691b9a54fjBhKDFQ8G7q', 3, 1, 1594543149, 'offline'),
+('39', 'kaurlab', 'Kaur Lab ', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
+('44', 'jhondoe', 'Jhon Doe Version 2', 'snowm6040@gmail.com', 'default.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'offline'),
+('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', 'sulthan.kurniawan@gmail.com', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 4, 1, 1595833797, 'online'),
+('5f2128a43c90b', 'akathan', 'akathan', 'sulthan.angka@gmail.com', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 4, 1, 1596008612, 'offline'),
+('8', 'admin', 'John Doe', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, 'online');
 
 -- --------------------------------------------------------
 
@@ -684,12 +639,6 @@ ALTER TABLE `user_token`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `chat`
---
-ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
-
---
 -- AUTO_INCREMENT untuk tabel `child_kategori`
 --
 ALTER TABLE `child_kategori`
@@ -718,17 +667,6 @@ ALTER TABLE `tampilan`
 --
 ALTER TABLE `tb_panel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
---
--- Ketidakleluasaan untuk tabel `borrowing`
---
-ALTER TABLE `borrowing`
-  ADD CONSTRAINT `fk_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

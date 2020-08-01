@@ -50,6 +50,7 @@
           </ul>
         </div>
       </div>
+      <div class="divider"></div>
       <div class="card">
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span>Listing Karya</a>
         <div id="collapse3" class="collapse" data-parent="#accordion">
@@ -68,7 +69,8 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-        <a href="#" class="btn"><span class="fas fa-align-left"></span> PDF Editor</a>
+        <a href="#" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
+        <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
       </div>
       <div class="divider"></div>
       <div class="card">
