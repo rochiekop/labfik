@@ -54,8 +54,8 @@
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6"><span class="fas fa-hand-holding-usd"></span>Bisnis</a>
         <div id="collapse6" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="#">Tambah Jasa</a></li>
-            <li><a href="#">Response</a></li>
+            <li><a href="<?= base_url('admin/addJasa') ?>">Tambah Jasa</a></li>
+            <li><a href="<?= base_url('admin/response') ?>">Response</a></li>
           </ul>
         </div>
       </div>
@@ -89,9 +89,9 @@
       <div class="card">
         <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div>
-      <!-- <div class="card logout">
+      <div class="card logout hide-mobile">
         <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
-      </div> -->
+      </div>
     </div>
   </div>
   <!-- End Side Menu -->

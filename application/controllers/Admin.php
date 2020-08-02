@@ -942,4 +942,25 @@ class Admin extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat berhasil dihapus</div>');
     redirect('admin/riwayat');
   }
+
+  // UNIT BISNIS
+  public function addJasa()
+  {
+    $data['title'] = ' LABFIK | Tambah Jasa';
+    // $data['token'] = $this->admin_model->getToken();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/addJasa', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function response()
+  {
+    $data['title'] = ' LABFIK | Daftar Respon Formulir';
+    // $data['token'] = $this->admin_model->getToken();
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/response', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
 }

@@ -551,7 +551,7 @@ a:not([href]):hover {
 
 .dropdown-menu .dropdown-item {
 	padding: 9px 12px;
-	min-width: 260px;
+	min-width: 150px;
 	border-radius: 5px
 }
 
@@ -567,7 +567,13 @@ a:not([href]):hover {
 .dropdown-menu .dropdown-item.regis-dropdown {
 	background-color: transparent !important;
 	padding: 8px;
-	width: 280px
+	/* width: 280px */
+}
+
+.dropdown-menu .dropdown-item.regisdropdown {
+	background-color: transparent !important;
+	padding: 1px;
+	width: 100px
 }
 
 .dropdown-menu .dropdown-item.regis-dropdown::after {
@@ -575,6 +581,17 @@ a:not([href]):hover {
 	display: block;
 	position: absolute;
 	right: 28px;
+	top: -22px;
+	width: 20px;
+	border: 10px solid transparent;
+	border-bottom: 12px solid #FB8C00
+}
+
+.dropdown-menu .dropdown-item.regisdropdown::after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	right: 10px;
 	top: -22px;
 	width: 20px;
 	border: 10px solid transparent;

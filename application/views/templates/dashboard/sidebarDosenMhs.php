@@ -76,11 +76,11 @@ $dosbing = $this->db->query($getdosbing)->result_array();
         </div>
       </div>
     <?php endif; ?>
-    <div class="divider"></div>
+    <!-- <div class="divider"></div>
     <div class="card">
       <a href="<?= base_url('thesis') ?>" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
       <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
-    </div>
+    </div> -->
     <div class="divider show-mobile"></div>
     <div class="card">
       <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
