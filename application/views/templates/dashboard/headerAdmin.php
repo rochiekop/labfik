@@ -26,7 +26,6 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
-  <script type="text/javascript" src="<?= base_url('assets/js/booking.js') ?>"></script>
 
 </head>
 
@@ -52,7 +51,7 @@
         </ul>
         <ul class="right akun">
           <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/' . $this->session->userdata('id')) ?>">
+            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
