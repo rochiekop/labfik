@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2020 at 05:00 PM
+-- Generation Time: Aug 02, 2020 at 05:11 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -32,7 +32,7 @@ CREATE TABLE `dosbing` (
   `id` varchar(64) NOT NULL,
   `id_dosen` varchar(64) NOT NULL,
   `id_mhs` varchar(64) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,8 +41,8 @@ CREATE TABLE `dosbing` (
 --
 
 INSERT INTO `dosbing` (`id`, `id_dosen`, `id_mhs`, `date`, `status`) VALUES
-('5f2631b631a8b', '5f258dc28c1a3', '44', '2020-08-02', 'Sudah Disetujui'),
-('5f26a96184ef7', '38', '44', '2020-08-02', 'Menunggu Persetujuan');
+('5f2631b631a8b', '5f258dc28c1a3', '44', '2020-08-02 00:00:00', 'Sudah Disetujui'),
+('5f26a96184ef7', '38', '44', '2020-08-02 00:00:00', 'Menunggu Persetujuan');
 
 --
 -- Indexes for dumped tables

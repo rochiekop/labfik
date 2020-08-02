@@ -26,6 +26,7 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
+  <script type="text/javascript" src="<?= base_url('assets/js/booking.js') ?>"></script>
 
 </head>
 
@@ -51,7 +52,7 @@
         </ul>
         <ul class="right akun">
           <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
+            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/' . $this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
@@ -148,19 +149,19 @@
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-item regisdropdown">
                 <a class="dropdown-item" href="<?= base_url('auth/check') ?>">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Dashboard
+                  <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 icon"></i>
                   Logout
                 </a>
               </div>
             </div>
           </div>
           <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
-            <a class="btn btn-sm btn-pill btn-icon btn-icon-left icon" href="<?= base_url('main/helpdesk') ?>">
+            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
               <span class="fas fa-life-ring"></span> Helpdesk
             </a>
           </div>

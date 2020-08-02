@@ -93,7 +93,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-item regis-dropdown">
                   <a class="dropdown-item" href="<?= base_url('auth/check') ?>">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-th-large fa-sm fa-fw mr-2 text-gray-400"></i>
                     Dashboard
                   </a>
                   <div class="dropdown-divider"></div>
