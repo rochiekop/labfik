@@ -65,25 +65,6 @@
               <span class="fas fa-bell"></span>
             </a>
           </div>
-<<<<<<< HEAD
-          <div class="dropdown not-dropdown">
-            <a class="btn btn-icon" data-toggle="dropdown" href="#">
-              <span class="fas fa-cog"></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-item regisdropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" data-toggle="modal" data-target="#logout">
-                  <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 icon"></i>
-                  Logout
-                </a>
-              </div>
-            </div>
-=======
           <div class="dropdown">
             <a class="btn btn-icon" data-toggle="dropdown" href="#">
               <span class="fas fa-cog"></span>
@@ -98,12 +79,6 @@
                 </div>
               </li>
             </ul>
-          </div>
-          <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
-            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
-              <span class="fas fa-life-ring"></span> Helpdesk
-            </a>
->>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
           </div>
         </ul>
       </div>
