@@ -260,23 +260,21 @@ class Auth extends CI_Controller
 
   // public function helpdeskRedirect()
   // {
-    // $set = $this->session->userdata('role_id');
-    // if ($set == 1) {
-    //   // redirect('admin');
-    //   redirect('chat/login_as_admin');
-    // } elseif ($set == 2) {
-    //   // redirect('kaur');
-    //   redirect('chat/login_as_kaur');
-    // } elseif ($set == 3 or $set == 4) {
-    //   // redirect('users/helpdesk');
-    //   redirect('chat/login_as_dosenMhs');
-    // } else {
-    //   redirect('auth');
-    // }
+  // $set = $this->session->userdata('role_id');
+  // if ($set == 1) {
+  //   // redirect('admin');
+  //   redirect('chat/login_as_admin');
+  // } elseif ($set == 2) {
+  //   // redirect('kaur');
+  //   redirect('chat/login_as_kaur');
+  // } elseif ($set == 3 or $set == 4) {
+  //   // redirect('users/helpdesk');
+  //   redirect('chat/login_as_dosenMhs');
+  // } else {
+  //   redirect('auth');
+  // }
   //   redirect('chat');
   // }
-
-  
 
 
   public function block()
@@ -377,7 +375,7 @@ class Auth extends CI_Controller
       redirect('main');
     } else {
       $this->user_model->ChangeStatusOffline($this->session->userdata('id'));
-      
+
       $this->session->unset_userdata('id');
       $this->session->unset_userdata('name');
       $this->session->unset_userdata('role_id');
@@ -386,6 +384,64 @@ class Auth extends CI_Controller
       $this->session->unset_userdata('logged_in');
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="margin-top:24px;">Your account has been logout.</div>');
       redirect('auth');
+    }
+  }
+
+  public function editprofile()
+  {
+    $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $data = array(
+      'title' => 'Edit Profile',
+      'user'  => $user
+    );
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules(
+      'nim',
+      'Nim',
+      'required|min_length[10]',
+      array(
+        'required'      =>  '%s harus diisi',
+        'min_length[10]' =>  '%s angka yang diisi kurang'
+      )
+    );
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/editp', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $name = $this->input->post('name');
+      $prodi = $this->input->post('prodi');
+      $nim = $this->input->post('nim');
+      $email = $this->input->post('email');
+
+      $upload_image = $_FILES['images']['name'];
+
+      if ($upload_image) {
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '2048';
+        $config['upload_path']   = './assets/img/profile/';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('images')) {
+          $old_image = $data['user']['images'];
+          if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+          }
+          $new_image = $this->upload->data('file_name');
+          $this->db->set('images', $new_image);
+        } else {
+          echo $this->upload->display_errors();
+        }
+      }
+      $this->db->set('name', $name);
+      $this->db->set('nim', $nim);
+      $this->db->set('prodi', $prodi);
+      $this->db->where('email', $email);
+      $this->db->update('user');
+      redirect('users/main');
     }
   }
 }
