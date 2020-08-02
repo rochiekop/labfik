@@ -32,23 +32,6 @@ class Admin_karya extends CI_Controller
         $kategori = $this->kategori_model->listing_kat();
         $valid = $this->form_validation;
         $valid->set_rules(
-            'nim',
-            'Nim',
-            'required|min_length[10]',
-            array(
-                'required'      =>  '%s harus diisi',
-                'min_length[10]' =>  '%s angka yang diisi kurang'
-            )
-        );
-        $valid->set_rules(
-            'kode_tampilan',
-            'Kode Tampilan',
-            'required',
-            array(
-                'required'      =>  '%s harus diisi'
-            )
-        );
-        $valid->set_rules(
             'judul',
             'Judul',
             'required[tampilan.judul]',
@@ -83,46 +66,37 @@ class Admin_karya extends CI_Controller
                     $config['image_library'] = 'gd2';
                     $config['source_image'] = './assets/upload/images/' . $upload_gambar['upload_data']['file_name'];
                     $config['new_image']    = './assets/upload/images/thumbs/';
-                    $config['create_thumb'] = TRUE;
                     $config['maintain_ratio'] = TRUE;
-                    $config['width']         = 250;
-                    $config['height']       = 250;
+                    $config['width']         = 1200;
+                    $config['height']       = 480;
 
                     $this->load->library('image_lib', $config);
 
                     $this->image_lib->resize();
-                    $slug_tampilan = url_title($this->input->post('judul') . '-' . $this->input->post('kode_produk'), 'dash', TRUE);
+                    $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                     $i = $this->input;
                     $data = array(
-                        'id_tampilan'  =>  $id_tampilan,
-                        'id' =>  $this->session->userdata('id'),
+                        'id_tampilan' => $id_tampilan,
                         'slug_tampilan' => $slug_tampilan,
                         'id_kategori'  =>  $i->post('id_kategori'),
                         'id_ck'   => $i->post('id_ck'),
-                        'nim'       => $i->post('nim'),
-                        'kode_tampilan' =>  $i->post('kode_tampilan'),
                         'judul'       => $i->post('judul'),
                         'deskripsi'     => $i->post('deskripsi'),
-                        'keywords'    => $i->post('keywords'),
                         'gambar'    =>  $upload_gambar['upload_data']['file_name'],
                     );
                     $this->tampilan_model->edit($data);
-                    redirect(base_url('karya'), 'refresh');
+                    redirect(base_url('admin_karya'), 'refresh');
                 }
             } else {
-                $slug_tampilan = url_title($this->input->post('judul') . '-' . $this->input->post('kode_produk'), 'dash', TRUE);
+                $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $i = $this->input;
                 $data = array(
-                    'id_tampilan'    =>  $id_tampilan,
-                    'id'       =>  $this->session->userdata('id'),
+                    'id_tampilan' => $id_tampilan,
                     'slug_tampilan' => $slug_tampilan,
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),
-                    'nim'       => $i->post('nim'),
-                    'kode_tampilan' =>  $i->post('kode_tampilan'),
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
-                    'keywords'       => $i->post('keywords')
                 );
                 $this->tampilan_model->edit($data);
                 redirect(base_url('admin_karya'), 'refresh');

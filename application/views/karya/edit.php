@@ -9,7 +9,7 @@
 
     echo validation_errors('<div class="alert alert-warning">', '</div>');
 
-    echo form_open_multipart(base_url('karya/edit/' . $tampilan->id_tampilan), 'class="form-horizontal"');
+    echo form_open_multipart(base_url('admin_karya/edit/' . $tampilan->id_tampilan), 'class="form-horizontal"');
     ?>
 
     <div class="fik-section-title2">
@@ -31,20 +31,8 @@
                                 <label>Judul</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nim" placeholder="Nim" value="<?= $tampilan->nim ?>" class="form-control" required="required" autocomplete="off" />
-                                <label>Nim</label>
-                            </div>
-                            <div class="form-group">
                                 <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= $tampilan->deskripsi ?>" required="required" autocomplete="off"></textarea>
                                 <label>Deskripsi</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="<?= $tampilan->keywords ?>" required="required" autocomplete="off" />
-                                <label>Keywords</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="kode_tampilan" class="form-control" placeholder="kode tampilan" value="<?= $tampilan->kode_tampilan ?>" required="required" autocomplete="off" />
-                                <label>Kode Tampilan</label>
                             </div>
                             <div class="lab-category" style="margin-bottom:16px;">
                                 <b>Prodi</b>
@@ -66,7 +54,7 @@
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
                             <label for="exampleFormControlFile1"><b>Pilih Gambar</b></label>
-                            <input type="file" name="gambar" required="required" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px">
+                            <input type="file" name="gambar" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px">
                         </div>
                     </div>
                     <div class="card-footer">
