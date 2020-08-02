@@ -11,7 +11,7 @@
             <tr>
                 <th scope="col">NO</th>
                 <th scope="col">Nama</th>
-                <th scope="col">Nim</th>
+                <th scope="col">Role</th>
                 <th scope="col">Karya</th>
                 <th scope="col">Kategori</th>
                 <th scope="col">Tanggal Post</th>
@@ -26,7 +26,7 @@
                 <tr>
                     <td><?= $no ?></td>
                     <td><?= $data->name ?></td>
-                    <td><?= $data->nim ?></td>
+                    <td><?= $data->role ?></td>
                     <td><a type="button" data-toggle="modal" data-target="#exampleModal"><img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60"></a></td>
                     <td><?= $data->nama_child ?></td>
                     <td><?= $data->tanggal_post ?></td>

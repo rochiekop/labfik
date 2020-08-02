@@ -31,20 +31,8 @@
                                 <label>Judul</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nim" placeholder="Nim" value="<?= set_value('nim') ?>" class="form-control" required="required" autocomplete="off" />
-                                <label>Nim</label>
-                            </div>
-                            <div class="form-group">
                                 <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= set_value('deskripsi') ?>" required="required" autocomplete="off"></textarea>
                                 <label>Deskripsi</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="keywords" class="form-control" placeholder="Keywords" value="<?= set_value('keywords') ?>" required="required" autocomplete="off" />
-                                <label>Keywords</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="kode_tampilan" class="form-control" placeholder="kode tampilan" value="<?= set_value('kode_tampilan') ?>" required="required" autocomplete="off" />
-                                <label>Kode Tampilan</label>
                             </div>
                             <div class="lab-category" style="margin-bottom:16px;">
                                 <b>Prodi</b>
