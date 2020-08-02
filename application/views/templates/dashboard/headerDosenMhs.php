@@ -16,6 +16,9 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- TinyMCE -->
+  <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
   <!-- Lab. FIK Main Style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
 
@@ -28,6 +31,7 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
   <script type="text/javascript" src="<?= base_url('assets/js/booking.js') ?>"></script>
+
 </head>
 
 <body>

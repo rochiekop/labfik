@@ -13,7 +13,7 @@ class Notification_model extends CI_Model
         ];
     }
 
-    public function getAllNotificationByUserId($user_id)
+    public function getAllNotification($status, $user_id)
     {
 
     }
@@ -82,7 +82,7 @@ class Notification_model extends CI_Model
     {
         if ($status == 'request')
         {
-            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status')
+            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
             $this->db->where('notification.description', 'waiting');
@@ -92,7 +92,7 @@ class Notification_model extends CI_Model
         }
         else if ($status == 'respond')
         {
-            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status')
+            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
             $this->db->where('tampilan.id', $user_id);

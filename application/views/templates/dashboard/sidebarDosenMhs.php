@@ -44,7 +44,7 @@
       </div>
       <div class="divider"></div>
       <div class="card">
-      <a href="#" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
+        <a href="<?= base_url('thesis') ?>" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
         <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
       </div>
       <div class="divider show-mobile"></div>
