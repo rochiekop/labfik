@@ -36,13 +36,13 @@ class Booking_model extends CI_Model
 
   public function getAllBooking()
   {
-    $this->db->select('booking.id,user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,date(booking.date + COALESCE(booking.date_declined)) AS date,booking.time,booking.keterangan,booking.status');
+    $this->db->select('booking.id,user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,booking.date,booking.date_declined,booking.time,booking.keterangan,booking.status');
     $this->db->from('booking');
     $this->db->join('user', 'booking.id_peminjam = user.id');
     $this->db->join('user_role', 'user.role_id = user_role.id');
     $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
     $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
-    $this->db->order_by('date', 'desc');
+    $this->db->order_by('booking.date', 'desc');
     return $this->db->get()->result_array();
   }
 
@@ -129,35 +129,5 @@ class Booking_model extends CI_Model
     $this->db->from('user');
     $this->db->where('name', $name);
     return $this->db->get()->row()->id;
-  }
-
-  public function fetchPeminjaman($id_kategori, $id_ruangan)
-  {
-    $this->db->where('id_kategori', $id_kategori);
-    $this->db->order_by('ruangan', 'asc');
-    $query = $this->db->get('ruangan');
-    foreach ($query->result() as $row) {
-      $output = '<option value="' . $row->id . '">' . $row->ruangan . '</option>';
-    }
-    return $output;
-  }
-
-  public function getBookingById($id)
-  {
-    $this->db->select('booking.id,user_role.role,user.name,user.id AS user_id ,ruangan.id AS id_ruangan,ruangan.ruangan,kategoriruangan.id AS id_kategori,kategoriruangan.kategori,date(booking.date + COALESCE(booking.date_declined)) AS date,booking.time,booking.keterangan,booking.status');
-    $this->db->from('booking');
-    $this->db->join('user', 'booking.id_peminjam = user.id');
-    $this->db->join('user_role', 'user.role_id = user_role.id');
-    $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
-    $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
-    $this->db->where('booking.id', $id);
-    $this->db->order_by('date', 'desc');
-    return $this->db->get();
-  }
-
-  public function getruangan($id)
-  {
-    $query = $this->db->get_where('ruangan', array('id_kategori' => $id));
-    return $query;
   }
 }

@@ -71,7 +71,7 @@
               <span>Tidak ada notifikasi</span>
             <?php else : ?>
               <?php foreach ($notification as $n) : ?>
-                <a href="<?= site_url('notification/changeStatusRead/'.$n->subject.'/'.$n->id) ?>" class="list-group-item">
+                <a href="<?= site_url('notification/changeStatusRead/' . $n->subject . '/' . $n->id) ?>" class="list-group-item">
 
                     <?php if ($n->status == 'unread') : ?>
                         <span class="fas fa-bell"></span> &nbsp;
@@ -137,7 +137,34 @@
               <?php endforeach; ?>
             <?php endif; ?>
           </div> -->
-
+          <!-- <div class="not-dropdown">
+            <a class="btn btn-icon" href="#">
+              <span class="fas fa-cog"></span>
+            </a>
+          </div> -->
+          <div class="dropdown not-dropdown">
+            <a class="btn btn-icon" data-toggle="dropdown" href="#">
+              <span class="fas fa-cog"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-item regisdropdown">
+                <a class="dropdown-item" href="<?= base_url('auth/check') ?>">
+                  <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">
+                  <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 icon"></i>
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
+            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
+              <span class="fas fa-life-ring"></span> Helpdesk
+            </a>
+          </div>
         </ul>
       </div>
     </div>

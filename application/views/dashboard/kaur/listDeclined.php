@@ -42,7 +42,7 @@
             <th scope="row"><?= ++$no ?></th>
             <td><?= $l['role'] . ', ' . $l['name'] ?></td>
             <td><?= $l['kategori'] . ' - ' . $l['ruangan'] ?></td>
-            <td><?= format_indo($l['date_declined'], date('d-m-Y')); ?></td>
+            <td><?= $l['date_declined'] ?></td>
             <td><?= $l['time'] ?></td>
             <td><?= $l['keterangan'] ?></td>
             <td><b><?= $l['status'] ?></b></td>
