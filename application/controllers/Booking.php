@@ -146,11 +146,4 @@ class Booking extends CI_Controller
       echo $this->booking_model->fetchRuangan($this->input->post('id_kategori'));
     }
   }
-
-  function getRuangan()
-  {
-    $id = $this->input->post('id', TRUE);
-    $data = $this->booking_model->getruangan($id)->result();
-    echo json_encode($data);
-  }
 }

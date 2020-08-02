@@ -8,7 +8,6 @@ class Admin extends CI_Controller
     parent::__construct();
     $this->load->model('admin_model');
     $this->load->model('main_model');
-    $this->load->model('booking_model');
     $this->load->library('upload');
     $this->load->library('pagination');
     is_logged_in();
@@ -843,21 +842,11 @@ class Admin extends CI_Controller
   public function riwayat()
   {
     $data['title'] = ' LABFIK | Riwayat Peminjaman Tempat';
-    $data['kategori'] = $this->admin_model->kategoriRuangan();
-    $data['booking'] = $this->admin_model->booking();
-    $data['ruangan'] = $this->admin_model->getRuangan();
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/riwayat', $data);
     $this->load->view('templates/dashboard/footer');
   }
-
-  function get_sub_category($category_id)
-  {
-    $query = $this->db->get_where('ruangan', array('subcategory_category_id' => $category_id));
-    return $query;
-  }
-
 
   public function activationrequest()
   {
@@ -881,65 +870,5 @@ class Admin extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">Akun belum terdaftar dalam sistem.</div>');
       redirect('admin/activationrequest');
     }
-  }
-
-  public function editpeminjaman($id)
-  {
-    $id = decrypt_url($id);
-    $data['id_booking'] = $id;
-    $data['title'] = ' LABFIK | Edit Peminjaman Tempat';
-    $data['booking'] = $this->booking_model->getBookingById($id)->row_array();
-    $getdata = $this->booking_model->getBookingById($id);
-    $data['kategori'] = $this->admin_model->kategoriRuangan();
-    if ($getdata->num_rows() > 0) {
-      $row = $getdata->row_array();
-      $data['sub_category_id'] = $row['id_ruangan'];
-      $data['status'] = $row['status'];
-    }
-    $this->load->view('templates/dashboard/headerAdmin', $data);
-    $this->load->view('templates/dashboard/sidebarAdmin', $data);
-    $this->load->view('dashboard/admin/editpeminjaman', $data);
-    $this->load->view('templates/dashboard/footer');
-  }
-
-  public function geteditpeminjaman()
-  {
-    $booking_id = $this->input->post('id_booking', TRUE);
-    $data = $this->booking_model->getBookingById($booking_id)->result();
-    echo json_encode($data);
-  }
-
-  public function updatepeminjaman()
-  {
-    if ($this->input->post('status') == "Diterima") {
-      $data = array(
-        'id_ruangan' => $this->input->post('ruangan'),
-        'date_declined' => 'NULL',
-        'date' => $this->input->post('date'),
-        'time' => implode(", ", $this->input->post('time')),
-        'keterangan' => $this->input->post('keterangan'),
-        'status' => $this->input->post('status')
-      );
-      $this->db->update('booking', $data, ['id' => $this->input->post('id_booking')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman berhasil diubah</div>');
-      redirect('admin/riwayat');
-    } elseif ($this->input->post('status') == "Ditolak") {
-      $data = array(
-        'date' => 'NULL',
-        'date_declined' => $this->input->post('date'),
-        'status' => 'Ditolak',
-      );
-      $this->db->update('booking', $data, ['id' => $this->input->post('id_booking')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman berhasil diubah</div>');
-      redirect('admin/riwayat');
-    }
-  }
-  public function deletebooking()
-  {
-    $where = array('id' =>  $this->input->post('id'));
-    $this->db->where($where);
-    $this->db->delete('booking');
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat berhasil dihapus</div>');
-    redirect('admin/riwayat');
   }
 }

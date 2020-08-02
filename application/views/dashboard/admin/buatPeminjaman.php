@@ -34,7 +34,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <input type="date" name="datebooking" id="datebooking" onchange="bookingByAdmin()" class="form-control" placeholder="" required="required" autocomplete="off" disabled />
+                <input type="date" name="datebooking" id="datebooking" onchange="bookingByAdmin()" disabled class="form-control" placeholder="" required="required" autocomplete="off" />
                 <label>Tanggal Peminjaman</label>
               </div>
               <div class="form-group">
@@ -58,6 +58,7 @@
             <button class="btn btn-primary" type="submit" id="createbookingbyadmin">Buat Peminjaman</button>
           </div>
         </form>
+
       </div>
     </div>
   </div>
@@ -67,7 +68,6 @@
   $(document).ready(function() {
     $("input[name='kategoriruangan']").click(function() {
       document.getElementById("ruangan").disabled = false;
-      // document.getElementById("datebooking").disabled = false;
       var id_kategori = $("input[name='kategoriruangan']:checked").val();
       if (id_kategori != '') {
         $.ajax({

@@ -49,6 +49,7 @@
           <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
           <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
           <li><a href="<?= base_url('main/helpdesk') ?>">Helpdesk</a></li>
+          <li><a href="<?= base_url('main/thesis') ?>">Bimbingan TA</a></li>
         </ul>
         <ul class="right">
           <div class="dropdown show fik-login-dropdown">

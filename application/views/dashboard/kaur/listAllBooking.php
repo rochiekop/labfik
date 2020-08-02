@@ -43,7 +43,11 @@
           <th scope="row"><?= ++$no ?></th>
           <td><?= $l['role'] . ', ' . $l['name'] ?></td>
           <td><?= $l['kategori'] . ' - ' . $l['ruangan'] ?></td>
-          <td><?= format_indo($l['date'], date('d-m-Y')); ?></td>
+          <?php if ($l['status'] == 'Ditolak') : ?>
+            <td><?= $l['date_declined'] ?></td>
+          <?php else : ?>
+            <td><?= $l['date'] ?></td>
+          <?php endif; ?>
           <td><?= $l['time'] ?></td>
           <td><?= $l['keterangan'] ?></td>
           <td><?= $l['status'] ?></td>
@@ -61,7 +65,7 @@
   </table>
 </main>
 <?php foreach ($listbooking as $t) : ?>
-  <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal fade bd-example-modal-sm" id="declined<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
