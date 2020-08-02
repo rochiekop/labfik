@@ -30,7 +30,6 @@
                                 <label>Email</label>
                             </div>
                             <div class="form-group">
-<<<<<<< HEAD
                                 <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="Name" required="required" autocomplete="off" />
                                 <label>Name</label>
                             </div>
@@ -42,11 +41,6 @@
                                 <input type="text" name="nim" placeholder="Nim" value="<?= $user['nim'] ?>" class="form-control" required="required" autocomplete="off" />
                                 <label>Nim</label>
                             </div>
-=======
-                                <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-                                <label>Name</label>
-                            </div>
->>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
                             <label for="exampleFormControlFile1"><b>Pilih Gambar</b></label>
