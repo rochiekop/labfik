@@ -43,7 +43,7 @@
       <div class="fik-navbar-menu">
         <ul class="left akun fik-username hide-mobile">
           <li>
-            <img src="<?= base_url('assets/img/7.jpg') ?>">
+            <img src="<?= base_url('assets/img/profile/' . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images) ?>">
           </li>
           <li>
             <b><?= $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->name; ?></b>
@@ -52,14 +52,24 @@
         </ul>
         <ul class="right akun">
           <div class="not-dropdown" style="margin-right:14px">
-            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/'.$this->session->userdata('id')) ?>">
+            <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/' . $this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
-          <div class="not-dropdown">
-            <a class="btn btn-icon" href="#">
+          <div class="dropdown">
+            <a class="btn btn-icon" data-toggle="dropdown" href="#">
               <span class="fas fa-cog"></span>
             </a>
+            <ul class="dropdown-menu">
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="<?= base_url('auth/editprofile') ?>" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span>Sign out</a>
+                </div>
+              </li>
+            </ul>
           </div>
           <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
             <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
@@ -70,4 +80,21 @@
       </div>
     </div>
   </nav>
+
+  <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
+        </div>
+        <div class="modal-body">
+          Anda yakin akan keluar?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" onclick="location.href='<?= base_url('auth/logout'); ?>';" class="btn btn-primary">Keluar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- End Navbar -->
