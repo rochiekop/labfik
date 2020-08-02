@@ -1,11 +1,11 @@
   <!-- Main Container -->
   <main class="akun-container">
     <div class="alert alert-info" role="alert">
-      Kamu masuk sebagai Kepala Urusan! Ada <b>3 permintaan peminjaman tempat</b>, <b>4 permintaan peminjaman barang</b> dan <b>8 permintaan upload karya</b>
+      Kamu masuk sebagai Kepala Urusan! Ada <b><?= empty($listbooking) ? 0 : count($listbooking); ?> permintaan peminjaman tempat</b>, <b>4 permintaan peminjaman barang</b> dan <b>8 permintaan upload karya</b>
     </div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="tabtempat" data-toggle="tab" href="#tempat" role="tab" aria-controls="home" aria-selected="true">Tempat (3)</a>
+        <a class="nav-link active" id="tabtempat" data-toggle="tab" href="#tempat" role="tab" aria-controls="home" aria-selected="true">Tempat (<?= empty($listbooking) ? 0 : count($listbooking); ?>)</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="tabbarang" data-toggle="tab" href="#barang" role="tab" aria-controls="profile" aria-selected="false">Barang (4)</a>
@@ -32,45 +32,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Dosen. Mark</td>
-                <td>Lab Cintiq - IK.03.04</td>
-                <td>10 April 2020</td>
-                <td>13:30 - 14:30</td>
-                <td>Kelas Pengganti</td>
-                <td>Menunggu Acc</td>
-                <td class="action" style="width:110px;text-align:center;">
-                  <a href="#" class="btn badge badge-success">Acc</a>
-                  <a href="#" class="btn badge badge-danger">Tolak</a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Dosen. Mark</td>
-                <td>Lab Cintiq - IK.03.04</td>
-                <td>10 April 2020</td>
-                <td>13:30 - 14:30</td>
-                <td>Kelas Pengganti</td>
-                <td>Menunggu Acc</td>
-                <td class="action" style="width:110px;text-align:center;">
-                  <a href="#" class="btn badge badge-success">Acc</a>
-                  <a href="#" class="btn badge badge-danger">Tolak</a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Dosen. Mark</td>
-                <td>Lab Cintiq - IK.03.04</td>
-                <td>10 April 2020</td>
-                <td>13:30 - 14:30</td>
-                <td>Kelas Pengganti</td>
-                <td>Menunggu Acc</td>
-                <td class="action" style="width:110px;text-align:center;">
-                  <a href="#" class="btn badge badge-success">Acc</a>
-                  <a href="#" class="btn badge badge-danger">Tolak</a>
-                </td>
-              </tr>
+              <?php if (empty($listbooking)) : ?>
+                <td colspan="8" style="background-color: whitesmoke;text-align:center">List Peminjaman Tempat kosong</td>
+              <?php else : ?>
+                <?php $no = 0;
+                foreach ($listbooking as $l) : ?>
+                  <tr>
+                    <th scope="row"><?= ++$no ?></th>
+                    <td><?= $l['role'] . ', ' . $l['name'] ?></td>
+                    <td><?= $l['kategori'] . ' - ' . $l['ruangan'] ?></td>
+                    <td><?= format_indo($l['date'], date('d-m-Y')); ?></td>
+                    <td><?= $l['time'] ?></td>
+                    <td><?= $l['keterangan'] ?></td>
+                    <td><?= $l['status'] ?></td>
+                    <td class="action" style="width:110px;text-align:center;">
+                      <a href="<?= base_url('kaur/accepted/') . encrypt_url($l['id']); ?>" class="btn badge badge-success">Acc</a>
+                      <a data-toggle="modal" data-target="#declinedmodal<?= encrypt_url($l['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -148,3 +129,24 @@
     </div>
   </main>
   <!-- End Main Container -->
+
+
+  <?php foreach ($listbooking as $t) : ?>
+    <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            Tolak Peminjaman Tempat ?
+          </div>
+          <form action="changeDeclined" method="post" enctype="multipart/form-data">
+            <div class="modal-footer">
+              <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+              <input type="hidden" id="date" name="date" value="<?= $t['date']; ?>">
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+              <button type="submit" name="declinedpeminjaman" class="btn btn-danger btn-sm">Tolak</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>

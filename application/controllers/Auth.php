@@ -395,6 +395,7 @@ class Auth extends CI_Controller
       'user'  => $user
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+<<<<<<< HEAD
     $this->form_validation->set_rules(
       'nim',
       'Nim',
@@ -404,6 +405,8 @@ class Auth extends CI_Controller
         'min_length[10]' =>  '%s angka yang diisi kurang'
       )
     );
+=======
+>>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerDosenMhs', $data);
@@ -412,8 +415,11 @@ class Auth extends CI_Controller
       $this->load->view('templates/dashboard/footer');
     } else {
       $name = $this->input->post('name');
+<<<<<<< HEAD
       $prodi = $this->input->post('prodi');
       $nim = $this->input->post('nim');
+=======
+>>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
       $email = $this->input->post('email');
 
       $upload_image = $_FILES['images']['name'];
@@ -436,9 +442,14 @@ class Auth extends CI_Controller
           echo $this->upload->display_errors();
         }
       }
+<<<<<<< HEAD
       $this->db->set('name', $name);
       $this->db->set('nim', $nim);
       $this->db->set('prodi', $prodi);
+=======
+
+      $this->db->set('name', $name);
+>>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
       $this->db->where('email', $email);
       $this->db->update('user');
       redirect('users/main');
