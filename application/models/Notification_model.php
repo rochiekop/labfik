@@ -13,7 +13,7 @@ class Notification_model extends CI_Model
         ];
     }
 
-    public function getAllNotificationByUserId($user_id)
+    public function getAllNotification($status, $user_id)
     {
 
     }
