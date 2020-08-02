@@ -220,17 +220,17 @@ class User_model extends CI_Model
 	public function ChangeStatusOnline($id)
 	{
 		$data = array(
-            'status' => 'online'
-        );
-        $this->db->update('user',$data,array('id' => $id));
+			'status' => 'online'
+		);
+		$this->db->update('user', $data, array('id' => $id));
 	}
 
 	public function ChangeStatusOffline($id)
 	{
 		$data = array(
-            'status' => 'offline'
-        );
-        $this->db->update('user',$data,array('id' => $id));
+			'status' => 'offline'
+		);
+		$this->db->update('user', $data, array('id' => $id));
 	}
 
 	// Model User Untuk Peminjaman
@@ -248,5 +248,35 @@ class User_model extends CI_Model
 		FROM `kategoriruangan` JOIN `ruangan` 
 		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
 		return $this->db->query($query)->result_array();
+	}
+
+
+	// Dosbing 
+	public function getDosbing()
+	{
+		$this->db->select('user.name AS nama_dosen,dosbing.*');
+		$this->db->from('dosbing');
+		$this->db->join('user', 'dosbing.id_dosen = user.id');
+		$this->db->where('id_mhs', $this->session->userdata('id'));
+		return $this->db->get()->result_array();
+	}
+
+	public function getMhs()
+	{
+		$this->db->select('dosbing.id,user.name AS nama_mhs,dosbing.status');
+		$this->db->from('dosbing');
+		$this->db->join('user', 'dosbing.id_mhs = user.id');
+		$this->db->where('id_dosen', $this->session->userdata('id'));
+		return $this->db->get()->result_array();
+	}
+
+	public function checkDosen()
+	{
+		$this->db->select('*');
+		$this->db->from('dosbing');
+		$this->db->where('id_dosen', $this->input->post('dosbing'));
+		$this->db->where('status !=', 'Ditolak');
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 }
