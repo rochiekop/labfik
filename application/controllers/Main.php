@@ -78,7 +78,21 @@ class Main extends CI_Controller
     $data['title'] = 'Laboratorium FIK';
     // Session name is $newData
     if (isset($_SESSION['id'])) {
-      redirect('auth/helpdeskRedirect');
+      // redirect('auth/helpdeskRedirect');
+      redirect('chat');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
+			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');
+      redirect('auth');
+    }
+  }
+
+  public function thesis()
+  {
+    $data['title'] = 'Laboratorium FIK';
+    // Session name is $newData
+    if (isset($_SESSION['id'])) {
+      redirect('thesis');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert" style="margin-top:24px;">
 			Ooppss... Kamu harus login untuk menggunakan fitur ini</div>');

@@ -258,8 +258,8 @@ class Auth extends CI_Controller
     }
   }
 
-  public function helpdeskRedirect()
-  {
+  // public function helpdeskRedirect()
+  // {
     // $set = $this->session->userdata('role_id');
     // if ($set == 1) {
     //   // redirect('admin');
@@ -273,8 +273,10 @@ class Auth extends CI_Controller
     // } else {
     //   redirect('auth');
     // }
-    redirect('chat');
-  }
+  //   redirect('chat');
+  // }
+
+  
 
 
   public function block()
