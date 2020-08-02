@@ -17,20 +17,12 @@ class Thesis extends CI_Controller
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
         {
             $this->load->view("templates/dashboard/headerDosenMhs");
-<<<<<<< HEAD
-            // $this->load->view("templates/dashboard/sidebarDosenMhs");
-=======
             $this->load->view("templates/dashboard/sidebarDosenMhs");
->>>>>>> parent of 3890862... Revert "nambah beberapa"
             $this->load->view("thesis/editor");
             $this->load->view("templates/dashboard/footer");
         }
         // $this->load->view("thesis/test");
     }
     
-<<<<<<< HEAD
-}
-=======
 }
 
->>>>>>> parent of 3890862... Revert "nambah beberapa"
