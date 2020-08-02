@@ -14,6 +14,7 @@ class Tampilan_model extends CI_Model
     {
         $this->db->select('tampilan.*,
         user.name,
+        user.nim,
         kategori.nama_kategori,
         kategori.slug_kategori,
         child_kategori.id_ck,
@@ -33,12 +34,14 @@ class Tampilan_model extends CI_Model
     {
         $this->db->select('tampilan.*,
         user.name,
+        user_role.role,
         kategori.nama_kategori,
         kategori.slug_kategori,
         child_kategori.id_ck,
         child_kategori.nama_child');
         $this->db->from('tampilan');
         $this->db->join('user', 'user.id = tampilan.id', 'left');
+        $this->db->join('user_role', 'user.role_id = user_role.id', 'left');
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->join('child_kategori', 'child_kategori.id_ck = tampilan.id_ck', 'left');
         $this->db->group_by('tampilan.id_tampilan');
