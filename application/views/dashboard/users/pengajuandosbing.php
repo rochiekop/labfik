@@ -83,6 +83,7 @@
     </div>
   </div>
 
+  <!-- <?php var_dump($dosen) ?> -->
   <!-- Modal Delete Pengajuan -->
   <?php foreach ($dosbing as $t) : ?>
     <div class="modal fade bd-example-modal-sm" id="<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

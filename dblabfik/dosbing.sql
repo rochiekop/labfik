@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2020 at 04:58 AM
+-- Generation Time: Aug 02, 2020 at 04:56 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -41,9 +41,8 @@ CREATE TABLE `dosbing` (
 --
 
 INSERT INTO `dosbing` (`id`, `id_dosen`, `id_mhs`, `date`, `status`) VALUES
-('5f259176e451d', '38', '44', '2020-08-01', 'Menunggu Persetujuan'),
-('5f2593c78dec1', '5f258dc28c1a3', '44', '2020-08-01', 'Ditolak'),
-('5f2615f8f0cec', '5f258dc28c1a3', '44', '2020-08-02', 'Menunggu Persetujuan');
+('5f2631b631a8b', '5f258dc28c1a3', '44', '2020-08-02', 'Sudah Disetujui'),
+('5f26a96184ef7', '38', '44', '2020-08-02', 'Menunggu Persetujuan');
 
 --
 -- Indexes for dumped tables

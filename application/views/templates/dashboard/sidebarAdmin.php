@@ -75,7 +75,7 @@
       <div class="divider"></div>
       <div class="card">
         <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
-        <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <!-- <a href="<?= base_url('main/helpdesk') ?>" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a> -->
       </div>
       <div class="card logout">
         <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
