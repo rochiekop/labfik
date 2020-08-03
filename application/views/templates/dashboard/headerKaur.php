@@ -56,14 +56,14 @@
               <span class="fas fa-life-ring"></span> Helpdesk
             </a>
           </div>
-          <div class="not-dropdown" style="margin-right:14px">
+          <div class="not-dropdown" style="margin-right:14px" id="active">
             <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/request/' . $this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
 
           <div class="dropdown not-dropdown">
-            <a class="btn btn-icon" data-toggle="dropdown" href="#">
+            <a class="btn btn-icon" id="active" data-toggle="dropdown" href="#">
               <span class="fas fa-cog"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -85,3 +85,9 @@
     </div>
   </nav>
   <!-- End Navbar -->
+
+  <style>
+    #active:focus {
+      color: #fb8c00;
+    }
+  </style>
