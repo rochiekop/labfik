@@ -71,10 +71,17 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-item regisdropdown">
-                <a class="dropdown-item" href="<?= base_url('auth/editprofile') ?>">
-                  <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
+                <?php if ($this->session->userdata('role_id') == 4) : ?>
+                  <a class="dropdown-item" href="<?= base_url('auth/editprofilemhs') ?>">
+                    <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                <?php elseif ($this->session->userdata('role_id') == 3) : ?>
+                  <a class="dropdown-item" href="<?= base_url('auth/editprofiledsn') ?>">
+                    <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                <?php endif; ?>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" data-toggle="modal" data-target="#logout">
                   <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 icon"></i>

@@ -387,7 +387,7 @@ class Auth extends CI_Controller
     }
   }
 
-  public function editprofile()
+  public function editprofilemhs()
   {
     $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
     $data = array(
@@ -395,14 +395,25 @@ class Auth extends CI_Controller
       'user'  => $user
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules(
+      'nim',
+      'Nim',
+      'required|min_length[10]',
+      array(
+        'required'      =>  '%s harus diisi',
+        'min_length[10]' =>  '%s angka yang diisi kurang'
+      )
+    );
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/dashboard/headerDosenMhs', $data);
       $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-      $this->load->view('dashboard/users/editp', $data);
+      $this->load->view('dashboard/users/editmhs', $data);
       $this->load->view('templates/dashboard/footer');
     } else {
       $name = $this->input->post('name');
+      $prodi = $this->input->post('prodi');
+      $nim = $this->input->post('nim');
       $email = $this->input->post('email');
 
       $upload_image = $_FILES['images']['name'];
@@ -425,8 +436,67 @@ class Auth extends CI_Controller
           echo $this->upload->display_errors();
         }
       }
-
       $this->db->set('name', $name);
+      $this->db->set('nim', $nim);
+      $this->db->set('prodi', $prodi);
+      $this->db->where('email', $email);
+      $this->db->update('user');
+      redirect('users/main');
+    }
+  }
+
+  public function editprofiledsn()
+  {
+    $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $data = array(
+      'title' => 'Edit Profile',
+      'user'  => $user
+    );
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules(
+      'nip',
+      'Nip',
+      'required|min_length[10]',
+      array(
+        'required'      =>  '%s harus diisi',
+        'min_length[10]' =>  '%s angka yang diisi kurang'
+      )
+    );
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/editdsn', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $name = $this->input->post('name');
+      $prodi = $this->input->post('prodi');
+      $nip = $this->input->post('nip');
+      $email = $this->input->post('email');
+
+      $upload_image = $_FILES['images']['name'];
+
+      if ($upload_image) {
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '2048';
+        $config['upload_path']   = './assets/img/profile/';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('images')) {
+          $old_image = $data['user']['images'];
+          if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+          }
+          $new_image = $this->upload->data('file_name');
+          $this->db->set('images', $new_image);
+        } else {
+          echo $this->upload->display_errors();
+        }
+      }
+      $this->db->set('name', $name);
+      $this->db->set('nip', $nip);
+      $this->db->set('prodi', $prodi);
       $this->db->where('email', $email);
       $this->db->update('user');
       redirect('users/main');
