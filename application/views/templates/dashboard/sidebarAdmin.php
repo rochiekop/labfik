@@ -82,9 +82,9 @@
         <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
       </div> -->
       <div class="divider"></div>
-      <div class="card">
-        <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
-      </div>
+      <!-- <div class="card">
+        <a href="</?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
+      </div> -->
       <div class="divider show-mobile"></div>
       <div class="card">
         <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>

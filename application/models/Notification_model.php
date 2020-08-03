@@ -15,7 +15,14 @@ class Notification_model extends CI_Model
 
     public function getAllNotification($status, $user_id)
     {
+        if ($status == 'request')
+        {
 
+        }
+        else if ($status == 'respond')
+        {
+            
+        }
     }
 
     public function getAllBorrowingNotification($status, $user_id)
