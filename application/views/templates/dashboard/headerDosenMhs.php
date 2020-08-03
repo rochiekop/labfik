@@ -60,19 +60,18 @@
               <span class="fas fa-life-ring"></span> Helpdesk
             </a>
           </div>
-          <div class="not-dropdown" style="margin-right:14px">
+          <div class="not-dropdown" style="margin-right:14px" id="active">
             <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/' . $this->session->userdata('id')) ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
-<<<<<<< HEAD
           <div class="dropdown not-dropdown">
-            <a class="btn btn-icon" data-toggle="dropdown" href="#">
+            <a class="btn btn-icon" id="active" data-toggle="dropdown" href="#">
               <span class="fas fa-cog"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-item regisdropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="<?= base_url('auth/editprofile') ?>">
                   <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -83,33 +82,16 @@
                 </a>
               </div>
             </div>
-=======
-          <div class="dropdown">
-            <a class="btn btn-icon" data-toggle="dropdown" href="#">
-              <span class="fas fa-cog"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="<?= base_url('auth/editprofile') ?>" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span>Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="fik-login-dropdown hide-mobile" style="margin-left:22px">
-            <a class="btn btn-sm btn-pill btn-icon btn-icon-left" href="<?= base_url('main/helpdesk') ?>">
-              <span class="fas fa-life-ring"></span> Helpdesk
-            </a>
->>>>>>> parent of 4e34e95... Revert "Merge branch 'master' of https://github.com/rochiekop/labfik"
           </div>
         </ul>
       </div>
     </div>
   </nav>
-
+  <style>
+    #active:focus {
+      color: #fb8c00;
+    }
+  </style>
   <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
