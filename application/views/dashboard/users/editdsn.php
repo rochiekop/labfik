@@ -9,7 +9,7 @@
 
     echo validation_errors('<div class="alert alert-warning">', '</div>');
 
-    echo form_open_multipart(base_url('auth/editprofile'), 'class="form-horizontal"');
+    echo form_open_multipart(base_url('auth/editprofiledsn'), 'class="form-horizontal"');
     ?>
     <div class="fik-section-title2">
         <span class="fas fa-door-open zzzz"></span>
