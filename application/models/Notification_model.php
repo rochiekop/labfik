@@ -147,4 +147,20 @@ class Notification_model extends CI_Model
         $this->db->update('notification',$data,array('id' => $id));
     }
 
+    public function saveGuidance()
+    {
+        $this->id = uniqid();
+        $this->student_id = $this->session->userdata('id');
+        $this->db->insert('guidance', $this);
+
+    }
+
+    public function saveDosbing()
+    {
+        $this->id = uniqid();
+        $this->student_id = $this->session->userdata(id);
+        $this->lecturer_id = $post['lecturer_id'];
+        $this->db->insert('dosbing', $this);
+    }
+
 }

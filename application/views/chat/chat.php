@@ -103,7 +103,7 @@
 
   <script src="<?=base_url('public/chat/chat.js');?>"></script> 
 
-  <!-- <script src="assets/js/tambahan.js"></script> -->
+  <script src="/assets/js/tambahan.js"></script>
   <script>
     $('.fik-carousel-info').owlCarousel({
       margin: 0,

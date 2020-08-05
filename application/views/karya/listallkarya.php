@@ -41,7 +41,11 @@
                         <td style="width:90px">
                             <div class="img-wrapper">
                                 <a href="<?= base_url("assets/upload/images/" . $l->gambar) ?>" data-toggle="lightbox">
-                                    <img src="<?= base_url("assets/upload/images/" . $l->gambar) ?>" alt="<?= $l->judul ?>">
+                                    <?php if ($l->type == 'Foto') : ?>
+                                        <img src="<?= base_url("assets/upload/images/" . $l->gambar) ?>" alt="<?= $l->judul ?>">
+                                    <?php else : ?>
+                                        <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
+                                        <?php endif; ?>
                                 </a>
                             </div>
                         </td>

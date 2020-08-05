@@ -31,6 +31,18 @@
                                 <label>Judul</label>
                             </div>
                             <div class="form-group">
+                                <input type="text" name="nim" value="<?= set_value('nim') ?>" class="form-control" placeholder="Nim" required="required" autocomplete="off" />
+                                <label>Nim</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="No_wa" value="<?= set_value('No_wa') ?>" class="form-control" placeholder="No_Wa" required="required" autocomplete="off" />
+                                <label>No.WA Aktif</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="No_hp" value="<?= set_value('No_hp') ?>" class="form-control" placeholder="No_Hp" required="required" autocomplete="off" />
+                                <label>No.Hp</label>
+                            </div>
+                            <div class="form-group">
                                 <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= set_value('deskripsi') ?>" required="required" autocomplete="off"></textarea>
                                 <label>Deskripsi</label>
                             </div>
@@ -45,16 +57,27 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="lab-category" style="margin-bottom:16px;">
-                                <b>Kategori</b>
+                            <div class="lab-category" style="margin-bottom:16px;" disabled>
+                                <b>Pilihan Peminatan</b>
                                 <select name="id_ck" class="form-control" id="kategori">
                                     <option value="Select Mata Kuliah">Select Mata Kuliah</option>
                                 </select>
                             </div>
+                            <div class="lab-category" style="margin-bottom:16px;">
+                                <b>Type File</b>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="checkbox11" value="Video">
+                                    <label class="form-check-label" for="checkbox11">Video</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="checkbox12" value="Foto">
+                                    <label class="form-check-label" for="checkbox12">Foto</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
-                            <label for="exampleFormControlFile1"><b>Pilih Gambar</b></label>
-                            <input type="file" name="gambar" required="required" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px">
+                            <label for="exampleFormControlFile1"><b>Pilih karya</b></label>
+                            <input type="file" name="gambar" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px" required>
                         </div>
                     </div>
                     <div class="card-footer">

@@ -5,7 +5,7 @@
       <h6><?= $tampilan->judul ?></h6>
       by <b><?= $tampilan->name ?></b>
       <div class="stat-vote">
-        <a onclick="javascript:savelike(<?= $tampilan->id_tampilan; ?>);" title="Upvote"><i class="fas fa-chevron-up"></i>
+        <a onclick="savelike(<?= $tampilan->id_tampilan; ?>);" title="Upvote"><i class="fas fa-chevron-up"></i>
           <span id="like_<?php echo $tampilan->id_tampilan; ?>">
             <?php if ($tampilan->likes > 0) {
               echo $tampilan->likes;
@@ -17,7 +17,13 @@
       </div>
     </div>
     <div class="karya">
-      <img src="<?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" alt="">
+      <?php if ($tampilan->type == 'Video') : ?>
+        <video controls autoplay>
+          <source src="<?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" type="video/mp4">
+        </video>
+      <?php else : ?>
+        <img src=" <?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>">
+      <?php endif; ?>
       <div class="caption">
         <?= $tampilan->deskripsi ?>
       </div>
@@ -31,10 +37,16 @@
           <div class="feed-item">
             <div class="card">
               <div class="gambar">
-                <a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><img src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="" /></a>
+                <a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>">
+                  <?php if ($home->type == 'Video') : ?>
+                    <video class="card-img-top" src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>">
+                    <?php else : ?>
+                      <img src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>" />
+                    <?php endif; ?>
+                </a>
               </div>
               <div class="item-text">
-                <h6><a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><?= $tampilan->judul ?></a></h6>
+                <h6><a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><?= $home->judul ?></a></h6>
                 <span>by <b><?= $home->name ?></b></span>
                 <div class="vote">
                   <a title="Upvote"><i class="fas fa-chevron-up"></i> <span><?= $home->likes ?></span></a>
@@ -61,7 +73,7 @@
     items: 1
   });
 </script>
-<script type="text/javascript">
+<script>
   function savelike(id_tampilan) {
     $.ajax({
       type: "post",

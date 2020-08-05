@@ -21,6 +21,7 @@ class Gambar_model extends CI_Model
         $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'random');
+        $this->db->where(array('tampilan.status' => 'Diterima'));
         $this->db->limit(4);
         $query = $this->db->get();
         return $query->result();

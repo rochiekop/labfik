@@ -42,10 +42,8 @@ class Admin_karya extends CI_Controller
         if ($valid->run()) {
             if (!empty($_FILES['gambar']['name'])) {
                 $config['upload_path'] = './assets/upload/images/';
-                $config['allowed_types'] = 'jpg|png|jpeg';
-                $config['max_size'] = '10000';
-                $config['max_width'] = 2024;
-                $config['max_height'] = '2024';
+                $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+                $config['max_size'] = '0';
 
                 $this->load->library('upload', $config);
 
@@ -62,17 +60,6 @@ class Admin_karya extends CI_Controller
                     $this->load->view('templates/dashboard/footer');
                 } else {
                     $upload_gambar = array('upload_data' => $this->upload->data());
-
-                    $config['image_library'] = 'gd2';
-                    $config['source_image'] = './assets/upload/images/' . $upload_gambar['upload_data']['file_name'];
-                    $config['new_image']    = './assets/upload/images/thumbs/';
-                    $config['maintain_ratio'] = TRUE;
-                    $config['width']         = 1200;
-                    $config['height']       = 480;
-
-                    $this->load->library('image_lib', $config);
-
-                    $this->image_lib->resize();
                     $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                     $i = $this->input;
                     $data = array(
@@ -80,6 +67,10 @@ class Admin_karya extends CI_Controller
                         'slug_tampilan' => $slug_tampilan,
                         'id_kategori'  =>  $i->post('id_kategori'),
                         'id_ck'   => $i->post('id_ck'),
+                        'nim'       => $i->post('nim'),
+                        'type'   =>  $i->post('type'),
+                        'No_wa'       => $i->post('No_wa'),
+                        'No_hp'       => $i->post('No_hp'),
                         'judul'       => $i->post('judul'),
                         'deskripsi'     => $i->post('deskripsi'),
                         'gambar'    =>  $upload_gambar['upload_data']['file_name'],
@@ -95,8 +86,12 @@ class Admin_karya extends CI_Controller
                     'slug_tampilan' => $slug_tampilan,
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),
+                    'nim'       => $i->post('nim'),
+                    'type'   =>  $i->post('type'),
+                    'No_wa'       => $i->post('No_wa'),
+                    'No_hp'       => $i->post('No_hp'),
                     'judul'       => $i->post('judul'),
-                    'deskripsi'     => $i->post('deskripsi'),
+                    'deskripsi'     => $i->post('deskripsi')
                 );
                 $this->tampilan_model->edit($data);
                 redirect(base_url('admin_karya'), 'refresh');

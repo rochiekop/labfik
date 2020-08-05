@@ -35,7 +35,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
       <a href="#" class="btn" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="fas fa-box"></span> Peminjaman Barang</a>
       <div id="collapse1" class="collapse" data-parent="#accordion">
         <ul>
-          <li><a href="#">Buat Peminjaman</a></li>
+          <!-- <li><a href="#">Buat Peminjaman</a></li> -->
           <li><a href="<?= base_url('item/listDosenMhs') ?>">Daftar Semua Barang</a></li>
           <li><a href="<?= base_url('borrowing/listAllById/' . $this->session->userdata('id')) ?>">Riwayat</a></li>
         </ul>
@@ -76,11 +76,11 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
         </div>
       </div>
     <?php endif; ?>
-    <!-- <div class="divider"></div>
+    <div class="divider"></div>
     <div class="card">
       <a href="<?= base_url('thesis') ?>" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
       <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
-    </div> -->
+    </div>
     <div class="divider show-mobile"></div>
     <div class="card">
       <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>

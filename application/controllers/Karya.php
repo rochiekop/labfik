@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Karya extends CI_Controller
@@ -40,12 +43,21 @@ class Karya extends CI_Controller
             )
         );
         $valid->set_rules(
-            'kode_tampilan',
-            'Kode Tampilan',
-            'required|is_unique[tampilan.kode_tampilan]',
+            'No_wa',
+            'No_Wa',
+            'required|min_length[11]',
             array(
                 'required'      =>  '%s harus diisi',
-                'is_unique'     =>  '%s sudah ada. Buat kode karya baru!'
+                'min_length[11]' =>  '%s angka yang diisi kurang'
+            )
+        );
+        $valid->set_rules(
+            'No_hp',
+            'No_Hp',
+            'required|min_length[11]',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[11]' =>  '%s angka yang diisi kurang'
             )
         );
         $valid->set_rules(
@@ -58,10 +70,8 @@ class Karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif';
-            $config['max_size'] = '10000';
-            $config['max_width'] = 2024;
-            $config['max_height'] = '2024';
+            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
 
@@ -77,30 +87,20 @@ class Karya extends CI_Controller
                 $this->load->view('templates/dashboard/footer');
             } else {
                 $upload_gambar = array('upload_data' => $this->upload->data());
-
-                $config['image_library'] = 'gd2';
-                $config['source_image'] = './assets/upload/images/' . $upload_gambar['upload_data']['file_name'];
-                $config['new_image']    = './assets/upload/images/thumbs/';
-                $config['maintain_ratio'] = TRUE;
-                $config['width']         = 1200;
-                $config['height']       = 480;
-
-                $this->load->library('image_lib', $config);
-
-                $this->image_lib->resize();
                 $i = $this->input;
-                $slug_tampilan = url_title($this->input->post('judul') . '-' . $this->input->post('kode_tampilan'), 'dash', TRUE);
+                $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
                     'id' =>  $this->session->userdata('id'),
                     'slug_tampilan' => $slug_tampilan,
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),
                     'nim'       => $i->post('nim'),
+                    'type'   =>  $i->post('type'),
+                    'No_wa'       => $i->post('No_wa'),
+                    'No_hp'       => $i->post('No_hp'),
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
-                    'keywords'    => $i->post('keywords'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'kode_tampilan' =>  $i->post('kode_tampilan'),
                     'tanggal_post'  =>  date('Y-m-d H:i:s'),
                     'status'    =>  'Menunggu Acc'
                 );
@@ -122,7 +122,6 @@ class Karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         unlink('./assets/upload/images/' . $tampilan->gambar);
-        unlink('./assets/upload/images/thumbs/' . $tampilan->gambar);
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
         redirect(base_url('karya'), 'refresh');

@@ -5,8 +5,9 @@
       <h5>Tambah Barang</h5>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <span class="fas fa-image placeholder-img"></span>
+      <div class="col-md-4" id="imagePreview">
+        <!-- <img src="" alt="" class="fas fa-image placeholder-img">
+        <span class="fas fa-image placeholder-img"></span> -->
       </div>
       <div class="col-md-8">
         <div class="card">
