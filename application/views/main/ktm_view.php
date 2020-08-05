@@ -9,7 +9,15 @@
         <?php else : ?>
             <?php foreach ($tampilan as $tampilan) : ?>
                 <div class="item">
-                    <img src="<?= base_url('assets/upload/images/thumbs/' . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>" />
+                    <?php if ($tampilan->type == 'Video') : ?>
+                        <center>
+                            <video src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>"></video>
+                        </center>
+                    <?php else : ?>
+                        <center>
+                            <img src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>" />
+                        </center>
+                    <?php endif; ?>
                     <p><?= $tampilan->name ?></p>
                 </div>
             <?php endforeach; ?>
