@@ -43,7 +43,7 @@
             <td><?= $l['role'] . ', ' . $l['name'] ?></td>
             <td><?= $l['kategori'] . ' - ' . $l['ruangan'] ?></td>
             <td><?= format_indo($l['date'], date('d-m-Y')); ?></td>
-            <td><?= $l['time'] ?></td>
+            <td><?= substr($l['time'], 0, 8) ?><?= substr($l['time'], -5) ?></td>
             <td><?= $l['keterangan'] ?></td>
             <td><b><?= $l['status'] ?></b></td>
           </tr>

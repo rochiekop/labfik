@@ -13,6 +13,7 @@
           <th scope="col">Mahasiswa</th>
           <th scope="col">NIM</th>
           <th scope="col">Prodi</th>
+          <th scope="col">Judul TA</th>
           <th scope="col">Status</th>
           <th scope="col" style="width:130px">Aksi</th>
         </tr>
@@ -26,8 +27,9 @@
             <tr>
               <th scope="row"><?= ++$no ?></th>
               <td><?= $t['nama_mhs'] ?></td>
-              <td>#################</td>
-              <td>#################</td>
+              <td><?= $t['nim'] ?></td>
+              <td><?= $t['prodi'] ?></td>
+              <td><?= $t['judul'] ?></td>
               <?php if ($t['status'] == "Menunggu Persetujuan") : ?>
                 <td>N/A</td>
                 <td class="action" style="width:130px">

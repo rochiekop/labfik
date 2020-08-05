@@ -66,7 +66,7 @@
           <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
-          <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>">
+          <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>" preload="none">
             <source src="<?= base_url('assets/img/panel/') . $dt_panel['video']; ?>" type="video/mp4">
             Ooops, your browser is not supported this feature
           </video>
@@ -77,7 +77,6 @@
     <?php endif; ?>
   </div>
 </div>
-
 <div class="fik-jadwal-ruangan margin-t50">
   <div class="container">
     <div class="fik-section-title text-center">
@@ -108,7 +107,7 @@
                   <tr>
                     <?php if ($d['status'] == 'Diterima' or $d['status'] == 'Menunggu Acc') : ?>
                       <td><b><?= $d['ruangan'] ?></b></td>
-                      <td><?= $d['time'] ?></td>
+                      <td><?= substr($d['time'], 0, 8) ?><?= substr($d['time'], -5) ?></td>
                       <td><?= $d['name'] ?></td>
                       <td><?= $d['keterangan'] ?></td>
                       <td class="status">
@@ -116,7 +115,7 @@
                       </td>
                     <?php elseif ($d['status'] == 'Ditolak') : ?>
                       <td><b><?= $d['ruangan'] ?></b></td>
-                      <td><?= $d['time'] ?></td>
+                      <td><?= substr($d['time'], 0, 8) ?><?= substr($d['time'], -5) ?></td>
                       <td></td>
                       <td></td>
                       <td class="status">
@@ -158,7 +157,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -170,7 +169,7 @@
             <div class="item-text">
               <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
             </div>
           </div>
           <div class="item">
@@ -180,7 +179,7 @@
             <div class="item-text">
               <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
             </div>
           </div>
         <?php endif; ?>

@@ -42,7 +42,7 @@
                 <div class="jadwal-ruangan">
                   <table border="0" class="table bookings" id="booking">
                     <tbody>
-                      <tr>
+                      <tr style="background: transparent;">
                       </tr>
                     </tbody>
                   </table>
