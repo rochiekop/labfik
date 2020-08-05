@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2020 at 05:04 PM
+-- Generation Time: Aug 05, 2020 at 12:59 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -31,7 +31,6 @@ CREATE TABLE `kategori` (
   `id_kategori` int(11) NOT NULL,
   `nama_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
   `slug_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `urutan` int(11) DEFAULT NULL,
   `tanggal_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,12 +38,12 @@ CREATE TABLE `kategori` (
 -- Dumping data for table `kategori`
 --
 
-INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `slug_kategori`, `urutan`, `tanggal_update`) VALUES
-(1, 'Desain Komunikasi Visual', 'desain-komunikasi-visual', 1, '2020-06-18 00:47:47'),
-(2, 'Desain Produk', 'desain-produk', 2, '2020-06-18 00:47:53'),
-(5, 'Desain Interior', 'desain-interior', 3, '2020-06-18 02:55:18'),
-(6, 'Desain Fashion', 'desain-fashion', 4, '2020-06-18 02:55:38'),
-(7, 'Seni Rupa', 'seni-rupa', 5, '2020-06-18 02:55:49');
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `slug_kategori`, `tanggal_update`) VALUES
+(1, 'Desain Komunikasi Visual', 'desain-komunikasi-visual', '2020-06-18 00:47:47'),
+(2, 'Desain Produk', 'desain-produk', '2020-06-18 00:47:53'),
+(5, 'Desain Interior', 'desain-interior', '2020-06-18 02:55:18'),
+(6, 'Desain Fashion', 'desain-fashion', '2020-06-18 02:55:38'),
+(7, 'Seni Rupa', 'seni-rupa', '2020-06-18 02:55:49');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +63,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

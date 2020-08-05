@@ -27,8 +27,16 @@
                     <td><?= $no ?></td>
                     <td><?= $data->name ?></td>
                     <td><?= $data->role ?></td>
-                    <td><a type="button" data-toggle="modal" data-target="#exampleModal"><img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60"></a></td>
-                    <td><?= $data->nama_child ?></td>
+                    <td>
+                        <a type="button" data-toggle="modal" data-target="#exampleModal">
+                            <?php if ($data->type == 'Foto') : ?>
+                                <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
+                            <?php else : ?>
+                                <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
+                                <?php endif; ?>
+                        </a>
+                    </td>
+                    <td><?= $data->nama_kategori ?></td>
                     <td><?= $data->tanggal_post ?></td>
                     <td><?= $data->views ?></td>
                     <td><?= $data->status ?></td>
