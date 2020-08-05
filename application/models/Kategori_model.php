@@ -63,9 +63,13 @@ class Kategori_model extends CI_Model
         $this->db->where('id_kategori', $id_kategori);
         $this->db->order_by('nama_child', 'asc');
         $query = $this->db->get('child_kategori');
-        $output = '<option value="">Select Mata Kuliah</option>';
-        foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->id_ck . '">' . $row->nama_child . '</option>';
+        $output = '<option value="Select Peminatan">Select Peminatan</option>';
+        if ($id_kategori == 1) {
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->id_ck . '">' . $row->nama_child . '</option>';
+            }
+        } else {
+            $output = '<a value="Select Peminatan" readonly>Select Peminatan</a>';
         }
         return $output;
     }
