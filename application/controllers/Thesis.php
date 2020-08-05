@@ -16,6 +16,8 @@ class Thesis extends CI_Controller
     {
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
         {
+            // $data["correction"] = $this->thesis_model->getCorrection();
+
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
             // $this->load->view("thesis/editor");
@@ -31,7 +33,8 @@ class Thesis extends CI_Controller
 
         $this->load->view("templates/dashboard/headerDosenMhs");
         $this->load->view("templates/dashboard/sidebarDosenMhs");
-        $this->load->view("thesis/editor");
+        // $this->load->view("thesis/editor");
+        $this->load->view("thesis/pdf_viewer");
         $this->load->view("templates/dashboard/footer");
     }
     

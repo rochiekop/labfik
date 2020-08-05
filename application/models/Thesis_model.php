@@ -17,4 +17,16 @@ class Thesis_model extends CI_Model
         $this->db->insert('thesis', $this);
     }
 
+    public function getCorrection()
+    {
+        $this->db->select('textarea_file');
+        $this->db->from('thesis');
+        $this->db->where('id', '5f2ab4d8b3010');
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+
+        // return $this->db->get_where('thesis', ["id" => "5f2ab4d8b3010"])->row();
+    }
+
 }

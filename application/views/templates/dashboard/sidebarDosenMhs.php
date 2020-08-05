@@ -35,7 +35,7 @@ $dosbing = $this->db->query($getdosbing)->result_array();
       <a href="#" class="btn" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="fas fa-box"></span> Peminjaman Barang</a>
       <div id="collapse1" class="collapse" data-parent="#accordion">
         <ul>
-          <li><a href="#">Buat Peminjaman</a></li>
+          <!-- <li><a href="#">Buat Peminjaman</a></li> -->
           <li><a href="<?= base_url('item/listDosenMhs') ?>">Daftar Semua Barang</a></li>
           <li><a href="<?= base_url('borrowing/listAllById/' . $this->session->userdata('id')) ?>">Riwayat</a></li>
         </ul>

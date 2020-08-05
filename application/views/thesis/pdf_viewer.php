@@ -2,7 +2,7 @@
 <main class="akun-container dua content">
     <div class="row akun-helpdesk dua">
 
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="fik-section-title2">
                 <br>
                 <span class="fas fa-door-open zzzz"></span>
@@ -21,14 +21,14 @@
                             Halaman <span id="page-num"></span> Dari <span id="page-count"></span>
                         </span>
                     </div>
-    
+            
                     <canvas id='thesis_canvas'></canvas>
                     
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     <center><h6>Berikan Koreksi Disini</h6></center>
@@ -36,7 +36,9 @@
                 </div>
                 <div class="card-body" >
                     <form action="<?= base_url('thesis/add') ?>" method="post">
-                        <textarea name="thesis" id="textarea" cols="30" rows="10"></textarea>
+                        
+                        <textarea name="thesis" id="textarea" cols="30" rows="10" ></textarea>
+                    
                     </form>
                 </div>
             </div>
