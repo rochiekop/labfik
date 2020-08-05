@@ -1639,7 +1639,7 @@ a:not([href]):hover {
 	z-index: 1;
 	top: 0;
 	right: 1px;
-	left: 1px;
+	left: 20px;
 	height: 100%
 }
 

@@ -18,10 +18,21 @@ class Thesis extends CI_Controller
         {
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
-            $this->load->view("thesis/editor");
+            // $this->load->view("thesis/editor");
+            $this->load->view("thesis/pdf_viewer");
             $this->load->view("templates/dashboard/footer");
         }
         // $this->load->view("thesis/test");
+    }
+
+    public function add()
+    {
+        $this->thesis_model->save();
+
+        $this->load->view("templates/dashboard/headerDosenMhs");
+        $this->load->view("templates/dashboard/sidebarDosenMhs");
+        $this->load->view("thesis/editor");
+        $this->load->view("templates/dashboard/footer");
     }
     
 }
