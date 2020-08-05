@@ -48,8 +48,6 @@
           <li><a href="<?= base_url('main/lab'); ?>">Lab</a></li>
           <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
           <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
-          <li><a href="<?= base_url('main/helpdesk') ?>">Helpdesk</a></li>
-          <li><a href="<?= base_url('main/thesis') ?>">Bimbingan TA</a></li>
         </ul>
         <ul class="right">
           <div class="dropdown show fik-login-dropdown">
@@ -95,6 +93,10 @@
                   <a class="dropdown-item" href="<?= base_url('auth/check') ?>">
                     <i class="fas fa-th-large fa-sm fa-fw mr-2 text-gray-400"></i>
                     Dashboard
+                  </a>
+                  <a class="dropdown-item" href="<?= base_url('main/helpdesk') ?>">
+                    <i class="fas fa-life-ring fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Helpdesk
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">
