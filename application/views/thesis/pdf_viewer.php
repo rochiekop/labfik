@@ -52,28 +52,6 @@
 <!-- PDF.js -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2/build/pdf.min.js"></script>
 
-<!-- <script src="/assets/js/pdf_viewer.js"></script> -->
-
-<!-- <script>
-    pdfjsLib.getDocument('').then(doc => {
-        console.log('pdf ini memiliki' + doc._pdfInfo.numPages + " halaman");
-
-        doc.getPage(1).then(page => {
-            var thesisCanvas = document.getElementById("thesis_canvas");
-            var context = thesisCanvas.getContext('2d');
-
-            var viewport = page.getViewport(1);
-            thesisCanvas.width = viewport.width;
-            thesisCanvas.height = viewport.height;
-
-            page.render({
-                canvasContext: context,
-                viewport: viewport
-            });
-        })
-    });
-</script> -->
-
 <script>
     const url = 'uploads/thesis/tatul.pdf';
 
