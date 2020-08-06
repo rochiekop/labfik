@@ -81,7 +81,7 @@
   <div class="container">
     <div class="fik-section-title text-center">
       <h3>INFORMASI RUANGAN</h3>
-      <p>informasi terbaru mengenai ruangan yang terisi maupun yang masih available</p>
+      <p>Informasi terbaru mengenai ruangan yang terisi maupun yang masih available</p>
     </div>
     <div class="owl-carousel owl-theme fik-carousel-schedule">
       <?php $start = 0; ?>
@@ -188,11 +188,46 @@
   </div>
 </div>
 
+<div class="fik-feed fik-feed-50 margin-t50">
+  <div class="container text-center">
+    <div class="fik-section-title text-center">
+      <h3>Unit</h3>
+      <p>Unit jasa resmi dari lab fik</p>
+    </div>
+    <div class="feed-container">
+      <div class="feed-item">
+        <div class="card">
+          <div class="gambar">
+            <img src="<?= base_url('assets/img/10.jpg') ?>" alt="" />
+          </div>
+          <div class="item-text">
+            <h6><a href="#">Unit Bisnis</a></h6>
+            <p>Kami siap memberikan yang terbaik.</p>
+            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+          </div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="card">
+          <div class="gambar">
+            <img src="<?= base_url('assets/img/11.jpg') ?>" alt="" />
+          </div>
+          <div class="item-text">
+            <h6><a href="#">Partnership</a></h6>
+            <p>Butuh media partner? Kesini aja!!</p>
+            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="fik-feed margin-t50">
   <div class="container text-center">
     <div class="fik-section-title">
       <h3>NEWS</h3>
-      <p>informasi terbaru mengenai lab diupdate disini</p>
+      <p>Informasi terbaru mengenai lab diupdate disini</p>
     </div>
     <div class="feed-container">
       <?php if (empty($dt_info)) : ?>
@@ -231,7 +266,7 @@
   });
   $('.fik-lab-div-list').owlCarousel({
     margin: 0,
-    loop: false,
+    loop: true,
     autoplay: true,
     autoplayTimeout: 5000,
     autoplayHoverPause: true,

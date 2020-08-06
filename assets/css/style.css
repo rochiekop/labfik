@@ -242,7 +242,8 @@ progress {
 }
 
 textarea {
-	overflow: auto
+	overflow: auto;
+	padding: 16px !important
 }
 
 [type='checkbox'],
@@ -597,6 +598,7 @@ a:not([href]):hover {
 	border: 10px solid transparent;
 	border-bottom: 12px solid #FB8C00
 }
+
 
 .dropdown-menu .dropdown-item.regis-dropdown h6 {
 	margin-bottom: 16px
@@ -1639,7 +1641,7 @@ a:not([href]):hover {
 	z-index: 1;
 	top: 0;
 	right: 1px;
-	left: 20px;
+	left: 1px;
 	height: 100%
 }
 
@@ -2397,10 +2399,22 @@ a:not([href]):hover {
 
 .fik-lab-div .fik-lab-div-list .item .gambar {
 	height: 360px;
-	overflow: hidden
+	overflow: hidden;
+	position: relative !important;
+	border-radius: 8px !important;
 }
 
 .fik-lab-div .fik-lab-div-list .item .gambar img {
+	height: 100%;
+	width: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	border-radius: 8px
+}
+
+.fik-feed .feed-container .feed-item .gambar video {
 	height: 100%;
 	width: 100%;
 	-o-object-fit: cover;
@@ -2445,7 +2459,8 @@ a:not([href]):hover {
 
 .fik-feed .feed-container .feed-item .gambar {
 	height: 200px;
-	overflow: hidden
+	overflow: hidden;
+	border-radius: 8px !important
 }
 
 .fik-feed .feed-container .feed-item .gambar img {
@@ -2470,6 +2485,11 @@ a:not([href]):hover {
 	font-weight: 500
 }
 
+.fik-feed.fik-feed-50 .feed-container .feed-item {
+	float: left;
+	width: 50%
+}
+
 .fik-feed.lab .feed-container .feed-item {
 	float: left;
 	width: 25%
@@ -2492,7 +2512,36 @@ a:not([href]):hover {
 }
 
 .fik-feed.galeri-karya .feed-item .gambar {
-	height: 259px
+	height: 259px;
+	position: relative;
+	border-radius: 8px !important
+}
+
+.fik-feed.galeri-karya .feed-item .gambar a::after {
+	background-color: rgba(0, 0, 0, .25);
+	content: '\f03d';
+	font-size: 16px;
+	color: #fff;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	padding: 6px 12px;
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	opacity: 0;
+	transition: .25s ease;
+}
+
+.fik-feed.galeri-karya .feed-item .gambar a.foto::after {
+	content: '\f03e'
+}
+
+.fik-feed.galeri-karya .feed-item:hover .gambar a::after {
+	opacity: 1
 }
 
 .fik-feed.galeri-karya .feed-item .card {
@@ -3059,7 +3108,68 @@ a:not([href]):hover {
 
 .nav-tabs .nav-link.active {
 	background-color: transparent;
-	font-weight: bold;
+	font-weight: bold
+}
+
+.fik-unit-feed {
+	position: relative;
+	margin: 40px 0;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 40px;
+}
+
+.fik-unit-feed:last-child {
+	border-bottom: 0;
+	padding-bottom: 0
+}
+
+.fik-unit-feed::after {
+	display: block;
+	clear: both;
+	content: ' '
+}
+
+.fik-unit-feed--section {
+	position: relative;
+	float: right;
+	width: 50%;
+	text-align: left;
+	padding: 40px 0
+}
+
+.fik-unit-feed--section p {
+	font-size: 12px;
+	margin: 20px 0
+}
+
+.fik-unit-feed--content {
+	position: relative;
+	margin: 0;
+	float: left;
+	width: 50%;
+	padding-right: 50px;
+	height: 300px
+}
+
+.fik-unit-feed--content img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	border-radius: 20px
+}
+
+.fik-unit-feed:nth-child(2n+2) .fik-unit-feed--section {
+	float: left;
+	text-align: right
+}
+
+.fik-unit-feed:nth-child(2n+2) .fik-unit-feed--content {
+	float: right;
+	padding-right: 0;
+	padding-left: 50px
 }
 
 @media (max-width:1000px) {

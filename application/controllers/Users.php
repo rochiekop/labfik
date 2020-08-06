@@ -74,7 +74,8 @@ class Users extends CI_Controller
       $data = array(
         'id' => uniqid(),
         'id_mhs' => $this->input->post('id_mhs'),
-        'judul' => $this->input->post('title')
+        'judul' => $this->input->post('title'),
+        'peminatan' => $this->input->post('peminatan'),
       );
       $this->db->insert('guidance', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Judul berhasil ditambahkan, silakan pilih dosen pembimbing 1 dan pembimbing 2.</div>');
@@ -90,7 +91,8 @@ class Users extends CI_Controller
       redirect('users/pengajuandosbing');
     } else {
       $data = array(
-        'judul' => $this->input->post('title')
+        'judul' => $this->input->post('title'),
+        'peminatan' => $this->input->post('peminatan'),
       );
       $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Judul berhasil diubah</div>');
@@ -107,27 +109,36 @@ class Users extends CI_Controller
     $data['dosen'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
     $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/dashboard/headerDosenMhs', $data);
-      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-      $this->load->view('dashboard/users/pengajuandosbing', $data);
-      $this->load->view('templates/dashboard/footer');
+    // Check profile
+    if ($data['mhs']['nim'] == '' and $data['mhs']['prodi'] == '') {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Lengkapi profile terlebih dahulu agar dapat mengajukan TA. </div>');
+      redirect('auth/editprofilemhs');
     } else {
-      $query = $this->user_model->checkDosen();
-      if (empty($query)) {
-        $data = array(
-          'id' => uniqid(),
-          // 'id_mhs' => $this->input->post('id_mhs'),
-          'id_dosen' => $this->input->post('dosbing'),
-          'id_guidance' => $this->input->post('id_guidance'),
-          'status' => 'Menunggu Persetujuan'
-        );
-        $this->db->insert('dosbing', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
-        redirect('users/pengajuandosbing');
+      if ($this->form_validation->run() == false) {
+        $this->load->view('templates/dashboard/headerDosenMhs', $data);
+        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+        $this->load->view('dashboard/users/pengajuandosbing', $data);
+        $this->load->view('templates/dashboard/footer');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
-        redirect('users/pengajuandosbing');
+        $query = $this->user_model->checkDosen();
+        if (empty($query)) {
+          $data = array(
+            'id' => uniqid(),
+            // 'id_mhs' => $this->input->post('id_mhs'),
+            'id_dosen' => $this->input->post('dosbing'),
+            'id_guidance' => $this->input->post('id_guidance'),
+            'status' => 'Menunggu Persetujuan'
+          );
+          $this->db->insert('dosbing', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
+          redirect('users/pengajuandosbing');
+        } elseif ($query['status'] == "Sudah Disetujui") {
+          $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
+          redirect('users/pengajuandosbing');
+        } else {
+          $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
+          redirect('users/pengajuandosbing');
+        }
       }
     }
   }
@@ -186,10 +197,10 @@ class Users extends CI_Controller
     $id = $this->input->post('id');
     $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
     if ($data) {
-      $data = array(
-        'status' => 'Ditolak'
-      );
-      $this->db->update('dosbing', $data, ['id' => $id]);
+      // $data = array(
+      //   'status' => 'Ditolak'
+      // );
+      $this->db->delete('dosbing', ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan bimbingan ditolak</div>');
       redirect('users/permintaanbimbingan');
     } else {

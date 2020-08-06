@@ -8,7 +8,7 @@
     <?php if (empty($title)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Input Judul</a>
     <?php else : ?>
-      <a data-toggle="modal" data-target="#viewjudul" class="btn btn-sm btn-primary" style="color:#fff">Edit Judul</a>
+      <a data-toggle="modal" data-target="#viewjudul" class="btn btn-sm btn-primary" style="color:#fff">Edit</a>
       <?php if (count($cdosbing) < 2) : ?>
         <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary" style="color:#fff">Pilih Dosen Pembimbing</a>
       <?php endif; ?>
@@ -38,13 +38,12 @@
                 <td><?= $t['nama_dosen'] ?></td>
                 <td><?= format_indo($t['date'], date('d-m-Y')); ?></td>
                 <td><?= $t['status'] ?></td>
-                <?php if ($t['status'] == "Menunggu Persetujuan") : ?>
+                <?php if ($t['status'] != "Ditolak") : ?>
                   <td><a data-toggle="modal" data-target="#<?= encrypt_url($t['id_dosbing']); ?>" class="badge badge-danger" style="color:white">Batalkan</a></td>
-                <?php elseif ($t['status'] == "Sudah Disetujui") : ?>
-                  <td><a href="#" class="badge badge-success">Bimbingan</a></td>
                 <?php else : ?>
-                  <td></td>
+                  <td><a data-toggle="modal" data-target="#<?= encrypt_url($t['id_dosbing']); ?>" class="badge badge-danger" style="color:white">Hapus</a></td>
                 <?php endif; ?>
+                <td></td>
               </tr>
             <?php endforeach; ?>
           <?php endif; ?>
@@ -73,6 +72,13 @@
             <div class="form-group">
               <input type="text" name="title" value="<?= set_value('title'); ?>" class="form-control" placeholder="Judul" required="required" autocomplete="off" />
               <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
+            </div>
+            <div class="form-group">
+              <input type="text" name="prodi" value="<?= $mhs['prodi']; ?>" class="form-control" placeholder="" required="required" autocomplete="off" disabled />
+            </div>
+            <div class="form-group">
+              <input type="text" name="peminatan" value="<?= set_value('peminatan'); ?>" class="form-control" placeholder="Peminatan" required="required" autocomplete="off" />
+              <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
           <div class="modal-footer">
@@ -104,6 +110,10 @@
               <input type="text" name="title" value="<?= $title['judul'] ?>" class="form-control" placeholder="Judul" required="required" autocomplete="off" />
               <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
             </div>
+            <div class="form-group">
+              <input type="text" name="peminatan" value="<?= $title['peminatan'] ?>" class="form-control" placeholder="peminatan" required="required" autocomplete="off" />
+              <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
@@ -131,7 +141,9 @@
               <select class="form-control" id="dosbing" name="dosbing" title="Pilih Dosen Pembimbing" required>
                 <option value="">Pilih Dosen Pembimbing</option>
                 <?php foreach ($dosen as $d) : ?>
-                  <option value="<?= $d['id'] ?>"><?= $d['name'] ?></option>
+                  <?php if ($d['prodi'] == $mhs['prodi']) : ?>
+                    <option value="<?= $d['id'] ?>"><?= $d['name'] ?></option>
+                  <?php endif; ?>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -151,7 +163,11 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-body">
-            Batalkan Pengajuan ?
+            <?php if ($t['status'] == 'Menunggu Persetujuan') : ?>
+              Batalkan Pengajuan ?
+            <?php elseif ($t['status'] == 'Sudah Disetujui') : ?>
+              Batalkan Sebagai Dosen Pembimbing Kamu?
+            <?php endif; ?>
           </div>
           <form action="deletepengajuandosbing" method="post" enctype="multipart/form-data">
             <div class="modal-footer">

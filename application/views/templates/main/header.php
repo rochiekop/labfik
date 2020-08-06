@@ -48,6 +48,7 @@
           <li><a href="<?= base_url('main/lab'); ?>">Lab</a></li>
           <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
           <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
+          <li><a href="<?= base_url('unit'); ?>">Unit Jasa</a></li>
         </ul>
         <ul class="right">
           <div class="dropdown show fik-login-dropdown">

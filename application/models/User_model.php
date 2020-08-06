@@ -271,7 +271,7 @@ class User_model extends CI_Model
 		// $this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('user', 'dosbing.id_dosen = user.id');
 		$this->db->where('guidance.id_mhs', $this->session->userdata('id'));
-		// $this->db->where('dosbing.status', 'Sudah Disetujui');
+		// $this->db->where('dosbing.status!=', 'Ditolak');
 		return $this->db->get()->result_array();
 	}
 
@@ -294,7 +294,7 @@ class User_model extends CI_Model
 		$this->db->where('id_mhs', $this->session->userdata('id'));
 		$this->db->where('status !=', 'Ditolak');
 		$query = $this->db->get();
-		return $query->result_array();
+		return $query->row_array();
 	}
 
 	public function getMhsBimbingan()

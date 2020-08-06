@@ -15,6 +15,7 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
     </div>
+    <?= $this->session->flashdata('message'); ?>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
             <img src="<?= base_url('assets/img/profile/' . $user['images']) ?>" alt="" class="fas fa-image placeholder-img">
@@ -48,7 +49,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary">Edit</button>
+                        <button class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
 

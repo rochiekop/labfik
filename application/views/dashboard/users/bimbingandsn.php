@@ -3,6 +3,19 @@
   <div class="fik-section-title2">
     <h4>Bimbingan</h4>
   </div>
+  <div class="input-group">
+    <div class="input-group-append">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">A-Z</a>
+        <a class="dropdown-item" href="#">NIM</a>
+        <a class="dropdown-item" href="#">Nama</a>
+        <a class="dropdown-item" href="#">Prodi</a>
+        <a class="dropdown-item" href="#">Judul</a>
+      </div>
+    </div>
+    <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+  </div><br>
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>
