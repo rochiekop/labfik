@@ -36,8 +36,8 @@
                 </div>
                 <div class="card-body" >
                     <form action="<?= base_url('thesis/add') ?>" method="post">
-                        <input type="text">
-                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->textarea_file ?></textarea> -->
+                        <!-- <input type="text"> -->
+                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"></?= $correction->textarea_file ?></textarea> -->
                         <textarea name="thesis" id="textarea" cols="30" rows="10"></textarea>
                     </form>
                 </div>
@@ -51,12 +51,16 @@
 <!-- Tambahan -->
 <script src="/assets/js/tambahan.js"></script>
 
+<!-- Correction -->
+<script>
+    $
+</script>
+
 <!-- PDF.js -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2/build/pdf.min.js"></script>
 
 <script>
     const url = 'uploads/thesis/tatul.pdf';
-
     let pdfDoc = null,
         pageNum = 1,
         pageIsRendering = false,
@@ -138,7 +142,6 @@
     document.querySelector('#next-page').addEventListener('click', showNextPage);
 
 </script>
-
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
