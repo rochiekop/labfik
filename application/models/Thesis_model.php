@@ -4,29 +4,55 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Thesis_model extends CI_Model
 {
-    public function save()
+    public function countCurrentRevision($thesis_id)
+    {
+        $this->db->select('id');
+        $this->db->from('revision');
+        $this->db->where('thesis_id', $thesis_id);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return count($result);
+    }
+
+    public function makeRevision()
     {
         $post = $this->input->post();
         $this->id = uniqid();
-        // $this->name = $post["name"];
-        // $this->quantity = $post["quantity"];
-        // $this->access = $post["access"];
-        // $this->image = $this->_uploadImage();
-        // $this->description = $post["description"];
-        $this->textarea_file = $post['thesis'];
-        $this->db->insert('thesis', $this);
+        $this->thesis_id = $post['thesis_id'];
+        $this->times_of_revision = $this->countCurrentRevision($this->thesis_id);
+        $this->pdf_file = $post['pdf_file'];
+        $query->db->insert('revision', $this);
     }
 
-    public function getCorrection()
+    public function getRevisionAndCorrection($thesis_id)
     {
-        $this->db->select('textarea_file');
-        $this->db->from('thesis');
-        $this->db->where('id', '5f2ab4d8b3010');
+        $this->db->select('revision.times_of_revision, revision.pdf_file, correction.page, correction.correction');
+        $this->db->from('correction');
+        $this->db->join('revision', 'correction.revision_id=revision.id');
+        $this->db->join('thesis', 'revision.thesis_id=thesis.id');
+        $this->db->where('thesis.id', $thesis_id);
         $query = $this->db->get();
         $result = $query->result();
         return $result;
+    }
 
-        // return $this->db->get_where('thesis', ["id" => "5f2ab4d8b3010"])->row();
+    public function saveCorrection()
+    {
+        $post = $this->input->post();
+        $this->id = uniqid();
+        $this->revision_id = $post['revision_id'];
+        $this->page = $post['page'];
+        $this->correction = $post['correction'];
+        $this->db->insert('correction', $this);
+    }
+
+    public function getCorrection($revision_id, $page)
+    {
+        $this->db->select('correction.correction');
+        $this->db->from('correction');
+        $this->db->join('revision', 'correction.revision_id=revision.id');
+        $this->db->where('correction.revision_id', $revision_id);
+        $this->db->where('correction.page', $page);
     }
 
 }

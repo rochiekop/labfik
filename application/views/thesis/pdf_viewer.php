@@ -36,9 +36,9 @@
                 </div>
                 <div class="card-body" >
                     <form action="<?= base_url('thesis/add') ?>" method="post">
-                        
-                        <textarea name="thesis" id="textarea" cols="30" rows="10" ></textarea>
-                    
+                        <input type="text">
+                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->textarea_file ?></textarea> -->
+                        <textarea name="thesis" id="textarea" cols="30" rows="10"></textarea>
                     </form>
                 </div>
             </div>
@@ -147,8 +147,8 @@
     tinymce.init({
         selector: 'textarea',
         // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save checklist',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',
         tinycomments_author: '<?= $this->session->userdata('username') ?>',

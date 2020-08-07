@@ -16,25 +16,22 @@ class Thesis extends CI_Controller
     {
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
         {
-            // $data["correction"] = $this->thesis_model->getCorrection();
-
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
-            // $this->load->view("thesis/editor");
             $this->load->view("thesis/pdf_viewer");
             $this->load->view("templates/dashboard/footer");
         }
-        // $this->load->view("thesis/test");
     }
 
     public function add()
     {
-        $this->thesis_model->save();
+        $this->thesis_model->saveCorrection();
+
+        $data["correction"] = $this->thesis_model->getCorrection();
 
         $this->load->view("templates/dashboard/headerDosenMhs");
         $this->load->view("templates/dashboard/sidebarDosenMhs");
-        // $this->load->view("thesis/editor");
-        $this->load->view("thesis/pdf_viewer");
+        $this->load->view("thesis/pdf_viewer", $data);
         $this->load->view("templates/dashboard/footer");
     }
     
