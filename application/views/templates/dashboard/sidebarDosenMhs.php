@@ -3,8 +3,8 @@ $query = "SELECT *
   FROM `kategoriruangan`
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
-$getdosbing = "SELECT * FROM `dosbing` WHERE `status` = 'Sudah Disetujui'";
-$dosbing = $this->db->query($getdosbing)->result_array();
+$sql = "SELECT * FROM dosbing JOIN guidance ON dosbing.id_guidance = guidance.id WHERE guidance.id_mhs = ? AND dosbing.status = ?";
+$dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah Disetujui'))->result_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">
@@ -57,7 +57,7 @@ $dosbing = $this->db->query($getdosbing)->result_array();
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('users/pengajuandosbing') ?>">Pengajuan</a></li>
-            <?php if (count($dosbing) <= 2) : ?>
+            <?php if (count($dosbing) == 2) : ?>
               <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
               <li><a href="#">Sidang</a></li>
             <?php endif; ?>
@@ -69,8 +69,8 @@ $dosbing = $this->db->query($getdosbing)->result_array();
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan (2)</a></li>
-            <li><a href="#">Bimbingan</a></li>
+            <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan</a></li>
+            <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
             <li><a href="#">Penguji</a></li>
           </ul>
         </div>
@@ -90,7 +90,7 @@ $dosbing = $this->db->query($getdosbing)->result_array();
     </div>
   </div>
 </div>
-</div>
+
 <!--Exit Modal -->
 
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -157,7 +157,7 @@ $dosbing = $this->db->query($getdosbing)->result_array();
           <div class="jadwal-ruangan" id="jadwal">
             <table border="0" class="table bookings" id="booking">
               <tbody>
-                <tr class="display">
+                <tr class="display" style="background:transparent">
                 </tr>
               </tbody>
             </table>

@@ -43,7 +43,7 @@
               <div class="jadwal-ruangan" id="schedule">
                 <table border="0" class="table bookings">
                   <tbody>
-                    <tr class="displaydate">
+                    <tr class="displaydate" style="background: transparent;">
                     <tr>
                   </tbody>
                 </table>

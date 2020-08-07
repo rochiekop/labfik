@@ -66,7 +66,7 @@
           <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
-          <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>">
+          <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>" preload="none">
             <source src="<?= base_url('assets/img/panel/') . $dt_panel['video']; ?>" type="video/mp4">
             Ooops, your browser is not supported this feature
           </video>
@@ -77,12 +77,11 @@
     <?php endif; ?>
   </div>
 </div>
-
 <div class="fik-jadwal-ruangan margin-t50">
   <div class="container">
     <div class="fik-section-title text-center">
       <h3>INFORMASI RUANGAN</h3>
-      <p>informasi terbaru mengenai ruangan yang terisi maupun yang masih available</p>
+      <p>Informasi terbaru mengenai ruangan yang terisi maupun yang masih available</p>
     </div>
     <div class="owl-carousel owl-theme fik-carousel-schedule">
       <?php $start = 0; ?>
@@ -108,7 +107,7 @@
                   <tr>
                     <?php if ($d['status'] == 'Diterima' or $d['status'] == 'Menunggu Acc') : ?>
                       <td><b><?= $d['ruangan'] ?></b></td>
-                      <td><?= $d['time'] ?></td>
+                      <td><?= substr($d['time'], 0, 8) ?><?= substr($d['time'], -5) ?></td>
                       <td><?= $d['name'] ?></td>
                       <td><?= $d['keterangan'] ?></td>
                       <td class="status">
@@ -116,7 +115,7 @@
                       </td>
                     <?php elseif ($d['status'] == 'Ditolak') : ?>
                       <td><b><?= $d['ruangan'] ?></b></td>
-                      <td><?= $d['time'] ?></td>
+                      <td><?= substr($d['time'], 0, 8) ?><?= substr($d['time'], -5) ?></td>
                       <td></td>
                       <td></td>
                       <td class="status">
@@ -158,7 +157,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -170,7 +169,7 @@
             <div class="item-text">
               <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
             </div>
           </div>
           <div class="item">
@@ -180,10 +179,45 @@
             <div class="item-text">
               <h6>Nama Lab</h6>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet...</p>
-              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>APPLY NOW</b> <span class="fas fa-arrow-right"></span></a>
+              <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
             </div>
           </div>
         <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fik-feed fik-feed-50 margin-t50">
+  <div class="container text-center">
+    <div class="fik-section-title text-center">
+      <h3>Unit</h3>
+      <p>Unit jasa resmi dari lab fik</p>
+    </div>
+    <div class="feed-container">
+      <div class="feed-item">
+        <div class="card">
+          <div class="gambar">
+            <img src="<?= base_url('assets/img/10.jpg') ?>" alt="" />
+          </div>
+          <div class="item-text">
+            <h6><a href="#">Unit Bisnis</a></h6>
+            <p>Kami siap memberikan yang terbaik.</p>
+            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+          </div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="card">
+          <div class="gambar">
+            <img src="<?= base_url('assets/img/11.jpg') ?>" alt="" />
+          </div>
+          <div class="item-text">
+            <h6><a href="#">Partnership</a></h6>
+            <p>Butuh media partner? Kesini aja!!</p>
+            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -193,7 +227,7 @@
   <div class="container text-center">
     <div class="fik-section-title">
       <h3>NEWS</h3>
-      <p>informasi terbaru mengenai lab diupdate disini</p>
+      <p>Informasi terbaru mengenai lab diupdate disini</p>
     </div>
     <div class="feed-container">
       <?php if (empty($dt_info)) : ?>
@@ -232,7 +266,7 @@
   });
   $('.fik-lab-div-list').owlCarousel({
     margin: 0,
-    loop: false,
+    loop: true,
     autoplay: true,
     autoplayTimeout: 5000,
     autoplayHoverPause: true,
