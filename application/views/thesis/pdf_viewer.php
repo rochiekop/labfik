@@ -21,9 +21,10 @@
                             Halaman <span id="page-num"></span> Dari <span id="page-count"></span>
                         </span>
                     </div>
-            
-                    <!-- <input type="text" id="revision_id" value="<?= $correction->revision_id ?>" hidden > -->
-                    <!-- <input type="text" id="pdf_file" value="<?= $correction->pdf_file ?>" hidden> -->
+                    
+                    <input type="text" id="thesis_id" value="<?= $id ?>" hidden >
+                    <input type="text" id="username" value="<?= $file->username ?>" hidden >
+                    <input type="text" id="pdf_file" value="<?= $file->pdf_file ?>" hidden >
                     <canvas id='thesis_canvas'></canvas>
                     
                 </div>
@@ -51,7 +52,7 @@
 </main>
 
 <!-- Tambahan -->
-<script src="/assets/js/tambahan.js"></script>
+<script src="assets/js/tambahan.js"></script>
 
 <!-- PDF.js -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2/build/pdf.min.js"></script>
@@ -74,7 +75,12 @@
 
 <script>
     var pdf_file = document.getElementById("pdf_file").value;
-    const url = 'uploads/thesis/'+pdf_file;
+    var username = document.getElementById("username").value;
+    console.log(pdf_file + username);
+    console.log("hello world")
+
+    // const url = 'assets/upload/thesis/'+username+'/'+pdf_file;
+    const url = 'uploads/thesis/tatul.pdf';
     let pdfDoc = null,
         pageNum = 1,
         pageIsRendering = false,
@@ -114,21 +120,21 @@
             document.querySelector('#page-num').textContent = num;
         });
 
-        // make correction
-        // alert(num);
-        var revision_id = document.getElementById("revision_id").value;
-        if (checkCorrectionEmpty() == true)
+        make correction
+        alert(num);
+        var thesis_id = document.getElementById("thesis_id").value;
+        if (checkCorrectionEmpty(thesis_id, num) == true)
         {
             makeCorrection(uniqid(), num);
         }
-        getCorrection(revision_id, num);
+        getCorrection(thesis_id, num);
         
     }
 
     // make correction on TinyMCE
-    const makeCorrection = (revision_id, page) => {
+    const makeCorrection = (thesis_id, page) => {
         $.ajax({
-            url: "Thesis/makeCorrection"+revision_id+"/"+page,
+            url: "Thesis/makeCorrection/"+thesis_id+"/"+page,
             type: "POST",
             cache: false,
             success: function(data){
@@ -138,9 +144,9 @@
     }
 
     // save correction on TinyMCE
-    const saveCorrection = (revision_id, page) => {
+    const saveCorrection = (thesis_id, page) => {
         $.ajax({
-            url: "Thesis/saveCorrection"+revision_id+"/"+page,
+            url: "Thesis/saveCorrection/"+thesis_id+"/"+page,
             type: "POST",
             cache: false,
             success: function(data){
@@ -150,9 +156,9 @@
     }
 
     // get correction on TinyMCE
-    const getCorrection = (revision_id, page) => {
+    const getCorrection = (thesis_id, page) => {
         $.ajax({
-            url: 'Thesis/getCorrection/'+revision_id+'/'+page,
+            url: 'Thesis/getCorrection/'+thesis_id+'/'+page,
             type: "POST",
             cache: false,
             success: function(data){
@@ -163,9 +169,9 @@
     }
 
     // check correction empty
-    const checkCorrectionEmpty = (revision_id, page) => {
+    const checkCorrectionEmpty = (thesis_id, page) => {
         $.ajax({
-            url: 'Thesis/checkCorrectionEmpty/'+revision_id+'/'+page,
+            url: 'Thesis/checkCorrectionEmpty/'+thesis_id+'/'+page,
             type: "POST",
             cache: false,
             success: function(data){
@@ -200,16 +206,17 @@
         pageNum++;
         queueRenderPage(pageNum);
     }
-
+    
     // get document
     pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
         pdfDoc = pdfDoc_;
 
         document.querySelector('#page-count').textContent = pdfDoc.numPages;
-        renderPage(pageNum)
+        renderPage(pageNum);
+        // alert("something")
 
     });
-
+    
     // button Events
     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
     document.querySelector('#next-page').addEventListener('click', showNextPage);

@@ -14,13 +14,22 @@ class Thesis extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
-        {
-            $this->load->view("templates/dashboard/headerDosenMhs");
-            $this->load->view("templates/dashboard/sidebarDosenMhs");
-            $this->load->view("thesis/pdf_viewer");
-            $this->load->view("templates/dashboard/footer");
-        }
+        $this->load->view('templates/dashboard/headerDosenMhs', $data);
+        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+        $this->load->view("thesis/pdf_viewer", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function view($thesis_id){
+        $data['title'] = 'LABFIK | Daftar Bimbingan';
+        $data['id'] = $thesis_id;
+        $data['file'] = $this->thesis_model->getFile($thesis_id);
+        // $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($thesis_id);
+
+        $this->load->view('templates/dashboard/headerDosenMhs', $data);
+        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+        $this->load->view("thesis/pdf_viewer", $data);
+        $this->load->view("templates/dashboard/footer");
     }
 
     public function add()
@@ -35,26 +44,26 @@ class Thesis extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
-    public function getCorrection($revision_id, $page)
+    public function getCorrection($thesis_id, $page)
     {
-        $this->thesis_model->makeCorrection($revision_id, $page);
-        $data = $this->thesis_model->getCorrection($revision_id, $page);
+        $this->thesis_model->makeCorrection($thesis_id, $page);
+        $data = $this->thesis_model->getCorrection($thesis_id, $page);
         echo $data;
     }
 
-    public function makeCorrection($revision_id, $page)
+    public function makeCorrection($thesis_id, $page)
     {
-        $this->thesis_model->makeCorrection($revision_id, $page);
+        $this->thesis_model->makeCorrection($thesis_id, $page);
     }
 
-    public function saveCorrection($revision_id, $page)
+    public function saveCorrection($thesis_id, $page)
     {
-        $this->thesis_model->saveCorrection($revision_id, $page);
+        $this->thesis_model->saveCorrection($thesis_id, $page);
     }
 
-    public function checkCorrectionEmpty($revision_id, $page)
+    public function checkCorrectionEmpty($thesis_id, $page)
     {
-        $this->thesis_model->checkCorrectionEmpty($revision_id, $page);
+        $this->thesis_model->checkCorrectionEmpty($thesis_id, $page);
     }
     
 }

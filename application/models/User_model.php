@@ -358,4 +358,14 @@ class User_model extends CI_Model
 		$this->db->where('thesis.id_guidance', $id);
 		return $this->db->get()->result_array();
 	}
+
+	public function getFileBimbinganOnly($thesis_id)
+	{
+		$this->db->select('pdf_file');
+		$this->db->from('thesis');
+		$this->db->where('id', $thesis_id);
+		$query = $this->db->get();
+		$result = $query->result();
+        return $result;
+	}
 }

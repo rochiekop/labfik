@@ -22,7 +22,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" style="width:35%;">Keterangan</th>
-          <th scope="col">Unduh File</th>
+          <th scope="col">File</th>
           <th scope="col">View Dokumen</th>
           <th scope="col">Status</th>
         </tr>
@@ -39,10 +39,12 @@
                 <?= $f['keterangan'] ?>
               </td>
               <td>
-                <a href="#" class="btn badge badge-secondary">Unduh File</a>
+                <?= $f['pdf_file'] ?> <br>
+                <a href="#" class="btn badge badge-secondary">Unduh</a>
               </td>
               <td>
-                <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($f['id']); ?>">view </a>
+                <!-- <a href="</?= base_url('users/viewfilepdf/') . encrypt_url($f['id']); ?>">view </a> -->
+                <a href="<?= base_url('thesis/view/' . $f['id']) ?>">view </a>
               </td>
               <td>
                 <a href="#" class="btn badge badge-success">Selesai</a>
