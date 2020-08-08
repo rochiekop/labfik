@@ -34,6 +34,28 @@ class Thesis extends CI_Controller
         $this->load->view("thesis/pdf_viewer", $data);
         $this->load->view("templates/dashboard/footer");
     }
+
+    public function getCorrection($revision_id, $page)
+    {
+        $this->thesis_model->makeCorrection($revision_id, $page);
+        $data = $this->thesis_model->getCorrection($revision_id, $page);
+        echo $data;
+    }
+
+    public function makeCorrection($revision_id, $page)
+    {
+        $this->thesis_model->makeCorrection($revision_id, $page);
+    }
+
+    public function saveCorrection($revision_id, $page)
+    {
+        $this->thesis_model->saveCorrection($revision_id, $page);
+    }
+
+    public function checkCorrectionEmpty($revision_id, $page)
+    {
+        $this->thesis_model->checkCorrectionEmpty($revision_id, $page);
+    }
     
 }
 

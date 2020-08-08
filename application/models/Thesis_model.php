@@ -24,7 +24,7 @@ class Thesis_model extends CI_Model
         $query->db->insert('revision', $this);
     }
 
-    public function getRevisionAndCorrection($thesis_id)
+    public function getRevision($thesis_id)
     {
         $this->db->select('revision.times_of_revision, revision.pdf_file, correction.page, correction.correction');
         $this->db->from('correction');
@@ -36,23 +36,42 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
-    public function saveCorrection()
+    public function makeCorrection($revision_id, $page)
+    {
+        $this->id = uniqid();
+        $this->revision_id = $revision_id;
+        $this->page = $page;
+        $this->db->insert('correction', $this);
+    }
+
+    public function saveCorrection($revision_id, $page)
     {
         $post = $this->input->post();
-        $this->id = uniqid();
-        $this->revision_id = $post['revision_id'];
-        $this->page = $post['page'];
         $this->correction = $post['correction'];
-        $this->db->insert('correction', $this);
+        $this->db->update('correction', $this, array('revision_id' => $revision_id, 'page' => $page));
     }
 
     public function getCorrection($revision_id, $page)
     {
-        $this->db->select('correction.correction');
+        $this->db->select('correction.correction, correction.revision_id, correction.page');
         $this->db->from('correction');
         $this->db->join('revision', 'correction.revision_id=revision.id');
         $this->db->where('correction.revision_id', $revision_id);
         $this->db->where('correction.page', $page);
+    }
+
+    public function checkCorrectionEmpty($revision_id, $page)
+    {
+        $this->db->select('id');
+        $this->db->from('correction');
+        $this->db->where('revision_id', $revision_id);
+        $this->db->where('page', $page);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        if (count($result) == 0)
+        {
+            return true;
+        }
     }
 
 }
