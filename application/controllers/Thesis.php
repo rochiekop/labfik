@@ -14,9 +14,9 @@ class Thesis extends CI_Controller
 
     public function index()
     {
-        $this->load->view('templates/dashboard/headerDosenMhs', $data);
-        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view("thesis/pdf_viewer", $data);
+        $this->load->view('templates/dashboard/headerDosenMhs');
+        $this->load->view('templates/dashboard/sidebarDosenMhs');
+        $this->load->view("thesis/pdf_viewer");
         $this->load->view("templates/dashboard/footer");
     }
 
@@ -24,10 +24,11 @@ class Thesis extends CI_Controller
         $data['title'] = 'LABFIK | Daftar Bimbingan';
         $data['id'] = $thesis_id;
         $data['file'] = $this->thesis_model->getFile($thesis_id);
+        // $data['correction'] = $this->thesis_model->public function getCorrection($thesis_id, $page);
         // $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($thesis_id);
 
-        $this->load->view('templates/dashboard/headerDosenMhs', $data);
-        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+        $this->load->view('templates/dashboard/headerDosenMhs');
+        $this->load->view('templates/dashboard/sidebarDosenMhs');
         $this->load->view("thesis/pdf_viewer", $data);
         $this->load->view("templates/dashboard/footer");
     }
