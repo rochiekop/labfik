@@ -14,28 +14,57 @@ class Thesis extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
-        {
-            // $data["correction"] = $this->thesis_model->getCorrection();
+        $this->load->view('templates/dashboard/headerDosenMhs');
+        $this->load->view('templates/dashboard/sidebarDosenMhs');
+        $this->load->view("thesis/pdf_viewer");
+        $this->load->view("templates/dashboard/footer");
+    }
 
-            $this->load->view("templates/dashboard/headerDosenMhs");
-            $this->load->view("templates/dashboard/sidebarDosenMhs");
-            // $this->load->view("thesis/editor");
-            $this->load->view("thesis/pdf_viewer");
-            $this->load->view("templates/dashboard/footer");
-        }
-        // $this->load->view("thesis/test");
+    public function view($thesis_id){
+        $data['title'] = 'LABFIK | Daftar Bimbingan';
+        $data['id'] = $thesis_id;
+        $data['file'] = $this->thesis_model->getFile($thesis_id);
+        // $data['correction'] = $this->thesis_model->public function getCorrection($thesis_id, $page);
+        // $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($thesis_id);
+
+        $this->load->view('templates/dashboard/headerDosenMhs');
+        $this->load->view('templates/dashboard/sidebarDosenMhs');
+        $this->load->view("thesis/pdf_viewer", $data);
+        $this->load->view("templates/dashboard/footer");
     }
 
     public function add()
     {
-        $this->thesis_model->save();
+        $this->thesis_model->saveCorrection();
+
+        $data["correction"] = $this->thesis_model->getCorrection();
 
         $this->load->view("templates/dashboard/headerDosenMhs");
         $this->load->view("templates/dashboard/sidebarDosenMhs");
-        // $this->load->view("thesis/editor");
-        $this->load->view("thesis/pdf_viewer");
+        $this->load->view("thesis/pdf_viewer", $data);
         $this->load->view("templates/dashboard/footer");
+    }
+
+    public function getCorrection($thesis_id, $page)
+    {
+        $this->thesis_model->makeCorrection($thesis_id, $page);
+        $data = $this->thesis_model->getCorrection($thesis_id, $page);
+        echo $data;
+    }
+
+    public function makeCorrection($thesis_id, $page)
+    {
+        $this->thesis_model->makeCorrection($thesis_id, $page);
+    }
+
+    public function saveCorrection($thesis_id, $page)
+    {
+        $this->thesis_model->saveCorrection($thesis_id, $page);
+    }
+
+    public function checkCorrectionEmpty($thesis_id, $page)
+    {
+        $this->thesis_model->checkCorrectionEmpty($thesis_id, $page);
     }
     
 }

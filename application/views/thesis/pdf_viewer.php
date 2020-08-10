@@ -2,7 +2,7 @@
 <main class="akun-container dua content">
     <div class="row akun-helpdesk dua">
 
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="fik-section-title2">
                 <br>
                 <span class="fas fa-door-open zzzz"></span>
@@ -21,24 +21,27 @@
                             Halaman <span id="page-num"></span> Dari <span id="page-count"></span>
                         </span>
                     </div>
-            
+                    
+                    <!-- <input type="text" id="thesis_id" value="<?= $id ?>" hidden >
+                    <input type="text" id="username" value="<?= $file->username ?>" hidden >
+                    <input type="text" id="pdf_file" value="<?= $file->pdf_file ?>" hidden > -->
                     <canvas id='thesis_canvas'></canvas>
                     
                 </div>
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
                     <center><h6>Berikan Koreksi Disini</h6></center>
                     <div class="box-tools pull-right"></div>
                 </div>
                 <div class="card-body" >
-                    <form action="<?= base_url('thesis/add') ?>" method="post">
-                        
-                        <textarea name="thesis" id="textarea" cols="30" rows="10" ></textarea>
-                    
+                    <form action="" method="post">
+                        <!-- <input type="text"> -->
+                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->textarea_file ?></textarea> -->
+                        <textarea name="correction" id="correction" cols="30" rows="10"></textarea>
                     </form>
                 </div>
             </div>
@@ -49,14 +52,23 @@
 </main>
 
 <!-- Tambahan -->
-<script src="/assets/js/tambahan.js"></script>
+<!-- <script src="assets/js/tambahan.js"></script> -->
 
 <!-- PDF.js -->
-<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2/build/pdf.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.4.456/build/pdf.min.js"></script> -->
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 
 <script>
-    const url = 'uploads/thesis/tatul.pdf';
+    // var pdf_file = document.getElementById("pdf_file").value;
+    // var username = document.getElementById("username").value;
+    // var thesis_id = document.getElementById("thesis_id").value;
 
+    // console.log(pdf_file + username);
+    // console.log("hello world")
+
+    // const url = 'assets/upload/thesis/'+username+'/'+pdf_file;
+    // const url = 'assets/upload/thesis/ihdar/1920-2_Kartu_Ujian_UAS_1301174660.pdf'
+    const url = 'uploads/thesis/tatul.pdf';
     let pdfDoc = null,
         pageNum = 1,
         pageIsRendering = false,
@@ -91,12 +103,70 @@
                     pageIsPending = null;
                 }
             });
-
+            
             // output current page
             document.querySelector('#page-num').textContent = num;
-
         });
-    }
+
+        // make correction
+        // alert(num);
+        
+        // if (checkCorrectionEmpty(thesis_id, num) == true)
+        // {
+        //     makeCorrection(uniqid(), num);
+        // }
+        // getCorrection(thesis_id, num);
+        
+    };
+
+    // // make correction on TinyMCE
+    // const makeCorrection = (thesis_id, page) => {
+    //     $.ajax({
+    //         url: "Thesis/makeCorrection/"+thesis_id+"/"+page,
+    //         type: "POST",
+    //         cache: false,
+    //         success: function(data){
+
+    //         }
+    //     })
+    // }
+
+    // // save correction on TinyMCE
+    // const saveCorrection = (thesis_id, page) => {
+    //     $.ajax({
+    //         url: "Thesis/saveCorrection/"+thesis_id+"/"+page,
+    //         type: "POST",
+    //         cache: false,
+    //         success: function(data){
+
+    //         }
+    //     })
+    // }
+
+    // // get correction on TinyMCE
+    // const getCorrection = (thesis_id, page) => {
+    //     $.ajax({
+    //         url: 'Thesis/getCorrection/'+thesis_id+'/'+page,
+    //         type: "POST",
+    //         cache: false,
+    //         success: function(data){
+    //             // alert(data);
+    //             $('#correction').html(data);
+    //         }
+    //     })
+    // }
+
+    // // check correction empty
+    // const checkCorrectionEmpty = (thesis_id, page) => {
+    //     $.ajax({
+    //         url: 'Thesis/checkCorrectionEmpty/'+thesis_id+'/'+page,
+    //         type: "POST",
+    //         cache: false,
+    //         success: function(data){
+                
+    //         }
+    //     })
+    // }
 
     // check for pages rendering
     const queueRenderPage = num => {
@@ -124,21 +194,24 @@
         pageNum++;
         queueRenderPage(pageNum);
     }
-
+    
     // get document
     pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
         pdfDoc = pdfDoc_;
 
         document.querySelector('#page-count').textContent = pdfDoc.numPages;
-        renderPage(pageNum)
-    });
+        renderPage(pageNum);
+        // alert("something")
 
+    });
+    
     // button Events
     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
     document.querySelector('#next-page').addEventListener('click', showNextPage);
 
-</script>
+    // document.querySelector('#correction').addEventListener('click', saveCorrection);
 
+</script>
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -147,12 +220,11 @@
     tinymce.init({
         selector: 'textarea',
         // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save checklist',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',
         tinycomments_author: '<?= $this->session->userdata('username') ?>',
         height: '460'
     });
 </script>
-

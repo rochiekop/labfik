@@ -140,3 +140,45 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal list revisi -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">List Revisi</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="<?= base_url('users/addbimbingan') ?>" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
+            <!-- <input type="hidden" id="nama_mahasiswa" value="Fulan Bin Fulan">
+            <input type="hidden" id="nim_mahasiswa" value="0123456789"> -->
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Untuk Dosen</label>
+              <select class="form-control" id="exampleFormControlSelect1" name="fordosen">
+                <option value="Semua">Semua</option>
+                <?php foreach ($dosbing as $d) : ?>
+                  <option value="<?= $d['id_dosen'] ?>"><?= $d['nama_dosen'] ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Pilih Dokumen</label>
+              <input type="file" class="form-control" id="exampleFormControlFile1" name="fileta" style="padding:13px 16px">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="ketbim">Keterangan</label>
+              <textarea class="form-control" style="padding:12px" rows="5" id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
