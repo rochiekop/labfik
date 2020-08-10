@@ -275,4 +275,22 @@ class Users extends CI_Controller
     $this->load->view('dashboard/users/progressbimbingan', $data);
     $this->load->view('templates/dashboard/footer');
   }
+
+  public function sidang()
+  {
+    $data['title'] = 'LABFIK | Sidang Tugas Akhir';
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/sidang', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function penguji()
+  {
+    $data['title'] = 'LABFIK | Penguji Tugas Akhir';
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/penguji', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
 }

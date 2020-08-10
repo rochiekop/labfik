@@ -59,7 +59,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
             <li><a href="<?= base_url('users/pengajuandosbing') ?>">Pengajuan</a></li>
             <?php if (count($dosbing) == 2) : ?>
               <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
-              <li><a href="#">Sidang</a></li>
+              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
             <?php endif; ?>
           </ul>
         </div>
@@ -71,7 +71,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
           <ul>
             <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan</a></li>
             <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
-            <li><a href="#">Penguji</a></li>
+            <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
           </ul>
         </div>
       </div>

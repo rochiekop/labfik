@@ -100,3 +100,4 @@
 
   </div>
 </div>
+<script src="<?= base_url('assets/js/tambahan.js') ?>"></script>
