@@ -152,21 +152,21 @@ function sendTxtMessage(message){
 	if(messageTxt!=''){
 		//console.log(message);
  		DisplayMessage(messageTxt);
-				var receiver_id = $('#ReciverId_txt').val();
-				$.ajax({
-						  dataType : "json",
-						  type : 'post',
-						  data : {messageTxt : messageTxt, receiver_id : receiver_id },
-						//   url: 'send-message',
-						  url: 'Chat/send_text_message',
-						  success:function(data)
-						  {
-  							GetChatHistory(receiver_id)		 
-						  },
-						  error: function (jqXHR, status, err) {
- 							 // alert('Local error callback');
-						  }
- 					});
+		var receiver_id = $('#ReciverId_txt').val();
+		$.ajax({
+					dataType : "json",
+					type : 'post',
+					data : {messageTxt : messageTxt, receiver_id : receiver_id },
+				//   url: 'send-message',
+					url: 'Chat/send_text_message',
+					success:function(data)
+					{
+					GetChatHistory(receiver_id)		 
+					},
+					error: function (jqXHR, status, err) {
+						// alert('Local error callback');
+					}
+			});
 		ScrollDown();
 		$('.message').val('');
 		$('.message').focus();

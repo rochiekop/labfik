@@ -22,9 +22,9 @@
                         </span>
                     </div>
                     
-                    <!-- <input type="text" id="thesis_id" value="<?= $id ?>" hidden >
+                    <input type="text" id="thesis_id" value="<?= $thesis_id ?>" hidden >
                     <input type="text" id="username" value="<?= $file->username ?>" hidden >
-                    <input type="text" id="pdf_file" value="<?= $file->pdf_file ?>" hidden > -->
+                    <input type="text" id="pdf_file" value="<?= $file->pdf_file ?>" hidden >
                     <canvas id='thesis_canvas'></canvas>
                     
                 </div>
@@ -38,10 +38,15 @@
                     <div class="box-tools pull-right"></div>
                 </div>
                 <div class="card-body" >
-                    <form action="" method="post">
-                        <!-- <input type="text"> -->
-                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->textarea_file ?></textarea> -->
-                        <textarea name="correction" id="correction" cols="30" rows="10"></textarea>
+                    <!-- <form action="<?= base_url('thesis/save')?>" method="post"> -->
+                    <form action="#" method="post">
+                        
+                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->correction ?></textarea>
+                        <input name="thesis_id" type="text" id="thesis_id" value="<?= $thesis_id ?>" hidden >
+                        <input name="page" type="text" id="thesis_id" value="" hidden > -->
+                        <textarea name="correction" id="correction" cols="30" rows="10" ></textarea>
+                        <!-- <input type="text" name="correction" value="testtesttest"> -->
+                        <!-- <input type="submit"> -->
                     </form>
                 </div>
             </div>
@@ -55,20 +60,27 @@
 <!-- <script src="assets/js/tambahan.js"></script> -->
 
 <!-- PDF.js -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.4.456/build/pdf.min.js"></script> -->
-<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.4.456/build/pdf.min.js"></script>
+<!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
-    // var pdf_file = document.getElementById("pdf_file").value;
-    // var username = document.getElementById("username").value;
-    // var thesis_id = document.getElementById("thesis_id").value;
+    var pdf_file = document.getElementById("pdf_file").value;
+    var username = document.getElementById("username").value;
+    var thesis_id = document.getElementById("thesis_id").value;
+    var correction = document.getElementById("correction").value;
 
     // console.log(pdf_file + username);
     // console.log("hello world")
+    // console.log(thesis_id)
+    // alert(correction)
 
-    // const url = 'assets/upload/thesis/'+username+'/'+pdf_file;
+    const url = 'assets/upload/thesis/'+username+'/'+pdf_file;
     // const url = 'assets/upload/thesis/ihdar/1920-2_Kartu_Ujian_UAS_1301174660.pdf'
-    const url = 'uploads/thesis/tatul.pdf';
+    // const url = 'uploads/thesis/tatul.pdf';
+
     let pdfDoc = null,
         pageNum = 1,
         pageIsRendering = false,
@@ -109,64 +121,36 @@
         });
 
         // make correction
-        // alert(num);
-        
-        // if (checkCorrectionEmpty(thesis_id, num) == true)
-        // {
-        //     makeCorrection(uniqid(), num);
-        // }
-        // getCorrection(thesis_id, num);
+        getCorrection(thesis_id, num);
+
         
     };
 
-    // // make correction on TinyMCE
-    // const makeCorrection = (thesis_id, page) => {
-    //     $.ajax({
-    //         url: "Thesis/makeCorrection/"+thesis_id+"/"+page,
-    //         type: "POST",
-    //         cache: false,
-    //         success: function(data){
+    // save correction on TinyMCE
+    const saveCorrection = (thesis_id, page, correction) => {
+        $.ajax({
+            url: "Thesis/saveCorrection/"+thesis_id+"/"+page+"/"+correction,
+            type: "POST",
+            cache: false,
+            success: function(data){
+                getCorrection(thesis_id, page);
+            }
+        })
+    }
 
-    //         }
-    //     })
-    // }
-
-    // // save correction on TinyMCE
-    // const saveCorrection = (thesis_id, page) => {
-    //     $.ajax({
-    //         url: "Thesis/saveCorrection/"+thesis_id+"/"+page,
-    //         type: "POST",
-    //         cache: false,
-    //         success: function(data){
-
-    //         }
-    //     })
-    // }
-
-    // // get correction on TinyMCE
-    // const getCorrection = (thesis_id, page) => {
-    //     $.ajax({
-    //         url: 'Thesis/getCorrection/'+thesis_id+'/'+page,
-    //         type: "POST",
-    //         cache: false,
-    //         success: function(data){
-    //             // alert(data);
-    //             $('#correction').html(data);
-    //         }
-    //     })
-    // }
-
-    // // check correction empty
-    // const checkCorrectionEmpty = (thesis_id, page) => {
-    //     $.ajax({
-    //         url: 'Thesis/checkCorrectionEmpty/'+thesis_id+'/'+page,
-    //         type: "POST",
-    //         cache: false,
-    //         success: function(data){
-                
-    //         }
-    //     })
-    // }
+    // get correction on TinyMCE
+    const getCorrection = (thesis_id, page) => {
+        $.ajax({
+            url: 'Thesis/getCorrection/'+thesis_id+'/'+page,
+            type: "POST",
+            cache: false,
+            success: function(data){
+                // alert(data);
+                $('#correction').html(data);
+                alert(data)
+            }
+        })
+    }
 
     // check for pages rendering
     const queueRenderPage = num => {
@@ -209,12 +193,14 @@
     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
     document.querySelector('#next-page').addEventListener('click', showNextPage);
 
-    // document.querySelector('#correction').addEventListener('click', saveCorrection);
+    // button to save correction
+    // var correction =  document.getElementById("correction").value;
+    // alert(correction)
+    document.querySelector('#correction').addEventListener('click', saveCorrection(thesis_id, num, correction));
+
+    
 
 </script>
-
-<!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
     tinymce.init({

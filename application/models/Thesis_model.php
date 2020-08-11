@@ -57,22 +57,43 @@ class Thesis_model extends CI_Model
         $this->db->insert('correction', $this);
     }
 
-    public function saveCorrection($thesis_id, $page)
+    public function saveCorrection($thesis_id, $page, $correction)
     {
-        $post = $this->input->post();
-        $this->correction = $post['correction'];
+        // $post = $this->input->post();
+        // $this->correction = $post['correction'];
+        $this->correction = $correction;
         $this->db->update('correction', $this, array('thesis_id' => $thesis_id, 'page' => $page));
     }
 
-    public function getCorrection($thesis_id, $page)
+    public function save()
     {
+        $post = $this->input->post();
+        // $this->thesis_id = "5f30e96d01489";
+        // $this->page = "3";
+        $this->thesis_id = $post['thesis_id'];
+        $this->page = $post['page'];
+        $this->correction = $post['correction'];
+        
+
+        $data = array(
+			'correction' => $this->correction
+		);
+		$this->db->update('correction',$data,array('thesis_id' => $this->thesis_id, 'page' => $this->page));
+    }
+
+    public function getCorrection()
+    {
+        $post = $this->input->post();
+        $this->thesis_id = $post['thesis_id'];
+        $this->page = $post['page'];
+
         $this->db->select('correction.correction, correction.thesis_id, correction.page');
         $this->db->from('correction');
         $this->db->join('thesis', 'correction.thesis_id=thesis.id');
-        $this->db->where('correction.thesis_id', $thesis_id);
-        $this->db->where('correction.page', $page);
+        $this->db->where('correction.thesis_id', $this->thesis_id);
+        $this->db->where('correction.page', $this->page);
         $query = $this->db->get();
-        $result = $query->result();
+        $result = $query->row();
         return $result;
     }
 
@@ -84,10 +105,7 @@ class Thesis_model extends CI_Model
         $this->db->where('page', $page);
         $query = $this->db->get();
         $result = $query->result_array();
-        if (count($result) == 0)
-        {
-            return true;
-        }
+        return count($result);
     }
 
 }
