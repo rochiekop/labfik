@@ -17,7 +17,15 @@ class Notification extends CI_Controller
 
     public function index()
     {
+        
+    }
 
+    public function listNotification()
+    {
+        $data["borrowing"] =
+        $data["booking"] = 
+        $data["creation"] = 
+        $data["info"] =  
     }
 
     public function listBorrowingNotification($status, $user_id)

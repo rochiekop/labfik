@@ -13,15 +13,30 @@ class Notification_model extends CI_Model
         ];
     }
 
-    public function getAllNotification($status, $user_id)
+    public function getAllNotification($status)
     {
         if ($status == 'request')
         {
+            $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
 
+            $this->db->from('notification');
+
+            $this->db->join('borrowing', 'notification.borrowing_id = borrowing.id');
+            $this->db->join('item', 'borrowing.item_id = item.id');
+
+            $this->db->join('booking', 'notification.booking_id = ')
+
+
+            $this->db->where();
+            $this->db->or_where();
+
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
         }
         else if ($status == 'respond')
         {
-            
+            $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
         }
     }
 
@@ -85,7 +100,7 @@ class Notification_model extends CI_Model
         }
     }
 
-    public function getAllCreationNotification($status, $user_id)
+    public function getAllCreationNotification($status)
     {
         if ($status == 'request')
         {
@@ -102,22 +117,144 @@ class Notification_model extends CI_Model
             $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
-            $this->db->where('tampilan.id', $user_id);
+            $this->db->where('tampilan.id', $this->session->userdata('id'));
+            $this->db->group_start();
+                $this->db->where('notification.description', 'approved');
+                $this->db->or_where('notification.description', 'declined');
+            $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
             return $result;
         }
     }
 
-    public function getAllInformationNotification()
+    public function getAllInfoNotification()
     {
         $this->db->select('tb_info.title, tb_info.images, notification.date');
         $this->db->from('notification');
         $this->db->join('tb_info', 'notification.info_id = tb_info.id');
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
     }
 
+    public function getAllThesisNotification($status)
+    {
+        if ($status == 'request')
+        {
+            $this->db->select('notification.*, guidance.*, thesis.*');
+            $this->db->from('notification');
+            $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+            $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
+            $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+            $this->db->where('dosbing.id_dosen', $this->session->userdata('id'));
+            $this->db->where('notification.description', 'waiting');
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+        else if ($status == 'respond')
+        {
+            $this->db->select('notification.*, guidance.*, thesis.*');
+            $this->db->from('notification');
+            $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+            $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
+            $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+            $this->db->where('notification.user_id', $this->session->userdata('id'));
+            $this->db->group_start();
+                $this->db->where('notification.description', 'ready');
+                $this->db->or_where('notification.description', 'correction');
+            $this->db->group_end();
+            $query = $this->db->get();
+            $result = $query->result();
+            return $result;
+        }
+    }
 
+    public function saveNotification($feature, $description)
+    {
+        if ($feature == 'borrowing')
+        {
+            $post = $this->input->post();
+            $this->id = uniqid();
+            $this->user_id = $post['user_id'];
+            $this->borrowing_id = $post['id'];
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'booking')
+        {
+            $post = $this->input->post();
+            $this->id = uniqid();
+            $this->user_id = $post['user_id'];
+            $this->booking_id = $post['id'];
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'creation')
+        {
+            $post = $this->input->post();
+            $this->id = uniqid();
+            $this->user_id = $post['user_id'];
+            $this->creation_id = $post['id'];
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'info')
+        {
+            $post = $this->input->post();
+            $this->id = uniqid();
+            $this->user_id = $post['user_id'];
+            $this->info_id = $post['id'];
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'thesis')
+        {
+            $post = $this->input->post();
+            $this->id = uniqid();
+            $this->user_id = $post['user_id'];
+            $this->thesis_id = $post['id'];
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+    }
 
+    public function assignNotification($feature, $user_id, $feature_id, $description)
+    {
+        if ($feature == 'borrowing')
+        {
+            $this->id = uniqid();
+            $this->user_id = $user_id;
+            $this->borrowing_id = $feature_id;
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'booking')
+        {
+            $this->id = uniqid();
+            $this->user_id = $user_id;
+            $this->booking_id = $feature_id;
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'creation')
+        {
+            $this->id = uniqid();
+            $this->user_id = $user_id;
+            $this->creation_id = $feature_id;
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+        else if ($feature == 'thesis')
+        {
+            $this->id = uniqid();
+            $this->user_id = $user_id;
+            $this->thesis_id = $feature_id;
+            $this->description = $description;
+            $this->db->insert($this->_table, $this);
+        }
+    }
 
 
     public function saveBorrowingNotification($description)
@@ -147,20 +284,31 @@ class Notification_model extends CI_Model
         $this->db->update('notification',$data,array('id' => $id));
     }
 
-    public function saveGuidance()
+    public function updateNotificationStatusReadAll()
     {
-        $this->id = uniqid();
-        $this->student_id = $this->session->userdata('id');
-        $this->db->insert('guidance', $this);
-
+        $user_id = $this->session->userdata('id');
+        $data = array(
+            'status' => 'read'
+        );
+        $this->db->update('notification',$data,array('user_id' => $user_id));
     }
 
-    public function saveDosbing()
-    {
-        $this->id = uniqid();
-        $this->student_id = $this->session->userdata(id);
-        $this->lecturer_id = $post['lecturer_id'];
-        $this->db->insert('dosbing', $this);
-    }
+
+
+    // public function saveGuidance()
+    // {
+    //     $this->id = uniqid();
+    //     $this->student_id = $this->session->userdata('id');
+    //     $this->db->insert('guidance', $this);
+
+    // }
+
+    // public function saveDosbing()
+    // {
+    //     $this->id = uniqid();
+    //     $this->student_id = $this->session->userdata(id);
+    //     $this->lecturer_id = $post['lecturer_id'];
+    //     $this->db->insert('dosbing', $this);
+    // }
 
 }
