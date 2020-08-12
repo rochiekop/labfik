@@ -77,6 +77,28 @@
     <?php endif; ?>
   </div>
 </div>
+
+<div class="fik-tour margin-t50">
+  <div class="container">
+    <div class="fik-tour-item">
+      <img src="<?= base_url('assets/img/tour.png') ?>" alt="">
+      <div class="fik-tour-text">
+        <h5>FIK TOUR</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">START TOUR</a>
+      </div>
+    </div>
+    <div class="fik-tour-item">
+      <img src="_assets/img/12.jpg" alt="">
+      <div class="fik-tour-text">
+        <h5>MEET 360</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">MORE</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="fik-jadwal-ruangan margin-t50">
   <div class="container">
     <div class="fik-section-title text-center">
@@ -97,7 +119,9 @@
                   <th scope="col">Waktu</th>
                   <th scope="col">Peminjam</th>
                   <th scope="col">Keterangan</th>
-                  <th class="status" scope="col">Status</th>
+                  <th scope="col">
+                    <div style="margin-left: 110px;">Status</div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -136,6 +160,11 @@
         </div>
         <?php $iteration++ ?>
       <?php endwhile; ?>
+    </div>
+    <div class="text-center">
+      <a href="<?= base_url('main/schedule') ?>">
+        <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn"><b>Tampilkan Layar Penuh</b><span class="fas fa-external-link-alt"></span></div>
+      </a>
     </div>
   </div>
 </div>

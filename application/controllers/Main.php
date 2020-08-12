@@ -99,4 +99,10 @@ class Main extends CI_Controller
       redirect('auth');
     }
   }
+
+  public function schedule()
+  {
+    $data['dt_schedule'] = $this->main_model->getDtBookingSchedule();
+    $this->load->view('main/schedule', $data);
+  }
 }

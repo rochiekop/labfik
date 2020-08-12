@@ -7,49 +7,113 @@
     </div>
     <div class="input-group">
       <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
+        <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Lab.</a>
-          <a class="dropdown-item" href="#">Studio</a>
+          <a class="dropdown-item">Semua</a>
+          <a class="dropdown-item">Lab</a>
+          <a class="dropdown-item">Kelas</a>
+          <a class="dropdown-item">Studio</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
       <a class="btn btn-primary" data-toggle="modal" data-target="#addkategori" style="margin-left: 20px;color:white"><span class="fas fa-fw fa-plus"></span> Kategori</a>
     </div>
-    <div class="table-responsive admin-list">
-      <table class="table">
+    <div id="#">
+      <div class="table-responsive admin-list">
         <table class="table">
-          <thead>
-            <tr>
-              <th scope="col" style="width:48px">No</th>
-              <th scope="col" style="width:90px">&nbsp;</th>
-              <th scope="col">Kategori</th>
-              <th scope="col">Waktu Input</th>
-              <th scope="col" class="action">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no = 0;
-            foreach ($kategori as $k) : ?>
+          <table class="table">
+            <thead>
               <tr>
-                <td scope="row" style="width:60px"><?= ++$no ?></td>
-                <td style="width:80px">
-                </td>
-                <td><?= $k['kategori'] ?></td>
-                <td><?= $k['date_created'] ?></td>
-                <td class="action">
-                  <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($k['id']); ?>"><span class="fas fa-trash"></span></a>
-                  <a data-toggle="modal" data-target="#editmodal<?= encrypt_url($k['id']); ?>"><span class="fas fa-edit"></span></a>
-                </td>
+                <th scope="col" style="width:48px">No</th>
+                <th scope="col" style="width:90px">&nbsp;</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Waktu Input</th>
+                <th scope="col" class="action">Aksi</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
+            </thead>
+            <tbody id="container">
+              <?php $no = 0;
+              foreach ($kategori as $k) : ?>
+                <tr>
+                  <td scope="row" style="width:60px"><?= ++$no ?></td>
+                  <td style="width:80px">
+                  </td>
+                  <td><?= $k['kategori'] ?></td>
+                  <td><?= $k['date_created'] ?></td>
+                  <td class="action">
+                    <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($k['id']); ?>"><span class="fas fa-trash"></span></a>
+                    <a data-toggle="modal" data-target="#editmodal<?= encrypt_url($k['id']); ?>"><span class="fas fa-edit"></span></a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </table>
-      </table>
+      </div>
     </div>
   </main>
   <!-- End Main Container -->
+
+  <script>
+    $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".dropdown-item").click(function() {
+        var text = $(this).text();
+        // alert(text)
+        $("#filter").text(text)
+        if (text != 'Semua') {
+          filter(text);
+        } else {
+          filter()
+        }
+
+      });
+
+      // load_data();
+      function filter(filter) {
+        $.ajax({
+          url: '<?= base_url('search/filterdatakategori') ?>',
+          method: "POST",
+          data: {
+            filter: filter
+          },
+          success: function(data) {
+            $('#container').html(data);
+            // console.log(data)
+          }
+        });
+      }
+
+      function load_data(keyword = null, filter = null) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatakategori') ?>',
+          method: "POST",
+          data: {
+            keyword: keyword,
+            filter: filter,
+          },
+          success: function(data) {
+            $('#container').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        // alert(keyword)
+        var filter = $('#filter').text()
+        // alert(filter)
+        if (keyword != '') {
+          load_data(keyword, filter);
+        } else if (filter != '') {
+          load_data(filter);
+        } else {
+          load_data();
+        }
+      })
+    });
+  </script>
 
   <!-- Modal for add kategori -->
   <div class="modal fade" id="addkategori" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
