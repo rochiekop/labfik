@@ -63,7 +63,7 @@
           <p>
             <?= $dt_panel['body']; ?>
           </p>
-          <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+          <a href="<?= base_url('main/profile/') . encrypt_url($dt_panel['id']); ?>" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
           <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>" preload="none">
@@ -162,7 +162,7 @@
       <?php endwhile; ?>
     </div>
     <div class="text-center">
-      <a href="<?= base_url('main/schedule') ?>">
+      <a href="<?= base_url('main/schedule') ?>" target="_blank">
         <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn"><b>Tampilkan Layar Penuh</b><span class="fas fa-external-link-alt"></span></div>
       </a>
     </div>
@@ -186,7 +186,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labview/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>

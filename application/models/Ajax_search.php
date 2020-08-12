@@ -23,7 +23,7 @@ class Ajax_search extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  public function fetchdatakategori($query, $filter)
+  public function fetchdatakategori($filter = null, $query = null)
   {
     $this->db->select('*');
     $this->db->from('kategoriruangan');
@@ -39,14 +39,22 @@ class Ajax_search extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  public function filterdatakategori($filter)
+  public function fetchdataslider($query = null, $filter = null)
   {
     $this->db->select('*');
-    $this->db->from('kategoriruangan');
-    if ($filter != '') {
-      $this->db->like('kategori', $filter);
+    $this->db->from('tb_slider');
+    if ($filter == 'Judul') {
+      $this->db->like('title', $filter);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('body', $filter);
+    } else {
+      $this->db->like('date', $filter);
     }
-    $this->db->order_by('kategori', 'ASC');
+    $this->db->like('body', $query);
+    $this->db->or_like('title', $query);
+    $this->db->or_like('date', $query);
+    $this->db->order_by('title', 'ASC');
+
     return $this->db->get()->result_array();
   }
 }

@@ -62,7 +62,7 @@ class Search extends CI_Controller
   public function fetchdatakategori()
   {
     $output = '';
-    if ($this->input->post('filter') != "Filter" or $this->input->post('filter') != "Semua") {
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
         $filter = $this->input->post('filter');
@@ -79,7 +79,6 @@ class Search extends CI_Controller
         $data = $this->ajax_search->fetchdatakategori();
       }
     }
-    // $data = $this->user_model->getallbimbingan();
     if (!empty($data)) {
       $no = 0;
       foreach ($data as $t) {
@@ -104,31 +103,51 @@ class Search extends CI_Controller
     }
     echo $output;
   }
-  public function filterdatakategori()
+
+  public function fetchdataslider()
   {
     $output = '';
-    $filter = $this->input->post('filter', true);
-    $data = $this->ajax_search->filterdatakategori($filter);
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdataslider($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdataslider();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdataslider($query);
+      } else {
+        $data = $this->ajax_search->fetchdataslider();
+      }
+    }
+
     if (!empty($data)) {
       $no = 0;
-      foreach ($data as $t) {
-        $output .= '
-                    <tr>
-                      <td scope="row" style="width:60px">' . ++$no . '</td>
-                      <td style="width:80px">
-                      </td>
-                      <td>' . $t['kategori'] . '</td>
-                      <td>' . $t['date_created'] . '</td>
-                      <td class="action">
-                        <a data-toggle="modal" data-target="#deletemodal' . encrypt_url($t['id']) . '"><span class="fas fa-trash"></span></a>
-                        <a data-toggle="modal" data-target="#editmodal' . encrypt_url($t['id']) . '"><span class="fas fa-edit"></span></a>
-                      </td>
-                    </tr>
-                    ';
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td scope="row" style="width:0px">' . $no++ . '</td>
+                    <td style="width:40px">
+                    </td>
+                    <td>' . $i['title'] . '</td>
+                    <td>' . $i['body'] . '</td>
+                    <td>
+                      <div class="img-wrapper">
+                        <img src="' . base_url('assets/img/slider/') . $i['images'] . '" alt="">
+                      </div>
+                    </td>
+                    <td>' . $i['date'] . '</td>
+                    <td class="action">
+                      <a data-toggle="modal" id="' . $i['date'] . '" data-target="#deletemodal' . encrypt_url($i['id']) . '"><span class="fas fa-trash"></span></a>
+                      <a href="<?= base_url(); ?>admin/edit_dtslider/' . encrypt_url($i['id']) . '"><span class="fas fa-edit"></span></a>
+                    </td>
+                  </tr>';
       };
     } else {
       $output .= '<tr>
-                      <td colspan="5" style="background-color: whitesmoke;text-align:center">Kategori yang anda cari tidak ada.</td>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">Info Slider yang anda cari tidak ada.</td>
                   </tr>';
     }
     echo $output;

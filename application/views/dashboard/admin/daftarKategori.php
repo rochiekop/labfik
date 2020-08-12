@@ -62,36 +62,20 @@
         var text = $(this).text();
         // alert(text)
         $("#filter").text(text)
-        if (text != 'Semua') {
-          filter(text);
+        if ((text != 'Semua')) {
+          load_data(text);
         } else {
-          filter()
+          load_data()
         }
-
       });
 
-      // load_data();
-      function filter(filter) {
-        $.ajax({
-          url: '<?= base_url('search/filterdatakategori') ?>',
-          method: "POST",
-          data: {
-            filter: filter
-          },
-          success: function(data) {
-            $('#container').html(data);
-            // console.log(data)
-          }
-        });
-      }
-
-      function load_data(keyword = null, filter = null) {
+      function load_data(filter, keyword) {
         $.ajax({
           url: '<?= base_url('search/fetchdatakategori') ?>',
           method: "POST",
           data: {
-            keyword: keyword,
             filter: filter,
+            keyword: keyword,
           },
           success: function(data) {
             $('#container').html(data);
@@ -101,12 +85,10 @@
       }
       keyword.addEventListener('keyup', function() {
         var keyword = $(this).val();
-        // alert(keyword)
         var filter = $('#filter').text()
-        // alert(filter)
         if (keyword != '') {
-          load_data(keyword, filter);
-        } else if (filter != '') {
+          load_data(filter, keyword);
+        } else if (filter != "Semua" && filter != "Filter") {
           load_data(filter);
         } else {
           load_data();
