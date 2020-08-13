@@ -44,17 +44,55 @@ class Ajax_search extends CI_Model
     $this->db->select('*');
     $this->db->from('tb_slider');
     if ($filter == 'Judul') {
-      $this->db->like('title', $filter);
+      $this->db->like('title', $query);
     } elseif ($filter == 'Deskripsi') {
-      $this->db->like('body', $filter);
+      $this->db->like('body', $query);
+    } elseif ($filter == 'Tanggal') {
+      $this->db->like('date', $query);
     } else {
-      $this->db->like('date', $filter);
+      $this->db->like('body', $query);
+      $this->db->or_like('title', $query);
+      $this->db->or_like('date', $query);
     }
-    $this->db->like('body', $query);
-    $this->db->or_like('title', $query);
-    $this->db->or_like('date', $query);
-    $this->db->order_by('title', 'ASC');
-
+    $this->db->order_by('id', 'DESC');
+    return $this->db->get()->result_array();
+  }
+  public function fetchdatainfo($query = null, $filter = null)
+  {
+    $this->db->select('*');
+    $this->db->from('tb_info');
+    if ($filter == 'Judul') {
+      $this->db->like('title', $query);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('body', $query);
+    } elseif ($filter == 'Upload') {
+      $this->db->like('uploadby', $query);
+    } elseif ($filter == 'Tanggal') {
+      $this->db->like('date', $query);
+    } else {
+      $this->db->like('body', $query);
+      $this->db->or_like('title', $query);
+      $this->db->or_like('uploadby', $query);
+      $this->db->or_like('date', $query);
+    }
+    $this->db->order_by('id', 'DESC');
+    return $this->db->get()->result_array();
+  }
+  public function fetchdatalab($query = null, $filter = null)
+  {
+    $this->db->select('*');
+    $this->db->from('tb_lab');
+    if ($filter == 'Judul') {
+      $this->db->like('title', $query);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('body', $query);
+    } elseif ($filter == 'Tanggal') {
+      $this->db->like('date', $query);
+    } else {
+      $this->db->like('body', $query);
+      $this->db->or_like('title', $query);
+      $this->db->or_like('date', $query);
+    }
     return $this->db->get()->result_array();
   }
 }

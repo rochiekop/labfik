@@ -55,7 +55,7 @@
                       <img src="<?= base_url('assets/img/slider/') . $i['images']; ?>" alt="">
                     </div>
                   </td>
-                  <td><?= $i['date'] ?></td>
+                  <td><?= format_indo($i['date'], date('d-m-Y')); ?></td>
                   <td class="action">
                     <a data-toggle="modal" id="<?= $i['date'] ?>" data-target="#deletemodal<?= encrypt_url($i['id']) ?>"><span class="fas fa-trash"></span></a>
                     <a href="<?= base_url(); ?>admin/edit_dtslider/<?= encrypt_url($i['id']) ?>"><span class="fas fa-edit"></span></a>
@@ -98,6 +98,11 @@
         var text = $(this).text();
         // alert(text)
         $("#filter").text(text)
+        if (text != '') {
+          load_data(keyword = null, text);
+        } else {
+          load_data();
+        }
       });
 
       function load_data(keyword, filter) {
@@ -117,7 +122,7 @@
       keyword.addEventListener('keyup', function() {
         var keyword = $(this).val();
         var filter = $('#filter').text()
-        // alert(keyword)
+        // alert(filter)
         if (keyword != '') {
           load_data(keyword, filter);
         } else {

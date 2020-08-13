@@ -13,13 +13,15 @@
     </div>
     <div class="input-group">
       <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
+        <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Terbaru</a>
+          <a class="dropdown-item">Semua</a>
+          <a class="dropdown-item">Judul</a>
+          <a class="dropdown-item">Tanggal</a>
+          <a class="dropdown-item">Deskripsi</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
       <a class="btn btn-primary" href="<?= base_url('admin/add_dtlab') ?>" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> Laboratorium </a>
     </div>
     <div class="table-responsive admin-list">
@@ -35,7 +37,7 @@
               <th scope="col" class="action">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="laboratorium">
             <?php if (empty($dt_lab)) : ?>
               <td colspan="6" style="background-color: whitesmoke;text-align:center">List Tempat kosong</td>
             <?php else : ?>
@@ -50,7 +52,7 @@
                   </td>
                   <td><?= $t['title'] ?></td>
                   <td><?= $t['body'] ?></td>
-                  <td><?= $t['date'] ?></td>
+                  <td><?= format_indo($t['date'], date('d-m-Y')); ?></td>
                   <td class="action">
                     <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-trash"></span></a>
                     <a href="<?= base_url('admin/edit_dtlab/') . encrypt_url($t['id']); ?>"><span class="fas fa-edit"></span></a>
@@ -93,3 +95,46 @@
       text-overflow: ellipsis;
     }
   </style>
+
+
+  <script>
+    $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".dropdown-item").click(function() {
+        var text = $(this).text();
+        // alert(text)
+        $("#filter").text(text)
+        if (text != '') {
+          load_data(keyword = null, text);
+        } else {
+          load_data();
+        }
+      });
+
+      function load_data(keyword, filter) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatalab') ?>',
+          method: "POST",
+          data: {
+            keyword: keyword,
+            filter: filter,
+          },
+          success: function(data) {
+            $('#laboratorium').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        // alert(filter)
+        if (keyword != '') {
+          load_data(keyword, filter);
+        } else {
+          load_data();
+        }
+      })
+    });
+  </script>
