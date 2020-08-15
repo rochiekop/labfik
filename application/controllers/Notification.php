@@ -17,7 +17,25 @@ class Notification extends CI_Controller
 
     public function index()
     {
+        $data['notification'] = $this->notification_model->getAllNotification($status);
         
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("notification/notification", $data);
+            $this->load->view("templates/dashboard/footer");
+        } else if ($this->session->userdata('role_id') == '2') {
+            $this->load->view("templates/dashboard/headerKaur");
+            $this->load->view("templates/dashboard/sidebarKaur");
+            $this->load->view("notification/notification", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+        else if ($this->session->userdata('role_id') == '1') {
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("notification/notification", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
     }
 
     public function listNotification()

@@ -13,7 +13,7 @@ class Thesis extends CI_Controller
     }
 
     // public function index($thesis_id)
-    public function _remap($thesis_id)
+    public function _remap()
     {
         // $this->load->view('templates/dashboard/headerDosenMhs');
         // $this->load->view('templates/dashboard/sidebarDosenMhs');
@@ -21,10 +21,14 @@ class Thesis extends CI_Controller
         // $this->load->view("templates/dashboard/footer");
 
         // $data['title'] = 'LABFIK | Daftar Bimbingan';
-        $data['thesis_id'] = "test";
-        $data['file'] = $this->thesis_model->getFile("test");
+        // $data['thesis_id'] = "test";
+        // $data['file'] = $this->thesis_model->getFile("test");
         // $data['correction'] = $this->thesis_model->public function getCorrection($thesis_id, $page);
         // $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($thesis_id);
+
+        $post = $this->input->post();
+        $data['thesis_id'] = $post['id'];
+        $data['file'] = $this->thesis_model->getFile($post['id']);
 
         $this->load->view('templates/dashboard/headerDosenMhs');
         $this->load->view('templates/dashboard/sidebarDosenMhs');

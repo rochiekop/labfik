@@ -123,6 +123,11 @@
         // make correction
         getCorrection(thesis_id, num);
 
+        // button to save correction
+        var correction =  document.getElementById("correction").value;
+        // alert(correction)
+        document.querySelector('#correction').addEventListener('click', saveCorrection(thesis_id, num, correction));
+
         
     };
 
@@ -147,7 +152,7 @@
             success: function(data){
                 // alert(data);
                 $('#correction').html(data);
-                alert(data)
+                // alert(data)
             }
         })
     }
@@ -192,13 +197,6 @@
     // button Events
     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
     document.querySelector('#next-page').addEventListener('click', showNextPage);
-
-    // button to save correction
-    // var correction =  document.getElementById("correction").value;
-    // alert(correction)
-    document.querySelector('#correction').addEventListener('click', saveCorrection(thesis_id, num, correction));
-
-    
 
 </script>
 
