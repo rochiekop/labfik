@@ -63,7 +63,7 @@
           <p>
             <?= $dt_panel['body']; ?>
           </p>
-          <a href="#" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+          <a href="<?= base_url('main/profile/') . encrypt_url($dt_panel['id']); ?>" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
           <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>" preload="none">
@@ -77,6 +77,28 @@
     <?php endif; ?>
   </div>
 </div>
+
+<div class="fik-tour margin-t50">
+  <div class="container">
+    <div class="fik-tour-item">
+      <img src="<?= base_url('assets/img/tour.png') ?>" alt="">
+      <div class="fik-tour-text">
+        <h5>FIK TOUR</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">START TOUR</a>
+      </div>
+    </div>
+    <div class="fik-tour-item">
+      <img src="_assets/img/12.jpg" alt="">
+      <div class="fik-tour-text">
+        <h5>MEET 360</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">MORE</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="fik-jadwal-ruangan margin-t50">
   <div class="container">
     <div class="fik-section-title text-center">
@@ -97,7 +119,9 @@
                   <th scope="col">Waktu</th>
                   <th scope="col">Peminjam</th>
                   <th scope="col">Keterangan</th>
-                  <th class="status" scope="col">Status</th>
+                  <th scope="col">
+                    <div style="margin-left: 110px;">Status</div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -137,6 +161,11 @@
         <?php $iteration++ ?>
       <?php endwhile; ?>
     </div>
+    <div class="text-center">
+      <a href="<?= base_url('main/schedule') ?>" target="_blank">
+        <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn"><b>Tampilkan Layar Penuh</b><span class="fas fa-external-link-alt"></span></div>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -157,7 +186,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="<?= base_url('main/labView/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labview/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>

@@ -3,7 +3,7 @@
   <div class="the-title" style="margin-bottom:-48px;">
     <img src="<?= base_url('assets/img/14.jpg') ?>" alt="">
     <div class="container">
-      <h1><?= $labview['title'] ?></h1>
+      <h1><?= $profile['title'] ?></h1>
       <div class="post-info">
         <span class="author-info">
         </span>
@@ -13,11 +13,17 @@
   </div>
 
   <div class="container">
-
     <div class="post-container karya card card-body" style="border-bottom:0">
-      <img src="<?= base_url('assets/img/laboratorium/') . $labview['images'] ?>" alt="<?= $labview['title'] ?>">
+      <?php if ($profile['video'] != "video_placeholder.png") : ?>
+        <video controls="" poster="<?= base_url('assets/img/panel/') . $profile['thumb'] ?>" preload="none">
+          <source src="<?= base_url('assets/img/panel/') . $profile['video']; ?>" type="video/mp4">
+          Ooops, your browser is not supported this feature
+        </video>
+      <?php else : ?>
+        <img src="<?= base_url('assets/img/panel/video_placeholder.png'); ?>" class="video-placeholder" alt="Placeholder Video Profile">
+      <?php endif; ?>
       <div class="caption">
-        <?= $labview['body'] ?>
+        <?= $profile['body'] ?>
         <div class="share-item">
           <ul>
             <li class="facebook">

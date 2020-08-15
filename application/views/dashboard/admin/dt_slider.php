@@ -13,13 +13,15 @@
     </div>
     <div class="input-group">
       <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
+        <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Terbaru</a>
+          <a class="dropdown-item">Semua</a>
+          <a class="dropdown-item">Judul</a>
+          <a class="dropdown-item">Tanggal</a>
+          <a class="dropdown-item">Deskripsi</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
       <a class="btn btn-primary" href="<?= base_url('admin/add_dtslider') ?>" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> Slider Informasi </a>
     </div>
     <div class="table-responsive admin-list">
@@ -36,7 +38,7 @@
               <th scope="col" class="action">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="slider">
             <?php if (empty($dt_slider)) : ?>
               <td colspan="6" style="background-color: whitesmoke;text-align:center">List Info Slider kosong</td>
             <?php else : ?>
@@ -53,7 +55,7 @@
                       <img src="<?= base_url('assets/img/slider/') . $i['images']; ?>" alt="">
                     </div>
                   </td>
-                  <td><?= $i['date'] ?></td>
+                  <td><?= format_indo($i['date'], date('d-m-Y')); ?></td>
                   <td class="action">
                     <a data-toggle="modal" id="<?= $i['date'] ?>" data-target="#deletemodal<?= encrypt_url($i['id']) ?>"><span class="fas fa-trash"></span></a>
                     <a href="<?= base_url(); ?>admin/edit_dtslider/<?= encrypt_url($i['id']) ?>"><span class="fas fa-edit"></span></a>
@@ -87,3 +89,45 @@
       </div>
     </div>
   <?php endforeach; ?>
+
+  <script>
+    $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".dropdown-item").click(function() {
+        var text = $(this).text();
+        // alert(text)
+        $("#filter").text(text)
+        if (text != '') {
+          load_data(keyword = null, text);
+        } else {
+          load_data();
+        }
+      });
+
+      function load_data(keyword, filter) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdataslider') ?>',
+          method: "POST",
+          data: {
+            keyword: keyword,
+            filter: filter,
+          },
+          success: function(data) {
+            $('#slider').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        // alert(filter)
+        if (keyword != '') {
+          load_data(keyword, filter);
+        } else {
+          load_data();
+        }
+      })
+    });
+  </script>

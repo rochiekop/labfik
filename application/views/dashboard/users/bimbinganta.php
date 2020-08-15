@@ -23,60 +23,60 @@
     <br>
     <div class="input-group">
       <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Status</a>
-          <a class="dropdown-item" href="#">Terbaru</a>
-          <a class="dropdown-item" href="#">Keterangan</a>
+        <button class="btn btn-primary dropdown-toggle filter" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
+        <div class="dropdown-menu" id="dropdown">
+          <a class="dropdown-item" value="dosen">Dosen</a>
+          <a class="dropdown-item" value="status">Status</a>
+          <a class="dropdown-item" value="date">Tanggal</a>
+          <a class="dropdown-item" value="keterangan">Keterangan</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
     </div>
     <br>
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Dosen</th>
-            <th scope="col" style="width:30%">Keterangan</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">View Dokumen</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (empty($allhistory)) : ?>
-            <td colspan="6" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
-          <?php else : ?>
-            <?php $no = 0;
-            foreach ($allhistory as $t) : ?>
-              <tr>
-                <td scope="row"><?= ++$no ?></td>
-                <td><?= $t['dosen_name'] ?></td>
-                <td><?= $t['keterangan'] ?></td>
-                <td><?= $t['date'] ?></td>
-                <td>
-                  <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a>
-                </td>
-                <?php if ($t['status'] == "Dikirim") : ?>
-                  <td><span class="badge badge-secondary">Dikirim</span></td>
-                <?php elseif ($t['status'] == "Selesai") : ?>
-                  <td><span class="badge badge-success">Selesai</span></td>
-                <?php elseif ($t['status'] == "Revisi") : ?>
-                  <td><span class="badge badge-danger">Revisi</span></td>
-                <?php endif; ?>
-              </tr>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </tbody>
-      </table>
+    <div id="container">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Dosen</th>
+              <th scope="col" style="width:30%">Keterangan</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">View Dokumen</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php if (empty($allhistory)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($allhistory as $t) : ?>
+                <tr>
+                  <td scope="row"><?= ++$no ?></td>
+                  <td><?= $t['dosen_name'] ?></td>
+                  <td><?= $t['keterangan'] ?></td>
+                  <td><?= $t['date'] ?></td>
+                  <td>
+                    <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a>
+                  </td>
+                  <?php if ($t['status'] == "Dikirim") : ?>
+                    <td><span class="badge badge-secondary">Dikirim</span></td>
+                  <?php elseif ($t['status'] == "Selesai") : ?>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                  <?php elseif ($t['status'] == "Revisi") : ?>
+                    <td><span class="badge badge-danger">Revisi</span></td>
+                  <?php endif; ?>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <!-- <?php var_dump($allhistory) ?> -->
   </main>
   <!-- End Main Container -->
-
 
   <!-- Modal tambah sidang -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -182,3 +182,6 @@
       </div>
     </div>
   </div>
+  <!-- <?php var_dump($allhistory) ?> -->
+
+  <script src="<?= base_url('assets/js/search.js') ?>"></script>
