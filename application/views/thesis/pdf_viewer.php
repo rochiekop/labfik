@@ -40,13 +40,7 @@
                 <div class="card-body" >
                     <!-- <form action="<?= base_url('thesis/save')?>" method="post"> -->
                     <form action="#" method="post">
-                        
-                        <!-- <textarea name="thesis" id="textarea" cols="30" rows="10"><?= $correction->correction ?></textarea>
-                        <input name="thesis_id" type="text" id="thesis_id" value="<?= $thesis_id ?>" hidden >
-                        <input name="page" type="text" id="thesis_id" value="" hidden > -->
-                        <textarea name="correction" id="correction" cols="30" rows="10" ></textarea>
-                        <!-- <input type="text" name="correction" value="testtesttest"> -->
-                        <!-- <input type="submit"> -->
+                        <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" ></textarea>
                     </form>
                 </div>
             </div>
@@ -59,13 +53,24 @@
 <!-- Tambahan -->
 <!-- <script src="assets/js/tambahan.js"></script> -->
 
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: '<?= $this->session->userdata('username') ?>',
+        height: '460'
+    });
+</script>
+
 <!-- PDF.js -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.4.456/build/pdf.min.js"></script>
 <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
-
-<!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
 <script>
     var pdf_file = document.getElementById("pdf_file").value;
     var username = document.getElementById("username").value;
@@ -77,7 +82,7 @@
     // console.log(thesis_id)
     // alert(correction)
 
-    const url = 'assets/upload/thesis/'+username+'/'+pdf_file;
+    let url = 'assets/upload/thesis/'+username+'/'+pdf_file;
     // const url = 'assets/upload/thesis/ihdar/1920-2_Kartu_Ujian_UAS_1301174660.pdf'
     // const url = 'uploads/thesis/tatul.pdf';
 
@@ -120,21 +125,35 @@
             document.querySelector('#page-num').textContent = num;
         });
 
-        // make correction
+        // get correction
         getCorrection(thesis_id, num);
 
+        // save correction when clicked
+        document.querySelector('#correction').addEventListener('click', saveCorrection);
         
     };
 
     // save correction on TinyMCE
-    const saveCorrection = (thesis_id, page, correction) => {
-        $.ajax({
-            url: "Thesis/saveCorrection/"+thesis_id+"/"+page+"/"+correction,
-            type: "POST",
-            cache: false,
-            success: function(data){
-                getCorrection(thesis_id, page);
-            }
+    const saveCorrection = () => {
+        $('form').submit(function(e) {
+            e.preventDefault();
+
+            // var correction = $("textarea[name='correction']").val();
+            var correction = $("textarea").val();
+            var thesis_id = $("#thesis_id").val();
+
+            $.ajax({
+                url: "Thesis/saveCorrection/"+thesis_id+"/"+page,
+                type: "POST",
+                data: {thesis_id: thesis_id, correction: correction},
+                error: function() {
+                    alert('ada yang salah ketika menyimpan koreksi');
+                },
+                success: function(data) {
+                    // $("textarea").append(data)
+                    getCorrection(thesis_id, page);
+                }
+            })
         })
     }
 
@@ -145,8 +164,7 @@
             type: "POST",
             cache: false,
             success: function(data){
-                // alert(data);
-                $('#correction').html(data);
+                $('textarea').html(data);
                 alert(data)
             }
         })
@@ -185,7 +203,6 @@
 
         document.querySelector('#page-count').textContent = pdfDoc.numPages;
         renderPage(pageNum);
-        // alert("something")
 
     });
     
@@ -193,24 +210,5 @@
     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
     document.querySelector('#next-page').addEventListener('click', showNextPage);
 
-    // button to save correction
-    // var correction =  document.getElementById("correction").value;
-    // alert(correction)
-    document.querySelector('#correction').addEventListener('click', saveCorrection(thesis_id, num, correction));
-
-    
-
 </script>
 
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460'
-    });
-</script>
