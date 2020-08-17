@@ -247,4 +247,69 @@ class Search extends CI_Controller
     }
     echo $output;
   }
+
+  public function fetchdatapeminjamantmpt()
+  {
+    $output = '';
+    $id =  $this->session->userdata('id');
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapeminjamantmpt();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($query);
+      } else {
+        $data = $this->ajax_search->fetchdatapeminjamantmpt();
+      }
+    }
+    // var_dump($id);
+    // die;
+
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td scope="row"><b>' . ++$no . '</b></td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['kategori'] . ' - ' . $i['ruangan'] . '</td>
+                    <td>' . $i['date'] . '</td>
+                    <td>' . substr($i['time'], 0, 8) . substr($i['time'], -5) . '</td>
+                    <td>' . $i['keterangan'] . '</td>
+                    <td><b>' . $i['status'] . '</b></td>
+                  </tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">Data peminjaman yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatatempat()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatatmpt($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatatmpt();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdatatmpt($query);
+      } else {
+        $data = $this->ajax_search->fetchdatatmpt();
+      }
+    }
+  }
 }

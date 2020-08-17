@@ -59,6 +59,7 @@
       <?php endforeach; ?>
     </tbody>
   </table>
+  <?php var_dump($listbooking) ?>
 </main>
 <?php foreach ($listbooking as $t) : ?>
   <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

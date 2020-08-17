@@ -29,6 +29,7 @@ class Users extends CI_Controller
   {
     $data['title'] = 'LABFIK | Semua Tempat';
     $data['dt_tempat'] = $this->user_model->getAllDtTempat();
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/daftarTempat');
