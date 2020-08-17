@@ -23,6 +23,12 @@ class Main_model extends CI_Model
     return $this->db->query($query)->result_array();
   }
 
+  public function getAllDtInfoDesc9()
+  {
+    $query = "SELECT * FROM `tb_info` ORDER BY `id` DESC LIMIT 9";
+    return $this->db->query($query)->result_array();
+  }
+
   public function getDtInfoById($id)
   {
     return $this->db->get_where('tb_info', ['id' => $id])->row_array();
