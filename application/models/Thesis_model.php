@@ -57,47 +57,29 @@ class Thesis_model extends CI_Model
         $this->db->insert('correction', $this);
     }
 
-    public function saveCorrection($thesis_id, $page, $correction)
+    public function saveCorrection($thesis_id, $page)
     {
         // $post = $this->input->post();
         // $this->correction = $post['correction'];
-        $this->correction = $correction;
-        $this->db->update('correction', $this, array('thesis_id' => $thesis_id, 'page' => $page));
+        // $this->correction = $correction;
+        // $this->db->update('correction', $this, array('thesis_id' => $thesis_id, 'page' => $page));
+        $data = $this->input->post('correction');
+        $this->db->update('correction', $data, array('thesis_id' => $thesis_id, 'page' => $page));
     }
 
-    public function save()
+    public function getCorrection($thesis_id, $page)
     {
-        $post = $this->input->post();
-        // $this->thesis_id = "5f30e96d01489";
-        // $this->page = "3";
-        $this->thesis_id = $post['thesis_id'];
-        $this->page = $post['page'];
-        $this->correction = $post['correction'];
-        
-
-        $data = array(
-			'correction' => $this->correction
-		);
-		$this->db->update('correction',$data,array('thesis_id' => $this->thesis_id, 'page' => $this->page));
-    }
-
-    public function getCorrection()
-    {
-        $post = $this->input->post();
-        $this->thesis_id = $post['thesis_id'];
-        $this->page = $post['page'];
-
-        $this->db->select('correction.correction, correction.thesis_id, correction.page');
+        $this->db->select('correction.correction');
         $this->db->from('correction');
         $this->db->join('thesis', 'correction.thesis_id=thesis.id');
-        $this->db->where('correction.thesis_id', $this->thesis_id);
-        $this->db->where('correction.page', $this->page);
+        $this->db->where('correction.thesis_id', $thesis_id);
+        $this->db->where('correction.page', $page);
         $query = $this->db->get();
         $result = $query->row();
         return $result;
     }
 
-    public function checkCorrectionEmpty($thesis_id, $page)
+    public function countCorrection($thesis_id, $page)
     {
         $this->db->select('id');
         $this->db->from('correction');

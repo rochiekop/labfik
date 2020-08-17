@@ -45,11 +45,11 @@
               <td>
                 <!-- <a href="</?= base_url('users/viewfilepdf/') . encrypt_url($f['id']); ?>">view </a> -->
                 <!-- <a href="<?= base_url('thesis/view/' . $f['id']) ?>">view </a> -->
-                <?= $f['id'] ?> <br>
+                <!-- <?= $f['id'] ?> <br> -->
                 <!-- <a href="<?= base_url('thesis/'. $f['id']) ?>">view </a> -->
                 <!-- <a href="<?= base_url('thesis') ?>">view </a> -->
                 <form action="<?= base_url('thesis') ?>" method="post">
-                  <input type="text" name="id" value="<?=$f['id']?>" hidden>
+                  <input type="text" name="thesis_id" value="<?=$f['id']?>" hidden>
                   <button type="submit">lihat</button>
                 </form>
               </td>
