@@ -41,16 +41,33 @@
     </div>
     <div class="row grid-bartemp">
       <?php foreach ($dt_tempat as $t) : ?>
-        <div class="col-md-2">
-          <a href="<?= base_url('booking/place/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
-          <div class="img-wrapper">
-            <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
-          </div>
-          <div class="info">
-            <b><?= $t['ruangan'] ?></b> <br> <?= $t['kategori'] ?>
-          </div>
-          <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
-        </div>
+        <?php if ($this->session->userdata('role_id') == '4') : ?>
+          <?php if ($t['akses'] != 'Dosen') : ?>
+            <div class="col-md-2">
+              <a href="<?= base_url('booking/place/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+              <div class="img-wrapper">
+                <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
+              </div>
+              <div class="info">
+                <b><?= $t['ruangan'] ?></b> <br> <?= $t['kategori'] ?>
+              </div>
+              <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
+            </div>
+          <?php endif; ?>
+        <?php elseif ($this->session->userdata('role_id') == '3') : ?>
+          <?php if ($t['akses'] != 'Mahasiswa') : ?>
+            <div class="col-md-2">
+              <a href="<?= base_url('booking/place/') . encrypt_url($t['id']); ?>" class="trigger2"></a>
+              <div class="img-wrapper">
+                <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
+              </div>
+              <div class="info">
+                <b><?= $t['ruangan'] ?></b> <br> <?= $t['kategori'] ?>
+              </div>
+              <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
       <?php endforeach; ?>
     </div>
   </div>

@@ -6,11 +6,12 @@
     </div>
     <div class="input-group">
       <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px 0 0 5px">Kategori</button>
+        <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px 0 0 5px">Kategori</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Lab Cintiq</a>
-          <a class="dropdown-item" href="#">Lab Bengkel</a>
-          <a class="dropdown-item" href="#">Lab Batik</a>
+          <a class="dropdown-item">Semua</a>
+          <?php foreach ($kruangan as $k) : ?>
+            <a class="dropdown-item"><?= $k['kategori'] ?></a>
+          <?php endforeach; ?>
         </div>
       </div>
       <div class="input-group-append">
@@ -22,7 +23,7 @@
           <a class="dropdown-item" href="#">Mahasiswa</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
     </div>
     <br>
     <div class="row grid-bartemp">
@@ -41,3 +42,45 @@
     </div>
   </main>
   <!-- End Main Container -->
+
+  <script>
+    $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".dropdown-item").click(function() {
+        var text = $(this).text();
+        // alert(text)
+        $("#filter").text(text)
+        // if (text != '') {
+        //   load_data(keyword = null, text);
+        // } else {
+        //   load_data();
+        // }
+      });
+
+      function load_data(keyword, filter) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatatempat') ?>',
+          method: "POST",
+          data: {
+            keyword: keyword,
+            filter: filter,
+          },
+          success: function(data) {
+            $('#info').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        // alert(filter)
+        // if (keyword != '') {
+        //   load_data(keyword, filter);
+        // } else {
+        //   load_data();
+        // }
+      })
+    });
+  </script>

@@ -255,7 +255,7 @@
 <div class="fik-feed margin-t50">
   <div class="container text-center">
     <div class="fik-section-title">
-      <h3>NEWS</h3>
+      <h3>NEWS & EVENT</h3>
       <p>Informasi terbaru mengenai lab diupdate disini</p>
     </div>
     <div class="feed-container">
@@ -268,16 +268,18 @@
                 <img src="<?= base_url('assets/img/informasi/thumbs/') . $i['images']; ?>" alt="<?= $i['title'] ?>" />
               </div>
               <div class="item-text">
-                <h6><a href="<?= base_url('main/detailinfo/') . encrypt_url($i['id']); ?>"><?= $i['title'] ?></a></h6>
+                <h6><a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>"><?= $i['title'] ?></a></h6>
                 <p>Posted <?= (new DateTime($i['date']))->format('M j, Y'); ?> by <?= $i['uploadby']; ?></p>
-                <a href="<?= base_url('main/detailinfo/') . encrypt_url($i['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                <a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
               </div>
             </div>
           </div>
         <?php endforeach; ?>
       <?php endif; ?>
     </div>
-    <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn" id="loadMore"><span class="fas fa-chevron-down"></span><b>SHOW MORE</b><span class="fas fa-chevron-down"></span></div>
+    <div style="margin-top:10px">
+      <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn" id="loadMore"><span class="fas fa-chevron-down"></span><b>SHOW MORE</b><span class="fas fa-chevron-down"></span></div>
+    </div>
   </div>
 </div>
 

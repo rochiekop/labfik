@@ -6,8 +6,7 @@ class Notification extends CI_Controller
 {
     public function __construct()
     {
-        parent::__construct();
-        {
+        parent::__construct(); {
             $this->load->model('notification_model');
             $this->load->model('borrowing_model');
             $this->load->library('form_validation');
@@ -18,7 +17,7 @@ class Notification extends CI_Controller
     public function index()
     {
         $data['notification'] = $this->notification_model->getAllNotification($status);
-        
+
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
@@ -29,8 +28,7 @@ class Notification extends CI_Controller
             $this->load->view("templates/dashboard/sidebarKaur");
             $this->load->view("notification/notification", $data);
             $this->load->view("templates/dashboard/footer");
-        }
-        else if ($this->session->userdata('role_id') == '1') {
+        } else if ($this->session->userdata('role_id') == '1') {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
             $this->load->view("notification/notification", $data);
@@ -38,13 +36,13 @@ class Notification extends CI_Controller
         }
     }
 
-    public function listNotification()
-    {
-        $data["borrowing"] =
-        $data["booking"] = 
-        $data["creation"] = 
-        $data["info"] =  
-    }
+    // public function listNotification()
+    // {
+    //     $data["borrowing"] =
+    //     $data["booking"] = 
+    //     $data["creation"] = 
+    //     $data["info"] =  
+    // }
 
     public function listBorrowingNotification($status, $user_id)
     {
@@ -60,8 +58,7 @@ class Notification extends CI_Controller
             $this->load->view("templates/dashboard/sidebarKaur");
             $this->load->view("notification/notification", $data);
             $this->load->view("templates/dashboard/footer");
-        }
-        else if ($this->session->userdata('role_id') == '1') {
+        } else if ($this->session->userdata('role_id') == '1') {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
             $this->load->view("notification/notification", $data);
@@ -84,8 +81,7 @@ class Notification extends CI_Controller
             $this->load->view("templates/dashboard/sidebarKaur");
             $this->load->view("notification/notification", $data);
             $this->load->view("templates/dashboard/footer");
-        }
-        else if ($this->session->userdata('role_id') == '1') {
+        } else if ($this->session->userdata('role_id') == '1') {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
             $this->load->view("notification/notification", $data);
@@ -96,20 +92,15 @@ class Notification extends CI_Controller
     public function changeStatusRead($subject, $id)
     {
         $this->notification_model->updateNotificationStatusRead($id);
-        
     }
-    
+
     public function changeStatusReadBorrowing($id)
     {
         $this->notification_model->updateNotificationStatusRead($id);
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4' or $this->session->userdata('role_id') == '1')
-        {
-            redirect(site_url('borrowing/listAllById/'.$this->session->userdata('id')));
-        }
-        else if ($this->session->userdata('role_id') == '2')
-        {
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4' or $this->session->userdata('role_id') == '1') {
+            redirect(site_url('borrowing/listAllById/' . $this->session->userdata('id')));
+        } else if ($this->session->userdata('role_id') == '2') {
             redirect(site_url('borrowing/listAllWaiting'));
         }
-    } 
-
+    }
 }

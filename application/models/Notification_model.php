@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Notification_model extends CI_Model
 {
@@ -8,15 +8,12 @@ class Notification_model extends CI_Model
 
     public function rules()
     {
-        return [
-            
-        ];
+        return [];
     }
 
     public function getAllNotification($status)
     {
-        if ($status == 'request')
-        {
+        if ($status == 'request') {
             $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
 
             $this->db->from('notification');
@@ -37,12 +34,10 @@ class Notification_model extends CI_Model
             $this->db->where('notification.description', 'waiting');
             $this->db->or_where('notification.description', 'Barang ini ingin dipinjam');
 
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        }
-        else if ($status == 'respond')
-        {
+            // $query = $this->db->get();
+            // $result = $query->result();
+            // return $result;
+        } else if ($status == 'respond') {
             $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
 
             $this->db->from('notification');
@@ -59,40 +54,37 @@ class Notification_model extends CI_Model
 
             $this->db->join('guidance', 'notification.guidance_id = guidance.id');
             $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
-            
+
             $this->db->where('notification.user_id', $this->session->userdata('id'));
             $this->db->group_start();
-                $this->db->where('notification.description', 'Peminjaman diizinkan');
-                $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
-                $this->db->or_where('notification.description', 'accepted');
-                $this->db->or_where('notification.description', 'declined');
+            $this->db->where('notification.description', 'Peminjaman diizinkan');
+            $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+            $this->db->or_where('notification.description', 'accepted');
+            $this->db->or_where('notification.description', 'declined');
             $this->db->group_end();
         }
     }
 
     public function getAllBorrowingNotification($status, $user_id)
     {
-        if ($status == 'request')
-        {
+        if ($status == 'request') {
             $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
-            $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-            $this->db->join('item','borrowing.item_id=item.id');
+            $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
+            $this->db->join('item', 'borrowing.item_id=item.id');
             $this->db->where('notification.description', 'Barang ini ingin dipinjam');
             $query = $this->db->get();
             $result = $query->result();
             return $result;
-        }
-        else if ($status == 'respond')
-        {
+        } else if ($status == 'respond') {
             $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
-            $this->db->join('borrowing','notification.borrowing_id=borrowing.id');
-            $this->db->join('item','borrowing.item_id=item.id');
+            $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
+            $this->db->join('item', 'borrowing.item_id=item.id');
             $this->db->where('borrowing.user_id', $user_id);
             $this->db->group_start();
-                $this->db->where('notification.description', 'Peminjaman diizinkan');
-                $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+            $this->db->where('notification.description', 'Peminjaman diizinkan');
+            $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
             $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
@@ -102,8 +94,7 @@ class Notification_model extends CI_Model
 
     public function getAllBookingNotification($status, $user_id)
     {
-        if ($status == 'request')
-        {
+        if ($status == 'request') {
             $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('booking', 'notification.booking_id = booking.id');
@@ -112,17 +103,15 @@ class Notification_model extends CI_Model
             $query = $this->db->get();
             $result = $query->result();
             return $result;
-        }
-        else if ($status == 'respond')
-        {
+        } else if ($status == 'respond') {
             $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('booking', 'notification.booking_id = booking.id');
             $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
             $this->db->where('booking.id_peminjam', $user_id);
             $this->db->group_start();
-                $this->db->where('notification.description', 'approved');
-                $this->db->or_where('notification.description', 'declined');
+            $this->db->where('notification.description', 'approved');
+            $this->db->or_where('notification.description', 'declined');
             $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
@@ -132,8 +121,7 @@ class Notification_model extends CI_Model
 
     public function getAllCreationNotification($status)
     {
-        if ($status == 'request')
-        {
+        if ($status == 'request') {
             $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
@@ -141,16 +129,14 @@ class Notification_model extends CI_Model
             $query = $this->db->get();
             $result = $query->result();
             return $result;
-        }
-        else if ($status == 'respond')
-        {
+        } else if ($status == 'respond') {
             $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
             $this->db->from('notification');
             $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
             $this->db->where('tampilan.id', $this->session->userdata('id'));
             $this->db->group_start();
-                $this->db->where('notification.description', 'approved');
-                $this->db->or_where('notification.description', 'declined');
+            $this->db->where('notification.description', 'approved');
+            $this->db->or_where('notification.description', 'declined');
             $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
@@ -170,8 +156,7 @@ class Notification_model extends CI_Model
 
     public function getAllThesisNotification($status)
     {
-        if ($status == 'request')
-        {
+        if ($status == 'request') {
             $this->db->select('notification.*, guidance.*, thesis.*');
             $this->db->from('notification');
             $this->db->join('guidance', 'notification.guidance_id = guidance.id');
@@ -182,9 +167,7 @@ class Notification_model extends CI_Model
             $query = $this->db->get();
             $result = $query->result();
             return $result;
-        }
-        else if ($status == 'respond')
-        {
+        } else if ($status == 'respond') {
             $this->db->select('notification.*, guidance.*, thesis.*');
             $this->db->from('notification');
             $this->db->join('guidance', 'notification.guidance_id = guidance.id');
@@ -192,8 +175,8 @@ class Notification_model extends CI_Model
             $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
             $this->db->where('notification.user_id', $this->session->userdata('id'));
             $this->db->group_start();
-                $this->db->where('notification.description', 'ready');
-                $this->db->or_where('notification.description', 'correction');
+            $this->db->where('notification.description', 'ready');
+            $this->db->or_where('notification.description', 'correction');
             $this->db->group_end();
             $query = $this->db->get();
             $result = $query->result();
@@ -203,44 +186,35 @@ class Notification_model extends CI_Model
 
     public function saveNotification($feature, $description)
     {
-        if ($feature == 'borrowing')
-        {
+        if ($feature == 'borrowing') {
             $post = $this->input->post();
             $this->id = uniqid();
             $this->user_id = $post['user_id'];
             $this->borrowing_id = $post['id'];
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'booking')
-        {
+        } else if ($feature == 'booking') {
             $post = $this->input->post();
             $this->id = uniqid();
             $this->user_id = $post['user_id'];
             $this->booking_id = $post['id'];
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'creation')
-        {
+        } else if ($feature == 'creation') {
             $post = $this->input->post();
             $this->id = uniqid();
             $this->user_id = $post['user_id'];
             $this->creation_id = $post['id'];
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'info')
-        {
+        } else if ($feature == 'info') {
             $post = $this->input->post();
             $this->id = uniqid();
             $this->user_id = $post['user_id'];
             $this->info_id = $post['id'];
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'thesis')
-        {
+        } else if ($feature == 'thesis') {
             $post = $this->input->post();
             $this->id = uniqid();
             $this->user_id = $post['user_id'];
@@ -252,32 +226,25 @@ class Notification_model extends CI_Model
 
     public function assignNotification($feature, $user_id, $feature_id, $description)
     {
-        if ($feature == 'borrowing')
-        {
+        if ($feature == 'borrowing') {
             $this->id = uniqid();
             $this->user_id = $user_id;
             $this->borrowing_id = $feature_id;
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'booking')
-        {
+        } else if ($feature == 'booking') {
             $this->id = uniqid();
             $this->user_id = $user_id;
             $this->booking_id = $feature_id;
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'creation')
-        {
+        } else if ($feature == 'creation') {
             $this->id = uniqid();
             $this->user_id = $user_id;
             $this->creation_id = $feature_id;
             $this->description = $description;
             $this->db->insert($this->_table, $this);
-        }
-        else if ($feature == 'thesis')
-        {
+        } else if ($feature == 'thesis') {
             $this->id = uniqid();
             $this->user_id = $user_id;
             $this->thesis_id = $feature_id;
@@ -311,7 +278,7 @@ class Notification_model extends CI_Model
         $data = array(
             'status' => 'read'
         );
-        $this->db->update('notification',$data,array('id' => $id));
+        $this->db->update('notification', $data, array('id' => $id));
     }
 
     public function updateNotificationStatusReadAll()
@@ -320,7 +287,7 @@ class Notification_model extends CI_Model
         $data = array(
             'status' => 'read'
         );
-        $this->db->update('notification',$data,array('user_id' => $user_id));
+        $this->db->update('notification', $data, array('user_id' => $user_id));
     }
 
 

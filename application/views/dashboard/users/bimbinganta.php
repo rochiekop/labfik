@@ -102,10 +102,18 @@
                 <?php endforeach; ?>
               </select>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlFile1">Pilih Dokumen</label>
-              <input type="file" class="form-control" id="exampleFormControlFile1" name="fileta" style="padding:13px 16px">
+            <div class="row">
+              <div class="col-lg-11">
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Pilih Dokumen</label>
+                  <input type="file" class="form-control" id="exampleFormControlFile1" name="fileta" style="padding:13px 16px">
+                </div>
+              </div>
+              <div class="col-lg" style="margin-top: 40px;margin-left:-10px">
+                <a href="<?= base_url('#') ?>"> <span class="fas fa-plus"></span></a>
+              </div>
             </div>
+
             <div class="form-group" style="margin-bottom:0;">
               <label for="ketbim">Keterangan</label>
               <textarea class="form-control" style="padding:12px" rows="5" id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>

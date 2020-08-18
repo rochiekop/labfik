@@ -12,7 +12,7 @@ class Booking_model extends CI_Model
 
   public function getByUserId($id)
   {
-    $this->db->select('user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,booking.date,booking.date_declined,booking.time,booking.keterangan,booking.status');
+    $this->db->select('user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,date(booking.date + COALESCE(booking.date_declined)) AS date,booking.time,booking.keterangan,booking.status');
     $this->db->from('booking');
     $this->db->join('user', 'booking.id_peminjam = user.id');
     $this->db->join('user_role', 'user.role_id = user_role.id');
