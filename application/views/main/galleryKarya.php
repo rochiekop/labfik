@@ -18,7 +18,7 @@
               <img src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>" />
             </center>
           <?php endif; ?>
-          <p><?= $tampilan->name ?></p>
+          <p><?= $tampilan->nama ?></p>
         </div>
       <?php endforeach; ?>
     <?php endif; ?>

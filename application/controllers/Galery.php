@@ -41,7 +41,7 @@ class Galery extends CI_Controller
                             </div>
                             <div class="item-text">
                                 <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                <span>by <b>' . $row->name . '</b></span>
+                                <span>by <b>' . $row->nama . '</b></span>
                                 <div class="vote">
                                     <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                     <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -61,7 +61,7 @@ class Galery extends CI_Controller
                             </div>
                             <div class="item-text">
                                 <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                <span>by <b>' . $row->name . '</b></span>
+                                <span>by <b>' . $row->nama . '</b></span>
                                 <div class="vote">
                                     <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                     <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -106,7 +106,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -126,7 +126,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -173,7 +173,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -193,7 +193,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -240,7 +240,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -260,7 +260,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -307,7 +307,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -327,7 +327,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -374,7 +374,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -394,7 +394,7 @@ class Galery extends CI_Controller
                                 </div>
                                 <div class="item-text">
                                     <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->name . '</b></span>
+                                    <span>by <b>' . $row->nama . '</b></span>
                                     <div class="vote">
                                         <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
                                         <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
@@ -446,7 +446,7 @@ class Galery extends CI_Controller
         $ip = $this->input->ip_address();
         if ($check_visitor == true) {
             $cookie = array(
-                "name" => urldecode($slug_tampilan),
+                "nama" => urldecode($slug_tampilan),
                 "value" => "$ip",
                 "expire" => time() + 1000,
                 "secure" => true

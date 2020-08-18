@@ -20,9 +20,13 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
-                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbymhs') ?>">
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbydsn') ?>">
                     <div class="card-body">
                         <div class="custom-form">
+                            <div class="form-group">
+                                <input type="text" name="nama" value="<?= set_value('nama') ?>" class="form-control" placeholder="nama" required="required" autocomplete="off" />
+                                <label>Nama</label>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="judul" value="<?= set_value('judul') ?>" class="form-control" placeholder="Judul Karya" required="required" autocomplete="off" />
                                 <label>Judul</label>
@@ -32,11 +36,11 @@
                                 <label>Nim</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="No_wa" value="<?= set_value('No_wa') ?>" class="form-control" placeholder="No_Wa" required="required" autocomplete="off" />
+                                <input type="tel" name="No_wa" value="<?= set_value('No_wa') ?>" class="form-control" placeholder="No_Wa" required="required" autocomplete="off" />
                                 <label>No.WA Aktif</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="No_hp" value="<?= set_value('No_hp') ?>" class="form-control" placeholder="No_Hp" required="required" autocomplete="off" />
+                                <input type="tel" name="No_hp" value="<?= set_value('No_hp') ?>" class="form-control" placeholder="No_Hp" required="required" autocomplete="off" />
                                 <label>No.Hp</label>
                             </div>
                             <div class="form-group">

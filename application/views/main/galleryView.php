@@ -18,7 +18,7 @@
     </div>
     <div class="karya">
       <?php if ($tampilan->type == 'Video') : ?>
-        <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;" autoplay>
+        <video controls autoplay>
           <source src="<?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" type="video/mp4">
         </video>
       <?php else : ?>
@@ -28,7 +28,7 @@
         <?= $tampilan->deskripsi ?>
       </div>
     </div>
-    <h6>Kamu Mungkin Menyukai Ini</h6>
+    <h6>You Might Also Like Theese</h6>
     <br>
 
     <div class="fik-feed galeri-karya">
@@ -37,8 +37,12 @@
           <div class="feed-item">
             <div class="card">
               <div class="gambar">
-                <a href="<?= base_url("galery/detailvideo/" . $home->slug_tampilan) ?>">
-                  <video class="card" src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>">
+                <a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>">
+                  <?php if ($home->type == 'Video') : ?>
+                    <video class="card-img-top" src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>">
+                    <?php else : ?>
+                      <img src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>" />
+                    <?php endif; ?>
                 </a>
               </div>
               <div class="item-text">

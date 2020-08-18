@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                     <?php if (empty($tampilan)) : ?>
-                        <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya kosong</td>
+                        <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                     <?php else : ?>
                         <?php $no = 1;
                         foreach ($tampilan as $data) { ?>

@@ -33,31 +33,31 @@ class Admin_karya extends CI_Controller
         $valid->set_rules(
             'nim',
             'Nim',
-            'required|min_length[10]|is_natural',
+            'required|min_length[10]|numeric',
             array(
                 'required'      =>  '%s harus diisi',
                 'min_length[10]' =>  '%s angka yang diisi kurang',
-                'is_natural'     =>  'mohon isi %s dengan benar'
+                'numeric'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
             'No_wa',
             'No_Wa',
-            'required|min_length[11]|is_natural',
+            'required|min_length[10]|numeric',
             array(
                 'required'      =>  '%s harus diisi',
-                'min_length[11]' =>  '%s angka yang diisi kurang',
-                'is_natural'     =>  'mohon isi %s dengan benar'
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
             'No_hp',
             'No_Hp',
-            'required|min_length[11]|is_natural',
+            'required|min_length[10]|numeric',
             array(
                 'required'      =>  '%s harus diisi',
-                'min_length[11]' =>  '%s angka yang diisi kurang',
-                'is_natural'     =>  'mohon isi %s dengan benar'
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
@@ -83,7 +83,7 @@ class Admin_karya extends CI_Controller
                 );
                 $this->load->view('templates/dashboard/headerDosenMhs', $data);
                 $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-                $this->load->view('karya/admintambah', $data);
+                $this->load->view('karya/tambahbyadmin', $data);
                 $this->load->view('templates/dashboard/footer');
             } else {
                 $upload_gambar = array('upload_data' => $this->upload->data());
@@ -91,7 +91,7 @@ class Admin_karya extends CI_Controller
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
                     'id' =>  $this->session->userdata('id'),
-                    'nama' =>  $i->post('id_kategori'),
+                    'nama' =>  $i->post('nama'),
                     'slug_tampilan' => $slug_tampilan,
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),
@@ -115,7 +115,7 @@ class Admin_karya extends CI_Controller
         );
         $this->load->view('templates/dashboard/headerDosenMhs', $data);
         $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view('karya/admintambah', $data);
+        $this->load->view('karya/tambahbyadmin', $data);
         $this->load->view('templates/dashboard/footer');
     }
 
@@ -124,6 +124,36 @@ class Admin_karya extends CI_Controller
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         $kategori = $this->kategori_model->listing_kat();
         $valid = $this->form_validation;
+        $valid->set_rules(
+            'nim',
+            'Nim',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_wa',
+            'No_Wa',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_hp',
+            'No_Hp',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
         $valid->set_rules(
             'judul',
             'Judul',

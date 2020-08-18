@@ -3,7 +3,7 @@
 
         <div class="pembuat-karya">
             <h6><?= $tampilan->judul ?></h6>
-            by <b><?= $tampilan->name ?></b>
+            by <b><?= $tampilan->nama ?></b>
             <div class="stat-vote">
                 <a onclick="savelike(<?= $tampilan->id_tampilan; ?>);" title="Upvote"><i class="fas fa-chevron-up"></i>
                     <span id="like_<?php echo $tampilan->id_tampilan; ?>">
@@ -37,7 +37,7 @@
                             </div>
                             <div class="item-text">
                                 <h6><a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>"><?= $home->judul ?></a></h6>
-                                <span>by <b><?= $home->name ?></b></span>
+                                <span>by <b><?= $home->nama ?></b></span>
                                 <div class="vote">
                                     <a title="Upvote"><i class="fas fa-chevron-up"></i> <span><?= $home->likes ?></span></a>
                                     <a><i class="fas fa-eye"></i> <span><?= $home->views ?></span></a>
