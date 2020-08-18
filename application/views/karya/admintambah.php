@@ -20,9 +20,13 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
-                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambah') ?>">
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('admin_karya/tambah') ?>">
                     <div class="card-body">
                         <div class="custom-form">
+                            <div class="form-group">
+                                <input type="text" name="nama" value="<?= set_value('nama') ?>" class="form-control" placeholder="nama" required="required" autocomplete="off" />
+                                <label>Nama</label>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="judul" value="<?= set_value('judul') ?>" class="form-control" placeholder="Judul Karya" required="required" autocomplete="off" />
                                 <label>Judul</label>
