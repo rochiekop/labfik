@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2020 at 12:59 PM
+-- Generation Time: Aug 18, 2020 at 10:45 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tampilan` (
   `id_tampilan` int(11) NOT NULL,
   `id` varchar(64) NOT NULL,
+  `nama` varchar(64) NOT NULL,
   `slug_tampilan` varchar(255) NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `id_ck` int(11) DEFAULT NULL,
@@ -46,15 +47,6 @@ CREATE TABLE `tampilan` (
   `likes` int(11) NOT NULL DEFAULT 0,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tampilan`
---
-
-INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `type`, `nim`, `gambar`, `No_wa`, `No_hp`, `tanggal_post`, `tanggal_update`, `views`, `judul`, `deskripsi`, `likes`, `status`) VALUES
-(9, '5f1e7dc5ca07e', 'fashion', 1, 8, 'Foto', 1301174655, 'download_(1)2.jpg', 2147483647, 2147483647, '2020-08-05 07:33:01', '2020-08-05 05:47:42', 2, 'fashion', 'fahion terkini', 0, 'Diterima'),
-(10, '44', 'apa-aja', 7, NULL, 'Video', 1301174633, 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', 2147483647, 2147483647, '2020-08-05 07:45:14', '2020-08-05 05:32:43', 1, 'apa aja', 'yuk bisa yuk', 1, 'Diterima'),
-(11, '38', 'desain-ruang-keluarga', 5, NULL, 'Foto', 1301112311, 'images_(3).jpg', 2147483647, 2147483647, '2020-08-05 07:53:57', '2020-08-05 05:30:47', 7, 'desain ruang keluarga', 'desain interior rumah', 0, 'Diterima');
 
 --
 -- Indexes for dumped tables
@@ -74,7 +66,7 @@ ALTER TABLE `tampilan`
 -- AUTO_INCREMENT for table `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
