@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Agu 2020 pada 08.54
+-- Waktu pembuatan: 18 Agu 2020 pada 06.30
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -30,10 +30,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `guidance` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `student_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `dosbing_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL
+  `id_mhs` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `peminatan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `guidance`
+--
+
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul`, `peminatan`) VALUES
+('5f299fa2c3429', '44', 'Lorem ipsum dolor amet', ''),
+('5f2c3a823a03b', '5f2930fa9e732', 'Test For Title ', 'Peminatan 1'),
+('5f2d08aa44d05', '5f1e7dc5ca07e', 'asd', 'asd');
 
 --
 -- Indexes for dumped tables

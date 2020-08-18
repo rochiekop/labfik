@@ -17,7 +17,7 @@ class Main extends CI_Controller
   {
     $data['title'] = 'FIKLAB | TEL-U';
     $data['dt_slider'] = $this->main_model->getDtSlider();
-    $data['dt_info'] = $this->main_model->getAllDtInfoDesc();
+    $data['dt_info'] = $this->main_model->getAllDtInfoDesc9();
     $data['dt_lab'] = $this->main_model->getAllDtLab();
     $data['dt_panel'] = $this->main_model->getDtPanel();
     $data['dt_schedule'] = $this->main_model->getDtBookingSchedule();
@@ -34,18 +34,6 @@ class Main extends CI_Controller
     $data['dt_lab'] = $this->main_model->getAllDtLab();
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/lab');
-    $this->load->view('templates/main/footer');
-  }
-
-  public function detailinfo($id)
-  {
-    $id = decrypt_url($id);
-    $data['title'] = 'LABFIK | Detail Informasi';
-    // Session name is $newData
-    $data['relatedinfo'] = $this->main_model->getRelatedInfo($id);
-    $data['detailinfo'] = $this->main_model->getDtInfoById($id);
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/detailinfo');
     $this->load->view('templates/main/footer');
   }
 

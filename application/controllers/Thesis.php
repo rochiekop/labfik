@@ -48,9 +48,9 @@ class Thesis extends CI_Controller
         // echo "test berhasil";
     }
 
-    public function saveCorrection($thesis_id, $page)
+    public function saveCorrection()
     {
-        $this->thesis_model->saveCorrection($thesis_id, $page);
+        $this->thesis_model->saveCorrection();
     }
 
     public function checkCorrectionEmpty($thesis_id, $page)

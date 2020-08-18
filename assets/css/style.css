@@ -1646,7 +1646,7 @@ a:not([href]):hover {
 	z-index: 1;
 	top: 0;
 	right: 1px;
-	left: 1px;
+	left: 20px;
 	height: 100%
 }
 
@@ -2463,6 +2463,13 @@ a:not([href]):hover {
 }
 
 .fik-feed .feed-container .feed-iteminfo {
+	float: left;
+	width: 33.333%;
+	padding: 10px;
+	display: none;
+}
+
+.fik-feed .feed-container .news {
 	float: left;
 	width: 33.333%;
 	padding: 10px;

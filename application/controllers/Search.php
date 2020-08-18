@@ -256,16 +256,16 @@ class Search extends CI_Controller
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
         $filter = $this->input->post('filter');
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($query, $filter);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($id, $query, $filter);
       } else {
-        $data = $this->ajax_search->fetchdatapeminjamantmpt();
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($id);
       }
     } else {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($query);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($id, $query);
       } else {
-        $data = $this->ajax_search->fetchdatapeminjamantmpt();
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($id);
       }
     }
     // var_dump($id);

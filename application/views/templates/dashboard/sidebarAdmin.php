@@ -18,10 +18,14 @@
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <li <?= $this->uri->segment(2) == 'dt_slider' ? 'class="active"' : '' ?>><a href="<?= base_url('admin/dt_slider'); ?>">Slider</a></li>
-            <li><a href="<?= base_url('admin/dt_info'); ?>">Informasi</a></li>
-            <li><a href="<?= base_url('admin/dt_lab'); ?>">Laboratorium</a></li>
+            <li><a href="<?= base_url('admin/dt_info') ?>" class="show-mobile"> News dan Event</a></li>
+            <li><a href="<?= base_url('admin/dt_lab') ?>" class="show-mobile"> Laboratorium</a></li>
             <li><a href="<?= base_url('admin/dt_panel'); ?>">Info Panel</a></li>
           </ul>
+        </div>
+        <div class="card">
+          <a href="<?= base_url('admin/dt_info') ?>" class="btn hide-mobile"><span class="fas fa-receipt"></span> News dan Event</a>
+          <a href="<?= base_url('admin/dt_lab') ?>" class="btn hide-mobile"><span class="fas fa-qrcode"></span> Laboratorium</a>
         </div>
       </div>
       <div class="divider"></div>
@@ -81,18 +85,18 @@
         <a href="#" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
         <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
       </div> -->
-      <div class="divider"></div>
+      <div class="divider hide-mobile"></div>
       <!-- <div class="card">
         <a href="</?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
       </div> -->
       <div class="divider show-mobile"></div>
       <div class="card">
         <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
-        <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
+        <!-- <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a> -->
       </div>
-      <div class="card logout hide-mobile">
+      <!-- <div class="card logout hide-mobile">
         <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- End Side Menu -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Agu 2020 pada 10.43
+-- Waktu pembuatan: 18 Agu 2020 pada 06.31
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -30,10 +30,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `correction` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `revision_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `page` int(11) NOT NULL,
   `correction` text CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `correction`
+--
+
+INSERT INTO `correction` (`id`, `thesis_id`, `page`, `correction`) VALUES
+('5f37a398cbf2e', 'test', 1, 'testing correction'),
+('5f37b41e9616b', 'test', 2, 'correction 2'),
+('5f38f6c5cbd94', 'test', 3, 'correction 3'),
+('5f38f6d2ae0ea', 'test', 4, 'correction 4'),
+('5f38f6d2d325c', 'test', 5, 'correction 5'),
+('5f38f6d304091', 'test', 6, 'correction 6'),
+('5f38f6d3246e8', 'test', 7, 'correction 7'),
+('5f38f6d34c409', 'test', 8, 'correction 8');
 
 --
 -- Indexes for dumped tables

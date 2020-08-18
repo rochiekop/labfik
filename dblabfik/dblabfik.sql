@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2020 at 07:35 PM
+-- Generation Time: Aug 18, 2020 at 05:45 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -45,18 +45,14 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined`, `time`, `keterangan`, `status`, `date_created`) VALUES
-('5f17a08ae0d85', '38', '5f15e3276fe2b', '2020-07-23', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30', 'Kelas', 'Diterima', '2020-07-25 18:37:26'),
-('5f17c81e23361', '5f140497dd7ef', '17', '2020-07-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Kelas Pengganti', 'Diterima', '2020-07-25 18:37:26'),
 ('5f1a463028b0b', '44', '5f15e3276fe2b', '0000-00-00', '2020-07-24', '07.30 - 08.30', 'Kelas Pengganti', 'Ditolak', '2020-07-25 18:37:26'),
 ('5f1a467fec338', '44', '5f15e3276fe2b', '0000-00-00', '2020-07-24', '08.30 - 09.30, 09.30 - 10.30', 'Testing', 'Ditolak', '2020-07-25 18:37:26'),
 ('5f1a5673a36e5', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '14.30 - 15.30, 15.30 - 16.30, 16.30 - 17.30', 'Testing', 'Menunggu Acc', '2020-07-25 18:37:26'),
 ('5f1a5d8261d27', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '12.30 - 13.30, 13.30 - 14.30', 'kelas', 'Menunggu Acc', '2020-07-25 18:37:26'),
 ('5f1a5dfe86920', '44', '5f15e3276fe2b', '2020-07-24', '0000-00-00', '06.30 - 07.30, 07.30 - 08.30', 'kelas', 'Diterima', '2020-07-25 18:37:26'),
-('5f1c1a532425f', '5f140497dd7ef', '17', '2020-07-25', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Booking by Admin', 'Diterima', '2020-07-25 18:41:07'),
 ('5f1d2a87278ce', '44', '1', '0000-00-00', '2020-07-26', '13.30 - 14.30, 14.30 - 15.30, 15.30 - 16.30', 'Testing for schedule', 'Ditolak', '2020-07-26 14:02:31'),
-('5f229cf12664f', '5f140497dd7ef', '17', '2020-07-30', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30, 09.30 - 10.30', 'Booking by admin', 'Menunggu Acc', '2020-07-30 17:12:01'),
-('5f240dfb2ba30', '5f140497dd7ef', '10', '2020-08-01', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Edit Booking by admin 3', 'Diterima', '2020-07-31 19:26:35'),
-('5f243d164c04f', '5f140497dd7ef', '1', '2020-08-01', '0000-00-00', '13.30 - 14.30, 14.30 - 15.30', 'Testing', 'Diterima', '2020-07-31 22:47:34');
+('5f3a1b68280f7', '5f2930fa9e732', '5f15e3276fe2b', '2020-08-18', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Test', 'Menunggu Acc', '2020-08-17 12:53:44'),
+('5f3a214417bb0', '44', '10', '2020-08-19', '0000-00-00', '09.30 - 10.30', 'For testing', 'Menunggu Acc', '2020-08-17 13:18:44');
 
 -- --------------------------------------------------------
 
@@ -144,7 +140,8 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 ('5f27c9c7e948c', '8', '39', 'halo', '', '', '', '2020-08-03 15:24:39', '', 'unread'),
 ('5f27c9ca279f1', '8', '39', 'wow bisa', '', '', '', '2020-08-03 15:24:42', '', 'unread'),
 ('5f27cd4b5960b', '5f1e7dc5ca07e', '8', 'hi admin', '', '', '', '2020-08-03 15:39:39', '', 'unread'),
-('5f27cd5881d65', '5f1e7dc5ca07e', '8', 'ini chat dari mobile lhoo', '', '', '', '2020-08-03 15:39:52', '', 'unread');
+('5f27cd5881d65', '5f1e7dc5ca07e', '8', 'ini chat dari mobile lhoo', '', '', '', '2020-08-03 15:39:52', '', 'unread'),
+('5f301cbc8a802', '5f2128a43c90b', '8', 'NULL', '3.jpg', '.jpg', 'image/jpeg', '2020-08-09 22:56:44', '', 'unread');
 
 -- --------------------------------------------------------
 
@@ -164,9 +161,9 @@ CREATE TABLE `child_kategori` (
 --
 
 INSERT INTO `child_kategori` (`id_ck`, `id_kategori`, `nama_child`, `post_update`) VALUES
-(1, 7, 'Fotografi Dasar dan Periklanan', '2020-07-09 11:46:58'),
-(2, 6, 'tata busana', '2020-07-11 23:49:58'),
-(4, 2, 'Semantika Produk', '2020-07-18 14:44:17');
+(1, 1, 'Fotografi Dasar dan Periklanan', '2020-07-09 11:46:58'),
+(2, 1, 'tata busana', '2020-07-11 23:49:58'),
+(4, 1, 'Semantika Produk', '2020-07-18 14:44:17');
 
 -- --------------------------------------------------------
 
@@ -187,8 +184,8 @@ CREATE TABLE `dosbing` (
 --
 
 INSERT INTO `dosbing` (`id`, `id_dosen`, `id_guidance`, `date`, `status`) VALUES
-('5f29a5741b12b', '5f1e7dc5ca07e', '5f299fa2c3429', '2020-08-05 01:14:12', 'Sudah Disetujui'),
-('5f29aa53a991b', '5f28dbe13ddf9', '5f299fa2c3429', '2020-08-05 01:34:59', 'Sudah Disetujui');
+('5f31097c32abc', '5f1e7dc5ca07e', '5f310973f0bda', '2020-08-10 15:46:52', 'Sudah Disetujui'),
+('5f310980bdbd7', '5f28dbe13ddf9', '5f310973f0bda', '2020-08-10 15:46:56', 'Sudah Disetujui');
 
 -- --------------------------------------------------------
 
@@ -208,8 +205,7 @@ CREATE TABLE `guidance` (
 --
 
 INSERT INTO `guidance` (`id`, `id_mhs`, `judul`, `peminatan`) VALUES
-('5f299fa2c3429', '44', 'Lorem ipsum dolor amet', ''),
-('5f2c3a823a03b', '5f2930fa9e732', 'Test For Title ', 'Peminatan 1');
+('5f310973f0bda', '44', 'Lorem Ipsum', 'Advertising');
 
 -- --------------------------------------------------------
 
@@ -234,7 +230,7 @@ INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) 
 ('5f12ccfe4afe8', '403 gambar', 10, 'Semua', '5f12ccfe4afe8.PNG', 'test'),
 ('5f12cd6abdba2', 'test', 4, 'Dosen', '5f12cd6abdba2.PNG', 'test'),
 ('5f12cdf2debfe', 'test', 4, 'Mahasiswa', '5f12cdf2debfe.PNG', 'test'),
-('5f12ce7d3da21', 'coba', 6, 'Dosen', '5f12ce7d3da21.PNG', 'test');
+('5f12ce7d3da21', 'coba', 6, 'Dosen', '1.PNG', 'test');
 
 -- --------------------------------------------------------
 
@@ -386,9 +382,10 @@ CREATE TABLE `tampilan` (
 --
 
 INSERT INTO `tampilan` (`id_tampilan`, `id`, `slug_tampilan`, `id_kategori`, `id_ck`, `type`, `nim`, `gambar`, `No_wa`, `No_hp`, `tanggal_post`, `tanggal_update`, `views`, `judul`, `deskripsi`, `likes`, `status`) VALUES
-(9, '5f1e7dc5ca07e', 'fashion', 1, 8, 'Foto', 1301174655, 'download_(1)2.jpg', 2147483647, 2147483647, '2020-08-05 07:33:01', '2020-08-05 05:47:42', 2, 'fashion', 'fahion terkini', 0, 'Diterima'),
-(10, '44', 'apa-aja', 7, NULL, 'Video', 1301174633, 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', 2147483647, 2147483647, '2020-08-05 07:45:14', '2020-08-05 05:32:43', 1, 'apa aja', 'yuk bisa yuk', 1, 'Diterima'),
-(11, '38', 'desain-ruang-keluarga', 5, NULL, 'Foto', 1301112311, 'images_(3).jpg', 2147483647, 2147483647, '2020-08-05 07:53:57', '2020-08-05 05:30:47', 7, 'desain ruang keluarga', 'desain interior rumah', 0, 'Diterima');
+(9, '5f1e7dc5ca07e', 'fashion', 1, 8, 'Foto', 1301174655, '50027080802_bbb3236058_c.jpg', 2147483647, 2147483647, '2020-08-05 07:33:01', '2020-08-09 05:05:32', 2, 'fashion', 'fahion terkini', 0, 'Diterima'),
+(10, '44', 'apa-aja', 7, NULL, 'Video', 1301174633, 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', 2147483647, 2147483647, '2020-08-05 07:45:14', '2020-08-09 05:08:20', 1, 'apa aja', 'yuk bisa yuk', 1, 'Diterima'),
+(11, '38', 'desain-ruang-keluarga', 5, NULL, 'Foto', 1301112311, '11.jpg', 2147483647, 2147483647, '2020-08-05 07:53:57', '2020-08-09 05:05:02', 7, 'desain ruang keluarga', 'desain interior rumah', 0, 'Diterima'),
+(12, '44', 'wall-creativity', 7, NULL, 'Foto', 1301170100, '1238334.jpg', 2147483647, 2147483647, '2020-08-09 12:01:55', '2020-08-09 05:06:57', 0, 'Wall Creativity', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -411,7 +408,8 @@ INSERT INTO `tampilan_like` (`id`, `id_tampilan`, `ip`, `date`) VALUES
 (3, 31, '::1', '2020-07-18 03:03:18'),
 (4, 34, '::1', '2020-07-18 06:01:12'),
 (5, 39, '::1', '2020-07-18 15:29:56'),
-(6, 41, '::1', '2020-07-19 12:04:03');
+(6, 41, '::1', '2020-07-19 12:04:03'),
+(7, 12, '::1', '2020-08-09 05:02:54');
 
 -- --------------------------------------------------------
 
@@ -435,7 +433,7 @@ CREATE TABLE `tb_info` (
 INSERT INTO `tb_info` (`id`, `title`, `images`, `body`, `uploadby`, `date`) VALUES
 ('5', 'Informasi 1', 'Classroom-without-windows-Pixabay1.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Administrator', '2020-07-25 19:17:55'),
 ('5f1c2350e4e4b', 'informasi 2', 'Cat1.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Administrator', '2020-07-25 19:19:28'),
-('5f1d2d6cc3194', 'Informasi Updated', 'IMG_9534_edit.jpg', 'lorem ipsum', 'Admin', '2020-07-26 14:14:52'),
+('5f1d2d6cc3194', 'Informasi Updated', 'IMG_9534_edit.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Admin', '2020-07-26 14:14:52'),
 ('5f1d30f88809f', 'Information', 'default.jpg', 'Lorem ipsum dolor amet', 'Admin', '2020-07-26 14:30:00');
 
 -- --------------------------------------------------------
@@ -457,13 +455,13 @@ CREATE TABLE `tb_lab` (
 --
 
 INSERT INTO `tb_lab` (`id`, `images`, `title`, `body`, `date`) VALUES
-('5f1b8caf058b4', 'IMG_9534_edit1.jpg', 'Lab. Batik', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 01:36:47'),
-('5f1b93c2bdb1f', 'IMG_92741.JPG', 'Lab. CGI', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:06:58'),
-('5f1b95d912037', 'IMG_9189_edit1.jpg', 'Lab. Mac', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:15:53'),
-('5f1b960077560', 'IMG_93141.JPG', 'Lab. Bengkel', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:16:32'),
-('5f1b9649ea263', 'IMG_9166_edit1.jpg', 'Lab. Multimedia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:17:45'),
-('5f1b96dbac690', 'IMG_9675_edit1.jpg', 'Lab. Pola dan Jahit', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-25 02:20:11'),
-('5f1ce025887f9', 'IMG_9181_edit.jpg', 'Lab. Sintik', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2020-07-26 01:45:09');
+('5f1b8caf058b4', 'IMG_9534_edit1.jpg', 'Lab. Batik', 'Lab Batik merupakan sarana maupun tempat yang memfasilitasi pembuatan sebuah batik. Proses pembuatan dari awal hingga akhir hingga terciptanya sebuah kain batik yang cantik. Selain pembuatan batik, Lab batik juga berfungsi sebagai tempat penelitian maupun kegiatan-kegiatan abdimas.', '2020-07-25 01:36:47'),
+('5f1b93c2bdb1f', 'IMG_92741.JPG', 'Lab. CGI', 'Lab Computer Generated Imagery (CGI) merupakan salah satu sarana fasilitas yang memiliki software-software standar industri terkini untuk mendukung mahasiswanya mengerjakan proyek-proyek berkaitan dengan CGI dengan lancar.', '2020-07-25 02:06:58'),
+('5f1b95d912037', 'IMG_9189_edit1.jpg', 'Lab. Mac', 'Lab Mac merupakan satu dari beberapa lab komputer berbasis sistem operating Macintosh dengan kapasitas yang bisa mendukung sampai dengan 25 mahasiswa dalam proses belajar mengajar. Lab ini juga dilengkapi dengan software-software pendukung terkini yang dapat diakses secara mudah oleh mahasiswanya.', '2020-07-25 02:15:53'),
+('5f1b960077560', 'IMG_93141.JPG', 'Lab. Bengkel', 'Lab Bengkel adalah salah satu lab yang berada di FIK yang dilengkapi dengan beberapa peralatan seperti: Mesin table saw, mesin gerinda, mesin bubut kayu, mesin amplas, bench drilling dan lain-lain untuk mendukung mahasiswa dalam mengerjakan pekerjaan pendekatan experimental pada Kuliah Kerja \r\nStudio, Proyek Akhir maupun tesis.', '2020-07-25 02:16:32'),
+('5f1b9649ea263', 'IMG_9166_edit1.jpg', 'Lab. Multimedia', 'Lab Multimedia dirancang untuk memfasilitasi mahasiswanya dalam mengerjakan pekerjaan multimedia dengan lancar. Fasilitas yang mendukung seperti software terkini memudahkan mahasiswanya untuk menjangkau software-software yang digunakan pada industri kreatif yang ada.', '2020-07-25 02:17:45'),
+('5f1b96dbac690', 'IMG_9675_edit1.jpg', 'Lab. Pola dan Jahit', 'Lab Pola dan Jahit dirancang dengan space yang cukup besar agar mahasiswa dapat dengan leluasa menggunakan sarana untuk tempat menjahit dan membuat pola.', '2020-07-25 02:20:11'),
+('5f1ce025887f9', 'IMG_9181_edit.jpg', 'Lab. Cintiq', 'Lab Komputer Multimedia Cintiq merupakan salah satu dari beberapa lab yang memiliki alat canggih untuk mendukung menggambar secara digital maupun membuat animasi. Dilengkapi dengan Wacom Cintiq disetiap mejanya, Lab ini bisa menampung kurang lebih 25 mahasiswa. ', '2020-07-26 01:45:09');
 
 -- --------------------------------------------------------
 
@@ -506,7 +504,7 @@ CREATE TABLE `tb_slider` (
 --
 
 INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
-('10', 'Fakultas Industri Kreatif V2 Edit', 'IMG_9473_edit.jpg', '', '2020-07-12 10:33:55'),
+('10', 'Lab. FIK Sekarang Sudah Aktif!', 'IMG_9473_edit.jpg', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam ab, architecto, impedit incidunt eaque odit vero, temporibus exercitationem recusandae deserunt beatae hic nihil! Aspernatur quod dolorum error laudantium corrupti in!', '2020-07-12 10:33:55'),
 ('14', 'Laboratorium Fakultas Industri Kreatif', 'IMG_9274.JPG', 'Laboratorium Fakultas Industri Kreatif', '2020-07-12 11:09:12'),
 ('5', 'Lab. FIK Sekarang Sudah Aktif!', '15.jpg', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam ab, architecto, impedit incidunt eaque odit vero, temporibus exercitationem recusandae deserunt beatae hic nihil! Aspernatur quod dolorum error laudantium corrupti in!', '2020-06-19 02:33:56');
 
@@ -531,9 +529,8 @@ CREATE TABLE `thesis` (
 --
 
 INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `status`) VALUES
-('5f29c93c10807', '5f299fa2c3429', '', 'Matplotlib_CheatSheet.pdf', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum autem debitis temporibus dolores blanditiis iste aliquid voluptas', '2020-08-05', 'Selesai'),
-('5f2a6ad1f0ae7', '5f299fa2c3429', 'Semua', 'Algo_GP.pdf', 'Bab 2 Latar Belakang', '2020-08-05', 'Dikirim'),
-('5f2c12f45cc84', '5f2abc71e4f34', 'Semua', 'Algo_GP.pdf', 'BAB I ', '2020-08-06', 'Dikirim');
+('5f3109f12b3a5', '5f310973f0bda', 'Semua', 'Algo_GP.pdf', 'Bab  1 Latar Belakang', '2020-08-10', 'Selesai'),
+('5f3a46ba1fed7', '5f310973f0bda', 'Semua', '201810_-_Jurnal_Informatika_Komputer_V12_N2_-_Perancangan_Sistem', 'Bab 2', '2020-08-17', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -564,12 +561,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `nim`, `nip`, `prodi`, `kode_dosen`, `email`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
+('	\r\n5f140497dd7ef', 'rochieko', 'Rochi Eko Pambudi', '1301170000', 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', 'default.jpg', '30d1e0e1e87348b55d99de515ee4f532f3cf1c47b2704a9771835ab0243a1df5', '$2y$10$5JTbxPPulWFi1ReneZIlW.07WuVhXD9GP5czPxPoNh8ckh7dXQI2.', 4, 1, 1596535034, 'offline'),
 ('39', 'kaurlab', 'Kaur Lab ', '', 0, '', '', 'kaurlab@gmail.com', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
-('44', 'ihdar', 'Rafif ihdhar', '1301174633', 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'offline'),
+('44', 'ihdar', 'Rafif ihdhar', '1301174633', 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'online'),
 ('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '', 0, 'Desain Komunikasi Visual', '', 'sulthan.kurniawan@gmail.com', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
 ('5f2128a43c90b', 'akathan', 'akathan', '', 0, 'Test', '', 'sulthan.angka@gmail.com', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'offline'),
-('5f28dbe13ddf9', 'manhattan', 'Manhattan', '', 0, '', '', 'manhattan@gmail.com', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
-('5f2930fa9e732', 'rochieko', 'Rochi Eko Pambudi', '1301170000', 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', 'default.jpg', '30d1e0e1e87348b55d99de515ee4f532f3cf1c47b2704a9771835ab0243a1df5', '$2y$10$5JTbxPPulWFi1ReneZIlW.07WuVhXD9GP5czPxPoNh8ckh7dXQI2.', 4, 1, 1596535034, 'online'),
+('5f28dbe13ddf9', 'manhattan', 'Manhattan', '', 0, 'Desain Komunikasi Visual', '', 'manhattan@gmail.com', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
 ('8', 'admin', 'John Doe', '', 0, '', '', 'admin@gmail.com', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, 'offline');
 
 -- --------------------------------------------------------
@@ -758,13 +755,13 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tampilan_like`
 --
 ALTER TABLE `tampilan_like`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_panel`

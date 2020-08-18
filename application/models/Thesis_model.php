@@ -57,14 +57,24 @@ class Thesis_model extends CI_Model
         $this->db->insert('correction', $this);
     }
 
-    public function saveCorrection($thesis_id, $page)
+    // public function saveCorrection($thesis_id, $page)
+    // {
+    //     // $post = $this->input->post();
+    //     // $this->correction = $post['correction'];
+    //     // $this->correction = $correction;
+    //     // $this->db->update('correction', $this, array('thesis_id' => $thesis_id, 'page' => $page));
+    //     $data = $this->input->post('correction');
+    //     $this->db->update('correction', $data, array('thesis_id' => $thesis_id, 'page' => $page));
+    // }
+
+    public function saveCorrection()
     {
-        // $post = $this->input->post();
-        // $this->correction = $post['correction'];
-        // $this->correction = $correction;
-        // $this->db->update('correction', $this, array('thesis_id' => $thesis_id, 'page' => $page));
-        $data = $this->input->post('correction');
-        $this->db->update('correction', $data, array('thesis_id' => $thesis_id, 'page' => $page));
+        $post = $this->input->post();
+        $this->thesis_id = $post['thesis_id'];
+        $this->page = $post['page'];
+        $this->correction = $post['correction'];
+        
+        $this->db->update('correction', $this->correction, array('thesis_id' => $thesis_id, 'page' => $page));
     }
 
     public function getCorrection($thesis_id, $page)
