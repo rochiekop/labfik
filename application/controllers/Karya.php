@@ -20,7 +20,7 @@ class Karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->listing();
         $data = array(
-            'title'     => 'karya',
+            'title'     => 'List Semua Karya',
             'tampilan'  => $tampilan
         );
         $this->load->view('templates/dashboard/headerDosenMhs', $data);
@@ -36,28 +36,31 @@ class Karya extends CI_Controller
         $valid->set_rules(
             'nim',
             'Nim',
-            'required|min_length[10]',
+            'required|min_length[10]|is_natural',
             array(
                 'required'      =>  '%s harus diisi',
-                'min_length[10]' =>  '%s angka yang diisi kurang'
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'is_natural'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
             'No_wa',
             'No_Wa',
-            'required|min_length[11]',
+            'required|min_length[11]|is_natural',
             array(
                 'required'      =>  '%s harus diisi',
-                'min_length[11]' =>  '%s angka yang diisi kurang'
+                'min_length[11]' =>  '%s angka yang diisi kurang',
+                'is_natural'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
             'No_hp',
             'No_Hp',
-            'required|min_length[11]',
+            'required|min_length[11]|is_natural',
             array(
                 'required'      =>  '%s harus diisi',
-                'min_length[11]' =>  '%s angka yang diisi kurang'
+                'min_length[11]' =>  '%s angka yang diisi kurang',
+                'is_natural'     =>  'mohon isi %s dengan benar'
             )
         );
         $valid->set_rules(
@@ -91,6 +94,7 @@ class Karya extends CI_Controller
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
                     'id' =>  $this->session->userdata('id'),
+                    'nama' =>  $this->session->userdata('name'),
                     'slug_tampilan' => $slug_tampilan,
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),

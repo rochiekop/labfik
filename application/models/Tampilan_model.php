@@ -14,7 +14,6 @@ class Tampilan_model extends CI_Model
     {
         $this->db->select('tampilan.*,
         user.name,
-        user.nim,
         kategori.nama_kategori,
         kategori.slug_kategori,
         child_kategori.id_ck,
@@ -33,7 +32,6 @@ class Tampilan_model extends CI_Model
     public function listingad()
     {
         $this->db->select('tampilan.*,
-        user.name,
         user_role.role,
         kategori.nama_kategori,
         kategori.slug_kategori,

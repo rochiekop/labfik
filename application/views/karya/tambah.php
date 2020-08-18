@@ -1,17 +1,4 @@
 <main class="akun-container">
-    <?php
-
-    if (isset($error)) {
-        echo '<p class="alert alert-warning">';
-        echo $error;
-        echo '</p>';
-    }
-
-    echo validation_errors('<div class="alert alert-warning">', '</div>');
-
-    echo form_open_multipart(base_url('karya/tambah'), 'class="form-horizontal"');
-    ?>
-
     <div class="fik-section-title2">
         <span class="fas fa-door-open zzzz"></span>
         <h5>Upload Karya</h5>
@@ -23,7 +10,17 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <form action="#">
+                <?php
+
+                if (isset($error)) {
+                    echo '<p class="alert alert-warning">';
+                    echo $error;
+                    echo '</p>';
+                }
+
+                echo validation_errors('<div class="alert alert-warning">', '</div>');
+                ?>
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambah') ?>">
                     <div class="card-body">
                         <div class="custom-form">
                             <div class="form-group">
@@ -46,9 +43,9 @@
                                 <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= set_value('deskripsi') ?>" required="required" autocomplete="off"></textarea>
                                 <label>Deskripsi</label>
                             </div>
-                            <div class="lab-category" style="margin-bottom:16px;">
+                            <div class="lab-category" style="margin-bottom:16px;" required>
                                 <b>Prodi</b>
-                                <select name="id_kategori" class="form-control" id="prodi">
+                                <select name="id_kategori" required class="form-control" id="prodi">
                                     <option value="">Select Prodi</option>
                                     <?php foreach ($kategori as $kategori) { ?>
                                         <option value="<?= $kategori->id_kategori ?>">
@@ -60,13 +57,13 @@
                             <div class="lab-category" style="margin-bottom:16px;" disabled>
                                 <b>Pilihan Peminatan</b>
                                 <select name="id_ck" class="form-control" id="kategori">
-                                    <option value="Select Mata Kuliah">Select Mata Kuliah</option>
+                                    <option value="Select Mata Kuliah">Select Peminatan</option>
                                 </select>
                             </div>
                             <div class="lab-category" style="margin-bottom:16px;">
                                 <b>Type File</b>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox11" value="Video">
+                                    <input class="form-check-input" type="radio" name="type" id="checkbox11" value="Video" required>
                                     <label class="form-check-label" for="checkbox11">Video</label>
                                 </div>
                                 <div class="form-check">
@@ -76,43 +73,26 @@
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
-                            <label for="exampleFormControlFile1"><b>Pilih karya</b></label>
-                            <input type="file" name="gambar" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px" required>
+                            <label for="file-0"><b>Pilih karya</b></label>
+                            <input type="file" name="gambar" class="form-control" id="file-0" style="padding:13px 16px" required>
+                            <span id="chk-error"></span>
+                        </div>
+                    </div>
+                    <div class="progress" style="display:none;">
+                        <div id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                            20%
                         </div>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
-
-    <?= form_close(); ?>
 </main>
 <script>
-    $(document).ready(function() {
-
-        $('#prodi').change(function() {
-            var id_kategori = $('#prodi').val();
-            if (id_kategori != '') {
-                $.ajax({
-                    url: "<?= base_url(); ?>karya/fetch",
-                    method: "POST",
-                    data: {
-                        id_kategori: id_kategori
-                    },
-                    success: function(data) {
-                        $('#kategori').html(data);
-                    }
-                })
-            }
-        });
-    });
-</script>
-<script>
-    const image = document.getElementById('exampleFormControlFile1');
+    const image = document.getElementById('file-0');
     const previewContainer = document.getElementById('imagePreview');
     const previewImage = previewContainer.querySelector(".placeholder-img")
     const previewDefaultText = previewContainer.querySelector(".placeholder-img1")
@@ -135,5 +115,87 @@
             previewImage.setAttribute('src', "");
         }
 
+    });
+</script>
+<script>
+    $(function() {
+        var inputFile = $('input[name=gambar]');
+        var uploadURI = $('#form-upload').attr('action');
+        var progressBar = $('#progress-bar');
+
+        $("form#form-upload").submit(function() {
+            event.preventDefault();
+            var fileToUpload = inputFile[0].files[0];
+            if (fileToUpload != 'undefined') {
+                var formData = new FormData($(this)[0]);
+                $.ajax({
+                    url: uploadURI,
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        window.location.href = "<?= base_url(); ?>karya";
+                    },
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = Math.round((event.loaded / event.total) * 100);
+                                // console.log(percentComplete);
+
+                                $('.progress').show();
+                                progressBar.css({
+                                    width: percentComplete + "%"
+                                });
+                                progressBar.text(percentComplete + '%');
+                            };
+                        }, false);
+                        return xhr;
+                    }
+                });
+            }
+        });
+        $('body').on('change.bs.fileinput', function(e) {
+            $('.progress').hide();
+            progressBar.text("0%");
+            progressBar.css({
+                width: "0%"
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+        $('#prodi').change(function() {
+            var id_kategori = $('#prodi').val();
+            if (id_kategori != '') {
+                $.ajax({
+                    url: "<?= base_url(); ?>karya/fetch",
+                    method: "POST",
+                    data: {
+                        id_kategori: id_kategori
+                    },
+                    success: function(data) {
+                        $('#kategori').html(data);
+                    }
+                })
+            }
+        });
+    });
+</script>
+<script>
+    $("#file-0").change(function() {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4'];
+        var file = this.files[0];
+        var fileType = file.type;
+        if (!allowedTypes.includes(fileType)) {
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/MOV/MPEG/MP3/AVI/MP4)</small>');
+            $("#file-0").val('');
+            return false;
+        } else {
+            jQuery("#chk-error").html('');
+        }
     });
 </script>

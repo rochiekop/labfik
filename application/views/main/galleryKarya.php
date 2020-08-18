@@ -44,6 +44,7 @@
     <div id="load_data_message"></div>
   </div>
 </div>
+
 <script src="<?= base_url('assets/js/tambahan.js'); ?>"></script>
 <script>
   $('.fik-carousel-karya').owlCarousel({
