@@ -39,9 +39,15 @@
                 </div>
                 <div class="card-body" >
                     <!-- <form action="<?= base_url('thesis/save')?>" method="post"> -->
-                    <form action="#" method="post">
-                        <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" ></textarea>
+                    <form action="<?= base_url('thesis/saveCorrection')?>" method="post">
+                        <!-- <input type="text" name="thesis_id" value="<?= $thesis_id ?>" hidden >
+                        <input type="text" name="page" value="<?= $thesis_id ?>" hidden > -->
+                        <!-- <textarea name="content" id="correction" class="form-control" cols="30" rows="10" style="display: inline"></textarea> -->
+                        <!-- <input type="text" name="correction" id="correction">
+                        <input type="submit"> -->
                     </form>
+                    <p id="content"></p>
+                    <textarea name="" id="correction" cols="30" rows="10"></textarea>
                 </div>
             </div>
         </div>
@@ -75,7 +81,6 @@
     var pdf_file = document.getElementById("pdf_file").value;
     var username = document.getElementById("username").value;
     var thesis_id = document.getElementById("thesis_id").value;
-    var correction = document.getElementById("correction").value;
 
     // console.log(pdf_file + username);
     // console.log("hello world")
@@ -128,8 +133,8 @@
         // get correction
         getCorrection(thesis_id, num);
 
-        // save correction when clicked
-        document.querySelector('#correction').addEventListener('click', saveCorrection);
+        // // save correction when clicked
+        // document.querySelector('#correction').addEventListener('click', saveCorrection);
         
     };
 
@@ -164,11 +169,36 @@
             type: "POST",
             cache: false,
             success: function(data){
-                $('textarea').html(data);
+                $('#correction').html(data);
+                $('#content').html(data);
                 alert(data)
+                // location.reload();
             }
         })
     }
+
+    function ajaxLoad() {
+        var ed = tinyMCE.get('content');
+
+        // Do you ajax call here, window.setTimeout fakes ajax call
+        ed.setProgressState(1); // Show progress
+        window.setTimeout(function() {
+            ed.setProgressState(0); // Hide progress
+            ed.setContent('HTML content that got passed from server.');
+        }, 3000);
+    }
+
+    function ajaxSave() {
+        var ed = tinyMCE.get('content');
+
+        // Do you ajax call here, window.setTimeout fakes ajax call
+        ed.setProgressState(1); // Show progress
+        window.setTimeout(function() {
+            ed.setProgressState(0); // Hide progress
+            alert(ed.getContent());
+        }, 3000);
+    }
+
 
     // check for pages rendering
     const queueRenderPage = num => {
