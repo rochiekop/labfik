@@ -81,8 +81,8 @@ class Admin_karya extends CI_Controller
                     'kategori'  =>  $prodi,
                     'error'     =>  $this->upload->display_errors(),
                 );
-                $this->load->view('templates/dashboard/headerDosenMhs', $data);
-                $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+                $this->load->view('templates/dashboard/headerAdmin', $data);
+                $this->load->view('templates/dashboard/sidebarAdmin', $data);
                 $this->load->view('karya/tambahbyadmin', $data);
                 $this->load->view('templates/dashboard/footer');
             } else {
@@ -106,15 +106,15 @@ class Admin_karya extends CI_Controller
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
-                redirect(base_url('karya'), 'refresh');
+                redirect(base_url('admin_karya'), 'refresh');
             }
         }
         $data = array(
             'title'     =>  'Tambah tampilan',
             'kategori'  =>  $prodi,
         );
-        $this->load->view('templates/dashboard/headerDosenMhs', $data);
-        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+        $this->load->view('templates/dashboard/headerAdmin', $data);
+        $this->load->view('templates/dashboard/sidebarAdmin', $data);
         $this->load->view('karya/tambahbyadmin', $data);
         $this->load->view('templates/dashboard/footer');
     }
@@ -179,7 +179,7 @@ class Admin_karya extends CI_Controller
                     );
                     $this->load->view('templates/dashboard/headerAdmin', $data);
                     $this->load->view('templates/dashboard/sidebarAdmin', $data);
-                    $this->load->view('karya/edit', $data);
+                    $this->load->view('karya/editbyadmin', $data);
                     $this->load->view('templates/dashboard/footer');
                 } else {
                     $upload_gambar = array('upload_data' => $this->upload->data());
@@ -229,7 +229,7 @@ class Admin_karya extends CI_Controller
         );
         $this->load->view('templates/dashboard/headerAdmin', $data);
         $this->load->view('templates/dashboard/sidebarAdmin', $data);
-        $this->load->view('karya/edit', $data);
+        $this->load->view('karya/editbyadmin', $data);
         $this->load->view('templates/dashboard/footer');
     }
 
