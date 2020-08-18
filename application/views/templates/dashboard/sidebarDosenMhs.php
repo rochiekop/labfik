@@ -76,7 +76,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
         </div>
       </div>
     <?php endif; ?>
-    <div class="divider"></div>
+    <!-- <div class="divider"></div>
     <div class="card">
       <a href="<?= base_url('thesis') ?>" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
       <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
@@ -87,7 +87,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
     </div>
     <div class="card logout">
       <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
-    </div>
+    </div> -->
   </div>
 </div>
 
