@@ -45,8 +45,7 @@
                                         <?php if ($data->type == 'Foto') : ?>
                                             <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
                                         <?php else : ?>
-                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
-                                            </video>
+                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60"></video>
                                         <?php endif; ?>
                                     </a>
                                 </td>

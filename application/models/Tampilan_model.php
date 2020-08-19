@@ -150,7 +150,7 @@ class Tampilan_model extends CI_Model
         $this->db->where('id_tampilan', $id_tampilan);
         $this->db->order_by('id_tampilan', 'desc');
         $query = $this->db->get();
-        return $query->row();
+        return $query->row_array();
     }
 
     public function tambah($data)

@@ -46,7 +46,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
       <div id="collapse3" class="collapse" data-parent="#accordion">
         <ul>
           <?php if ($this->session->userdata('role_id') == 4) : ?>
-            <li><a href="<?= base_url('karya') ?>">Karya Saya</a></li>
+            <li><a href="<?= base_url('karya/listbymhs') ?>">Karya Saya</a></li>
           <?php elseif ($this->session->userdata('role_id') == 3) : ?>
             <li><a href="<?= base_url('karya/listbydsn') ?>">Karya Saya</a></li>
           <?php endif; ?>

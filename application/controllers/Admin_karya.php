@@ -123,6 +123,11 @@ class Admin_karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         $kategori = $this->kategori_model->listing_kat();
+        $data = array(
+            'title'     =>  'Edit: ' . $tampilan['judul'],
+            'kategori'  =>  $kategori,
+            'tampilan'  =>  $tampilan
+        );
         $valid = $this->form_validation;
         $valid->set_rules(
             'nim',
@@ -171,17 +176,16 @@ class Admin_karya extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if (!$this->upload->do_upload('gambar')) {
-                    $data = array(
-                        'title'     =>  'Edit: ' . $tampilan->judul,
-                        'kategori'  =>  $kategori,
-                        'tampilan'  =>  $tampilan,
-                        'error'     =>  $this->upload->display_errors()
-                    );
+                    $data['error'] = $this->upload->display_errors();
                     $this->load->view('templates/dashboard/headerAdmin', $data);
                     $this->load->view('templates/dashboard/sidebarAdmin', $data);
                     $this->load->view('karya/editbyadmin', $data);
                     $this->load->view('templates/dashboard/footer');
                 } else {
+                    $old_image = $data['tampilan']['gambar'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/upload/images/' . $old_image);
+                    }
                     $upload_gambar = array('upload_data' => $this->upload->data());
                     $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                     $i = $this->input;
@@ -198,8 +202,6 @@ class Admin_karya extends CI_Controller
                         'deskripsi'     => $i->post('deskripsi'),
                         'gambar'    =>  $upload_gambar['upload_data']['file_name'],
                     );
-                    $old_image = $data['id_tampilan']['gambar'];
-                    unlink(FCPATH . 'assets/upload/images/' . $old_image);
                     $this->tampilan_model->edit($data);
                     redirect(base_url('admin_karya'), 'refresh');
                 }
@@ -223,7 +225,7 @@ class Admin_karya extends CI_Controller
             }
         }
         $data = array(
-            'title'     =>  'Edit: ' . $tampilan->judul,
+            'title'     =>  'Edit: ' . $tampilan['judul'],
             'kategori'  =>  $kategori,
             'tampilan'  =>  $tampilan
         );

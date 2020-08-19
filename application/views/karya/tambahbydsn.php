@@ -139,7 +139,7 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>karya";
+                        window.location.href = "<?= base_url(); ?>karya/listbydsn";
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();

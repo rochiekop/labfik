@@ -16,7 +16,7 @@ class Karya extends CI_Controller
         $this->load->model('gambar_model');
     }
 
-    public function index()
+    public function listbymhs()
     {
         $tampilan = $this->tampilan_model->listing();
         $data = array(
@@ -215,7 +215,7 @@ class Karya extends CI_Controller
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
-                redirect(base_url('karya'), 'refresh');
+                redirect(base_url('karya/listbymhs'), 'refresh');
             }
         }
         $data = array(
@@ -232,6 +232,11 @@ class Karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         $kategori = $this->kategori_model->listing_kat();
+        $data = array(
+            'title'     =>  'Edit: ' . $tampilan['judul'],
+            'kategori'  =>  $kategori,
+            'tampilan'  =>  $tampilan,
+        );
         $valid = $this->form_validation;
         $valid->set_rules(
             'nim',
@@ -280,17 +285,14 @@ class Karya extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if (!$this->upload->do_upload('gambar')) {
-                    $data = array(
-                        'title'     =>  'Edit: ' . $tampilan->judul,
-                        'kategori'  =>  $kategori,
-                        'tampilan'  =>  $tampilan,
-                        'error'     =>  $this->upload->display_errors()
-                    );
+                    $data['error'] = $this->upload->display_errors();
                     $this->load->view('templates/dashboard/headerDosenMhs', $data);
                     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
                     $this->load->view('karya/editbydsn', $data);
                     $this->load->view('templates/dashboard/footer');
                 } else {
+                    $old_image = $data['tampilan']['gambar'];
+                    unlink(FCPATH . 'assets/upload/images/' . $old_image);
                     $upload_gambar = array('upload_data' => $this->upload->data());
                     $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                     $i = $this->input;
@@ -307,8 +309,6 @@ class Karya extends CI_Controller
                         'deskripsi'     => $i->post('deskripsi'),
                         'gambar'    =>  $upload_gambar['upload_data']['file_name'],
                     );
-                    $old_image = $data['id_tampilan']['gambar'];
-                    unlink(FCPATH . 'assets/upload/images/' . $old_image);
                     $this->tampilan_model->edit($data);
                     redirect(base_url('karya/listbydsn'), 'refresh');
                 }
@@ -332,7 +332,7 @@ class Karya extends CI_Controller
             }
         }
         $data = array(
-            'title'     =>  'Edit: ' . $tampilan->judul,
+            'title'     =>  'Edit: ' . $tampilan['judul'],
             'kategori'  =>  $kategori,
             'tampilan'  =>  $tampilan
         );
@@ -357,7 +357,7 @@ class Karya extends CI_Controller
         unlink('./assets/upload/images/' . $tampilan->gambar);
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
-        redirect(base_url('karya'), 'refresh');
+        redirect(base_url('karya/listbydsn'), 'refresh');
     }
 
     function fetch()
