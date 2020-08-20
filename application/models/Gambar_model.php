@@ -10,7 +10,7 @@ class Gambar_model extends CI_Model
         $this->load->database();
     }
 
-    public function home()
+    public function homef()
     {
         $this->db->select('tampilan.*,
         user.name,
@@ -22,6 +22,24 @@ class Gambar_model extends CI_Model
         $this->db->group_by('tampilan.id_tampilan');
         $this->db->order_by('id_tampilan', 'random');
         $this->db->where(array('tampilan.status' => 'Diterima'));
+        $this->db->where(array('tampilan.type' => 'Foto'));
+        $this->db->limit(4);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function homev()
+    {
+        $this->db->select('tampilan.*,
+        user.name,
+        kategori.nama_kategori,
+        kategori.slug_kategori');
+        $this->db->from('tampilan');
+        $this->db->join('user', 'user.id = tampilan.id', 'left');
+        $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+        $this->db->group_by('tampilan.id_tampilan');
+        $this->db->order_by('id_tampilan', 'random');
+        $this->db->where(array('tampilan.type' => 'Video'));
         $this->db->limit(4);
         $query = $this->db->get();
         return $query->result();

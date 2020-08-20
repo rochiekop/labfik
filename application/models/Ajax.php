@@ -111,11 +111,11 @@ class Ajax extends CI_Model
     function update_counter($slug_tampilan)
     {
         //return current article views
-        $this->db->where('slug_tampilan', urldecode($slug_tampilan));
+        $this->db->where('slug_tampilan', urlencode($slug_tampilan));
         $this->db->select('views');
         $count = $this->db->get('tampilan')->row();
         // then increase by one
-        $this->db->where('slug_tampilan', urldecode($slug_tampilan));
+        $this->db->where('slug_tampilan', urlencode($slug_tampilan));
         $this->db->set('views', ($count->views + 1));
         $this->db->update('tampilan');
     }

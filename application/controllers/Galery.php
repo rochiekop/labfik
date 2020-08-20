@@ -52,6 +52,7 @@ class Galery extends CI_Controller
                 ';
             } else {
                 $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
                     <div class="feed-item">
                         <div class="card">
                             <div class="gambar">
@@ -117,6 +118,7 @@ class Galery extends CI_Controller
                     ';
                 } else {
                     $output .= '
+                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
                         <div class="feed-item">
                             <div class="card">
                                 <div class="gambar">
@@ -184,6 +186,7 @@ class Galery extends CI_Controller
                     ';
                 } else {
                     $output .= '
+                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
                         <div class="feed-item">
                             <div class="card">
                                 <div class="gambar">
@@ -251,6 +254,7 @@ class Galery extends CI_Controller
                     ';
                 } else {
                     $output .= '
+                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
                         <div class="feed-item">
                             <div class="card">
                                 <div class="gambar">
@@ -318,6 +322,7 @@ class Galery extends CI_Controller
                     ';
                 } else {
                     $output .= '
+                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
                         <div class="feed-item">
                             <div class="card">
                                 <div class="gambar">
@@ -385,6 +390,7 @@ class Galery extends CI_Controller
                     ';
                 } else {
                     $output .= '
+                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
                         <div class="feed-item">
                             <div class="card">
                                 <div class="gambar">
@@ -428,12 +434,12 @@ class Galery extends CI_Controller
     {
         $tampilan = $this->gambar_model->read($slug_tampilan);
         $home = $this->gambar_model->homev();
+        $this->add_count($slug_tampilan);
         $data = array(
             'title' => 'Laboratorium Fakultas Industri Kreatif Telkom University',
             'tampilan'  => $tampilan,
             'home'      => $home
         );
-        $this->add_count($slug_tampilan);
         $this->load->view('templates/main/header', $data);
         $this->load->view('main/galleryViewvideo', $data);
         $this->load->view('templates/main/footer');
@@ -442,15 +448,10 @@ class Galery extends CI_Controller
     function add_count($slug_tampilan)
     {
         $this->load->helper('cookie');
-        $check_visitor = $this->input->cookie(urldecode($slug_tampilan), TRUE);
+        $check_visitor = $this->input->cookie(urldecode($slug_tampilan), FALSE);
         $ip = $this->input->ip_address();
-        if ($check_visitor == true) {
-            $cookie = array(
-                "nama" => urldecode($slug_tampilan),
-                "value" => "$ip",
-                "expire" => time() + 1000,
-                "secure" => true
-            );
+        if ($check_visitor == false) {
+            $cookie = array("name" => urldecode($slug_tampilan), "value" => "$ip", "expire" => time() + 300, "secure" => false);
             $this->input->set_cookie($cookie);
             $this->ajax->update_counter(urldecode($slug_tampilan));
         }

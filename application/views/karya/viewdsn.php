@@ -40,7 +40,7 @@
                             <tr>
                                 <td><?= $no ?></td>
                                 <td>
-                                    <a type="button" data-toggle="modal" data-target="#exampleModal">
+                                    <a type="button" data-toggle="modal" data-target="#exampleModal<?= $data->id_tampilan ?>">
                                         <?php if ($data->type == 'Foto') : ?>
                                             <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
                                         <?php else : ?>
@@ -67,24 +67,45 @@
         </table>
     </div>
     <!-- End of Content Wrapper -->
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</main>
+<?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Judul <?= $data->judul ?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <?php if ($data->type == 'Foto') : ?>
+                        <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
+                    <?php else : ?>
+                        <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
+                            <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
+                        </video>
+                    <?php endif; ?>
+                    <div class="item-text">
+                        <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>Di Posting Oleh: <b><?= $data->name ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>Deskripsi: <b><?= $data->deskripsi ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>No. Handphone: <b><?= $data->No_hp ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>No. Whatsapp: <b><?= $data->No_wa ?></b></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-</main>
+<?php endforeach; ?>
