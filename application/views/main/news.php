@@ -27,9 +27,9 @@
                     <img src="<?= base_url('assets/img/informasi/thumbs/') . $i['images']; ?>" alt="<?= $i['title'] ?>" />
                   </div>
                   <div class="item-text">
-                    <h6><a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>"><?= $i['title'] ?></a></h6>
+                    <h6><a href="<?= base_url('news/details/') . $i['slug']; ?>"><?= $i['title'] ?></a></h6>
                     <p>Posted <?= (new DateTime($i['date']))->format('M j, Y'); ?> by <?= $i['uploadby']; ?></p>
-                    <a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                    <a href="<?= base_url('news/details/') . $i['slug']; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
                   </div>
                 </div>
               </div>

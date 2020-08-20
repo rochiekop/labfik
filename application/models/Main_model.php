@@ -15,6 +15,11 @@ class Main_model extends CI_Model
     return $this->db->get_where('tb_lab', ['id' => $id])->row_array();
   }
 
+  public function getDtLabBySlug($slug)
+  {
+    return $this->db->get_where('tb_lab', ['slug' => $slug])->row_array();
+  }
+
 
   // MODEL FOR INFORMAION
   public function getAllDtInfoDesc()
@@ -29,6 +34,11 @@ class Main_model extends CI_Model
     return $this->db->query($query)->result_array();
   }
 
+  public function getDtInfoBySlug($slug)
+  {
+    return $this->db->get_where('tb_info', ['slug' => $slug])->row_array();
+  }
+
   public function getDtInfoById($id)
   {
     return $this->db->get_where('tb_info', ['id' => $id])->row_array();
@@ -41,11 +51,13 @@ class Main_model extends CI_Model
     return $this->db->query($query)->row_array();
   }
 
-  public function getRelatedInfo($id)
+  public function getRelatedInfo($slug)
   {
     $this->db->select('*');
     $this->db->from('tb_info');
-    $this->db->where('id !=', $id);
+    $this->db->where('slug !=', $slug);
+    $this->db->limit(3);
+    $this->db->order_by('title', 'RANDOM');
     $query = $this->db->get();
     return $query->result();
   }

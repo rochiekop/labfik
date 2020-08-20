@@ -30,6 +30,8 @@
 
   <!-- Owl Carousel Animation -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" />
+
+  <link rel="icon" href="<?php echo base_url(); ?>assets/img/logo/favicon.png" type="image/gif">
 </head>
 
 <body>

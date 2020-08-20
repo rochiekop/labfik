@@ -37,12 +37,11 @@ class Main extends CI_Controller
     $this->load->view('templates/main/footer');
   }
 
-  public function labview($id)
+  public function labview($slug)
   {
-    $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Detail Laboratorium';
     // Session name is $newData
-    $data['labview'] = $this->main_model->getDtLabById($id);
+    $data['labview'] = $this->main_model->getDtLabBySlug($slug);
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/labview');
     $this->load->view('templates/main/footer');
@@ -94,11 +93,10 @@ class Main extends CI_Controller
     $this->load->view('main/schedule', $data);
   }
 
-  public function profile($id)
+  public function profile($slug)
   {
-    $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Profile FIK';
-    $data['profile'] = $this->db->get_where('tb_panel', ['id' => $id])->row_array();
+    $data['profile'] = $this->db->get_where('tb_panel', ['slug' => $slug])->row_array();
     // Session name is $newData
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/profile');

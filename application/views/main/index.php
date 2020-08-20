@@ -63,7 +63,7 @@
           <p>
             <?= $dt_panel['body']; ?>
           </p>
-          <a href="<?= base_url('main/profile/') . encrypt_url($dt_panel['id']); ?>" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
+          <a href="<?= base_url('main/profile/') . $dt_panel['slug']; ?>" class="btn btn-primary btn-pill btn-icon-right">READ MORE <span class="fa fa-chevron-right"></span></a>
         </div>
         <?php if ($dt_panel['video'] != "video_placeholder.png") : ?>
           <video controls="" poster="<?= base_url('assets/img/panel/') . $dt_panel['thumb'] ?>" preload="none">
@@ -186,7 +186,7 @@
               <div class="item-text">
                 <h6><?= $l['title']; ?></h6>
                 <p><?= $l['body']; ?></p>
-                <a href="<?= base_url('main/labview/') . encrypt_url($l['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
+                <a href="<?= base_url('main/labview/') . $l['slug']; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b> <span class="fas fa-arrow-right"></span></a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -268,9 +268,9 @@
                 <img src="<?= base_url('assets/img/informasi/thumbs/') . $i['images']; ?>" alt="<?= $i['title'] ?>" />
               </div>
               <div class="item-text">
-                <h6><a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>"><?= $i['title'] ?></a></h6>
+                <h6><a href="<?= base_url('news/details/') . $i['slug']; ?>"><?= $i['title'] ?></a></h6>
                 <p>Posted <?= (new DateTime($i['date']))->format('M j, Y'); ?> by <?= $i['uploadby']; ?></p>
-                <a href="<?= base_url('news/details/') . encrypt_url($i['id']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                <a href="<?= base_url('news/details/') . ($i['slug']); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
               </div>
             </div>
           </div>

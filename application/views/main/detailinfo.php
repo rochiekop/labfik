@@ -3,15 +3,19 @@
   <div class="the-title" style="margin-bottom:-48px;">
     <img src="<?= base_url('assets/img/14.jpg') ?>" alt="">
     <div class="container">
-      <h1><?= $detailinfo['title'] ?></h1>
-      <div class="post-info">
-        <span class="author-info">
-          <a href="<?= base_url() ?>">beranda</a> / <a href="<?= base_url() ?>">news</a> / <?= $detailinfo['title'] ?>
-          <br>
-          <div style="margin-top:6px;">Diposting pada <?= format_indo($detailinfo['date'], date('d-m-Y')); ?> oleh <?= $detailinfo['uploadby'] ?></div>
-        </span>
-        <div class="clear"></div>
-      </div>
+      <?php if (empty($detailinfo)) : ?>
+        <h1>Info Tidak Ada!</h1>
+      <?php else : ?>
+        <h1><?= $detailinfo['title'] ?></h1>
+        <div class="post-info">
+          <span class="author-info">
+            <a href="<?= base_url() ?>">beranda</a> / <a href="<?= base_url() ?>">news</a> / <?= $detailinfo['title'] ?>
+            <br>
+            <div style="margin-top:6px;">Diposting pada <?= format_indo($detailinfo['date'], date('d-m-Y')); ?> oleh <?= $detailinfo['uploadby'] ?></div>
+          </span>
+          <div class="clear"></div>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -71,12 +75,12 @@
           <div class="feed-item">
             <div class="card">
               <div class="gambar">
-                <a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>"><img src="<?= base_url('assets/img/informasi/thumbs/') . $i->images ?>" alt="<?= $i->title ?>" /></a>
+                <a href="<?= base_url('news/details/') . $i->slug; ?>"><img src="<?= base_url('assets/img/informasi/thumbs/') . $i->images ?>" alt="<?= $i->title ?>" /></a>
               </div>
               <div class="item-text">
-                <h6><a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>"><?= $i->title ?></a></h6>
+                <h6><a href="<?= base_url('news/details/') . encrypt_url($i->id); ?>"><?= $i->title ?></a></h6>
                 <p>Posted <?= (new DateTime($i->date))->format('M j, Y'); ?> by <?= $i->uploadby; ?></p>
-                <a href="<?= base_url('main/detailinfo/') . encrypt_url($i->id); ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                <a href="<?= base_url('news/details/') . $i->slug; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
               </div>
             </div>
           </div>
