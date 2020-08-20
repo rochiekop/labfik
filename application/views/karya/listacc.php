@@ -47,7 +47,7 @@
                             </div>
                         </td>
                         <td><?= $l->judul ?></td>
-                        <td><?= $l->name ?></td>
+                        <td><?= $l->nama ?></td>
                         <td><?= $l->nama_kategori ?></td>
                         <td><?= $l->status ?></td>
                     </tr>

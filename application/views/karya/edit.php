@@ -1,17 +1,4 @@
 <main class="akun-container">
-    <?php
-
-    if (isset($error)) {
-        echo '<p class="alert alert-warning">';
-        echo $error;
-        echo '</p>';
-    }
-
-    echo validation_errors('<div class="alert alert-warning">', '</div>');
-
-    echo form_open_multipart(base_url('admin_karya/edit/' . $tampilan->id_tampilan), 'class="form-horizontal"');
-    ?>
-
     <div class="fik-section-title2">
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
@@ -23,9 +10,23 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <form action="#">
+                <?php
+
+                if (isset($error)) {
+                    echo '<p class="alert alert-warning">';
+                    echo $error;
+                    echo '</p>';
+                }
+
+                echo validation_errors('<div class="alert alert-warning">', '</div>');
+                ?>
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('admin_karya/edit') ?>">
                     <div class="card-body">
                         <div class="custom-form">
+                            <div class="form-group">
+                                <input type="text" name="nama" value="<?= $tampilan->nama ?>" class="form-control" placeholder="nama" required="required" autocomplete="off" />
+                                <label>Nama</label>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="judul" value="<?= $tampilan->judul ?>" class="form-control" placeholder="Judul Karya" required="required" autocomplete="off" />
                                 <label>Judul</label>
@@ -43,7 +44,7 @@
                                 <label>No.Hp</label>
                             </div>
                             <div class="form-group">
-                                <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= $tampilan->deskripsi ?>" required="required" autocomplete="off"></textarea>
+                                <textarea type="deskripsi" rows="5" name="deskripsi" class="form-control" value="<?= $tampilan->deskripsi ?>" autocomplete="off"></textarea>
                                 <label>Deskripsi</label>
                             </div>
                             <div class="lab-category" style="margin-bottom:16px;">
@@ -84,12 +85,9 @@
                         <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
-
-    <?= form_close(); ?>
 </main>
 <script>
     $(document).ready(function() {

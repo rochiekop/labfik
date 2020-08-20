@@ -71,6 +71,7 @@ class Admin extends CI_Controller
           'id' => uniqid(),
           "images" =>  $images['upload_data']['file_name'],
           "title" => $this->input->post('title', true),
+          'slug'  => url_title($this->input->post('title'), 'dash', TRUE),
           "body" => $this->input->post('body', true),
         ];
         $this->db->insert('tb_lab', $data);
@@ -84,6 +85,7 @@ class Admin extends CI_Controller
         'id' => uniqid(),
         "images" => "default.jpg",
         "title" => $this->input->post('title', true),
+        'slug'  => url_title($this->input->post('title'), 'dash', TRUE),
         "body" => $this->input->post('body', true),
       ];
       $this->db->insert('tb_lab', $data);
@@ -140,6 +142,7 @@ class Admin extends CI_Controller
         $data = array(
           'images'       => $image['upload_data']['file_name'],
           'title'       => $this->input->post('title'),
+          'slug'       => url_title($this->input->post('title'), 'dash', TRUE),
           'body'     => $this->input->post('body'),
         );
         $this->db->update('tb_lab', $data, ['id' => $id]);
@@ -152,6 +155,7 @@ class Admin extends CI_Controller
       $data = array(
         'images'       => $this->input->post('image!updated'),
         'title' => $this->input->post('title'),
+        'slug'       => url_title($this->input->post('title'), 'dash', TRUE),
         'body'     => $this->input->post('body'),
       );
       $this->db->update('tb_lab', $data, ['id' => $id]);
@@ -222,17 +226,17 @@ class Admin extends CI_Controller
         $config['maintain_ratio'] = TRUE;
         $config['width']         = 500;
         $this->load->library('image_lib', $config);
-
         $this->image_lib->resize();
         $data = array(
           'id' => uniqid(),
           'title'       => $this->input->post('title'),
+          'slug'       => url_title($this->input->post('title'), 'dash', TRUE),
           'images'       => $images['upload_data']['file_name'],
           'body'     => $this->input->post('body'),
           'uploadby' => $upload,
         );
         $this->db->insert('tb_info', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informations Added!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi berhasil ditambahkan!</div>');
         redirect('admin/dt_info');
       } else {
         echo $this->upload->display_errors();
@@ -241,12 +245,13 @@ class Admin extends CI_Controller
       $data = [
         'id' => uniqid(),
         "title" => $this->input->post('title', true),
+        "slug" => url_title($this->input->post('title'), 'dash', TRUE),
         "images" => "default.jpg",
         "body" => $this->input->post('body', true),
         "uploadby" => $upload
       ];
       $this->db->insert('tb_info', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informations Added!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Informasi berhasil ditambahkan!</div>');
       redirect('admin/dt_info');
     }
   }
@@ -294,6 +299,7 @@ class Admin extends CI_Controller
         $this->image_lib->resize();
         $data = array(
           'title'       => $this->input->post('title'),
+          "slug" => url_title($this->input->post('title'), 'dash', TRUE),
           'images'       => $image['upload_data']['file_name'],
           'body'     => $this->input->post('body'),
         );
@@ -306,6 +312,7 @@ class Admin extends CI_Controller
     } else {
       $data = array(
         'title' => $this->input->post('title'),
+        "slug" => url_title($this->input->post('title'), 'dash', TRUE),
         'images'       => $this->input->post('image!updated'),
         'body'     => $this->input->post('body'),
       );

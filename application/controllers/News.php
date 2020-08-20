@@ -18,13 +18,13 @@ class News extends CI_Controller
     $this->load->view('templates/main/footer');
   }
 
-  public function details($id)
+  public function details($slug)
   {
-    $id = decrypt_url($id);
+
     $data['title'] = 'LABFIK | Detail Informasi';
     // Session name is $newData
-    $data['relatedinfo'] = $this->main_model->getRelatedInfo($id);
-    $data['detailinfo'] = $this->main_model->getDtInfoById($id);
+    $data['relatedinfo'] = $this->main_model->getRelatedInfo($slug);
+    $data['detailinfo'] = $this->main_model->getDtInfoBySlug($slug);
     $this->load->view('templates/main/header', $data);
     $this->load->view('main/detailinfo');
     $this->load->view('templates/main/footer');

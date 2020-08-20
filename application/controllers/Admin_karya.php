@@ -17,7 +17,7 @@ class Admin_karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->listingad();
         $data = array(
-            'title'     => 'karya',
+            'title'     => 'List Semua Karya',
             'tampilan'  => $tampilan
         );
         $this->load->view('templates/dashboard/headerAdmin', $data);
@@ -26,11 +26,139 @@ class Admin_karya extends CI_Controller
         $this->load->view('templates/dashboard/footer');
     }
 
+    public function tambah()
+    {
+        $prodi = $this->kategori_model->listing_kat();
+        $valid = $this->form_validation;
+        $valid->set_rules(
+            'nim',
+            'Nim',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_wa',
+            'No_Wa',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_hp',
+            'No_Hp',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'judul',
+            'Judul',
+            'required[tampilan.judul]',
+            array(
+                'required'      =>  '%s harus diisi'
+            )
+        );
+        if ($valid->run()) {
+            $config['upload_path'] = './assets/upload/images/';
+            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['max_size'] = '0';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('gambar')) {
+                $data = array(
+                    'title'     =>  'Tambah tampilan',
+                    'kategori'  =>  $prodi,
+                    'error'     =>  $this->upload->display_errors(),
+                );
+                $this->load->view('templates/dashboard/headerAdmin', $data);
+                $this->load->view('templates/dashboard/sidebarAdmin', $data);
+                $this->load->view('karya/tambahbyadmin', $data);
+                $this->load->view('templates/dashboard/footer');
+            } else {
+                $upload_gambar = array('upload_data' => $this->upload->data());
+                $i = $this->input;
+                $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
+                $data = array(
+                    'id' =>  $this->session->userdata('id'),
+                    'nama' =>  $i->post('nama'),
+                    'slug_tampilan' => $slug_tampilan,
+                    'id_kategori'  =>  $i->post('id_kategori'),
+                    'id_ck'   => $i->post('id_ck'),
+                    'nim'       => $i->post('nim'),
+                    'type'   =>  $i->post('type'),
+                    'No_wa'       => $i->post('No_wa'),
+                    'No_hp'       => $i->post('No_hp'),
+                    'judul'       => $i->post('judul'),
+                    'deskripsi'     => $i->post('deskripsi'),
+                    'gambar'    =>  $upload_gambar['upload_data']['file_name'],
+                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'status'    =>  'Menunggu Acc'
+                );
+                $this->tampilan_model->tambah($data);
+                redirect(base_url('admin_karya'), 'refresh');
+            }
+        }
+        $data = array(
+            'title'     =>  'Tambah tampilan',
+            'kategori'  =>  $prodi,
+        );
+        $this->load->view('templates/dashboard/headerAdmin', $data);
+        $this->load->view('templates/dashboard/sidebarAdmin', $data);
+        $this->load->view('karya/tambahbyadmin', $data);
+        $this->load->view('templates/dashboard/footer');
+    }
+
     public function edit($id_tampilan)
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         $kategori = $this->kategori_model->listing_kat();
+        $data = array(
+            'title'     =>  'Edit: ' . $tampilan['judul'],
+            'kategori'  =>  $kategori,
+            'tampilan'  =>  $tampilan
+        );
         $valid = $this->form_validation;
+        $valid->set_rules(
+            'nim',
+            'Nim',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_wa',
+            'No_Wa',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
+        $valid->set_rules(
+            'No_hp',
+            'No_Hp',
+            'required|min_length[10]|numeric',
+            array(
+                'required'      =>  '%s harus diisi',
+                'min_length[10]' =>  '%s angka yang diisi kurang',
+                'numeric'     =>  'mohon isi %s dengan benar'
+            )
+        );
         $valid->set_rules(
             'judul',
             'Judul',
@@ -48,17 +176,16 @@ class Admin_karya extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if (!$this->upload->do_upload('gambar')) {
-                    $data = array(
-                        'title'     =>  'Edit: ' . $tampilan->judul,
-                        'kategori'  =>  $kategori,
-                        'tampilan'  =>  $tampilan,
-                        'error'     =>  $this->upload->display_errors()
-                    );
+                    $data['error'] = $this->upload->display_errors();
                     $this->load->view('templates/dashboard/headerAdmin', $data);
                     $this->load->view('templates/dashboard/sidebarAdmin', $data);
-                    $this->load->view('karya/edit', $data);
+                    $this->load->view('karya/editbyadmin', $data);
                     $this->load->view('templates/dashboard/footer');
                 } else {
+                    $old_image = $data['tampilan']['gambar'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/upload/images/' . $old_image);
+                    }
                     $upload_gambar = array('upload_data' => $this->upload->data());
                     $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                     $i = $this->input;
@@ -98,13 +225,13 @@ class Admin_karya extends CI_Controller
             }
         }
         $data = array(
-            'title'     =>  'Edit: ' . $tampilan->judul,
+            'title'     =>  'Edit: ' . $tampilan['judul'],
             'kategori'  =>  $kategori,
             'tampilan'  =>  $tampilan
         );
         $this->load->view('templates/dashboard/headerAdmin', $data);
         $this->load->view('templates/dashboard/sidebarAdmin', $data);
-        $this->load->view('karya/edit', $data);
+        $this->load->view('karya/editbyadmin', $data);
         $this->load->view('templates/dashboard/footer');
     }
 
@@ -112,7 +239,6 @@ class Admin_karya extends CI_Controller
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
         unlink('./assets/upload/images/' . $tampilan->gambar);
-        unlink('./assets/upload/images/thumbs/' . $tampilan->gambar);
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
         redirect(base_url('admin_karya'), 'refresh');

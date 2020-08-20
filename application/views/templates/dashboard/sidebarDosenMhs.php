@@ -45,8 +45,16 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
       <a href="#" class="btn" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-upload"></span> Listing Karya</a>
       <div id="collapse3" class="collapse" data-parent="#accordion">
         <ul>
-          <li><a href="<?= base_url('karya') ?>">Karya Saya</a></li>
-          <li><a href="<?= base_url('karya/tambah') ?>">Upload</a></li>
+          <?php if ($this->session->userdata('role_id') == 4) : ?>
+            <li><a href="<?= base_url('karya/listbymhs') ?>">Karya Saya</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 3) : ?>
+            <li><a href="<?= base_url('karya/listbydsn') ?>">Karya Saya</a></li>
+          <?php endif; ?>
+          <?php if ($this->session->userdata('role_id') == 4) : ?>
+            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 3) : ?>
+            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload</a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
