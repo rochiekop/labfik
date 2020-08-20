@@ -158,6 +158,28 @@ class Borrowing_model extends CI_Model
         $this->db->update('borrowing',$data,array('id' => $id));
     }
 
+    public function updateItemQuantity($id, $status)
+    {
+        $this->db->select("item_id, quantity");
+        $this->db->from("borrowing");
+        $this->db->where('id', $id);
+        $query  = $this->db->get();
+        $result = $query->row();
+        
+        $data = array(
+            if ($status == 'accepted')
+            {
+                'quantity' =>  'quantity' - $result->quantity
+            }
+            else if ($status == 'done')
+            {
+                'quantity' =>  'quantity' + $result->quantity
+            }
+        );
+
+        $this->db->update('item',$data,array('id' => $result->item_id));
+    }
+
     public function delete($id)
     {
         return $this->db->delete($this->_table, array("id" => $id));

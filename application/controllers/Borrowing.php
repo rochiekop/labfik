@@ -139,6 +139,9 @@ class Borrowing extends CI_Controller
     {
         $this->borrowing_model->updateStatusAccepted($id);
 
+        $status = 'accepted'
+        $this->borrowing_model->updateItemQuantity($id, $status);
+
         $description = 'Peminjaman diizinkan';
         $this->notification_model->assignBorrowingNotification($user_id, $id, $description);
         
@@ -156,16 +159,30 @@ class Borrowing extends CI_Controller
     }
 
     public function changeStatusDone($id)
-    {
+    {   
+        $status = 'done';
+        $this->borrowing_model->updateItemQuantity($id, $status);
+
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
-            if ($this->borrowing_model->updateStatusDone($id)) {
-                redirect(site_url('borrowing/listAllByDosenMhs/' . $id));
-            }
+            $this->borrowing_model->updateStatusDone($id);
+            redirect(site_url('borrowing/listAllByDosenMhs/' . $id));
         } else if ($this->session->userdata('role_id') == '1') {
-            if ($this->borrowing_model->updateStatusDone($id)) {
-                redirect(site_url('borrowing/listAllByIdAdmin/' . $id));
-            }
+            $this->borrowing_model->updateStatusDone($id);
+            redirect(site_url('borrowing/listAllByIdAdmin/' . $id));
         }
     }
+
+    // public function changeItemQuantity($id)
+    // {
+    //     if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+    //         if ($this->borrowing_model->updateStatusDone($id)) {
+    //             redirect(site_url('borrowing/listAllByDosenMhs/' . $id));
+    //         }
+    //     } else if ($this->session->userdata('role_id') == '1') {
+    //         if ($this->borrowing_model->updateStatusDone($id)) {
+    //             redirect(site_url('borrowing/listAllByIdAdmin/' . $id));
+    //         }
+    //     }
+    // }
 
 }

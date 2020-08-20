@@ -42,12 +42,12 @@
                     <form action="<?= base_url('thesis/saveCorrection')?>" method="post">
                         <!-- <input type="text" name="thesis_id" value="<?= $thesis_id ?>" hidden >
                         <input type="text" name="page" value="<?= $thesis_id ?>" hidden > -->
-                        <!-- <textarea name="content" id="correction" class="form-control" cols="30" rows="10" style="display: inline"></textarea> -->
+                        <textarea name="content" id="correction" class="form-control" cols="30" rows="10"></textarea>
                         <!-- <input type="text" name="correction" id="correction">
                         <input type="submit"> -->
                     </form>
                     <p id="content"></p>
-                    <textarea name="" id="correction" cols="30" rows="10"></textarea>
+                    <!-- <textarea name="" id="correction" cols="30" rows="10"></textarea> -->
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
 <!-- <script src="assets/js/tambahan.js"></script> -->
 
 <!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector: 'textarea',
@@ -72,10 +72,11 @@
         tinycomments_author: '<?= $this->session->userdata('username') ?>',
         height: '460'
     });
-</script>
+</script> -->
 
 <!-- PDF.js -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.4.456/build/pdf.min.js"></script>
+
 <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
 <script>
     var pdf_file = document.getElementById("pdf_file").value;
