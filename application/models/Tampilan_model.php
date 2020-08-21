@@ -32,6 +32,7 @@ class Tampilan_model extends CI_Model
     public function listingad()
     {
         $this->db->select('tampilan.*,
+        user.name,
         user_role.role,
         kategori.nama_kategori,
         kategori.slug_kategori,

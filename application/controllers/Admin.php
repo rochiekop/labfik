@@ -691,8 +691,8 @@ class Admin extends CI_Controller
           'images' => $images['file_name'],
         );
         $this->db->insert('ruangan', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil ditambahkan!</div>');
-        redirect('admin/daftartempat');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan ' . $this->input->post('ruangan') . ' berhasil ditambahkan!</div>');
+        redirect('admin/tambahtempat');
       } else {
         echo $this->upload->display_errors();
       }
@@ -706,8 +706,8 @@ class Admin extends CI_Controller
         'images' => 'default.jpg',
       ];
       $this->db->insert('ruangan', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan berhasil ditambahkan!</div>');
-      redirect('admin/daftartempat');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Ruangan ' . $this->input->post('ruangan') . ' berhasil ditambahkan!</div>');
+      redirect('admin/tambahtempat');
     }
   }
 

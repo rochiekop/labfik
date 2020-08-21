@@ -117,7 +117,6 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
     </div>
   </div>
 </div>
-<!-- <?php var_dump($kruangan) ?> -->
 <!-- End Side Menu -->
 <div class="modal fade" id="makebooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog wide" role="document">

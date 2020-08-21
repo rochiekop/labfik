@@ -69,7 +69,7 @@ class Users extends CI_Controller
     $title = $this->db->get_where('guidance', ['judul' => $this->input->post('title')])->row_array();
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     if (!empty($title)) {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul tersebut sudah terdaftar dalam sistem</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, masukkan judul lain</div>');
       redirect('users/pengajuandosbing');
     } else {
       $data = array(
@@ -86,9 +86,10 @@ class Users extends CI_Controller
 
   public function editjudulta()
   {
-    $title = $this->db->get_where('guidance', ['judul' => $this->input->post('title')])->row_array();
+    $title = $this->user_model->cektitle();
+
     if (!empty($title)) {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul tersebut sudah terdaftar dalam sistem</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, silakan cari judul lain.</div>');
       redirect('users/pengajuandosbing');
     } else {
       $data = array(
@@ -96,7 +97,7 @@ class Users extends CI_Controller
         'peminatan' => $this->input->post('peminatan'),
       );
       $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Judul berhasil diubah</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
       redirect('users/pengajuandosbing');
     }
   }
@@ -220,29 +221,45 @@ class Users extends CI_Controller
         if (!$create)
           return;
       }
-      // get foto
-      $config['upload_path'] = $path;
-      $config['allowed_types'] = 'pdf|doc|jpg|png|jpeg|gif';
-      $config['max_size'] = '20024';  //20MB max
-      $config['file_name'] = $_FILES['fileta']['name'];
-      $this->upload->initialize($config);
-      if ($this->upload->do_upload('fileta')) {
-        $pdf = $this->upload->data();
-        $data = [
-          "id" => uniqid(),
-          "id_guidance" => $this->input->post('id_guidance', true),
-          "send_to" => $this->input->post('fordosen', true),
-          "pdf_file" =>  $pdf['file_name'],
-          "date" => date('Y-m-d'),
-          "keterangan" => $this->input->post('keterangan', true),
-          "status" => "Dikirim",
-        ];
-        $this->db->insert('thesis', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File berhasil dikirim, tunggu sampai file diperiksa dosen</div>');
-        redirect('users/bimbingantugasakhir');
-      } else {
-        echo $this->upload->display_errors();
+      $data = [];
+      $allfile = count($_FILES['fileta']['name']);
+      for ($i = 0; $i < $allfile; $i++) {
+        if (!empty($_FILES['fileta']['name'][$i])) {
+          $_FILES['file']['name'] = $_FILES['fileta']['name'][$i];
+          $_FILES['file']['type'] = $_FILES['fileta']['type'][$i];
+          $_FILES['file']['tmp_name'] = $_FILES['fileta']['tmp_name'][$i];
+          $_FILES['file']['error'] = $_FILES['fileta']['error'][$i];
+          $_FILES['file']['size'] = $_FILES['fileta']['size'][$i];
+          $config['upload_path'] = $path;
+          $config['allowed_types'] = '*';
+          $config['max_size'] = '200024';  //200MB max
+          $this->load->library('upload', $config);
+
+          // var_dump($allfile);
+          // die;
+          $this->upload->initialize($config);
+          if ($this->upload->do_upload('file')) {
+            $file = $this->upload->data();
+            $filename = $file['file_name'];
+
+            $data[] = $filename;
+          } else {
+            echo $this->upload->display_errors();
+          }
+        }
       }
+      $data = [
+        "id" => uniqid(),
+        "id_guidance" => $this->input->post('id_guidance', true),
+        "send_to" => $this->input->post('fordosen', true),
+        "pdf_file" => implode(', ', $data),
+        "date" => date('Y-m-d'),
+        "keterangan" => $this->input->post('keterangan', true),
+        "status" => "Dikirim",
+      ];
+      $this->db->insert('thesis', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File berhasil dikirim, tunggu sampai file diperiksa dosen</div>');
+      redirect('users/bimbingantugasakhir');
     }
   }
 
@@ -270,6 +287,7 @@ class Users extends CI_Controller
     $id = decrypt_url($id);
     $data['title'] = 'LABFIK | Daftar Bimbingan';
     $data['filebimbingan'] = $this->user_model->getfilebimbinganbyid($id);
+    $data['preview'] = $this->user_model->getfilebimbinganpreview($id);
     $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
@@ -293,5 +311,18 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/penguji', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function deletefileta()
+  {
+    $id = $this->input->post('id');
+    if ($id) {
+      $this->db->delete('dosbing', ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
+      redirect('users/pengajuandosbing');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda hapus tidak ada</div>');
+      redirect('users/pengajuandosbing');
+    }
   }
 }

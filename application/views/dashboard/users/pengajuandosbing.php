@@ -50,9 +50,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- <?php var_dump($cdosbing) ?> -->
-
   </main>
   <!-- End Main Container -->
 
@@ -89,10 +86,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <?php var_dump($dosbing) ?> -->
-
-
   <!-- Modal Edit judul -->
   <div class="modal fade" id="viewjudul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
