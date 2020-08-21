@@ -63,12 +63,12 @@ class Borrowing extends CI_Controller
         if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
-            $this->load->view("item/dosenMhs/log", $data);
+            $this->load->view("item/dosenMhs/logAction", $data);
             $this->load->view("templates/dashboard/footer");
         } else if ($this->session->userdata('role_id') == '1') {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
-            $this->load->view("item/kaur/log", $data);
+            $this->load->view("item/kaur/logAction", $data);
             $this->load->view("templates/dashboard/footer");
         }
     }
@@ -88,19 +88,31 @@ class Borrowing extends CI_Controller
         $data["item"] = $item->getById($id);
         if (!$data["item"]) show_404();
 
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') 
+        {
             $this->load->view("templates/dashboard/headerDosenMhs");
             $this->load->view("templates/dashboard/sidebarDosenMhs");
             // $this->load->view("item/dosenMhs/borrow", $data);
             $this->load->view("item/borrowing", $data);
             $this->load->view("templates/dashboard/footer");
-        } else if ($this->session->userdata('role_id') == '1') {
+        } 
+        else if ($this->session->userdata('role_id') == '1') 
+        {
             $this->load->view("templates/dashboard/headerAdmin");
             $this->load->view("templates/dashboard/sidebarAdmin");
             // $this->load->view("item/admin/borrow", $data);
             $this->load->view("item/borrowing", $data);
             $this->load->view("templates/dashboard/footer");
         }
+        else if ($this->session->userdata('role_id') == '2')
+        {
+            $this->load->view("templates/dashboard/headerKaur");
+            $this->load->view("templates/dashboard/sidebarKaur");
+            // $this->load->view("item/admin/borrow", $data);
+            $this->load->view("item/borrowing", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+
     }
 
     public function addBorrowing()
@@ -139,7 +151,7 @@ class Borrowing extends CI_Controller
     {
         $this->borrowing_model->updateStatusAccepted($id);
 
-        $status = 'accepted'
+        $status = 'accepted';
         $this->borrowing_model->updateItemQuantity($id, $status);
 
         $description = 'Peminjaman diizinkan';
@@ -162,14 +174,10 @@ class Borrowing extends CI_Controller
     {   
         $status = 'done';
         $this->borrowing_model->updateItemQuantity($id, $status);
+        $this->borrowing_model->updateStatusDone($id);
 
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
-            $this->borrowing_model->updateStatusDone($id);
-            redirect(site_url('borrowing/listAllByDosenMhs/' . $id));
-        } else if ($this->session->userdata('role_id') == '1') {
-            $this->borrowing_model->updateStatusDone($id);
-            redirect(site_url('borrowing/listAllByIdAdmin/' . $id));
-        }
+        $user_id = $this->session->userdata('id');
+        redirect(site_url('borrowing/listAllById/' . $user_id));
     }
 
     // public function changeItemQuantity($id)

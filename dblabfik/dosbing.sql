@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2020 at 04:47 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Waktu pembuatan: 20 Agu 2020 pada 09.07
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,31 +25,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dosbing`
+-- Struktur dari tabel `dosbing`
 --
 
 CREATE TABLE `dosbing` (
   `id` varchar(64) NOT NULL,
   `id_dosen` varchar(64) NOT NULL,
-  `id_mhs` varchar(64) NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `id_guidance` varchar(64) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `dosbing`
+-- Dumping data untuk tabel `dosbing`
 --
 
-INSERT INTO `dosbing` (`id`, `id_dosen`, `id_mhs`, `date`, `status`) VALUES
-('5f2631b631a8b', '5f258dc28c1a3', '44', '2020-08-02 00:00:00', 'Sudah Disetujui'),
-('5f2701fdb8513', '38', '44', '2020-08-03 01:12:13', 'Menunggu Persetujuan');
+INSERT INTO `dosbing` (`id`, `id_dosen`, `id_guidance`, `date`, `status`) VALUES
+('5f31097c32abc', '5f1e7dc5ca07e', '5f310973f0bda', '2020-08-10 15:46:52', 'Sudah Disetujui'),
+('5f310980bdbd7', '5f28dbe13ddf9', '5f310973f0bda', '2020-08-10 15:46:56', 'Sudah Disetujui'),
+('5f3beda15ad96', '5f1e7dc5ca07e', '5f299fa2c3429', '2020-08-18 22:02:57', 'Sudah Disetujui'),
+('5f3beda543dff', '5f28dbe13ddf9', '5f299fa2c3429', '2020-08-18 22:03:01', 'Sudah Disetujui');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `dosbing`
+-- Indeks untuk tabel `dosbing`
 --
 ALTER TABLE `dosbing`
   ADD PRIMARY KEY (`id`);

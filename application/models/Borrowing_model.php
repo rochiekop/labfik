@@ -165,19 +165,31 @@ class Borrowing_model extends CI_Model
         $this->db->where('id', $id);
         $query  = $this->db->get();
         $result = $query->row();
-        
-        $data = array(
-            if ($status == 'accepted')
-            {
-                'quantity' =>  'quantity' - $result->quantity
-            }
-            else if ($status == 'done')
-            {
-                'quantity' =>  'quantity' + $result->quantity
-            }
-        );
 
-        $this->db->update('item',$data,array('id' => $result->item_id));
+        // if ($status == 'accepted')
+        // {
+        //     $data = array(
+        //         'quantity' =>  'quantity' - $result->quantity
+        //     );
+        // }
+        // else if ($status == 'done')
+        // {
+        //     $data = array(
+        //         'quantity' =>  'quantity' + $result->quantity
+        //     );
+        // }
+        // $this->db->update('item',$data,array('id' => $result->item_id));
+
+        if ($status == 'accepted')
+        {
+            $sql = "UPDATE item SET quantity = quantity - $result->quantity WHERE id = '$result->item_id'";
+            $this->db->query($sql);
+        }
+        else if ($status == 'done')
+        {
+            $sql = "UPDATE item SET quantity = quantity + $result->quantity WHERE id = '$result->item_id'";
+            $this->db->query($sql);
+        }
     }
 
     public function delete($id)
