@@ -5,15 +5,24 @@
     <h4>Bimbingan</h4>
   </div>
 
-  Nama : <?= $mhsbyid['name'] ?> <br>
-  NIM : <?= $mhsbyid['nim'] ?> <br>
-  Prodi : <?= $mhsbyid['prodi'] ?>
+  Nama &nbsp&nbsp: <?= $mhsbyid['name'] ?> <br>
+  NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['nim'] ?> <br>
+  Prodi &nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['prodi'] ?>
   <br>
   <br>
-  <form action="#">
-    <input type="hidden" value="siap_sidang" />
-    <button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>
-  </form>
+
+  <input type="hidden" value="siap_sidang" />
+  <button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>
+  <?php
+  for ($x = 1; $x <= 4; $x++) {
+    if ($x - 1 == count($preview) - 1) {
+      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:4px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
+    } else {
+      echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:4px;">Preview ' . $x . '</button>';
+    }
+  }
+  ?>
+  <br>
   <br>
 
   <div class="table-responsive">
@@ -39,17 +48,22 @@
                 <?= $f['keterangan'] ?>
               </td>
               <td>
-                <?= $f['pdf_file'] ?> <br>
+                <?php
+                $file = explode(",", $f['pdf_file']);
+                foreach ($file as $t) {
+                  echo "$t <br>";
+                }
+                ?>
                 <a href="#" class="btn badge badge-secondary">Unduh</a>
               </td>
               <td>
                 <!-- <a href="</?= base_url('users/viewfilepdf/') . encrypt_url($f['id']); ?>">view </a> -->
                 <!-- <a href="<?= base_url('thesis/view/' . $f['id']) ?>">view </a> -->
                 <!-- <?= $f['id'] ?> <br> -->
-                <!-- <a href="<?= base_url('thesis/'. $f['id']) ?>">view </a> -->
+                <!-- <a href="<?= base_url('thesis/' . $f['id']) ?>">view </a> -->
                 <!-- <a href="<?= base_url('thesis') ?>">view </a> -->
                 <form action="<?= base_url('thesis') ?>" method="post">
-                  <input type="text" name="thesis_id" value="<?=$f['id']?>" hidden>
+                  <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
                   <button type="submit">lihat</button>
                 </form>
               </td>
@@ -63,39 +77,27 @@
       </tbody>
     </table>
   </div>
-  <!-- <?php var_dump($filebimbingan) ?> -->
-
+  <!-- <?php var_dump(($preview)) ?> -->
 </main>
 <!-- End Main Container -->
 
-<!-- Modal Bimbingan - Dosen -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="exampleModalLabel">Upload Feedback untuk Mahasiswa</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="#">
+<!-- Modal Preview-->
+<?php foreach ($filebimbingan as $t) : ?>
+  <div class="modal fade bd-example-modal-sm" id="previewmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
         <div class="modal-body">
-          <input type="hidden" id="nama_mahasiswa" value="Fulan Bin Fulan">
-          <input type="hidden" id="nim_mahasiswa" value="0123456789">
-          <div class="form-group">
-            <label for="exampleFormControlFile1">Pilih Dokumen</label>
-            <input type="file" class="form-control" id="exampleFormControlFile1" style="padding:13px 16px">
-          </div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label for="ketbim">Pesan Singkat</label>
-            <textarea class="form-control" style="padding:12px" rows="5" id="ketbim" aria-describedby="keterangan" placeholder="Pesan ..." maxlength="160"></textarea>
-          </div>
+          Kirim Preview 1 ?
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
-          <button type="submit" class="btn btn-sm btn-primary">Kirim</button>
-        </div>
-      </form>
+        <form action="deletelab" method="post" enctype="multipart/form-data">
+          <div class="modal-footer">
+            <!-- <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+            <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>"> -->
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="submit" name="preview" class="btn btn-primary btn-sm">Kirim</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+<?php endforeach; ?>

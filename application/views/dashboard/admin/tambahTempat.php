@@ -1,5 +1,6 @@
 <!-- Main Container -->
 <main class="akun-container">
+  <?= $this->session->flashdata('message'); ?>
   <div class="fik-section-title2">
     <span class="fas fa-door-open zzzz"></span>
     <h5>Tambah Tempat</h5>
