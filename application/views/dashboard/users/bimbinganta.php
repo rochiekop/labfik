@@ -66,7 +66,7 @@
                     <td><span class="badge badge-danger">Revisi</span></td>
                   <?php endif; ?>
                   <?php if ($t['status'] == "Dikirim") : ?>
-                    <td><a data-toggle="modal" data-target="#<?= encrypt_url($t['id_guidance']); ?>" class="badge badge-danger" style="color:white">Batalkan</a></td>
+                    <td><a data-toggle="modal" data-target="#Jkdbs<?= encrypt_url($t['id']); ?>" class="badge badge-danger" style="color:white">Batalkan</a></td>
                   <?php else : ?>
                     <td>
                       <center>~</center>
@@ -166,7 +166,7 @@
 
   <!-- Modal Delete Pengajuan -->
   <?php foreach ($allhistory as $t) : ?>
-    <div class="modal fade bd-example-modal-sm" id="<?= encrypt_url($t['id_guidance']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-sm" id="Jkdbs<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-body">
@@ -174,8 +174,8 @@
           </div>
           <form action="deletefileta" method="post" enctype="multipart/form-data">
             <div class="modal-footer">
-              <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
-              <input type="hidden" id="file" name="file" value="<?= $t['pdf_file']; ?>">
+              <input type="text" id="id" name="id" value="<?= $t['id']; ?>">
+              <input type="text" id="file" name="fileta" value="<?= $t['pdf_file']; ?>">
               <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
               <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Batalkan</button>
             </div>
@@ -184,7 +184,6 @@
       </div>
     </div>
   <?php endforeach; ?>
-
   <script src="<?= base_url('assets/js/search.js') ?>"></script>
   <script>
     $(document).ready(function() {
