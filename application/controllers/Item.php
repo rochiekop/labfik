@@ -35,6 +35,15 @@ class Item extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
+    public function listKaur()
+    {
+        $data["item"] = $this->item_model->getAll();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/dosenMhs/list", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
     public function add()
     {
         $item = $this->item_model;
