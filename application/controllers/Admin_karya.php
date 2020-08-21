@@ -26,6 +26,19 @@ class Admin_karya extends CI_Controller
         $this->load->view('templates/dashboard/footer');
     }
 
+    public function listacc()
+    {
+        $tampilan = $this->tampilan_model->listingad();
+        $data = array(
+            'title' => 'LABFIK | List Semua Karya',
+            'tampilan'  => $tampilan
+        );
+        $this->load->view('templates/dashboard/headerAdmin', $data);
+        $this->load->view('templates/dashboard/sidebarAdmin', $data);
+        $this->load->view('karya/listallkarya', $data);
+        $this->load->view('templates/dashboard/footer');
+    }
+
     public function tambah()
     {
         $prodi = $this->kategori_model->listing_kat();
@@ -70,7 +83,7 @@ class Admin_karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4|pdf';
             $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
@@ -242,6 +255,20 @@ class Admin_karya extends CI_Controller
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
         redirect(base_url('admin_karya'), 'refresh');
+    }
+
+    public function accepted($id)
+    {
+        $this->gambar_model->changeStatusAccepted($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
+        redirect('admin_karya');
+    }
+
+    public function Declined($id)
+    {
+        $this->gambar_model->changeStatusDeclined($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat ditolak!</div>');
+        redirect('admin_karya');
     }
 
     function fetch()

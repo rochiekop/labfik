@@ -41,9 +41,11 @@
                         <td style="width:90px">
                             <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $l->id_tampilan ?>">
                                 <?php if ($l->type == 'Foto') : ?>
-                                    <img src="<?= base_url("assets/upload/images/" . $l->gambar) ?>" alt="<?= $l->judul ?>">
-                                <?php else : ?>
+                                    <img src="<?= base_url('assets/upload/images/' . $l->gambar) ?>">
+                                <?php elseif ($l->type == 'Video') : ?>
                                     <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" width="80"></video>
+                                <?php else : ?>
+                                    <span class="fas fa-file-pdf fa-4x"></span>
                                 <?php endif; ?>
                             </a>
                         </td>
@@ -79,10 +81,12 @@
                 <div class="modal-body">
                     <?php if ($data->type == 'Foto') : ?>
                         <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
-                    <?php else : ?>
+                    <?php elseif ($data->type == 'Video') : ?>
                         <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
                             <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
                         </video>
+                    <?php else : ?>
+                        <embed src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="application/pdf" width="100%" height="600px" />
                     <?php endif; ?>
                     <div class="item-text">
                         <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>

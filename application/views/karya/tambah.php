@@ -70,6 +70,10 @@
                                     <input class="form-check-input" type="radio" name="type" id="checkbox12" value="Foto">
                                     <label class="form-check-label" for="checkbox12">Foto</label>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="checkbox13" value="pdf">
+                                    <label class="form-check-label" for="checkbox13">File</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
@@ -187,11 +191,11 @@
 </script>
 <script>
     $("#file-0").change(function() {
-        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4'];
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4', 'application/pdf'];
         var file = this.files[0];
         var fileType = file.type;
         if (!allowedTypes.includes(fileType)) {
-            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/MOV/MPEG/MP3/AVI/MP4)</small>');
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/MOV/MPEG/MP3/AVI/MP4/PDF)</small>');
             $("#file-0").val('');
             return false;
         } else {

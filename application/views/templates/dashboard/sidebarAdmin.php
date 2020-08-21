@@ -69,6 +69,7 @@
         <div id="collapse3" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('Admin_karya'); ?>">Semua Karya</a></li>
+            <li><a href="<?= base_url('Admin_karya/listacc'); ?>">Semua Permintaan</a></li>
           </ul>
         </div>
       </div>
