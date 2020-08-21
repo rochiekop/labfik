@@ -40,12 +40,14 @@
                             <tr>
                                 <td><?= $no ?></td>
                                 <td>
-                                    <a type="button" data-target="#exampleModal<?= $data->id_tampilan ?>" data-toggle="modal">
+                                    <a class="img-wrapper" type="button" data-target="#exampleModal<?= $data->id_tampilan ?>" data-toggle="modal">
                                         <?php if ($data->type == 'Foto') : ?>
-                                            <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
+                                            <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>">
+                                        <?php elseif ($data->type == 'Video') : ?>
+                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" width="80"></video>
                                         <?php else : ?>
-                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
-                                            <?php endif; ?>
+                                            <span class="fas fa-file-pdf fa-4x"></span>
+                                        <?php endif; ?>
                                     </a>
                                 </td>
                                 <td><?= $data->nim ?></td>
@@ -80,10 +82,12 @@
                 <div class="modal-body">
                     <?php if ($data->type == 'Foto') : ?>
                         <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
-                    <?php else : ?>
+                    <?php elseif ($data->type == 'Video') : ?>
                         <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
                             <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
                         </video>
+                    <?php else : ?>
+                        <embed src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="application/pdf" width="100%" height="600px" />
                     <?php endif; ?>
                     <div class="item-text">
                         <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>
