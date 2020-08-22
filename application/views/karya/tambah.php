@@ -5,7 +5,7 @@
     </div>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
-            <img src="" alt="" class="fas fa-image placeholder-img">
+            <embed type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
             <span class="placeholder-img1"></span>
         </div>
         <div class="col-md-8">
@@ -95,6 +95,9 @@
         </div>
     </div>
 </main>
+<script>
+
+</script>
 <script>
     const image = document.getElementById('file-0');
     const previewContainer = document.getElementById('imagePreview');
