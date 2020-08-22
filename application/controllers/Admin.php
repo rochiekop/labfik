@@ -918,6 +918,7 @@ class Admin extends CI_Controller
 
   public function updatepeminjaman()
   {
+
     if ($this->input->post('status') == "Diterima") {
       $data = array(
         'id_ruangan' => $this->input->post('ruangan'),

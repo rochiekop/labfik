@@ -107,6 +107,7 @@ class Booking_model extends CI_Model
   public function fetchRuangan($id_kategori)
   {
     $this->db->where('id_kategori', $id_kategori);
+    $this->db->where('akses !=', 'Mahasiswa');
     $this->db->order_by('ruangan', 'asc');
     $query = $this->db->get('ruangan');
     $output = '<option disabled selected value="">Pilih Ruangan</option>';
@@ -115,6 +116,33 @@ class Booking_model extends CI_Model
     }
     return $output;
   }
+
+  public function fetchRuanganMhs($id_kategori)
+  {
+    $this->db->where('id_kategori', $id_kategori);
+    $this->db->where('akses !=', 'Dosen');
+    $this->db->order_by('ruangan', 'asc');
+    $query = $this->db->get('ruangan');
+    $output = '<option disabled selected value="">Pilih Ruangan</option>';
+    foreach ($query->result() as $row) {
+      $output .= '<option value="' . $row->id . '">' . $row->ruangan . '</option>';
+    }
+    return $output;
+  }
+
+  public function fetchRuanganDsn($id_kategori)
+  {
+    $this->db->where('id_kategori', $id_kategori);
+    $this->db->where('akses !=', 'Mahasiswa');
+    $this->db->order_by('ruangan', 'asc');
+    $query = $this->db->get('ruangan');
+    $output = '<option disabled selected value="">Pilih Ruangan</option>';
+    foreach ($query->result() as $row) {
+      $output .= '<option value="' . $row->id . '">' . $row->ruangan . '</option>';
+    }
+    return $output;
+  }
+
   public function validate_name()
   {
     $name = $this->input->post('name');

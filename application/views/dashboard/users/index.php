@@ -40,7 +40,8 @@
       <h5>List Tempat</h5>
     </div>
     <div class="row grid-bartemp">
-      <?php foreach ($dt_tempat as $t) : ?>
+      <?php $i = 0;
+      foreach ($dt_tempat as $t) : ?>
         <?php if ($this->session->userdata('role_id') == '4') : ?>
           <?php if ($t['akses'] != 'Dosen') : ?>
             <div class="col-md-2">
@@ -53,7 +54,9 @@
               </div>
               <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
             </div>
+            <?php if ($i++ == 5) break; ?>
           <?php endif; ?>
+
         <?php elseif ($this->session->userdata('role_id') == '3') : ?>
           <?php if ($t['akses'] != 'Mahasiswa') : ?>
             <div class="col-md-2">
@@ -66,6 +69,7 @@
               </div>
               <input type="hidden" name="tipepinjam" value="tempat" class="form-control" placeholder="" required="required" autocomplete="off" />
             </div>
+            <?php if ($i++ == 5) break; ?>
           <?php endif; ?>
         <?php endif; ?>
       <?php endforeach; ?>

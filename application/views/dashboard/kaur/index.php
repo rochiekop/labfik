@@ -16,6 +16,7 @@
     </ul>
     <br>
     <div class="tab-content" id="myTabContent">
+      <?= $this->session->flashdata('message'); ?>
       <div class="tab-pane fade show active" id="tempat" role="tabpanel" aria-labelledby="tabtempat">
         <div class="table-responsive admin-list">
           <table class="table table-hover">
@@ -25,9 +26,10 @@
                 <th scope="col" style="width:20%;">Nama</th>
                 <th scope="col">Ruangan</th>
                 <th scope="col">Tanggal</th>
-                <th scope="col">Waktu</th>
+                <th scope="col">
+                  <center>Waktu <center>
+                </th>
                 <th scope="col">Keterangan</th>
-                <th scope="col">Status</th>
                 <th scope="col" style="width:130px;text-align:center">Aksi</th>
               </tr>
             </thead>
@@ -42,11 +44,19 @@
                     <td><?= $l['role'] . ', ' . $l['name'] ?></td>
                     <td><?= $l['kategori'] . ' - ' . $l['ruangan'] ?></td>
                     <td><?= format_indo($l['date'], date('d-m-Y')); ?></td>
-                    <td><?= substr($l['time'], 0, 8) ?><?= substr($l['time'], -5) ?></td>
+                    <td>
+                      <center>
+                        <?php
+                        $time = explode(',', $l['time']);
+                        foreach ($time as $t) {
+                          echo "$t <br>";
+                        }
+                        ?>
+                      </center>
+                    </td>
                     <td><?= $l['keterangan'] ?></td>
-                    <td><?= $l['status'] ?></td>
                     <td class="action" style="width:110px;text-align:center;">
-                      <a href="<?= base_url('kaur/accepted/') . encrypt_url($l['id']); ?>" class="btn badge badge-success">Acc</a>
+                      <a href="<?= base_url('kaur/acceptedindex/') . encrypt_url($l['id']); ?>" class="btn badge badge-success">Acc</a>
                       <a data-toggle="modal" data-target="#declinedmodal<?= encrypt_url($l['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                     </td>
                   </tr>
@@ -138,7 +148,7 @@
           <div class="modal-body">
             Tolak Peminjaman Tempat ?
           </div>
-          <form action="changeDeclined" method="post" enctype="multipart/form-data">
+          <form action="<?= base_url('kaur/changedeclinedindex') ?>" method="post" enctype="multipart/form-data">
             <div class="modal-footer">
               <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
               <input type="hidden" id="date" name="date" value="<?= $t['date']; ?>">

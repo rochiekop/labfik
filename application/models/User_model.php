@@ -238,7 +238,7 @@ class User_model extends CI_Model
 	{
 		$query = "SELECT `kategoriruangan`.*,`ruangan`.* 
 		FROM `kategoriruangan` JOIN `ruangan` 
-		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori` LIMIT 6";
+		ON `kategoriruangan`.`id` = `ruangan`.`id_kategori`";
 		return $this->db->query($query)->result_array();
 	}
 

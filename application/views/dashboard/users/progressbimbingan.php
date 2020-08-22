@@ -15,16 +15,16 @@
   <button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>
   <?php
   for ($x = 1; $x <= 4; $x++) {
-    if ($x - 1 == count($preview) - 1) {
+    if ($x == count($preview)) {
       echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:4px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
     } else {
       echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:4px;">Preview ' . $x . '</button>';
     }
   }
   ?>
+  <?php var_dump(count($preview)) ?>
   <br>
   <br>
-
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>

@@ -134,16 +134,29 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
               <input type="text" name="name" class="form-control" placeholder="" required="required" value="<?= $this->session->userdata('name'); ?>" autocomplete="off" />
               <label>Nama Lengkap</label>
             </div>
-            <div class="form-group">
-              <select class="form-control" name="id_kategori" id="kategoriruangan" required>
-                <option disabled selected>Kategori Ruangan</option>
-                <?php foreach ($kruangan as $k) { ?>
-                  <option value="<?= $k['id'] ?>">
-                    <?= $k['kategori'] ?>
-                  </option>
-                <?php } ?>
-              </select>
-            </div>
+            <?php if ($this->session->userdata('role_id') == 3) : ?>
+              <div class="form-group">
+                <select class="form-control" name="id_kategori" id="kategoriruangandsn" required>
+                  <option disabled selected>Kategori Ruangan</option>
+                  <?php foreach ($kruangan as $k) { ?>
+                    <option value="<?= $k['id'] ?>">
+                      <?= $k['kategori'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php elseif ($this->session->userdata('role_id') == 4) : ?>
+              <div class="form-group">
+                <select class="form-control" name="id_kategori" id="kategoriruanganmhs" required>
+                  <option disabled selected>Kategori Ruangan</option>
+                  <?php foreach ($kruangan as $k) { ?>
+                    <option value="<?= $k['id'] ?>">
+                      <?= $k['kategori'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php endif; ?>
             <div class="form-group">
               <select class="form-control" name="id_ruangan" id="ruangan" onchange="disablemodals()" disabled required>
                 <option disabled selected>Pilih Ruangan</option>
@@ -181,13 +194,30 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
 
 <script>
   $(document).ready(function() {
-    $('#kategoriruangan').change(function() {
+    $('#kategoriruanganmhs').change(function() {
       document.getElementById("ruangan").disabled = false;
-      var id_kategori = $('#kategoriruangan').val();
+      var id_kategori = $('#kategoriruanganmhs').val();
 
       if (id_kategori != '') {
         $.ajax({
-          url: "<?= base_url(); ?>booking/fetchRuangan",
+          url: "<?= base_url(); ?>booking/fetchRuanganMhs",
+          method: "POST",
+          data: {
+            id_kategori: id_kategori
+          },
+          success: function(data) {
+            $('#ruangan').html(data);
+          }
+        })
+      }
+    });
+    $('#kategoriruangandsn').change(function() {
+      document.getElementById("ruangan").disabled = false;
+      var id_kategori = $('#kategoriruangandsn').val();
+
+      if (id_kategori != '') {
+        $.ajax({
+          url: "<?= base_url(); ?>booking/fetchRuanganDsn",
           method: "POST",
           data: {
             id_kategori: id_kategori

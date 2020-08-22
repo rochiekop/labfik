@@ -66,7 +66,7 @@ class Kaur extends CI_Controller
   {
     $id = decrypt_url($id);
     $this->booking_model->changeStatusAccepted($id);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui</div>');
     redirect('kaur/listWaitingForAcc');
   }
 
@@ -78,10 +78,10 @@ class Kaur extends CI_Controller
     $check = $this->db->get_where('booking', ['id' => $id_booking]);
     if ($check) {
       $this->booking_model->changeStatusDeclined($id_booking, $date);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak</div>');
       redirect('kaur/listWaitingForAcc');
     } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia</div>');
       redirect('kaur/listWaitingForAcc');
     }
   }
@@ -93,5 +93,28 @@ class Kaur extends CI_Controller
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/rolepengguna', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function changedeclinedindex()
+  {
+    $id_booking = $this->input->post('id');
+    $date = $this->input->post('date');
+    $check = $this->db->get_where('booking', ['id' => $id_booking]);
+    if ($check) {
+      $this->booking_model->changeStatusDeclined($id_booking, $date);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak</div>');
+      redirect('kaur');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia</div>');
+      redirect('kaur');
+    }
+  }
+
+  public function acceptedindex($id)
+  {
+    $id = decrypt_url($id);
+    $this->booking_model->changeStatusAccepted($id);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui</div>');
+    redirect('kaur');
   }
 }

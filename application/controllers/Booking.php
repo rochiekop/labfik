@@ -141,9 +141,24 @@ class Booking extends CI_Controller
 
   public function fetchRuangan()
   {
-
     if ($this->input->post('id_kategori')) {
       echo $this->booking_model->fetchRuangan($this->input->post('id_kategori'));
+    }
+  }
+
+  public function fetchRuanganMhs()
+  {
+
+    if ($this->input->post('id_kategori')) {
+      echo $this->booking_model->fetchRuanganMhs($this->input->post('id_kategori'));
+    }
+  }
+
+  public function fetchRuanganDsn()
+  {
+
+    if ($this->input->post('id_kategori')) {
+      echo $this->booking_model->fetchRuanganDsn($this->input->post('id_kategori'));
     }
   }
 
