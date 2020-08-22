@@ -5,7 +5,9 @@
     </div>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
-            <embed type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
+            <video width="445px" controls class="placeholder-img" style="border-radius: 10px;">
+                <source src="" type="video/mp4">
+            </video>
             <span class="placeholder-img1"></span>
         </div>
         <div class="col-md-8">
@@ -63,17 +65,6 @@
                                 <select name="id_ck" class="form-control" id="kategori">
                                     <option value="Select Mata Kuliah">Select Peminatan</option>
                                 </select>
-                            </div>
-                            <div class="lab-category" style="margin-bottom:16px;">
-                                <b>Type File</b>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox12" value="Foto">
-                                    <label class="form-check-label" for="checkbox12">Foto</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox13" value="pdf">
-                                    <label class="form-check-label" for="checkbox13">File</label>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
@@ -191,11 +182,11 @@
 </script>
 <script>
     $("#file-0").change(function() {
-        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'application/pdf'];
+        var allowedTypes = ['video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4'];
         var file = this.files[0];
         var fileType = file.type;
         if (!allowedTypes.includes(fileType)) {
-            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/PDF)</small>');
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (MOV/MPEG/MP3/AVI/MP4)</small>');
             $("#file-0").val('');
             return false;
         } else {

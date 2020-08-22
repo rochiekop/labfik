@@ -4,10 +4,6 @@
         <h5>Upload Karya</h5>
     </div>
     <div class="row">
-        <div class="col-md-4" id="imagePreview">
-            <embed type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
-            <span class="placeholder-img1"></span>
-        </div>
         <div class="col-md-8">
             <div class="card">
                 <?php
@@ -99,32 +95,6 @@
         </div>
     </div>
 </main>
-<script>
-    const image = document.getElementById('file-0');
-    const previewContainer = document.getElementById('imagePreview');
-    const previewImage = previewContainer.querySelector(".placeholder-img")
-    const previewDefaultText = previewContainer.querySelector(".placeholder-img1")
-
-    image.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            previewDefaultText.style.display = 'none';
-            previewImage.style.display = "block";
-
-            reader.addEventListener('load', function() {
-                previewImage.setAttribute('src', this.result);
-            });
-
-            reader.readAsDataURL(file);
-        } else {
-            previewDefaultText.style.display = null;
-            previewImage.style.display = null;
-            previewImage.setAttribute('src', "");
-        }
-
-    });
-</script>
 <script>
     $(function() {
         var inputFile = $('input[name=gambar]');

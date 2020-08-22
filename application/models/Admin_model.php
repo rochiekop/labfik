@@ -52,4 +52,14 @@ class Admin_model extends CI_Model
   {
     return $this->db->get('ruangan')->result_array();
   }
+
+  public function hitungJumlahAsset()
+  {
+    $query = $this->db->get('tampilan');
+    if ($query->num_rows() > 0) {
+      return $query->num_rows();
+    } else {
+      return 0;
+    }
+  }
 }

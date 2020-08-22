@@ -14,7 +14,6 @@
             </div>
         </div>
         <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
-        <a class="btn btn-primary" href="<?= base_url('karya/tambahbydsn'); ?>" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> karya </a>
     </div>
     <div class="table-responsive admin-list">
         <table class="table">
@@ -33,7 +32,7 @@
                 </thead>
                 <tbody>
                     <?php if (empty($tampilan)) : ?>
-                        <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                        <td colspan="8" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                     <?php else : ?>
                         <?php $no = 1;
                         foreach ($tampilan as $data) { ?>

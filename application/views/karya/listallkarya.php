@@ -34,35 +34,39 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 0;
-                foreach ($tampilan as $l) : ?>
-                    <tr>
-                        <th scope="row"><?= ++$no ?></th>
-                        <td style="width:90px">
-                            <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $l->id_tampilan ?>">
-                                <?php if ($l->type == 'Foto') : ?>
-                                    <img src="<?= base_url('assets/upload/images/' . $l->gambar) ?>">
-                                <?php elseif ($l->type == 'Video') : ?>
-                                    <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" width="80"></video>
-                                <?php else : ?>
-                                    <span class="fas fa-file-pdf fa-4x"></span>
-                                <?php endif; ?>
-                            </a>
-                        </td>
-                        <td><?= $l->judul ?></td>
-                        <td><?= $l->nama ?></td>
-                        <td><?= $l->nama_kategori ?></td>
-                        <td><?= $l->status ?></td>
-                        <?php if ($l->status == 'Menunggu Acc') : ?>
-                            <td class="action" style="width:130px;text-align:center;">
-                                <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
-                                <a href="<?= base_url('kaur_karya/Declined/') . $l->id_tampilan; ?>" class="btn badge badge-danger" onclick="return confirm('yakin ingin menolak data ini?')">Tolak</a>
+                <?php if (empty($tampilan)) : ?>
+                    <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                <?php else : ?>
+                    <?php $no = 0;
+                    foreach ($tampilan as $l) : ?>
+                        <tr>
+                            <th scope="row"><?= ++$no ?></th>
+                            <td style="width:90px">
+                                <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $l->id_tampilan ?>">
+                                    <?php if ($l->type == 'Foto') : ?>
+                                        <img src="<?= base_url('assets/upload/images/' . $l->gambar) ?>">
+                                    <?php elseif ($l->type == 'Video') : ?>
+                                        <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" width="80"></video>
+                                    <?php else : ?>
+                                        <span class="fas fa-file-pdf fa-4x"></span>
+                                    <?php endif; ?>
+                                </a>
                             </td>
-                        <?php else : ?>
-                            <td></td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endforeach; ?>
+                            <td><?= $l->judul ?></td>
+                            <td><?= $l->nama ?></td>
+                            <td><?= $l->nama_kategori ?></td>
+                            <td><?= $l->status ?></td>
+                            <?php if ($l->status == 'Menunggu Acc') : ?>
+                                <td class="action" style="width:130px;text-align:center;">
+                                    <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
+                                    <a href="<?= base_url('kaur_karya/Declined/') . $l->id_tampilan; ?>" class="btn badge badge-danger" onclick="return confirm('yakin ingin menolak data ini?')">Tolak</a>
+                                </td>
+                            <?php else : ?>
+                                <td></td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

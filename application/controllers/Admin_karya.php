@@ -35,7 +35,7 @@ class Admin_karya extends CI_Controller
         );
         $this->load->view('templates/dashboard/headerAdmin', $data);
         $this->load->view('templates/dashboard/sidebarAdmin', $data);
-        $this->load->view('karya/listallkarya', $data);
+        $this->load->view('karya/listadmin', $data);
         $this->load->view('templates/dashboard/footer');
     }
 
@@ -183,7 +183,7 @@ class Admin_karya extends CI_Controller
         if ($valid->run()) {
             if (!empty($_FILES['gambar']['name'])) {
                 $config['upload_path'] = './assets/upload/images/';
-                $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+                $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4|pdf';
                 $config['max_size'] = '0';
 
                 $this->load->library('upload', $config);
@@ -205,6 +205,7 @@ class Admin_karya extends CI_Controller
                     $data = array(
                         'id_tampilan' => $id_tampilan,
                         'slug_tampilan' => $slug_tampilan,
+                        'nama'  =>  $i->post('nama'),
                         'id_kategori'  =>  $i->post('id_kategori'),
                         'id_ck'   => $i->post('id_ck'),
                         'nim'       => $i->post('nim'),
@@ -224,6 +225,7 @@ class Admin_karya extends CI_Controller
                 $data = array(
                     'id_tampilan' => $id_tampilan,
                     'slug_tampilan' => $slug_tampilan,
+                    'nama'  =>  $i->post('nama'),
                     'id_kategori'  =>  $i->post('id_kategori'),
                     'id_ck'   => $i->post('id_ck'),
                     'nim'       => $i->post('nim'),
@@ -251,7 +253,7 @@ class Admin_karya extends CI_Controller
     public function delete($id_tampilan)
     {
         $tampilan = $this->tampilan_model->detail($id_tampilan);
-        unlink('./assets/upload/images/' . $tampilan->gambar);
+        unlink('./assets/upload/images/' . $tampilan['gambar']);
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
         redirect(base_url('admin_karya'), 'refresh');
@@ -261,14 +263,14 @@ class Admin_karya extends CI_Controller
     {
         $this->gambar_model->changeStatusAccepted($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
-        redirect('admin_karya');
+        redirect('admin_karya/listacc');
     }
 
     public function Declined($id)
     {
         $this->gambar_model->changeStatusDeclined($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat ditolak!</div>');
-        redirect('admin_karya');
+        redirect('admin_karya/listacc');
     }
 
     function fetch()
