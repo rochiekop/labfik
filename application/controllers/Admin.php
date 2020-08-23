@@ -15,7 +15,17 @@ class Admin extends CI_Controller
   }
   public function index()
   {
-    $data['title'] = 'Dashboard';
+    $alltempat = count($this->db->get('ruangan')->result_array());
+    $aksesdosen = $this->admin_model->aksesdosen();
+    $aksesmhs = $this->admin_model->aksesmhs();
+    $dtempat = $this->admin_model->getDaftarTempat();
+    $data = array(
+      'title'     => 'Dashboard',
+      'alltempat'  => $alltempat,
+      'aksesdosen' => $aksesdosen,
+      'aksesmhs' => $aksesmhs,
+      'dtempat' => $dtempat,
+    );
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/index', $data);

@@ -252,6 +252,8 @@ class Search extends CI_Controller
   {
     $output = '';
     $id =  $this->session->userdata('id');
+    // var_dump($id);
+    // die;
     if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
@@ -268,9 +270,6 @@ class Search extends CI_Controller
         $data = $this->ajax_search->fetchdatapeminjamantmpt($id);
       }
     }
-    // var_dump($id);
-    // die;
-
     if (!empty($data)) {
       $no = 0;
       foreach ($data as $i) {
@@ -311,5 +310,134 @@ class Search extends CI_Controller
         $data = $this->ajax_search->fetchdatatmpt();
       }
     }
+    // CONTINUE------------->
+  }
+
+  public function fetchdatabimbingan()
+  {
+    $idguidance = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row()->id;
+
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatabimbingan($idguidance, $query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatabimbingan($idguidance);
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdatabimbingan($idguidance, $query);
+      } else {
+        $data = $this->ajax_search->fetchdatabimbingan($idguidance);
+      }
+    }
+
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td scope="row">' . ++$no . '</td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['keterangan'] . '</td>
+                    <td>' . date('Y-m-d', strtotime($i['date'])) . '</td>
+                    <td><a href=' . base_url('users/viewfilepdf/') . encrypt_url($i['id']) . '>view</a></td>
+                    <td>[built]</td>
+                    <td>[built]</td>
+                  </tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">Data bimbingan yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatarequesttoken()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatarequesttoken($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatarequesttoken();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatarequesttoken($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatarequesttoken();
+      }
+    }
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td scope="row" style="width:60px">' . ++$no . '</td>
+                    <td scope="row" style="width:90x"></td>
+                    <td>' . $i['username'] . '</td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['email'] . '</td>
+                    <td class="action">
+                    <a data-toggle="modal" data-target="#deletemodal' . encrypt_url($i['id']) . '"><span class="fas fa-times"></span></a>
+                    <a data-toggle="modal" data-target="#sendtokenmodal' . encrypt_url($i['id']) . '"><span class="fas fa-check"></span></a>
+                    </td>
+                  </tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">Data dosen yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatapermintaanbimbingan()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapermintaanbimbingan($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapermintaanbimbingan();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdatapermintaanbimbingan($query);
+      } else {
+        $data = $this->ajax_search->fetchdatapermintaanbimbingan();
+      }
+    }
+    // var_dump($data);
+    // die;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td scope="row"><b>' . ++$no . '</b></td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['nim'] . '</td>
+                    <td>' . $i['prodi'] . '</td>
+                    <td>' . $i['judul'] . '</td>
+                    <td>' . $i['status'] . '</td>
+                    <td>[built]</td>
+                  </tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">Data dosen yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
   }
 }

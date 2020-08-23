@@ -106,6 +106,7 @@ class Ajax_search extends CI_Model
     $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
     $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
     $this->db->where('booking.id_peminjam', $id);
+    $this->db->group_start();
     if ($filter == 'Ruangan') {
       $this->db->like('ruangan.ruangan', $query);
       $this->db->or_like('kategoriruangan.kategori', $query);
@@ -120,6 +121,7 @@ class Ajax_search extends CI_Model
       $this->db->like('booking.status', $query);
     } else {
       $this->db->like('ruangan.ruangan', $query);
+      $this->db->or_like('user.name', $query);
       $this->db->or_like('date', $query);
       $this->db->or_like('booking.date_declined', $query);
       $this->db->or_like('booking.time', $query);
@@ -128,6 +130,7 @@ class Ajax_search extends CI_Model
       $this->db->or_like('kategoriruangan.kategori', $query);
     }
     // $this->db->order_by('booking.date', 'asc');
+    $this->db->group_end();
     return $this->db->get()->result_array();
   }
 
@@ -160,6 +163,88 @@ class Ajax_search extends CI_Model
       $this->db->or_like('booking.status', $query);
       $this->db->or_like('kategoriruangan.kategori', $query);
     }
+    return $this->db->get()->result_array();
+  }
+
+  public function fetchdatabimbingan($idguidance, $query = null, $filter = null)
+  {
+    $this->db->select('thesis.*,guidance.*,dosbing.*,GROUP_CONCAT(user.name SEPARATOR " , ") as name');
+    $this->db->from('thesis');
+    $this->db->join('guidance', 'thesis.id_guidance = guidance.id');
+    $this->db->join('dosbing', 'guidance.id = dosbing.id_guidance');
+    $this->db->join('user', 'dosbing.id_dosen = user.id');
+    $this->db->where('thesis.id_guidance', $idguidance);
+    $this->db->group_start();
+    if ($filter == 'Dosen') {
+      $this->db->like('user.name', $query);
+    } elseif ($filter == 'Keterangan') {
+      $this->db->like('thesis.keterangan', $query);
+    } elseif ($filter == 'Tanggal') {
+      $this->db->like('thesis.date', $query);
+    } elseif ($filter == 'Status') {
+      $this->db->like('thesis.status', $query);
+    } else {
+      $this->db->like('thesis.keterangan', $query);
+      $this->db->or_like('user.name', $query);
+      $this->db->or_like('thesis.date', $query);
+      $this->db->or_like('thesis.status', $query);
+    }
+    $this->db->group_end();
+    $this->db->group_by('thesis.id');
+    // $this->db->order_by('id', 'DESC');
+    return $this->db->get()->result_array();
+  }
+
+  public function fetchdatarequesttoken($query = null, $filter = null)
+  {
+    $this->db->select('user.*,');
+    $this->db->from('user');
+    $this->db->where('user.role_id', 3);
+    $this->db->where('user.is_active', 0);
+    $this->db->where('NOT EXISTS(SELECT  `user_token`.`email` 
+                      FROM `user_token` WHERE  `user`.`email` = `user_token`.`email`)');
+    $this->db->group_start();
+    if ($filter == 'Username') {
+      $this->db->like('user.username', $query);
+    } elseif ($filter == 'Nama') {
+      $this->db->like('user.name', $query);
+    } elseif ($filter == 'Email') {
+      $this->db->like('user.email', $query);
+    } else {
+      $this->db->like('user.username', $query);
+      $this->db->or_like('user.email', $query);
+      $this->db->or_like('user.name', $query);
+    }
+    $this->db->group_end();
+    return $this->db->get()->result_array();
+  }
+
+  public function fetchdatapermintaanbimbingan($query = null, $filter = null)
+  {
+    $this->db->select('dosbing.id,user.name,user.nim,user.prodi,dosbing.status,guidance.judul');
+    $this->db->from('dosbing');
+    $this->db->join('guidance', 'dosbing.id_guidance = guidance.id');
+    $this->db->join('user', 'guidance.id_mhs = user.id');
+    $this->db->where('dosbing.id_dosen', $this->session->userdata('id'));
+    $this->db->group_start();
+    if ($filter == 'Nama') {
+      $this->db->like('user.name', $query);
+    } elseif ($filter == 'NIM') {
+      $this->db->like('user.nim', $query);
+    } elseif ($filter == 'Prodi') {
+      $this->db->like('user.prodi', $query);
+    } elseif ($filter == 'Judul') {
+      $this->db->like('guidance.judul', $query);
+    } elseif ($filter == 'Status') {
+      $this->db->like('dosbing.status', $query);
+    } else {
+      $this->db->like('user.name', $query);
+      $this->db->or_like('user.nim', $query);
+      $this->db->or_like('user.prodi', $query);
+      $this->db->or_like('guidance.judul', $query);
+      $this->db->or_like('dosbing.status', $query);
+    }
+    $this->db->group_end();
     return $this->db->get()->result_array();
   }
 }

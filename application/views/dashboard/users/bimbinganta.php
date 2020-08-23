@@ -21,10 +21,10 @@
       <div class="input-group-append">
         <button class="btn btn-primary dropdown-toggle filter" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu" id="dropdown">
-          <a class="dropdown-item" value="dosen">Dosen</a>
-          <a class="dropdown-item" value="status">Status</a>
-          <a class="dropdown-item" value="date">Tanggal</a>
-          <a class="dropdown-item" value="keterangan">Keterangan</a>
+          <a class="dropdown-item item">Dosen</a>
+          <a class="dropdown-item item">Status</a>
+          <a class="dropdown-item item">Tanggal</a>
+          <a class="dropdown-item item">Keterangan</a>
         </div>
       </div>
       <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -44,9 +44,9 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="bimbingan">
             <?php if (empty($allhistory)) : ?>
-              <td colspan="6" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
+              <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
             <?php else : ?>
               <?php $no = 0;
               foreach ($allhistory as $t) : ?>
@@ -59,7 +59,7 @@
                     <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a>
                   </td>
                   <?php if ($t['status'] == "Dikirim") : ?>
-                    <td><span class="badge badge-secondary">Dikirim</span></td>
+                    <td><b>Dikirim</b></td>
                   <?php elseif ($t['status'] == "Selesai" or $t['status'] == "Preview 1" or $t['status'] == "Preview 2" or $t['status'] == "Preview 3" or $t['status'] == "Preview 4") : ?>
                     <td><span class="badge badge-success"><?= $t['status'] ?></span></td>
                   <?php elseif ($t['status'] == "Revisi") : ?>
@@ -103,56 +103,16 @@
               <div class="col-lg-11" id="dynamic">
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Pilih Dokumen</label>
-                  <input type="file" class="form-control" name="fileta[]" style="padding:13px 16px">
+                  <input type="file" class="form-control" name="fileta[]" required style="padding:13px 16px">
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
                 <a id="tambah"> <span class="fas fa-plus"></span></a>
               </div>
             </div>
-
             <div class="form-group" style="margin-bottom:0;">
               <label for="ketbim">Keterangan</label>
               <textarea class="form-control" style="padding:12px" rows="5" required id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Modal list revisi -->
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">List Revisi</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="<?= base_url('users/addbimbingan') ?>" method="post" enctype="multipart/form-data">
-          <div class="modal-body">
-            <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Untuk Dosen</label>
-              <select class="form-control" id="exampleFormControlSelect1" name="fordosen">
-                <option value="Semua">Semua</option>
-                <?php foreach ($dosbing as $d) : ?>
-                  <option value="<?= $d['id_dosen'] ?>"><?= $d['nama_dosen'] ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlFile1">Pilih Dokumen</label>
-              <input type="file" class="form-control" id="exampleFormControlFile1" name="fileta" style="padding:13px 16px">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="ketbim">Keterangan</label>
-              <textarea class="form-control" style="padding:12px" rows="5" id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
             </div>
           </div>
           <div class="modal-footer">
@@ -174,8 +134,8 @@
           </div>
           <form action="deletefileta" method="post" enctype="multipart/form-data">
             <div class="modal-footer">
-              <input type="text" id="id" name="id" value="<?= $t['id']; ?>">
-              <input type="text" id="file" name="fileta" value="<?= $t['pdf_file']; ?>">
+              <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+              <input type="hidden" id="file" name="fileta" value="<?= $t['pdf_file']; ?>">
               <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
               <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Batalkan</button>
             </div>
@@ -184,13 +144,48 @@
       </div>
     </div>
   <?php endforeach; ?>
-  <script src="<?= base_url('assets/js/search.js') ?>"></script>
   <script>
     $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".item").click(function() {
+        var text = $(this).text();
+        // alert(id)
+        $("#filter").text(text)
+        if (text != '') {
+          load_data(keyword = null, text);
+        } else {
+          load_data();
+        }
+      });
+
+      function load_data(keyword, filter) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatabimbingan') ?>',
+          method: "POST",
+          data: {
+            keyword: keyword,
+            filter: filter,
+          },
+          success: function(data) {
+            $('#bimbingan').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        if (keyword != '') {
+          load_data(keyword, filter);
+        } else {
+          load_data();
+        }
+      })
       var no = 1;
       $('#tambah').click(function() {
         no++;
-        $('#dynamic').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="file" name="fileta[]"  style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
+        $('#dynamic').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="file" name="fileta[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
         $('#icon').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
       });
       $(document).on('click', '.btn_remove', function() {

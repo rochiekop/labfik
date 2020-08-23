@@ -183,7 +183,7 @@ class Users extends CI_Controller
     $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status' => 'Sudah Disetujui'
+        'status' => 'Disetujui'
       );
       $this->db->update('dosbing', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan bimbingan disetujui</div>');

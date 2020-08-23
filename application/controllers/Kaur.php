@@ -9,6 +9,7 @@ class Kaur extends CI_Controller
     $this->load->library('upload');
     $this->load->library('pagination');
     $this->load->model('booking_model');
+    $this->load->model('user_model');
     is_logged_in();
   }
 
@@ -88,7 +89,11 @@ class Kaur extends CI_Controller
 
   public function rolepengguna()
   {
-    $data['title'] = 'LABFIK | Pengaturan Role Pengguna';
+    $dosen = $this->user_model->getuserdosen();
+    $data = array(
+      'title'     => 'LABFIK | Pengaturan Role Pengguna',
+      'dosen' => $dosen
+    );
     $this->load->view('templates/dashboard/headerKaur', $data);
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/rolepengguna', $data);

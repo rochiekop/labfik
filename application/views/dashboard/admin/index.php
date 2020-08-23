@@ -5,9 +5,9 @@
       <div class="overview-one alert-warning">
         <b>Tempat</b>
         <ul>
-          <li><a>Jumlah Tempat : <b>80</b></a></li>
-          <li><a>Akses Dosen : <b>80</b></a></li>
-          <li><a>Akses Mahasiswa : <b>20</b></a></li>
+          <li><a>Jumlah Tempat : <b><?= $alltempat ?></b></a></li>
+          <li><a>Akses Dosen : <b><?= $aksesdosen ?></b></a></li>
+          <li><a>Akses Mahasiswa : <b><?= $aksesmhs ?></b></a></li>
         </ul>
       </div>
     </div>
@@ -47,7 +47,7 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="tempat" role="tabpanel" aria-labelledby="tabtempat">
       <div class="alert alert-warning" role="alert">
-        Menampilkan <b>10</b> dari <b>80</b> tempat. <a href="#"><u>Tampilkan Semua</u></a>
+        Menampilkan <b><?= count($dtempat) ?></b> dari <b><?= $alltempat ?></b> tempat. <a href="<?= base_url('admin/daftartempat') ?>"><u>Tampilkan Semua</u></a>
       </div>
       <div class="table-responsive admin-list">
         <table class="table">
@@ -58,25 +58,34 @@
               <th scope="col">Ruangan</th>
               <th scope="col">Kategori</th>
               <th scope="col">Akses</th>
+              <th scope="col">Kapasitas</th>
               <th scope="col" class="action">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row" style="width:60px">1</td>
-              <td style="width:90px">
-                <div class="img-wrapper">
-                  <img src="_assets/img/6.jpg" alt="">
-                </div>
-              </td>
-              <td>IK.04.04</td>
-              <td>Lab Cintiq</td>
-              <td>Dosen, Mahasiswa</td>
-              <td class="action">
-                <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
-                <a href="akun-admin-tempat-edit.html"><span class="fas fa-edit"></span></a>
-              </td>
-            </tr>
+            <?php if (empty($dtempat)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">List Tempat kosong</td>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($dtempat as $t) : ?>
+                <tr>
+                  <td scope="row" style="width:60px"><?= ++$no ?></td>
+                  <td style="width:90px">
+                    <div class="img-wrapper">
+                      <img src="<?= base_url('assets/img/ruangan/') . $t['images']; ?>" alt="">
+                    </div>
+                  </td>
+                  <td><?= $t['ruangan'] ?></td>
+                  <td><?= $t['kategori'] ?></td>
+                  <td><?= $t['akses'] ?></td>
+                  <td><?= $t['kapasitas'] ?></td>
+                  <td class="action">
+                    <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']) ?>"><span class="fas fa-trash"></span></a>
+                    <a href="<?= base_url('admin/edittempat/') . encrypt_url($t['id']) ?>?>"><span class="fas fa-edit"></span></a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
@@ -159,3 +168,24 @@
   </div>
 </main>
 <!-- End Main Container -->
+
+<!-- Modal Delete -->
+<?php foreach ($dtempat as $t) : ?>
+  <div class="modal fade bd-example-modal-sm" id="<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          Hapus Ruangan <?= $t['ruangan']; ?> ?
+        </div>
+        <form action="deleteruangan" method="post" enctype="multipart/form-data">
+          <div class="modal-footer">
+            <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+            <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Hapus</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>

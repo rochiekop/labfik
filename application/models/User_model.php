@@ -305,7 +305,7 @@ class User_model extends CI_Model
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('dosbing', 'dosbing.id_guidance = guidance.id');
 		$this->db->where('id_dosen', $this->session->userdata('id'));
-		$this->db->where('dosbing.status', 'Sudah Disetujui');
+		$this->db->where('dosbing.status', 'Disetujui');
 		$this->db->group_by('thesis.id_guidance');
 		return $this->db->get()->result_array();
 	}
@@ -392,6 +392,16 @@ class User_model extends CI_Model
 		$this->db->or_where('thesis.status', 'Preview 2');
 		$this->db->or_where('thesis.status', 'Preview 3');
 		$this->db->or_where('thesis.status', 'Preview 4');
+		return $this->db->get()->result_array();
+	}
+
+	public function getuserdosen()
+	{
+		$this->db->select('user.*,user_role.role');
+		$this->db->from('user');
+		$this->db->join('user_role', 'user_role.id = user.role_id');
+		$this->db->where('role_id', 3);
+		$this->db->where('is_active', 1);
 		return $this->db->get()->result_array();
 	}
 }
