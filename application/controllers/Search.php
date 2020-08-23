@@ -251,23 +251,20 @@ class Search extends CI_Controller
   public function fetchdatapeminjamantmpt()
   {
     $output = '';
-    $id =  $this->session->userdata('id');
-    // var_dump($id);
-    // die;
     if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
         $filter = $this->input->post('filter');
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($id, $query, $filter);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($query, $filter);
       } else {
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($id);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt();
       }
     } else {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($id, $query);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt($query);
       } else {
-        $data = $this->ajax_search->fetchdatapeminjamantmpt($id);
+        $data = $this->ajax_search->fetchdatapeminjamantmpt();
       }
     }
     if (!empty($data)) {

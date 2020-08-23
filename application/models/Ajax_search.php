@@ -97,7 +97,7 @@ class Ajax_search extends CI_Model
   }
 
   // Riwayatpeminjamantempat
-  public function fetchdatapeminjamantmpt($id, $query = null, $filter = null)
+  public function fetchdatapeminjamantmpt($query = null, $filter = null)
   {
     $this->db->select('booking.id_peminjam,user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,date(booking.date + COALESCE(booking.date_declined)) AS date,booking.date_declined,booking.time,booking.keterangan,booking.status');
     $this->db->from('booking');
@@ -105,7 +105,7 @@ class Ajax_search extends CI_Model
     $this->db->join('user_role', 'user.role_id = user_role.id');
     $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
     $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
-    $this->db->where('booking.id_peminjam', $id);
+    $this->db->where('booking.id_peminjam', $this->session->userdata('id'));
     $this->db->group_start();
     if ($filter == 'Ruangan') {
       $this->db->like('ruangan.ruangan', $query);
@@ -122,7 +122,7 @@ class Ajax_search extends CI_Model
     } else {
       $this->db->like('ruangan.ruangan', $query);
       $this->db->or_like('user.name', $query);
-      $this->db->or_like('date', $query);
+      $this->db->or_like('booking.date', $query);
       $this->db->or_like('booking.date_declined', $query);
       $this->db->or_like('booking.time', $query);
       $this->db->or_like('booking.keterangan', $query);

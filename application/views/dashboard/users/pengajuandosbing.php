@@ -158,7 +158,7 @@
           <div class="modal-body">
             <?php if ($t['status'] == 'Menunggu Persetujuan') : ?>
               Batalkan Pengajuan ?
-            <?php elseif ($t['status'] == 'Sudah Disetujui') : ?>
+            <?php elseif ($t['status'] == 'Disetujui') : ?>
               Batalkan Sebagai Dosen Pembimbing Kamu?
             <?php endif; ?>
           </div>

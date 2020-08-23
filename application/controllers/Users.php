@@ -17,8 +17,17 @@ class Users extends CI_Controller
 
   public function main()
   {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
-    $data['dt_tempat'] = $this->user_model->getDtTempat();
+    $dt_tempat = $this->user_model->getDtTempat();
+    $bprogress = $this->user_model->getBookingProgress();
+    $blast = $this->user_model->getBookingLast();
+    $bnumb = $this->user_model->getBookingNumb();
+    $data = array(
+      'title'     => 'Dashboard',
+      'dt_tempat' => $dt_tempat,
+      'bprogress' =>  $bprogress,
+      'blast' =>  $blast,
+      'bnumb' =>  $bnumb,
+    );
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/index');

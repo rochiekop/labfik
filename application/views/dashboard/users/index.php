@@ -11,7 +11,8 @@
       <div class="overview-one alert-warning">
         <b>Peminjaman Berlangsung</b>
         <ul>
-          <li><a href="#"><span class="fas fa-door-open"></span> IK.04.04 | 06:30 - 09:30 <i>Menunggu Verifikasi</i></a></li>
+          <li><a <?= (!empty($bprogress)) ? 'href="' . base_url('users/riwayat') . '".' : ""; ?>><span class="fas fa-door-open"></span> <?= (!empty($bprogress)) ? $bprogress['ruangan'] . ' | ' . substr($bprogress['time'], 0, 8) . substr($bprogress['time'], -5) . '<i>' . $bprogress['status'] . '</i>' : "Peminjaman Kosong" ?></a></li>
+          <li><a href="#"><span class="fas fa-box-open"></span> Canon EOS 5D Mark II <i>Jumat, 18 Oktober 2019</i></a></li>
         </ul>
       </div>
     </div>
@@ -19,7 +20,7 @@
       <div class="overview-two alert-info">
         <b>Peminjaman Terakhir</b>
         <ul>
-          <li><a href="#"><span class="fas fa-door-open"></span> IK.04.04 | 06:30 - 09:30 <i>Jumat, 12 Oktober 2019</i></a></li>
+          <li><a <?= (!empty($blast)) ? 'href="' . base_url('users/riwayat') . '".' : ""; ?>><span class="fas fa-door-open"></span> <?= (!empty($blast)) ? $blast['ruangan'] . ' | ' . substr($blast['time'], 0, 8) . substr($blast['time'], -5) . '<i>' . tanggal($blast['date'], date('d-m-Y')) . '</i>' : "Peminjaman Kosong" ?></a></li>
           <li><a href="#"><span class="fas fa-box-open"></span> Canon EOS 5D Mark II <i>Jumat, 18 Oktober 2019</i></a></li>
         </ul>
       </div>
@@ -28,7 +29,7 @@
       <div class="overview-three alert-success">
         <b>Jumlah Peminjaman</b>
         <ul>
-          <li><a href="#"><span class="fas fa-door-open"></span> 8 Tempat Dipinjam</a></li>
+          <li><a href="#  "><span class="fas fa-door-open"></span> <?= $bnumb; ?> Tempat Dipinjam</a></li>
           <li><a href="#"><span class="fas fa-box-open"></span> 2 Barang Dipinjam</a></li>
         </ul>
       </div>
