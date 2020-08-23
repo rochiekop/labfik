@@ -182,8 +182,6 @@
   </div>
 </main>
 <!-- End Main Container -->
-
-<!-- Modal Delete -->
 <?php foreach ($dtempat as $t) : ?>
   <div class="modal fade bd-example-modal-sm" id="<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -199,6 +197,10 @@
             <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Hapus</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>
 <?php foreach ($tampilan as $data) : ?>
   <div class="modal fade" id="delete-<?php echo $data->id_tampilan ?>">
     <div class="modal-dialog">
