@@ -15,7 +15,15 @@ class Admin extends CI_Controller
   }
   public function index()
   {
-    $data['title'] = 'Dashboard';
+    $count = $this->admin_model->hitung();
+    $count1 = $this->admin_model->hitungacc();
+    $tampilan = $this->admin_model->listkarya();
+    $data = array(
+      'title' => 'Dashboard',
+      'total_asset'  => $count,
+      'total_acc'  => $count1,
+      'tampilan'   => $tampilan
+    );
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/index', $data);

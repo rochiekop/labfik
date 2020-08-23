@@ -165,7 +165,7 @@
 </script>
 <script>
     $("#file-0").change(function() {
-        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4', 'application/pdf'];
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4', 'application/pdf', 'video/x-m4v'];
         var file = this.files[0];
         var fileType = file.type;
         if (!allowedTypes.includes(fileType)) {

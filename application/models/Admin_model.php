@@ -3,8 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
-
-
   // MODEL RUANGAN
   public function kategoriRuangan()
   {
@@ -53,7 +51,7 @@ class Admin_model extends CI_Model
     return $this->db->get('ruangan')->result_array();
   }
 
-  public function hitungJumlahAsset()
+  public function hitung()
   {
     $query = $this->db->get('tampilan');
     if ($query->num_rows() > 0) {
@@ -61,5 +59,37 @@ class Admin_model extends CI_Model
     } else {
       return 0;
     }
+  }
+
+  public function hitungacc()
+  {
+    $this->db->select('*');
+    $this->db->from('tampilan');
+    $this->db->where(array('tampilan.status' => 'Diterima'));
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->num_rows();
+    } else {
+      return 0;
+    }
+  }
+
+  public function listkarya()
+  {
+    $this->db->select('tampilan.*,
+        user.name,
+        user_role.role,
+        kategori.nama_kategori,
+        kategori.slug_kategori');
+    $this->db->from('tampilan');
+    $this->db->join('user', 'user.id = tampilan.id', 'left');
+    $this->db->join('user_role', 'user.role_id = user_role.id', 'left');
+    $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+    $this->db->group_by('tampilan.id_tampilan');
+    $this->db->order_by('id_tampilan', 'random');
+    $this->db->where(array('tampilan.status' => 'Diterima'));
+    $this->db->limit(10);
+    $query = $this->db->get();
+    return $query->result();
   }
 }

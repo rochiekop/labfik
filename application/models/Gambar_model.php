@@ -142,4 +142,17 @@ class Gambar_model extends CI_Model
         );
         $this->db->update('tampilan', $data, ['id_tampilan' => $id]);
     }
+
+    public function hitung()
+    {
+        $this->db->select('*');
+        $this->db->from('tampilan');
+        $this->db->where(array('tampilan.status' => 'Menunggu Acc'));
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
+    }
 }

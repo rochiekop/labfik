@@ -25,8 +25,8 @@
       <div class="overview-three alert-success">
         <b>Galeri Karya</b>
         <ul>
-          <li><a>Jumlah Karya : <b>180</b></a></li>
-          <li><a>Karya Ditampilkan : <b>160</b></a></li>
+          <li><a>Jumlah Karya : <b><?= $total_asset ?></b></a></li>
+          <li><a>Karya Ditampilkan : <b><?= $total_acc ?></b></a></li>
         </ul>
       </div>
     </div>
@@ -123,7 +123,7 @@
     </div>
     <div class="tab-pane fade" id="karya" role="tabpanel" aria-labelledby="tabkarya">
       <div class="alert alert-warning" role="alert">
-        Menampilkan <b>10</b> dari <b>180</b> tempat. <a href="#"><u>Tampilkan Semua</u></a>
+        Menampilkan <b>10</b> dari <b><?= $total_asset ?></b> tempat. <a href="<?= base_url('Admin_karya'); ?>"><u>Tampilkan Semua</u></a>
       </div>
       <div class="table-responsive admin-list">
         <table class="table">
@@ -138,20 +138,34 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row" style="width:60px">1</td>
-              <td style="width:90px">
-                <div class="img-wrapper">
-                  <img src="_assets/img/6.jpg" alt="">
-                </div>
-              </td>
-              <td>Lorem Ipsum</td>
-              <td>Fulan</td>
-              <td>DKV</td>
-              <td class="action">
-                <a data-toggle="modal" data-target=".bd-example-modal-sm"><span class="fas fa-trash"></span></a>
-              </td>
-            </tr>
+            <?php if (empty($tampilan)) : ?>
+              <td colspan="8" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+            <?php else : ?>
+              <?php $no = 1;
+              foreach ($tampilan as $data) { ?>
+                <tr>
+                  <td scope="row" style="width:60px"><?= $no ?></td>
+                  <td style="width:90px">
+                    <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $data->id_tampilan ?>">
+                      <?php if ($data->type == 'Foto') : ?>
+                        <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>">
+                      <?php elseif ($data->type == 'Video') : ?>
+                        <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" width="80"></video>
+                      <?php else : ?>
+                        <span class="fas fa-file-pdf fa-4x"></span>
+                      <?php endif; ?>
+                    </a>
+                  </td>
+                  <td><?= $data->judul ?></td>
+                  <td><?= $data->nama ?></td>
+                  <td><?= $data->nama_kategori ?></td>
+                  <td class="action">
+                    <a data-toggle="modal" data-target="#delete-<?php echo $data->id_tampilan ?>"><span class="fas fa-trash"></span></a>
+                  </td>
+                </tr>
+              <?php $no++;
+              } ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
@@ -159,3 +173,68 @@
   </div>
 </main>
 <!-- End Main Container -->
+<?php foreach ($tampilan as $data) : ?>
+  <div class="modal fade" id="delete-<?php echo $data->id_tampilan ?>">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="callout callout-warning">
+            <h4>Peringatan!</h4>
+            <br>
+            Data yang terhapus tidak dapat dikembalikan. Yakin ingin menghapus?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+          <a href="<?= base_url('admin_karya/delete') . $data->id_tampilan ?>" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i>Ya, Hapus</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Judul <?= $data->judul ?></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php if ($data->type == 'Foto') : ?>
+            <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
+          <?php elseif ($data->type == 'Video') : ?>
+            <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
+              <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
+            </video>
+          <?php else : ?>
+            <embed src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="application/pdf" width="100%" height="600px" />
+          <?php endif; ?>
+          <div class="item-text">
+            <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>
+          </div>
+          <div class="item-text">
+            <span>Di Posting Oleh: <b><?= $data->role ?>, <?= $data->name ?></b></span>
+          </div>
+          <div class="item-text">
+            <span>Deskripsi: <b><?= $data->deskripsi ?></b></span>
+          </div>
+          <div class="item-text">
+            <span>No. Handphone: <b><?= $data->No_hp ?></b></span>
+          </div>
+          <div class="item-text">
+            <span>No. Whatsapp: <b><?= $data->No_wa ?></b></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>

@@ -9,13 +9,18 @@ class Kaur extends CI_Controller
     $this->load->library('upload');
     $this->load->library('pagination');
     $this->load->model('booking_model');
+    $this->load->model('gambar_model');
     is_logged_in();
   }
 
   public function index()
   {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
-    $data['listbooking'] = $this->booking_model->getAllWaitingAccBooking();
+    $data = array(
+      'title'         =>  'Laboratorium Fakultas Industri Kreatif Telkom University',
+      'listbooking'   =>  $this->booking_model->getAllWaitingAccBooking(),
+      'hitung'        =>  $this->gambar_model->hitung(),
+      'tampilan'      =>  $this->gambar_model->mintaacc()
+    );
     $this->load->view('templates/dashboard/headerKaur', $data);
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/index');

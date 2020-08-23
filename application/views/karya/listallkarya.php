@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 <?php if (empty($tampilan)) : ?>
-                    <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                    <td colspan="7" style="background-color: whitesmoke;text-align:center">List Permintaan Kosong</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($tampilan as $l) : ?>
@@ -59,7 +59,7 @@
                             <?php if ($l->status == 'Menunggu Acc') : ?>
                                 <td class="action" style="width:130px;text-align:center;">
                                     <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
-                                    <a href="<?= base_url('kaur_karya/Declined/') . $l->id_tampilan; ?>" class="btn badge badge-danger" onclick="return confirm('yakin ingin menolak data ini?')">Tolak</a>
+                                    <a data-toggle="modal" data-target="#declinedmodal<?= $l->id; ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                                 </td>
                             <?php else : ?>
                                 <td></td>
@@ -73,6 +73,22 @@
 </main>
 
 <?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= $data->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Tolak permintaan posting ?
+                </div>
+                <form action="<?= base_url('kaur_karya/Declined/') . $data->id_tampilan; ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-footer">
+                        <input type="hidden" id="id" name="id" value="<?= $data->id; ?>">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                        <button type="submit" name="declinedpeminjaman" class="btn btn-danger btn-sm">Tolak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

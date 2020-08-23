@@ -545,7 +545,7 @@ class Karya extends CI_Controller
         unlink('./assets/upload/images/' . $tampilan['gambar']);
         $data = array('id_tampilan' => $id_tampilan);
         $this->tampilan_model->delete($data);
-        redirect(base_url('karya/listbydsn'), 'refresh');
+        redirect(base_url('karya/listbymhs'), 'refresh');
     }
 
     function fetch()
