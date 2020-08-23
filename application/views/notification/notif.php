@@ -25,74 +25,65 @@
 
         <?php if (empty($notification)) { ?>
             <span>Tidak ada notifikasi</span>
-        <?php } ?>
-        <?php else { ?>
+        <?php } else { ?>
             <?php foreach ($notification as $n) { ?>
                 <a href="<?= site_url('notification/changeStatusRead/'.$n->subject.'/'.$n->id) ?>" class="list-group-item">
                     <?php if ($n->status == 'unread') { ?>
                         <span class="fas fa-bell"></span> &nbsp;
-                    <?php } ?>
-                    <?php elseif ($n->status == 'read') { ?>
+                    <?php } elseif ($n->status == 'read') { ?>
                         <span class="far fa-bell"></span> &nbsp;
                     <?php } ?>
+
                     <b><?= $n->subject ?></b> <br>
 
-                    <?php if ($n->subject == 'Peminjaman Barang') { ?>
-                        <?php if ($n->description == 'waiting') { ?>
+                    <?php if ($n->subject == 'Peminjaman Barang' or $n->subject == 'borrowing') { ?>
+                        <?php if ($n->description == 'waiting' or $n->description == 'Barang ini ingin dipinjam') { ?>
                             <?= $n->user_name ?> ingin meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?> 
-                        <?php } ?>
-                        <?php elseif ($n->description == 'approved') { ?>
+                        <?php } elseif ($n->description == 'approved' or $n->description == 'Peminjaman diizinkan') { ?>
                             Kepala Urusan memberikan anda izin untuk meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?>
-                        <?php } ?>
-                        <?php elseif ($n->description == 'declined') { ?>
+                        <?php } elseif ($n->description == 'declined' or $n->description == 'Peminjaman tidak diizinkan') { ?>
                             Kepala Urusan tidak memberikan anda izin untuk meminjam <?= $n->quantity ?> <?= $n->item_name ?>
                             <?= $n->date ?>
                         <?php } ?>
-                    <?php } ?>
-                    <?php elseif ($n->subject == 'Peminjaman Tempat') { ?>
+
+                    <?php } elseif ($n->subject == 'Peminjaman Tempat') { ?>
                         <?php if ($n->description == 'waiting') { ?>
                             <?= $n->user_name ?> ingin meminjam <?= $n->room_name ?>
                             <?= $n->date ?>
-                        <?php } ?>
-                        <?php elseif ($n->description == 'approved') { ?>
+                        <?php } elseif ($n->description == 'approved') { ?>
                             Kepala Urusan memberikan anda izin untuk meminjam <?= $n->room_name ?>
                             <?= $n->date ?>
-                        <?= } ?>
-                        <?php elseif ($n->description == 'declined') { ?>
+                        <?php } elseif ($n->description == 'declined') { ?>
                             Kepala Urusan tidak memberikan anda izin untuk meminjam <?= $n->room_name ?>
                             <?= $n->date ?>
                         <?php } ?>
-                    <?php } ?>
-                    <?php elseif ($n->subject == 'Unggah Karya') { ?>
+                    
+                    <?php } elseif ($n->subject == 'Unggah Karya') { ?>
                         <?php if ($n->description == 'waiting') { ?>
                             <?= $n->user_name ?> ingin mengunggah karyanya berjudul <?= $n->creation_name ?>
                             <?= $n->date ?>
-                        <?php } ?>
-                        <?php elseif ($n->description == 'approved') { ?>
+                        <?php } elseif ($n->description == 'approved') { ?>
                             Karya anda telah terpajang di halaman lab karya
-                        <?php } ?>
-                        <?php elseif ($n->description == 'declined') { ?>
+                        <?php } elseif ($n->description == 'declined') { ?>
                             Kepala Urusan tidak mengizinkan karya anda untuk dipajang di halaman lab karya. Silahkan kontak admin jika menurut anda ini merupakan kesalahan.
                         <?php } ?>
-                    <?php } ?>
-                    <?php elseif ($n->subject == 'Informasi') { ?>
+
+                    <?php } elseif ($n->subject == 'Informasi') { ?>
                         Informasi baru mengenai <?= $n->title ?>
                         <?php $n->date ?>
-                    <?php } ?>
-                    <?php elseif ($n->subject == 'Helpdesk') { ?>
+
+                    <?php } elseif ($n->subject == 'Helpdesk') { ?>
                         Anda dihubungi oleh <?= $n->sender_name ?>, lihat dan tanggapi
                         <?php $n->date ?>
-                    <?php } ?>
-                    <?php elseif ($n->subject == 'Tugas Akhir') { ?>
+
+                    <?php } elseif ($n->subject == 'Tugas Akhir') { ?>
                         <?php if ($n->description == 'waiting') { ?>
                             <?= $n->mhs_name ?> meminta bimbingan untuk Tugas Akhirnya
-                        <?php } ?>
-                        <?php if ($n->description == 'correction') { ?>
+                        <?php } elseif ($n->description == 'correction') { ?>
                             Tugas Akhir anda dikoreksi oleh dosen pembimbing, lihat dan tanggapi
-                        <?php } ?>
-                        <?php elseif ($n->description == 'ready') { ?>
+                        <?php } elseif ($n->description == 'ready') { ?>
                             Anda telah dinyatakan siap sidang. lihat selengkapnya
                         <?php } ?>
                     <?php } ?>
