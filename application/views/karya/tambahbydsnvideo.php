@@ -4,6 +4,12 @@
         <h5>Upload Karya</h5>
     </div>
     <div class="row">
+        <div class="col-md-4" id="imagePreview">
+            <video width="445px" controls class="placeholder-img" style="border-radius: 10px;">
+                <source src="" type="video/mp4">
+            </video>
+            <span class="placeholder-img1"></span>
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <?php
@@ -16,7 +22,7 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
-                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('admin_karya/tambah') ?>">
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbydsn') ?>">
                     <div class="card-body">
                         <div class="custom-form">
                             <div class="form-group">
@@ -32,11 +38,11 @@
                                 <label>Nim</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="No_wa" value="<?= set_value('No_wa') ?>" class="form-control" placeholder="No_Wa" required="required" autocomplete="off" />
+                                <input type="tel" name="No_wa" value="<?= set_value('No_wa') ?>" class="form-control" placeholder="No_Wa" required="required" autocomplete="off" />
                                 <label>No.WA Aktif</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="No_hp" value="<?= set_value('No_hp') ?>" class="form-control" placeholder="No_Hp" required="required" autocomplete="off" />
+                                <input type="tel" name="No_hp" value="<?= set_value('No_hp') ?>" class="form-control" placeholder="No_Hp" required="required" autocomplete="off" />
                                 <label>No.Hp</label>
                             </div>
                             <div class="form-group">
@@ -60,21 +66,6 @@
                                     <option value="Select Mata Kuliah">Select Peminatan</option>
                                 </select>
                             </div>
-                            <div class="lab-category" style="margin-bottom:16px;">
-                                <b>Type File</b>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox11" value="Video" required>
-                                    <label class="form-check-label" for="checkbox11">Video</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox12" value="Foto">
-                                    <label class="form-check-label" for="checkbox12">Foto</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" id="checkbox13" value="pdf">
-                                    <label class="form-check-label" for="checkbox13">File</label>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
                             <label for="file-0"><b>Pilih karya</b></label>
@@ -96,6 +87,32 @@
     </div>
 </main>
 <script>
+    const image = document.getElementById('file-0');
+    const previewContainer = document.getElementById('imagePreview');
+    const previewImage = previewContainer.querySelector(".placeholder-img")
+    const previewDefaultText = previewContainer.querySelector(".placeholder-img1")
+
+    image.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            previewDefaultText.style.display = 'none';
+            previewImage.style.display = "block";
+
+            reader.addEventListener('load', function() {
+                previewImage.setAttribute('src', this.result);
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            previewDefaultText.style.display = null;
+            previewImage.style.display = null;
+            previewImage.setAttribute('src', "");
+        }
+
+    });
+</script>
+<script>
     $(function() {
         var inputFile = $('input[name=gambar]');
         var uploadURI = $('#form-upload').attr('action');
@@ -113,7 +130,7 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>admin_karya";
+                        window.location.href = "<?= base_url(); ?>karya/listbydsn";
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();
@@ -165,11 +182,11 @@
 </script>
 <script>
     $("#file-0").change(function() {
-        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4', 'application/pdf', 'video/x-m4v'];
+        var allowedTypes = ['video/mov', 'video/mpeg', 'video/mp3', 'video/avi', 'video/mp4'];
         var file = this.files[0];
         var fileType = file.type;
         if (!allowedTypes.includes(fileType)) {
-            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/MOV/MPEG/MP3/AVI/MP4/PDF)</small>');
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (MOV/MPEG/MP3/AVI/MP4)</small>');
             $("#file-0").val('');
             return false;
         } else {

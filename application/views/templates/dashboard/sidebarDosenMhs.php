@@ -51,9 +51,14 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
             <li><a href="<?= base_url('karya/listbydsn') ?>">Karya Saya</a></li>
           <?php endif; ?>
           <?php if ($this->session->userdata('role_id') == 4) : ?>
-            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload</a></li>
+            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload File</a></li>
           <?php elseif ($this->session->userdata('role_id') == 3) : ?>
-            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload</a></li>
+            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload File</a></li>
+          <?php endif; ?>
+          <?php if ($this->session->userdata('role_id') == 4) : ?>
+            <li><a href="<?= base_url('karya/tambahbymhsvid') ?>">Upload Video</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 3) : ?>
+            <li><a href="<?= base_url('karya/tambahbydsnvid') ?>">Upload Video</a></li>
           <?php endif; ?>
         </ul>
       </div>

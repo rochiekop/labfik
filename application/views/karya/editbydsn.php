@@ -5,8 +5,14 @@
     </div>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
-            <embed type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
-            <span class="placeholder-img1"></span>
+            <?php if ($tampilan['type'] == 'Video') : ?>
+                <video width="445px" controls class="placeholder-img1" style="border-radius: 10px;">
+                    <source src="<?= base_url('assets/upload/images/' . $tampilan['gambar']) ?>" type="video/mp4">
+                </video>
+            <?php else : ?>
+                <embed src="<?= base_url('assets/upload/images/' . $tampilan['gambar']) ?>" type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
+                <span class="placeholder-img1"></span>
+            <?php endif; ?>
         </div>
         <div class="col-md-8">
             <div class="card">
@@ -20,7 +26,7 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
-                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/edit/' . $tampilan->id_tampilan); ?>">
+                <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/edit/' . $tampilan['id_tampilan']); ?>">
                     <div class="card-body">
                         <div class="custom-form">
                             <div class="form-group">

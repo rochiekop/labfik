@@ -24,17 +24,15 @@
                         <th scope="col" style="width:48px">NO</th>
                         <th scope="col" style="width:90px">&nbsp;</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Role</th>
                         <th scope="col">Kategori</th>
                         <th scope="col">Tanggal Post</th>
-                        <th scope="col">Views</th>
                         <th scope="col">status</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col" class="action">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($tampilan)) : ?>
-                        <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                        <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                     <?php else : ?>
                         <?php $no = 1;
                         foreach ($tampilan as $data) { ?>
@@ -52,14 +50,12 @@
                                     </a>
                                 </td>
                                 <td><?= $data->nama ?></td>
-                                <td><?= $data->role ?></td>
                                 <td><?= $data->nama_kategori ?></td>
                                 <td><?= $data->tanggal_post ?></td>
-                                <td><?= $data->views ?></td>
                                 <td><?= $data->status ?></td>
-                                <td>
+                                <td class="action">
                                     <a href="<?= base_url('admin_karya/edit/' . $data->id_tampilan) ?>"><span class="fas fa-edit"></span></a>
-                                    <a href="<?= base_url('admin_karya/delete/' . $data->id_tampilan); ?>" onclick="return confirm('yakin ingin menghapus data ini?')"><span class="fas fa-trash"></span></a>
+                                    <a data-toggle="modal" data-target="#delete-<?php echo $data->id_tampilan ?>"><span class="fas fa-trash"></span></a>
                                 </td>
                             </tr>
                         <?php $no++;
@@ -71,8 +67,29 @@
     </div>
     <!-- End of Content Wrapper -->
 </main>
-
 <?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade" id="delete-<?php echo $data->id_tampilan ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="callout callout-warning">
+                        <h4>Peringatan!</h4>
+                        <br>
+                        Data yang terhapus tidak dapat dikembalikan. Yakin ingin menghapus?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    <a href="<?= base_url('admin_karya/delete/') . $data->id_tampilan ?>" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i>Ya, Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -96,7 +113,10 @@
                         <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>
                     </div>
                     <div class="item-text">
-                        <span>Di Posting Oleh: <b><?= $data->name ?></b></span>
+                        <span>Jumlah Views: <b><?= $data->views ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>Di Posting Oleh: <b><?= $data->role ?>, <?= $data->name ?></b></span>
                     </div>
                     <div class="item-text">
                         <span>Deskripsi: <b><?= $data->deskripsi ?></b></span>
