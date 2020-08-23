@@ -4,11 +4,11 @@
         <h5>Upload Karya</h5>
     </div>
     <div class="row">
-        <div class="col-md-4" id="imagePreview">
-            <embed type="application/pdf" class="fas fa-image placeholder-img" width="450px" />
+        <div class="col-md-5" id="imagePreview">
+            <embed type="application/pdf" class="fas fa-image placeholder-img" width="445px" />
             <span class="placeholder-img1"></span>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <?php
 

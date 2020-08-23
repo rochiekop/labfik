@@ -437,4 +437,85 @@ class Search extends CI_Controller
     }
     echo $output;
   }
+
+  public function fetchdatakarya()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatakarya($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatakarya();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $data = $this->ajax_search->fetchdatakarya($query);
+      } else {
+        $data = $this->ajax_search->fetchdatakarya();
+      }
+    }
+
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $data) {
+        if ($data['type'] == 'Foto') {
+          $output .= ' <tr>
+                        <td>' . ++$no . '</td>
+                        <td>
+                            <a class="img-wrapper" type="button" data-target="#exampleModal' . $data['id_tampilan'] . '" data-toggle="modal">
+                                <img src=' . base_url('assets/upload/images/' . $data['gambar']) . '>
+                            </a>
+                        </td>
+                        <td>' . $data['nim'] . '</td>
+                        <td>' . $data['nama_kategori'] . '</td>
+                        <td>' . $data['tanggal_post'] . '</td>
+                        <td>' . $data['status'] . '</td>
+                        <td class="action">
+                            <a data-toggle="modal" data-target="#delete-' . $data['id_tampilan'] . '"><span class="fas fa-trash"></span></a>
+                        </td>
+                      </tr>';
+        } elseif ($data['type'] == 'Video') {
+          $output .= ' <tr>
+                        <td>' . ++$no . '</td>
+                        <td>
+                            <a class="img-wrapper" type="button" data-target="#exampleModal' . $data['id_tampilan'] . '" data-toggle="modal">
+                                <video src=' . base_url('assets/upload/images/' . $data['gambar']) . ' width="80"></video>
+                            </a>
+                        </td>
+                        <td>' . $data['nim'] . ' </td>
+                        <td>' . $data['nama_kategori'] . '</td>
+                        <td>' . $data['tanggal_post'] . '</td>
+                        <td>' . $data['status'] . '</td>
+                        <td class="action">
+                            <a data-toggle="modal" data-target="#delete-' . $data['id_tampilan'] . '"><span class="fas fa-trash"></span></a>
+                        </td>
+                      </tr>';
+        } else {
+          $output .= ' <tr>
+                        <td>' . ++$no . '</td>
+                        <td>
+                            <a class="img-wrapper" type="button" data-target="#exampleModal' . $data['id_tampilan'] . '" data-toggle="modal">
+                                <span class="fas fa-file-pdf fa-4x"></span>
+                            </a>
+                        </td>
+                        <td>' . $data['nim'] . ' </td>
+                        <td>' . $data['nama_kategori'] . '</td>
+                        <td>' . $data['tanggal_post'] . '</td>
+                        <td>' . $data['status'] . '</td>
+                        <td class="action">
+                            <a data-toggle="modal" data-target="#delete-' . $data['id_tampilan'] . '"><span class="fas fa-trash"></span></a>
+                        </td>
+                      </tr>';
+        }
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
 }
