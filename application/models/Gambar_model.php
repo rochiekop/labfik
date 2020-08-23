@@ -28,6 +28,24 @@ class Gambar_model extends CI_Model
         return $query->result();
     }
 
+    public function homep()
+    {
+        $this->db->select('tampilan.*,
+        user.name,
+        kategori.nama_kategori,
+        kategori.slug_kategori');
+        $this->db->from('tampilan');
+        $this->db->join('user', 'user.id = tampilan.id', 'left');
+        $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+        $this->db->group_by('tampilan.id_tampilan');
+        $this->db->order_by('id_tampilan', 'random');
+        $this->db->where(array('tampilan.status' => 'Diterima'));
+        $this->db->where(array('tampilan.type' => 'pdf'));
+        $this->db->limit(4);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function homev()
     {
         $this->db->select('tampilan.*,
@@ -123,5 +141,18 @@ class Gambar_model extends CI_Model
             'status' => 'Ditolak',
         );
         $this->db->update('tampilan', $data, ['id_tampilan' => $id]);
+    }
+
+    public function hitung()
+    {
+        $this->db->select('*');
+        $this->db->from('tampilan');
+        $this->db->where(array('tampilan.status' => 'Menunggu Acc'));
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
     }
 }

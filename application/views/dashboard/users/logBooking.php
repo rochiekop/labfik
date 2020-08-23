@@ -9,12 +9,12 @@
       <div class="input-group-append">
         <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item">Semua</a>
-          <a class="dropdown-item">Ruangan</a>
-          <a class="dropdown-item">Tanggal</a>
-          <a class="dropdown-item">Waktu</a>
-          <a class="dropdown-item">Keterangan</a>
-          <a class="dropdown-item">Status</a>
+          <a class="dropdown-item item">Semua</a>
+          <a class="dropdown-item item">Ruangan</a>
+          <a class="dropdown-item item">Tanggal</a>
+          <a class="dropdown-item item">Waktu</a>
+          <a class="dropdown-item item">Keterangan</a>
+          <a class="dropdown-item item">Status</a>
         </div>
       </div>
       <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -60,7 +60,7 @@
     $(document).ready(function() {
       var keyword = document.getElementById('keyword');
       var container = document.getElementById('container');
-      $(".dropdown-item").click(function() {
+      $(".item").click(function() {
         var text = $(this).text();
         // alert(id)
         $("#filter").text(text)

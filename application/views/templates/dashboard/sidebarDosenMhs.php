@@ -4,7 +4,7 @@ $query = "SELECT *
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
 $sql = "SELECT * FROM dosbing JOIN guidance ON dosbing.id_guidance = guidance.id WHERE guidance.id_mhs = ? AND dosbing.status = ?";
-$dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah Disetujui'))->result_array();
+$dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetujui'))->result_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">
@@ -51,9 +51,14 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
             <li><a href="<?= base_url('karya/listbydsn') ?>">Karya Saya</a></li>
           <?php endif; ?>
           <?php if ($this->session->userdata('role_id') == 4) : ?>
-            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload</a></li>
+            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload File</a></li>
           <?php elseif ($this->session->userdata('role_id') == 3) : ?>
-            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload</a></li>
+            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload File</a></li>
+          <?php endif; ?>
+          <?php if ($this->session->userdata('role_id') == 4) : ?>
+            <li><a href="<?= base_url('karya/tambahbymhsvid') ?>">Upload Video</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 3) : ?>
+            <li><a href="<?= base_url('karya/tambahbydsnvid') ?>">Upload Video</a></li>
           <?php endif; ?>
         </ul>
       </div>
@@ -134,16 +139,29 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
               <input type="text" name="name" class="form-control" placeholder="" required="required" value="<?= $this->session->userdata('name'); ?>" autocomplete="off" />
               <label>Nama Lengkap</label>
             </div>
-            <div class="form-group">
-              <select class="form-control" name="id_kategori" id="kategoriruangan" required>
-                <option disabled selected>Kategori Ruangan</option>
-                <?php foreach ($kruangan as $k) { ?>
-                  <option value="<?= $k['id'] ?>">
-                    <?= $k['kategori'] ?>
-                  </option>
-                <?php } ?>
-              </select>
-            </div>
+            <?php if ($this->session->userdata('role_id') == 3) : ?>
+              <div class="form-group">
+                <select class="form-control" name="id_kategori" id="kategoriruangandsn" required>
+                  <option disabled selected>Kategori Ruangan</option>
+                  <?php foreach ($kruangan as $k) { ?>
+                    <option value="<?= $k['id'] ?>">
+                      <?= $k['kategori'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php elseif ($this->session->userdata('role_id') == 4) : ?>
+              <div class="form-group">
+                <select class="form-control" name="id_kategori" id="kategoriruanganmhs" required>
+                  <option disabled selected>Kategori Ruangan</option>
+                  <?php foreach ($kruangan as $k) { ?>
+                    <option value="<?= $k['id'] ?>">
+                      <?= $k['kategori'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php endif; ?>
             <div class="form-group">
               <select class="form-control" name="id_ruangan" id="ruangan" onchange="disablemodals()" disabled required>
                 <option disabled selected>Pilih Ruangan</option>
@@ -181,13 +199,30 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Sudah D
 
 <script>
   $(document).ready(function() {
-    $('#kategoriruangan').change(function() {
+    $('#kategoriruanganmhs').change(function() {
       document.getElementById("ruangan").disabled = false;
-      var id_kategori = $('#kategoriruangan').val();
+      var id_kategori = $('#kategoriruanganmhs').val();
 
       if (id_kategori != '') {
         $.ajax({
-          url: "<?= base_url(); ?>booking/fetchRuangan",
+          url: "<?= base_url(); ?>booking/fetchRuanganMhs",
+          method: "POST",
+          data: {
+            id_kategori: id_kategori
+          },
+          success: function(data) {
+            $('#ruangan').html(data);
+          }
+        })
+      }
+    });
+    $('#kategoriruangandsn').change(function() {
+      document.getElementById("ruangan").disabled = false;
+      var id_kategori = $('#kategoriruangandsn').val();
+
+      if (id_kategori != '') {
+        $.ajax({
+          url: "<?= base_url(); ?>booking/fetchRuanganDsn",
           method: "POST",
           data: {
             id_kategori: id_kategori

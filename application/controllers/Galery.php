@@ -43,14 +43,14 @@ class Galery extends CI_Controller
                                 <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
                                 <span>by <b>' . $row->nama . '</b></span>
                                 <div class="vote">
-                                    <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
                                     <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ';
-            } else {
+            } elseif ($row->type == 'Foto') {
                 $output .= '
                 <script src=' . base_url('assets/js/tambahan.js') . '></script>
                     <div class="feed-item">
@@ -64,7 +64,30 @@ class Galery extends CI_Controller
                                 <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
                                 <span>by <b>' . $row->nama . '</b></span>
                                 <div class="vote">
-                                    <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
+            } else {
+                $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
                                     <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
@@ -97,46 +120,69 @@ class Galery extends CI_Controller
             foreach ($data->result() as $row) {
                 if ($row->type == 'Video') {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
-                                    <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
+                                <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
+                } elseif ($row->type == 'Foto') {
+                    $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
+                                <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
                 } else {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
-                                    <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
                 }
             }
         }
@@ -165,46 +211,69 @@ class Galery extends CI_Controller
             foreach ($data->result() as $row) {
                 if ($row->type == 'Video') {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
-                                    <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
+                                <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
+                } elseif ($row->type == 'Foto') {
+                    $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
+                                <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
                 } else {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
-                                    <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
                 }
             }
         }
@@ -233,46 +302,69 @@ class Galery extends CI_Controller
             foreach ($data->result() as $row) {
                 if ($row->type == 'Video') {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
-                                    <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
+                                <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
+                } elseif ($row->type == 'Foto') {
+                    $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
+                                <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
                 } else {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
-                                    <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
                 }
             }
         }
@@ -301,46 +393,69 @@ class Galery extends CI_Controller
             foreach ($data->result() as $row) {
                 if ($row->type == 'Video') {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
-                                    <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
+                                <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
+                } elseif ($row->type == 'Foto') {
+                    $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
+                                <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
                 } else {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
-                                    <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
                 }
             }
         }
@@ -369,46 +484,69 @@ class Galery extends CI_Controller
             foreach ($data->result() as $row) {
                 if ($row->type == 'Video') {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
-                                    <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>
+                                <video class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailvideo/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
+                } elseif ($row->type == 'Foto') {
+                    $output .= '
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div class="gambar">
+                                <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
+                                <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
                 } else {
                     $output .= '
-                    <script src=' . base_url('assets/js/tambahan.js') . '></script>
-                        <div class="feed-item">
-                            <div class="card">
-                                <div class="gambar">
-                                    <a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>
-                                    <img class="card" src= ' . base_url("assets/upload/images/" . $row->gambar) . '>
-                                    </a>
-                                </div>
-                                <div class="item-text">
-                                    <h6><a href=' . base_url("galery/detailfoto/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
-                                    <span>by <b>' . $row->nama . '</b></span>
-                                    <div class="vote">
-                                        <a title="Upvote"><i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span></a>
-                                        <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
-                                    </div>
+                <script src=' . base_url('assets/js/tambahan.js') . '></script>
+                    <div class="feed-item">
+                        <div class="card">
+                            <div>
+                                <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                                <center>
+                                <i class="fas fa-file-pdf fa-10x"></i>
+                                </center>
+                                </a>
+                            </div>
+                            <div class="item-text">
+                                <h6><a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . '>' . $row->judul . '</a></h6>
+                                <span>by <b>' . $row->nama . '</b></span>
+                                <div class="vote">
+                                    <i class="fas fa-chevron-up"></i> <span>' . $row->likes . '</span>
+                                    <a><i class="fas fa-eye"></i> <span>' . $row->views . '</span></a>
                                 </div>
                             </div>
                         </div>
-                    ';
+                    </div>
+                ';
                 }
             }
         }
@@ -427,6 +565,21 @@ class Galery extends CI_Controller
         $this->add_count($slug_tampilan);
         $this->load->view('templates/main/header', $data);
         $this->load->view('main/galleryViewfoto', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function detailpdf($slug_tampilan)
+    {
+        $tampilan = $this->gambar_model->read($slug_tampilan);
+        $home = $this->gambar_model->homep();
+        $data = array(
+            'title' => 'Laboratorium Fakultas Industri Kreatif Telkom University',
+            'tampilan'  => $tampilan,
+            'home'      => $home
+        );
+        $this->add_count($slug_tampilan);
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('main/galleryViewpdf', $data);
         $this->load->view('templates/main/footer');
     }
 

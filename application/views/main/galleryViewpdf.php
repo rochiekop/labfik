@@ -17,13 +17,7 @@
       </div>
     </div>
     <div class="karya">
-      <?php if ($tampilan->type == 'Video') : ?>
-        <video controls autoplay>
-          <source src="<?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" type="video/mp4">
-        </video>
-      <?php else : ?>
-        <img src=" <?= base_url("assets/upload/images/" . $tampilan->gambar) ?>" alt="<?= $tampilan->judul ?>">
-      <?php endif; ?>
+      <embed src="<?= base_url('assets/upload/images/' . $tampilan->gambar) ?>" type="application/pdf" width="100%" height="600px" />
       <div class="caption">
         <?= $tampilan->deskripsi ?>
       </div>
@@ -36,13 +30,13 @@
         <?php foreach ($home as $home) { ?>
           <div class="feed-item">
             <div class="card">
-              <div class="gambar">
+              <div>
                 <a href="<?= base_url("galery/detail/" . $home->slug_tampilan) ?>">
-                  <?php if ($home->type == 'Video') : ?>
-                    <video class="card-img-top" src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>">
-                    <?php else : ?>
-                      <img src="<?= base_url("assets/upload/images/" . $home->gambar) ?>" alt="<?= $home->judul ?>" />
-                    <?php endif; ?>
+                  <a href=' . base_url("galery/detailpdf/" . $row->slug_tampilan) . ' style="font-size: 24px;">
+                    <center>
+                      <i class="fas fa-file-pdf fa-10x"></i>
+                    </center>
+                  </a>
                 </a>
               </div>
               <div class="item-text">

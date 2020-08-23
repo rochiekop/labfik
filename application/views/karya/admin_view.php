@@ -24,40 +24,38 @@
                         <th scope="col" style="width:48px">NO</th>
                         <th scope="col" style="width:90px">&nbsp;</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Role</th>
                         <th scope="col">Kategori</th>
                         <th scope="col">Tanggal Post</th>
-                        <th scope="col">Views</th>
                         <th scope="col">status</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col" class="action">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($tampilan)) : ?>
-                        <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                        <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                     <?php else : ?>
                         <?php $no = 1;
                         foreach ($tampilan as $data) { ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td>
-                                    <a type="button" data-toggle="modal" data-target="#exampleModal<?= $data->id_tampilan ?>">
+                                    <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $data->id_tampilan ?>">
                                         <?php if ($data->type == 'Foto') : ?>
-                                            <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60">
+                                            <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>">
+                                        <?php elseif ($data->type == 'Video') : ?>
+                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" width="80"></video>
                                         <?php else : ?>
-                                            <video src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" class="img img-responsive img-thumbnail" width="60"></video>
+                                            <span class="fas fa-file-pdf fa-4x"></span>
                                         <?php endif; ?>
                                     </a>
                                 </td>
                                 <td><?= $data->nama ?></td>
-                                <td><?= $data->role ?></td>
                                 <td><?= $data->nama_kategori ?></td>
                                 <td><?= $data->tanggal_post ?></td>
-                                <td><?= $data->views ?></td>
                                 <td><?= $data->status ?></td>
-                                <td>
+                                <td class="action">
                                     <a href="<?= base_url('admin_karya/edit/' . $data->id_tampilan) ?>"><span class="fas fa-edit"></span></a>
-                                    <a href="<?= base_url('admin_karya/delete/' . $data->id_tampilan); ?>" onclick="return confirm('yakin ingin menghapus data ini?')"><span class="fas fa-trash"></span></a>
+                                    <a data-toggle="modal" data-target="#delete-<?php echo $data->id_tampilan ?>"><span class="fas fa-trash"></span></a>
                                 </td>
                             </tr>
                         <?php $no++;
@@ -69,8 +67,29 @@
     </div>
     <!-- End of Content Wrapper -->
 </main>
-
 <?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade" id="delete-<?php echo $data->id_tampilan ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="callout callout-warning">
+                        <h4>Peringatan!</h4>
+                        <br>
+                        Data yang terhapus tidak dapat dikembalikan. Yakin ingin menghapus?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    <a href="<?= base_url('admin_karya/delete/') . $data->id_tampilan ?>" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i>Ya, Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -83,16 +102,21 @@
                 <div class="modal-body">
                     <?php if ($data->type == 'Foto') : ?>
                         <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
-                    <?php else : ?>
+                    <?php elseif ($data->type == 'Video') : ?>
                         <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
                             <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
                         </video>
+                    <?php else : ?>
+                        <embed src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="application/pdf" width="100%" height="600px" />
                     <?php endif; ?>
                     <div class="item-text">
                         <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>
                     </div>
                     <div class="item-text">
-                        <span>Di Posting Oleh: <b><?= $data->name ?></b></span>
+                        <span>Jumlah Views: <b><?= $data->views ?></b></span>
+                    </div>
+                    <div class="item-text">
+                        <span>Di Posting Oleh: <b><?= $data->role ?>, <?= $data->name ?></b></span>
                     </div>
                     <div class="item-text">
                         <span>Deskripsi: <b><?= $data->deskripsi ?></b></span>

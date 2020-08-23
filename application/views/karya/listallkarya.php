@@ -34,39 +34,61 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 0;
-                foreach ($tampilan as $l) : ?>
-                    <tr>
-                        <th scope="row"><?= ++$no ?></th>
-                        <td style="width:90px">
-                            <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $l->id_tampilan ?>">
-                                <?php if ($l->type == 'Foto') : ?>
-                                    <img src="<?= base_url("assets/upload/images/" . $l->gambar) ?>" alt="<?= $l->judul ?>">
-                                <?php else : ?>
-                                    <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" width="80"></video>
-                                <?php endif; ?>
-                            </a>
-                        </td>
-                        <td><?= $l->judul ?></td>
-                        <td><?= $l->nama ?></td>
-                        <td><?= $l->nama_kategori ?></td>
-                        <td><?= $l->status ?></td>
-                        <?php if ($l->status == 'Menunggu Acc') : ?>
-                            <td class="action" style="width:130px;text-align:center;">
-                                <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
-                                <a href="<?= base_url('kaur_karya/Declined/') . $l->id_tampilan; ?>" class="btn badge badge-danger" onclick="return confirm('yakin ingin menolak data ini?')">Tolak</a>
+                <?php if (empty($tampilan)) : ?>
+                    <td colspan="7" style="background-color: whitesmoke;text-align:center">List Permintaan Kosong</td>
+                <?php else : ?>
+                    <?php $no = 0;
+                    foreach ($tampilan as $l) : ?>
+                        <tr>
+                            <th scope="row"><?= ++$no ?></th>
+                            <td style="width:90px">
+                                <a class="img-wrapper" type="button" data-toggle="modal" data-target="#exampleModal<?= $l->id_tampilan ?>">
+                                    <?php if ($l->type == 'Foto') : ?>
+                                        <img src="<?= base_url('assets/upload/images/' . $l->gambar) ?>">
+                                    <?php elseif ($l->type == 'Video') : ?>
+                                        <video src="<?= base_url('assets/upload/images/' . $l->gambar) ?>" width="80"></video>
+                                    <?php else : ?>
+                                        <span class="fas fa-file-pdf fa-4x"></span>
+                                    <?php endif; ?>
+                                </a>
                             </td>
-                        <?php else : ?>
-                            <td></td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endforeach; ?>
+                            <td><?= $l->judul ?></td>
+                            <td><?= $l->nama ?></td>
+                            <td><?= $l->nama_kategori ?></td>
+                            <td><?= $l->status ?></td>
+                            <?php if ($l->status == 'Menunggu Acc') : ?>
+                                <td class="action" style="width:130px;text-align:center;">
+                                    <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
+                                    <a data-toggle="modal" data-target="#declinedmodal<?= $l->id; ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+                                </td>
+                            <?php else : ?>
+                                <td></td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 </main>
 
 <?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= $data->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Tolak permintaan posting ?
+                </div>
+                <form action="<?= base_url('kaur_karya/Declined/') . $data->id_tampilan; ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-footer">
+                        <input type="hidden" id="id" name="id" value="<?= $data->id; ?>">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                        <button type="submit" name="declinedpeminjaman" class="btn btn-danger btn-sm">Tolak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal<?= $data->id_tampilan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -79,10 +101,12 @@
                 <div class="modal-body">
                     <?php if ($data->type == 'Foto') : ?>
                         <img src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
-                    <?php else : ?>
+                    <?php elseif ($data->type == 'Video') : ?>
                         <video controls style="margin:auto!important;background-color:#000;width:100%;max-height:624px;">
                             <source src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="video/mp4">
                         </video>
+                    <?php else : ?>
+                        <embed src="<?= base_url('assets/upload/images/' . $data->gambar) ?>" type="application/pdf" width="100%" height="600px" />
                     <?php endif; ?>
                     <div class="item-text">
                         <span>Di Buat Oleh: <b><?= $data->nama ?></b></span>

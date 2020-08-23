@@ -78,10 +78,10 @@
                   <?php endif; ?>
                 </div>
                 <input type="hidden" name="id_booking" value="<?= $id_booking ?>" required>
-                <input type="hidden" name="user_id" value="<?= $booking['user_id'] ?>" required>
+                <input type="hidden" name="timebooking" id="timebooking" value="<?= $booking['time'] ?>" required>
+                <input type="hidden" name="user_id" value="<?= $booking['user_id'] ?>" id="id_peminjam" xrequired>
               </div>
             </div>
-            <!-- <?php var_dump($booking) ?> -->
             <div class="card-footer">
               <button class="btn btn-primary" type="submit">Simpan</button>
             </div>
@@ -101,12 +101,11 @@
   </style>
   <script>
     $(document).ready(function() {
+      var timebooking = $('#timebooking').val().split(", ");
       get_data_edit();
       $('#kategori').change(function() {
         var id = $(this).val();
         var subcategory_id = "<?php echo $sub_category_id; ?>";
-        // alert(subcategory_id);
-        // alert(id)
         $.ajax({
           url: "<?php echo base_url('booking/getRuangan'); ?>",
           method: "POST",
@@ -197,8 +196,13 @@
                   }
                   for (i = 0; i < arrTime.length; i++) {
                     if (splitTime.includes(arrTime[i])) {
-                      html += '<td class="free yellow" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn"><input type="checkbox" name="time[]" value="' + arrTime[i] + '" class="time" id="time" checked="true">' + arrTime[i] + '</a></div></td>';
-                      $("tbody .displayedit").html(html);
+                      if (timebooking.includes(arrTime[i])) {
+                        html += '<td class="free yellow" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn"><input type="checkbox" name="time[]" value="' + arrTime[i] + '" class="time" id="time" checked="true">' + arrTime[i] + '</a></div></td>';
+                        $("tbody .displayedit").html(html);
+                      } else {
+                        html += '<td class="free red" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn">' + arrTime[i] + '</a></div></td>';
+                        $("tbody .displayedit").html(html);
+                      }
                     } else {
                       html += '<td class="free" align="center" id="btnchange" valign="middle" width="13%" style="overflow:hidden"><div width="100%" style="overflow:hidden"><a class="time" id="btn"><input type="checkbox" name="time[]" value="' + arrTime[i] + '" class="time" id="time">' + arrTime[i] + '</a></div></td>';
                       $("tbody .displayedit").html(html);
@@ -258,7 +262,5 @@
           // 
         }
       });
-
-
     });
   </script>

@@ -183,7 +183,7 @@ class Users extends CI_Controller
     $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status' => 'Sudah Disetujui'
+        'status' => 'Disetujui'
       );
       $this->db->update('dosbing', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan bimbingan disetujui</div>');
@@ -315,14 +315,19 @@ class Users extends CI_Controller
 
   public function deletefileta()
   {
+    $path = "./assets/upload/thesis/" . $this->session->userdata('username');
     $id = $this->input->post('id');
     if ($id) {
-      $this->db->delete('dosbing', ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
-      redirect('users/pengajuandosbing');
+      $fileta = explode(', ', $this->input->post('fileta'));
+      foreach ($fileta as $t) {
+        @unlink($path . '/' . $t);
+      }
+      $this->db->delete('thesis', ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">file berhasil dibatalkan</div>');
+      redirect('users/bimbingantugasakhir');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda hapus tidak ada</div>');
-      redirect('users/pengajuandosbing');
+      redirect('users/bimbingantugasakhir');
     }
   }
 }

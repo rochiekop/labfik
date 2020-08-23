@@ -180,8 +180,10 @@ class Tampilan_model extends CI_Model
         $this->db->order_by('views', 'desc');
         $this->db->limit(4);
         $where = "views >= 1";
+        $where1 = "type IN ('Video', 'Foto')";
         $this->db->where($where);
         $this->db->where(array('tampilan.status' => 'Diterima'));
+        $this->db->where($where1);
         $query = $this->db->get();
         return $query->result();
     }

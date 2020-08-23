@@ -9,13 +9,19 @@ class Kaur extends CI_Controller
     $this->load->library('upload');
     $this->load->library('pagination');
     $this->load->model('booking_model');
+    $this->load->model('user_model');
+    $this->load->model('gambar_model');
     is_logged_in();
   }
 
   public function index()
   {
-    $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
-    $data['listbooking'] = $this->booking_model->getAllWaitingAccBooking();
+    $data = array(
+      'title'         =>  'Laboratorium Fakultas Industri Kreatif Telkom University',
+      'listbooking'   =>  $this->booking_model->getAllWaitingAccBooking(),
+      'hitung'        =>  $this->gambar_model->hitung(),
+      'tampilan'      =>  $this->gambar_model->mintaacc()
+    );
     $this->load->view('templates/dashboard/headerKaur', $data);
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/index');
@@ -66,7 +72,7 @@ class Kaur extends CI_Controller
   {
     $id = decrypt_url($id);
     $this->booking_model->changeStatusAccepted($id);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui</div>');
     redirect('kaur/listWaitingForAcc');
   }
 
@@ -78,20 +84,47 @@ class Kaur extends CI_Controller
     $check = $this->db->get_where('booking', ['id' => $id_booking]);
     if ($check) {
       $this->booking_model->changeStatusDeclined($id_booking, $date);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak</div>');
       redirect('kaur/listWaitingForAcc');
     } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia</div>');
       redirect('kaur/listWaitingForAcc');
     }
   }
 
   public function rolepengguna()
   {
-    $data['title'] = 'LABFIK | Pengaturan Role Pengguna';
+    $dosen = $this->user_model->getuserdosen();
+    $data = array(
+      'title'     => 'LABFIK | Pengaturan Role Pengguna',
+      'dosen' => $dosen
+    );
     $this->load->view('templates/dashboard/headerKaur', $data);
     $this->load->view('templates/dashboard/sidebarKaur', $data);
     $this->load->view('dashboard/kaur/rolepengguna', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function changedeclinedindex()
+  {
+    $id_booking = $this->input->post('id');
+    $date = $this->input->post('date');
+    $check = $this->db->get_where('booking', ['id' => $id_booking]);
+    if ($check) {
+      $this->booking_model->changeStatusDeclined($id_booking, $date);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat tolak</div>');
+      redirect('kaur');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Peminjaman tidak tersedia</div>');
+      redirect('kaur');
+    }
+  }
+
+  public function acceptedindex($id)
+  {
+    $id = decrypt_url($id);
+    $this->booking_model->changeStatusAccepted($id);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui</div>');
+    redirect('kaur');
   }
 }

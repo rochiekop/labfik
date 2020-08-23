@@ -15,7 +15,23 @@ class Admin extends CI_Controller
   }
   public function index()
   {
-    $data['title'] = 'Dashboard';
+    $alltempat = count($this->db->get('ruangan')->result_array());
+    $aksesdosen = $this->admin_model->aksesdosen();
+    $aksesmhs = $this->admin_model->aksesmhs();
+    $dtempat = $this->admin_model->getDaftarTempat();
+    $count = $this->admin_model->hitung();
+    $count1 = $this->admin_model->hitungacc();
+    $tampilan = $this->admin_model->listkarya();
+    $data = array(
+      'title'     => 'Dashboard',
+      'alltempat'  => $alltempat,
+      'aksesdosen' => $aksesdosen,
+      'aksesmhs' => $aksesmhs,
+      'dtempat' => $dtempat,
+      'total_asset'  => $count,
+      'total_acc'  => $count1,
+      'tampilan'   => $tampilan
+    );
     $this->load->view('templates/dashboard/headerAdmin', $data);
     $this->load->view('templates/dashboard/sidebarAdmin', $data);
     $this->load->view('dashboard/admin/index', $data);
@@ -918,6 +934,7 @@ class Admin extends CI_Controller
 
   public function updatepeminjaman()
   {
+
     if ($this->input->post('status') == "Diterima") {
       $data = array(
         'id_ruangan' => $this->input->post('ruangan'),

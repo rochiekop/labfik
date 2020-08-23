@@ -30,11 +30,12 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Prodi</th>
                     <th scope="col">status</th>
+                    <th scope="col" style="width:110px;text-align:center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($tampilan)) : ?>
-                    <td colspan="6" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
+                    <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($tampilan as $l) : ?>
@@ -55,6 +56,14 @@
                             <td><?= $l->nama ?></td>
                             <td><?= $l->nama_kategori ?></td>
                             <td><?= $l->status ?></td>
+                            <?php if ($l->status == 'Menunggu Acc') : ?>
+                                <td class="action" style="width:130px;text-align:center;">
+                                    <a href="<?= base_url('admin_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
+                                    <a href="<?= base_url('admin_karya/Declined/') . $l->id_tampilan; ?>" class="btn badge badge-danger" onclick="return confirm('yakin ingin menolak data ini?')">Tolak</a>
+                                </td>
+                            <?php else : ?>
+                                <td></td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
