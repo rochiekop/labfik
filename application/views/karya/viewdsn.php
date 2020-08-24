@@ -31,7 +31,7 @@
                         <th scope="col" class="action">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="slider">
                     <?php if (empty($tampilan)) : ?>
                         <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong</td>
                     <?php else : ?>

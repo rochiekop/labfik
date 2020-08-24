@@ -78,6 +78,7 @@ class Ajax_search extends CI_Model
     $this->db->order_by('id', 'DESC');
     return $this->db->get()->result_array();
   }
+
   public function fetchdatalab($query = null, $filter = null)
   {
     $this->db->select('*');
@@ -92,6 +93,26 @@ class Ajax_search extends CI_Model
       $this->db->like('body', $query);
       $this->db->or_like('title', $query);
       $this->db->or_like('date', $query);
+    }
+    return $this->db->get()->result_array();
+  }
+
+  public function fetchdatakaryaadmin($query = null, $filter = null)
+  {
+    $this->db->select('tampilan.*,
+    kategori.nama_kategori');
+    $this->db->from('tampilan');
+    $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+    if ($filter == 'Judul') {
+      $this->db->like('judul', $query);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('deskripsi', $query);
+    } elseif ($filter == 'Nama') {
+      $this->db->like('nama', $query);
+    } else {
+      $this->db->like('judul', $query);
+      $this->db->or_like('deskripsi', $query);
+      $this->db->or_like('nama', $query);
     }
     return $this->db->get()->result_array();
   }
