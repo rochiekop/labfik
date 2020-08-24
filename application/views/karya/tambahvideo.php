@@ -4,13 +4,13 @@
         <h5>Upload Karya</h5>
     </div>
     <div class="row">
-        <div class="col-md-4" id="imagePreview">
+        <div class="col-md-5" id="imagePreview">
             <video width="445px" controls class="placeholder-img" style="border-radius: 10px;">
                 <source src="" type="video/mp4">
             </video>
             <span class="placeholder-img1"></span>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <?php
 

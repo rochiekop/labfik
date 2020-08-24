@@ -71,7 +71,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-item regisdropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="<?= base_url('auth/editprofilekaur') ?>">
                   <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
