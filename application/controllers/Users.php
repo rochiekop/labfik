@@ -73,7 +73,6 @@ class Users extends CI_Controller
     $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
     $data['dosbing'] = $this->user_model->getDosbing();
     $data['cdosbing'] = $this->user_model->checkButton();
-    $data['dosen'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
     $this->form_validation->set_rules('title', 'Judul', 'required|trim');
     $title = $this->db->get_where('guidance', ['judul' => $this->input->post('title')])->row_array();
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
@@ -86,9 +85,11 @@ class Users extends CI_Controller
         'id_mhs' => $this->input->post('id_mhs'),
         'judul' => $this->input->post('title'),
         'peminatan' => $this->input->post('peminatan'),
+        'dosen_wali' => $this->input->post('dosenwali'),
+        'status' => 'proses',
       );
       $this->db->insert('guidance', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Judul berhasil ditambahkan, silakan pilih dosen pembimbing 1 dan pembimbing 2.</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
       redirect('users/pengajuandosbing');
     }
   }
@@ -104,6 +105,7 @@ class Users extends CI_Controller
       $data = array(
         'judul' => $this->input->post('title'),
         'peminatan' => $this->input->post('peminatan'),
+        'dosen_wali' => $this->input->post('dosenwali'),
       );
       $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
@@ -121,7 +123,7 @@ class Users extends CI_Controller
     $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     // Check profile
-    if ($data['mhs']['nim'] == '' and $data['mhs']['prodi'] == '') {
+    if ($data['mhs']['nim'] == '' or $data['mhs']['prodi'] == '' or $data['mhs']['no_telp'] == '') {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Lengkapi profile terlebih dahulu agar dapat mengajukan TA. </div>');
       redirect('auth/editprofilemhs');
     } else {

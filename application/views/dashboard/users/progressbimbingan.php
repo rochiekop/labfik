@@ -12,17 +12,20 @@
   <br>
 
   <input type="hidden" value="siap_sidang" />
-  <button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>
   <?php
   for ($x = 1; $x <= 4; $x++) {
-    if ($x == count($preview)) {
-      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:4px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
+    if ($x - 1 == count($preview)) {
+      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
     } else {
-      echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:4px;">Preview ' . $x . '</button>';
+      echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:5px;">Preview ' . $x . '</button>';
     }
   }
+  if (count($preview) == 4) {
+    echo '<button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>';
+  } else {
+    echo '<button type="submit" class="btn btn-sm btn-secondary" disabled style="color:#fff">Berikan Siap Sidang</button>';
+  }
   ?>
-  <?php var_dump(count($preview)) ?>
   <br>
   <br>
   <div class="table-responsive">
@@ -77,22 +80,21 @@
       </tbody>
     </table>
   </div>
-  <!-- <?php var_dump(($preview)) ?> -->
 </main>
 <!-- End Main Container -->
 
 <!-- Modal Preview-->
-<?php foreach ($filebimbingan as $t) : ?>
+<?php foreach ($preview as $t) : ?>
   <div class="modal fade bd-example-modal-sm" id="previewmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          Kirim Preview 1 ?
+          Kirim <?= $t['status'] ?> ?
         </div>
         <form action="deletelab" method="post" enctype="multipart/form-data">
           <div class="modal-footer">
-            <!-- <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
-            <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>"> -->
+            <!-- <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>"> -->
+            <!-- <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>"> -->
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
             <button type="submit" name="preview" class="btn btn-primary btn-sm">Kirim</button>
           </div>

@@ -6,12 +6,12 @@
     </div>
     <?= $this->session->flashdata('message'); ?>
     <?php if (empty($title)) : ?>
-      <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Input Judul</a>
+      <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php else : ?>
       <a data-toggle="modal" data-target="#viewjudul" class="btn btn-sm btn-primary" style="color:#fff">Edit</a>
-      <?php if (count($cdosbing) < 2) : ?>
+      <!-- <?php if (count($cdosbing) < 2) : ?>
         <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary" style="color:#fff">Pilih Dosen Pembimbing</a>
-      <?php endif; ?>
+      <?php endif; ?> -->
     <?php endif; ?>
     <br>
     <!-- <?php var_dump($cdosbing) ?> -->
@@ -28,8 +28,10 @@
           </tr>
         </thead>
         <tbody>
-          <?php if (empty($dosbing)) : ?>
+          <?php if (empty($title)) : ?>
             <td colspan="5" style="background-color: whitesmoke;text-align:center">Daftar dosen pembimbing kosong</td>
+          <?php elseif ($title['status'] == 'proses') : ?>
+            <td colspan="5" style="background-color: whitesmoke;text-align:center">Permintaan anda sedang diproses....</td>
           <?php else : ?>
             <?php $no = 0;
             foreach ($dosbing as $t) : ?>
@@ -58,7 +60,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">Input Judul TA</h6>
+          <h6 class="modal-title" id="exampleModalLabel">Form Pendaftaran Tugas Akhir / Skripsi</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -67,20 +69,24 @@
           <div class="modal-body">
             <input type="hidden" id="id_mhs" name="id_mhs" value="<?= $mhs['id'] ?>">
             <div class="form-group">
-              <input type="text" name="title" value="<?= set_value('title'); ?>" class="form-control" placeholder="Judul" required="required" autocomplete="off" />
+              <label for="title">Judul</label>
+              <input type="text" name="title" value="<?= set_value('title'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
               <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
-              <input type="text" name="prodi" value="<?= $mhs['prodi']; ?>" class="form-control" placeholder="" required="required" autocomplete="off" disabled />
+              <label for="kosentrasi">Kosentrasi</label>
+              <input type="text" name="peminatan" value="<?= set_value('peminatan'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+              <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
-              <input type="text" name="peminatan" value="<?= set_value('peminatan'); ?>" class="form-control" placeholder="Peminatan" required="required" autocomplete="off" />
-              <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
+              <label for="dosenwali">Dosen Wali</label>
+              <input type="text" name="dosenwali" value="<?= set_value('dosenwali'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+              <?php echo form_error('dosenwali', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <button type="submit" class="btn btn-sm btn-primary">Daftar</button>
           </div>
         </form>
       </div>
@@ -100,50 +106,24 @@
           <div class="modal-body">
             <input type="hidden" id="id" name="id" value="<?= $title['id'] ?>">
             <div class="form-group">
+              <label for="dosenwali">Judul</label>
               <input type="text" name="title" value="<?= $title['judul'] ?>" class="form-control" placeholder="Judul" required="required" autocomplete="off" />
               <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
+              <label for="dosenwali">Kosentrasi</label>
               <input type="text" name="peminatan" value="<?= $title['peminatan'] ?>" class="form-control" placeholder="peminatan" required="required" autocomplete="off" />
               <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
+            </div>
+            <div class="form-group">
+              <label for="dosenwali">Dosen Wali</label>
+              <input type="text" name="dosenwali" value="<?= $title['dosen_wali'] ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+              <?php echo form_error('dosenwali', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
             <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Modal Pengajuan -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">Buat Pengajuan Dosen Pembimbing</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="<?= base_url('users/pengajuandosbing') ?>" method="post" enctype="multipart/form-data">
-          <div class="modal-body">
-            <input type="hidden" name="id_mhs" value="<?= $mhs['id'] ?>">
-            <input type="hidden" id="id_guidance" name="id_guidance" value="<?= $title['id'] ?>">
-            <div class="form-group">
-              <select class="form-control" id="dosbing" name="dosbing" title="Pilih Dosen Pembimbing" required>
-                <option value="">Pilih Dosen Pembimbing</option>
-                <?php foreach ($dosen as $d) : ?>
-                  <?php if ($d['prodi'] == $mhs['prodi']) : ?>
-                    <option value="<?= $d['id'] ?>"><?= $d['name'] ?></option>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
-            <button type="submit" class="btn btn-sm btn-primary">Kirim</button>
           </div>
         </form>
       </div>

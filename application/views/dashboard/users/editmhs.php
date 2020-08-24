@@ -11,11 +11,11 @@
 
     echo form_open_multipart(base_url('auth/editprofilemhs'), 'class="form-horizontal"');
     ?>
+    <?= $this->session->flashdata('message'); ?>
     <div class="fik-section-title2">
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
     </div>
-    <?= $this->session->flashdata('message'); ?>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
             <img src="<?= base_url('assets/img/profile/' . $user['images']) ?>" alt="" class="fas fa-image placeholder-img">
@@ -27,20 +27,24 @@
                     <div class="card-body">
                         <div class="custom-form">
                             <div class="form-group">
-                                <input type="text" name="email" value="<?= $user['email'] ?>" class="form-control" autocomplete="off" readonly />
-                                <label>Email</label>
-                            </div>
-                            <div class="form-group">
                                 <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="Name" required="required" autocomplete="off" />
                                 <label>Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nim" placeholder="Nim" value="<?= $user['nim'] ?>" class="form-control" required="required" autocomplete="off" />
+                                <label>Nim</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="email" value="<?= $user['email'] ?>" class="form-control" autocomplete="off" readonly />
+                                <label>Email</label>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
                                 <label>Prodi</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nim" placeholder="Nim" value="<?= $user['nim'] ?>" class="form-control" required="required" autocomplete="off" />
-                                <label>Nim</label>
+                                <input type="text" name="nohp" value="<?= $user['no_telp'] ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
+                                <label>No. Hp</label>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">

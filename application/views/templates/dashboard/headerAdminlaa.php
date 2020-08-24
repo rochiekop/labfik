@@ -16,12 +16,8 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- TinyMCE -->
-  <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
   <!-- Lab. FIK Main Style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
-
 
   <!-- JQuery 3.3.1 -->
   <script src="<?= base_url('assets/vendor/jquery.min.js'); ?>"></script>
@@ -31,7 +27,7 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js') ?>"></script>
-  <script type="text/javascript" src="<?= base_url('assets/js/booking.js') ?>"></script>
+
   <link rel="icon" href="<?php echo base_url(); ?>assets/img/logo/favicon.png" type="image/gif">
 
 </head>
@@ -49,7 +45,7 @@
       <div class="fik-navbar-menu">
         <ul class="left akun fik-username hide-mobile">
           <li>
-            <img src="<?= base_url('assets/img/profile/' . $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->images) ?>">
+            <img src="<?= base_url('assets/img/7.jpg') ?>">
           </li>
           <li>
             <b><?= $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row()->name; ?></b>
@@ -63,28 +59,22 @@
             </a>
           </div>
           <div class="not-dropdown" style="margin-right:14px" id="active">
-            <!-- <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/respond/' . $this->session->userdata('id')) ?>"> -->
+            <!-- <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/request/' . $this->session->userdata('id')) ?>"> -->
             <a class="btn btn-icon" href="<?= base_url('Notification') ?>">
               <span class="fas fa-bell"></span>
             </a>
           </div>
+
           <div class="dropdown not-dropdown">
             <a class="btn btn-icon" id="active" data-toggle="dropdown" href="#">
               <span class="fas fa-cog"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-item regisdropdown">
-                <?php if ($this->session->userdata('role_id') == 4) : ?>
-                  <a class="dropdown-item" href="<?= base_url('auth/editprofilemhs') ?>">
-                    <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                  </a>
-                <?php elseif ($this->session->userdata('role_id') == 3) : ?>
-                  <a class="dropdown-item" href="<?= base_url('auth/editprofiledsn') ?>">
-                    <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                  </a>
-                <?php endif; ?>
+                <a class="dropdown-item" href="#">
+                  <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" data-toggle="modal" data-target="#logout">
                   <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 icon"></i>
@@ -97,25 +87,10 @@
       </div>
     </div>
   </nav>
+  <!-- End Navbar -->
+
   <style>
     #active:focus {
       color: #fb8c00;
     }
   </style>
-  <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
-        </div>
-        <div class="modal-body">
-          Anda yakin akan keluar?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" onclick="location.href='<?= base_url('auth/logout'); ?>';" class="btn btn-primary">Keluar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Navbar -->

@@ -253,6 +253,8 @@ class Auth extends CI_Controller
       redirect('kaur');
     } elseif ($set == 3 or $set == 4) {
       redirect('users/main');
+    } elseif ($set == 5) {
+      redirect('adminlaa');
     } else {
       redirect('auth');
     }
@@ -395,13 +397,16 @@ class Auth extends CI_Controller
       'user'  => $user
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules('nohp', 'Nomor Handphone', 'required|trim|integer', [
+      'integer' => '%s harus diisi dengan angka!'
+    ]);
     $this->form_validation->set_rules(
       'nim',
       'Nim',
       'required|min_length[10]',
       array(
         'required'      =>  '%s harus diisi',
-        'min_length[10]' =>  '%s angka yang diisi kurang'
+        'min_length[10]' =>  '%s angka yang diisi kurang',
       )
     );
 
@@ -415,6 +420,7 @@ class Auth extends CI_Controller
       $prodi = $this->input->post('prodi');
       $nim = $this->input->post('nim');
       $email = $this->input->post('email');
+      $nohp = $this->input->post('nohp');
 
       $upload_image = $_FILES['images']['name'];
 
@@ -437,11 +443,13 @@ class Auth extends CI_Controller
         }
       }
       $this->db->set('name', $name);
+      $this->db->set('no_telp', $nohp);
       $this->db->set('nim', $nim);
       $this->db->set('prodi', $prodi);
       $this->db->where('email', $email);
       $this->db->update('user');
-      redirect('users/main');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile berasil diubah</div>');
+      redirect('auth/editprofilemhs');
     }
   }
 
