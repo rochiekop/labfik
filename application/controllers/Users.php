@@ -87,7 +87,7 @@ class Users extends CI_Controller
           if (!$create)
             return;
         }
-        $config['allowed_types'] = 'pdf|docx|jpeg|gif|png';
+        $config['allowed_types'] = 'pdf|docx|jpeg|gif|png|jpg';
         $config['max_size'] = '20048';  //20MB max
         $config['max_width'] = '8480'; // pixel
         $config['max_height'] = '8480'; // pixel
@@ -356,5 +356,14 @@ class Users extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda hapus tidak ada</div>');
       redirect('users/bimbingantugasakhir');
     }
+  }
+
+  public function tambahdosbing()
+  {
+    $data['title'] = 'LABFIK | Tambah Dosen Pembimbing';
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/tambahdosbing', $data);
+    $this->load->view('templates/dashboard/footer');
   }
 }

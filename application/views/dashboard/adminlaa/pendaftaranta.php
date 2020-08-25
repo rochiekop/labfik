@@ -87,13 +87,19 @@
       <div class="modal-dialog wide" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">Buat Peminjaman</h6>
+            <h6 class="modal-title" id="exampleModalLabel">Form Pendaftaran</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <embed type="application/pdf" src="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['form_pendaftaran'] ?>" width="800px" height="100%" />
+            <?php if (substr($t['form_pendaftaran'], -3) == 'pdf') : ?>
+              <embed type="application/pdf" src="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['form_pendaftaran'] ?>" width="100%" height="600px" />
+            <?php elseif (substr($t['form_pendaftaran'], -3) == 'docx') : ?>
+              <embed type="application/docx" src="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['form_pendaftaran'] ?>" width="100%" height="600px" />
+            <?php else : ?>
+              <img src="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['form_pendaftaran'] ?>" alt="" width="100%">
+            <?php endif; ?>
           </div>
         </div>
       </div>
