@@ -39,10 +39,11 @@ class Thesis_model extends CI_Model
     public function getFile($thesis_id)
     {
         // return $this->db->get_where('thesis', ["id" => $thesis_id])->row();
-        $this->db->select('thesis.pdf_file, user.username');
+        // $this->db->select('thesis.pdf_file, user.username');
+        $this->db->select('user.username');
         $this->db->from('thesis');
-        $this->db->join('guidance', 'thesis.id_guidance=guidance.id');
-        $this->db->join('user', 'guidance.id_mhs=user.id');
+        $this->db->join('guidance', 'thesis.id_guidance = guidance.id');
+        $this->db->join('user', 'guidance.id_mhs = user.id');
         $this->db->where('thesis.id', $thesis_id);
         $query = $this->db->get();
         $result = $query->row();
@@ -70,20 +71,36 @@ class Thesis_model extends CI_Model
     public function saveCorrection()
     {
         $post = $this->input->post();
-        $this->thesis_id = $post['thesis_id'];
-        $this->page = $post['page'];
         $this->correction = $post['correction'];
         
-        $this->db->update('correction', $this->correction, array('thesis_id' => $thesis_id, 'page' => $page));
+        $this->db->update('thesis', $this, array('id' => $post['thesis_id']));
+        redirect('Thesis');
+        // ------------------------------------------
+        // $thesis_id = $post['thesis_id'];
+        // $pdf_file = $post['pdf_file'];
+
+        // $data['thesis_id'] = $thesis_id;
+        // $data['pdf_file'] = $pdf_file;
+        // $data['file'] = $this->thesis_model->getFile($thesis_id, $pdf_file);
+        // $data['correction'] = $this->thesis_model->getCorrection($thesis_id)->correction;
+
+        // $this->load->view('templates/dashboard/headerDosenMhs');
+        // $this->load->view('templates/dashboard/sidebarDosenMhs');
+        // $this->load->view("thesis/pdf_viewer", $data);
+        // $this->load->view("templates/dashboard/footer");
     }
 
-    public function getCorrection($thesis_id, $page)
+    public function getCorrection($thesis_id)
     {
-        $this->db->select('correction.correction');
-        $this->db->from('correction');
-        $this->db->join('thesis', 'correction.thesis_id=thesis.id');
-        $this->db->where('correction.thesis_id', $thesis_id);
-        $this->db->where('correction.page', $page);
+        // $this->db->select('correction.correction');
+        // $this->db->from('correction');
+        // $this->db->join('thesis', 'correction.thesis_id=thesis.id');
+        // $this->db->where('correction.thesis_id', $thesis_id);
+        // $this->db->where('correction.page', $page);
+
+        $this->db->select('correction');
+        $this->db->from('thesis');
+        $this->db->where('id', $thesis_id);
         $query = $this->db->get();
         $result = $query->row();
         return $result;

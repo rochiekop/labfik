@@ -36,7 +36,7 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Dosen</th>
+              <!-- <th scope="col">Dosen</th> -->
               <th scope="col" style="width:30%">Keterangan</th>
               <th scope="col">Tanggal</th>
               <th scope="col">View Dokumen</th>
@@ -52,11 +52,21 @@
               foreach ($allhistory as $t) : ?>
                 <tr>
                   <td scope="row"><?= ++$no ?></td>
-                  <td><?= $t['dosen_name'] ?></td>
+                  <!-- <td><?= $t['dosen_name'] ?></td> -->
                   <td><?= $t['keterangan'] ?></td>
                   <td><?= $t['date'] ?></td>
                   <td>
-                    <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a>
+                    <!-- <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a> -->
+                    <?php $file = explode(",", $t['pdf_file']); ?>
+                    <?php foreach ($file as $f) : ?>
+                      <form action="<?= base_url('thesis') ?>" method="post">
+                        <input type="text" name="thesis_id" value="<?= $t['id'] ?>" hidden>
+                        <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $t['correction'] ?></textarea>
+                        <input type="text" name="pdf_file" value="<?= $f ?>" hidden>
+                        <button type="submit"><?= $f ?></button>
+                      </form>
+                      <br>
+                    <?php endforeach; ?>
                   </td>
                   <?php if ($t['status'] == "Dikirim") : ?>
                     <td><b>Dikirim</b></td>
