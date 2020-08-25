@@ -193,6 +193,7 @@ class Auth extends CI_Controller
             'email' => $login['email'],
             'name' => $login['name'],
             'role_id' => $login['role_id'],
+            'koordinator' => $login['koordinator'],
             'logged_in' => TRUE
           );
 

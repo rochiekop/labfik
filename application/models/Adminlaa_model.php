@@ -5,10 +5,10 @@ class Adminlaa_model extends CI_Model
 {
   public function pendaftaranta()
   {
-    $this->db->select('guidance.*,user.name,user.email,user.nim,user.prodi,user.no_telp');
+    $this->db->select('guidance.*,user.username,user.name,user.email,user.nim,user.prodi,user.no_telp');
     $this->db->from('guidance');
     $this->db->join('user', 'guidance.id_mhs = user.id');
-    $this->db->where('guidance.status', 'proses');
+    $this->db->where('guidance.status', 'Dikirim');
     return $this->db->get()->result_array();
   }
 

@@ -69,7 +69,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('users/pengajuandosbing') ?>">Pengajuan</a></li>
+            <li><a href="<?= base_url('users/pengajuantugasakhir') ?>">Pengajuan</a></li>
             <?php if (count($dosbing) == 2) : ?>
               <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
               <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
@@ -88,6 +88,20 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
           </ul>
         </div>
       </div>
+      <?php if ($this->session->userdata('koordinator') == 1) : ?>
+        <div class="card">
+          <a href="#" class="btn" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5"><span class="fas fa-tasks"></span> Management TA</a>
+          <div id="collapse5" class="collapse" data-parent="#accordion">
+            <ul>
+              <li><a href="<?= base_url('users/tambahdosebing') ?>">Tambah Pembimbing</a></li>
+              <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Dosen Pembimbing</a></li>
+              <li><a href="<?= base_url('users/tambahdosenpenguji') ?>">Tambah Penguji</a></li>
+              <li><a href="<?= base_url('users/bimbingandsn') ?>">Dosen Penguji</a></li>
+              <li><a href="<?= base_url('users/penguji') ?>">Sidang</a></li>
+            </ul>
+          </div>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
     <!-- <div class="divider"></div>
     <div class="card">

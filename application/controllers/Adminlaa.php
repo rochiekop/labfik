@@ -40,12 +40,24 @@ class Adminlaa extends CI_Controller
   public function deletependaftarta()
   {
     $id = $this->input->post('id');
+    $file = $this->input->post('file');
+    $path = "./assets/upload/thesis/" . $this->input->post('username') . "/";
+    if ($file) {
+      @unlink($path . $file);
+    }
     $this->db->delete('guidance', ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pendaftar berhasil dihapus</div>');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir ditolak.</div>');
     redirect('adminlaa/pendaftaranta');
   }
 
-  public function pengajuandosbing()
+  public function terimapendaftaran($id)
   {
+    $id = decrypt_url($id);
+    $data = [
+      "status" => 'Diterima',
+    ];
+    $this->db->update('guidance', $data, ['id' => $id]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir diterima.</div>');
+    redirect('adminlaa/pendaftaranta');
   }
 }

@@ -29,8 +29,8 @@
         </thead>
         <tbody>
           <?php if (empty($title)) : ?>
-            <td colspan="5" style="background-color: whitesmoke;text-align:center">Daftar dosen pembimbing kosong</td>
-          <?php elseif ($title['status'] == 'proses') : ?>
+            <td colspan="5" style="background-color: whitesmoke;text-align:center">Kamu belum mengajukan pendaftaran tugas akhir</td>
+          <?php elseif ($title['status'] == 'Dikirim') : ?>
             <td colspan="5" style="background-color: whitesmoke;text-align:center">Permintaan anda sedang diproses....</td>
           <?php else : ?>
             <?php $no = 0;
@@ -65,7 +65,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url('users/inputjudulta') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('users/inputformpendaftaran') ?>" method="post" enctype="multipart/form-data">
           <div class="modal-body">
             <input type="hidden" id="id_mhs" name="id_mhs" value="<?= $mhs['id'] ?>">
             <div class="form-group">
@@ -82,6 +82,10 @@
               <label for="dosenwali">Dosen Wali</label>
               <input type="text" name="dosenwali" value="<?= set_value('dosenwali'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
               <?php echo form_error('dosenwali', '<small class="text-danger">', '</small>'); ?>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Formulir Pendaftaran</label>
+              <input type="file" class="form-control" name="filependaftaran" required style="padding:13px 16px">
             </div>
           </div>
           <div class="modal-footer">

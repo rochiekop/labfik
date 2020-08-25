@@ -67,7 +67,7 @@ class Users extends CI_Controller
 
 
 
-  public function inputjudulta()
+  public function inputformpendaftaran()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -78,19 +78,40 @@ class Users extends CI_Controller
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     if (!empty($title)) {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, masukkan judul lain</div>');
-      redirect('users/pengajuandosbing');
+      redirect('users/pengajuantugasakhir');
     } else {
-      $data = array(
-        'id' => uniqid(),
-        'id_mhs' => $this->input->post('id_mhs'),
-        'judul' => $this->input->post('title'),
-        'peminatan' => $this->input->post('peminatan'),
-        'dosen_wali' => $this->input->post('dosenwali'),
-        'status' => 'proses',
-      );
-      $this->db->insert('guidance', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
-      redirect('users/pengajuandosbing');
+      if (!empty($_FILES['filependaftaran']['name'])) {
+        $path = "./assets/upload/thesis/" . $this->session->userdata('username');
+        if (!is_dir($path)) {
+          $create = mkdir($path, 0777, TRUE);
+          if (!$create)
+            return;
+        }
+        $config['allowed_types'] = 'pdf|docx|jpeg|gif|png';
+        $config['max_size'] = '20048';  //20MB max
+        $config['max_width'] = '8480'; // pixel
+        $config['max_height'] = '8480'; // pixel
+        $config['file_name'] = $_FILES['filependaftaran']['name'];
+        $config['upload_path'] = $path;
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload('filependaftaran')) {
+          $file = $this->upload->data();
+          $data = array(
+            'id' => uniqid(),
+            'id_mhs' => $this->input->post('id_mhs'),
+            'judul' => $this->input->post('title'),
+            'peminatan' => $this->input->post('peminatan'),
+            'dosen_wali' => $this->input->post('dosenwali'),
+            'form_pendaftaran' => $file['file_name'],
+            'status' => 'Dikirim',
+          );
+          $this->db->insert('guidance', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
+          redirect('users/pengajuantugasakhir');
+        } else {
+          echo $this->upload->display_errors();
+        }
+      }
     }
   }
 
@@ -100,7 +121,7 @@ class Users extends CI_Controller
 
     if (!empty($title)) {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, silakan cari judul lain.</div>');
-      redirect('users/pengajuandosbing');
+      redirect('users/pengajuantugasakhir');
     } else {
       $data = array(
         'judul' => $this->input->post('title'),
@@ -109,11 +130,11 @@ class Users extends CI_Controller
       );
       $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
-      redirect('users/pengajuandosbing');
+      redirect('users/pengajuantugasakhir');
     }
   }
 
-  public function pengajuandosbing()
+  public function pengajuantugasakhir()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -130,7 +151,7 @@ class Users extends CI_Controller
       if ($this->form_validation->run() == false) {
         $this->load->view('templates/dashboard/headerDosenMhs', $data);
         $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view('dashboard/users/pengajuandosbing', $data);
+        $this->load->view('dashboard/users/pengajuantugasakhir', $data);
         $this->load->view('templates/dashboard/footer');
       } else {
         $query = $this->user_model->checkDosen();
@@ -144,13 +165,13 @@ class Users extends CI_Controller
           );
           $this->db->insert('dosbing', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pengajuandosbing');
+          redirect('users/pengajuantugasakhir');
         } elseif ($query['status'] == "Sudah Disetujui") {
           $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
-          redirect('users/pengajuandosbing');
+          redirect('users/pengajuantugasakhir');
         } else {
           $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pengajuandosbing');
+          redirect('users/pengajuantugasakhir');
         }
       }
     }
@@ -161,7 +182,7 @@ class Users extends CI_Controller
     $id = $this->input->post('id');
     $this->db->delete('dosbing', ['id' => $id]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
-    redirect('users/pengajuandosbing');
+    redirect('users/pengajuantugasakhir');
   }
   public function bimbingantugasakhir()
   {
@@ -227,11 +248,6 @@ class Users extends CI_Controller
   {
     if (!empty($_FILES['fileta']['name'])) {
       $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-      if (!is_dir($path)) {
-        $create = mkdir($path, 0777, TRUE);
-        if (!$create)
-          return;
-      }
       $data = [];
       $allfile = count($_FILES['fileta']['name']);
       for ($i = 0; $i < $allfile; $i++) {
