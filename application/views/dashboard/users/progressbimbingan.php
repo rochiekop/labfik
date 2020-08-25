@@ -34,7 +34,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" style="width:35%;">Keterangan</th>
-          <th scope="col">File</th>
+          <!-- <th scope="col">File</th> -->
           <th scope="col">View Dokumen</th>
           <th scope="col">Status</th>
         </tr>
@@ -50,7 +50,7 @@
               <td>
                 <?= $f['keterangan'] ?>
               </td>
-              <td>
+              <!-- <td>
                 <?php
                 $file = explode(",", $f['pdf_file']);
                 foreach ($file as $t) {
@@ -58,17 +58,18 @@
                 }
                 ?>
                 <a href="#" class="btn badge badge-secondary">Unduh</a>
-              </td>
+              </td> -->
               <td>
-                <!-- <a href="</?= base_url('users/viewfilepdf/') . encrypt_url($f['id']); ?>">view </a> -->
-                <!-- <a href="<?= base_url('thesis/view/' . $f['id']) ?>">view </a> -->
-                <!-- <?= $f['id'] ?> <br> -->
-                <!-- <a href="<?= base_url('thesis/' . $f['id']) ?>">view </a> -->
-                <!-- <a href="<?= base_url('thesis') ?>">view </a> -->
-                <form action="<?= base_url('thesis') ?>" method="post">
-                  <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
-                  <button type="submit">lihat</button>
-                </form>
+                <?php $file = explode(",", $f['pdf_file']); ?>
+                <?php foreach ($file as $t) : ?>
+                  <form action="<?= base_url('thesis') ?>" method="post">
+                    <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
+                    <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $f['correction'] ?></textarea>
+                    <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
+                    <button type="submit"><?= $t ?></button>
+                  </form>
+                  <br>
+                <?php endforeach; ?>
               </td>
               <td>
                 <a href="#" class="btn badge badge-success">Selesai</a>

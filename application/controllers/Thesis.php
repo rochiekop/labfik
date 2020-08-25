@@ -17,8 +17,15 @@ class Thesis extends CI_Controller
     {
         $post = $this->input->post();
         $thesis_id = $post['thesis_id'];
+        $pdf_file = $post['pdf_file'];
+
+        $this->correction = $post['correction'];
+        $this->db->update('thesis', $this, array('id' => $post['thesis_id']));
+
         $data['thesis_id'] = $thesis_id;
-        $data['file'] = $this->thesis_model->getFile($thesis_id);
+        $data['pdf_file'] = $pdf_file;
+        $data['file'] = $this->thesis_model->getFile($thesis_id, $pdf_file);
+        $data['correction'] = $this->thesis_model->getCorrection($thesis_id)->correction;
 
         $this->load->view('templates/dashboard/headerDosenMhs');
         $this->load->view('templates/dashboard/sidebarDosenMhs');
@@ -38,15 +45,15 @@ class Thesis extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
-    public function getCorrection($thesis_id, $page)
-    {
-        if ($this->thesis_model->countCorrection($thesis_id, $page) == 0)
-        {
-            $this->thesis_model->makeCorrection($thesis_id, $page);
-        }
-        echo $this->thesis_model->getCorrection($thesis_id, $page)->correction;
-        // echo "test berhasil";
-    }
+    // public function getCorrection($thesis_id, $page)
+    // {
+    //     if ($this->thesis_model->countCorrection($thesis_id, $page) == 0)
+    //     {
+    //         $this->thesis_model->makeCorrection($thesis_id, $page);
+    //     }
+    //     echo $this->thesis_model->getCorrection($thesis_id, $page)->correction;
+    //     // echo "test berhasil";
+    // }
 
     public function saveCorrection()
     {
