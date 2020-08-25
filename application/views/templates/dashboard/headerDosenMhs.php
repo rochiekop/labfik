@@ -22,6 +22,7 @@
   <!-- Lab. FIK Main Style -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
 
+
   <!-- JQuery 3.3.1 -->
   <script src="<?= base_url('assets/vendor/jquery.min.js'); ?>"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>

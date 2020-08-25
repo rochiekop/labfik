@@ -78,6 +78,7 @@ class Ajax_search extends CI_Model
     $this->db->order_by('id', 'DESC');
     return $this->db->get()->result_array();
   }
+
   public function fetchdatalab($query = null, $filter = null)
   {
     $this->db->select('*');
@@ -96,8 +97,55 @@ class Ajax_search extends CI_Model
     return $this->db->get()->result_array();
   }
 
+  public function fetchdatakaryaadmin($query = null, $filter = null)
+  {
+    $this->db->select('tampilan.*,
+    kategori.nama_kategori');
+    $this->db->from('tampilan');
+    $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+    if ($filter == 'Judul') {
+      $this->db->like('judul', $query);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('deskripsi', $query);
+    } elseif ($filter == 'Nama') {
+      $this->db->like('nama', $query);
+    } else {
+      $this->db->like('judul', $query);
+      $this->db->or_like('deskripsi', $query);
+      $this->db->or_like('nama', $query);
+    }
+    return $this->db->get()->result_array();
+  }
+
+  public function fetchdatakarya($query = null, $filter = null)
+  {
+    $this->db->select('tampilan.*,
+    user.name,
+    kategori.nama_kategori');
+    $this->db->from('tampilan');
+    $this->db->join('user', 'user.id = tampilan.id', 'left');
+    $this->db->join('kategori', 'kategori.id_kategori = tampilan.id_kategori', 'left');
+    $this->db->where('tampilan.id', $this->session->userdata('id'));
+    $this->db->group_start();
+    if ($filter == 'Judul') {
+      $this->db->like('judul', $query);
+    } elseif ($filter == 'Deskripsi') {
+      $this->db->like('deskripsi', $query);
+    } elseif ($filter == 'Nama') {
+      $this->db->like('nama', $query);
+    } else {
+      $this->db->like('judul', $query);
+      $this->db->or_like('deskripsi', $query);
+      $this->db->or_like('nama', $query);
+    }
+    $this->db->group_end();
+    // $this->db->order_by('id_tampilan', 'DESC');
+    $this->db->order_by('tampilan.id_tampilan');
+    return $this->db->get()->result_array();
+  }
+
   // Riwayatpeminjamantempat
-  public function fetchdatapeminjamantmpt($id, $query = null, $filter = null)
+  public function fetchdatapeminjamantmpt($query = null, $filter = null)
   {
     $this->db->select('booking.id_peminjam,user_role.role,user.name,ruangan.ruangan,kategoriruangan.kategori,date(booking.date + COALESCE(booking.date_declined)) AS date,booking.date_declined,booking.time,booking.keterangan,booking.status');
     $this->db->from('booking');
@@ -105,7 +153,7 @@ class Ajax_search extends CI_Model
     $this->db->join('user_role', 'user.role_id = user_role.id');
     $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
     $this->db->join('kategoriruangan', 'ruangan.id_kategori = kategoriruangan.id');
-    $this->db->where('booking.id_peminjam', $id);
+    $this->db->where('booking.id_peminjam', $this->session->userdata('id'));
     $this->db->group_start();
     if ($filter == 'Ruangan') {
       $this->db->like('ruangan.ruangan', $query);
@@ -122,7 +170,7 @@ class Ajax_search extends CI_Model
     } else {
       $this->db->like('ruangan.ruangan', $query);
       $this->db->or_like('user.name', $query);
-      $this->db->or_like('date', $query);
+      $this->db->or_like('booking.date', $query);
       $this->db->or_like('booking.date_declined', $query);
       $this->db->or_like('booking.time', $query);
       $this->db->or_like('booking.keterangan', $query);

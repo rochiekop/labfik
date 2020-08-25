@@ -26,6 +26,7 @@
           <th scope="col">NIM</th>
           <th scope="col">Prodi</th>
           <th scope="col">Judul</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -43,6 +44,7 @@
               <td><?= $t['nim'] ?></td>
               <td><?= $t['prodi'] ?></td>
               <td><?= $t['judul'] ?></td>
+              <td><?= $t['status'] ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>

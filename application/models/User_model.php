@@ -299,7 +299,7 @@ class User_model extends CI_Model
 
 	public function getMhsBimbingan()
 	{
-		$this->db->select('thesis.*,user.name AS nama_mhs,user.nim,user.prodi,dosbing.status,guidance.judul,guidance.id as id_guidance');
+		$this->db->select('thesis.*,user.name AS nama_mhs,user.nim,user.prodi,dosbing.status,thesis.status,guidance.judul,guidance.id as id_guidance');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'thesis.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
@@ -403,5 +403,40 @@ class User_model extends CI_Model
 		$this->db->where('role_id', 3);
 		$this->db->where('is_active', 1);
 		return $this->db->get()->result_array();
+	}
+
+	public function getBookingProgress()
+	{
+		$this->db->select('ruangan.ruangan,booking.status,booking.time');
+		$this->db->from('booking');
+		$this->db->join('ruangan', 'ruangan.id = booking.id_ruangan');
+		$this->db->where('booking.date >=', date('Y-m-d'));
+		$this->db->where('booking.id_peminjam', $this->session->userdata('id'));
+		$this->db->where('booking.status !=', 'Ditolak');
+		$this->db->order_by('booking.date', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get()->row_array();
+	}
+
+	public function getBookingLast()
+	{
+		$this->db->select('ruangan.ruangan,booking.status,booking.time,booking.date');
+		$this->db->from('booking');
+		$this->db->join('ruangan', 'ruangan.id = booking.id_ruangan');
+		$this->db->where('booking.date <', date('Y-m-d'));
+		$this->db->where('booking.id_peminjam', $this->session->userdata('id'));
+		$this->db->where('booking.status !=', 'Ditolak');
+		$this->db->order_by('booking.date', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get()->row_array();
+	}
+
+	public function getBookingNumb()
+	{
+		$this->db->select('*');
+		$this->db->from('booking');
+		$this->db->where('id_peminjam', $this->session->userdata('id'));
+		$this->db->where('status', 'Diterima');
+		return count($this->db->get()->result_array());
 	}
 }

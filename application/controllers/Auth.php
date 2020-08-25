@@ -193,6 +193,7 @@ class Auth extends CI_Controller
             'email' => $login['email'],
             'name' => $login['name'],
             'role_id' => $login['role_id'],
+            'koordinator' => $login['koordinator'],
             'logged_in' => TRUE
           );
 
@@ -253,6 +254,8 @@ class Auth extends CI_Controller
       redirect('kaur');
     } elseif ($set == 3 or $set == 4) {
       redirect('users/main');
+    } elseif ($set == 5) {
+      redirect('adminlaa');
     } else {
       redirect('auth');
     }
@@ -395,13 +398,16 @@ class Auth extends CI_Controller
       'user'  => $user
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules('nohp', 'Nomor Handphone', 'required|trim|integer', [
+      'integer' => '%s harus diisi dengan angka!'
+    ]);
     $this->form_validation->set_rules(
       'nim',
       'Nim',
       'required|min_length[10]',
       array(
         'required'      =>  '%s harus diisi',
-        'min_length[10]' =>  '%s angka yang diisi kurang'
+        'min_length[10]' =>  '%s angka yang diisi kurang',
       )
     );
 
@@ -415,6 +421,7 @@ class Auth extends CI_Controller
       $prodi = $this->input->post('prodi');
       $nim = $this->input->post('nim');
       $email = $this->input->post('email');
+      $nohp = $this->input->post('nohp');
 
       $upload_image = $_FILES['images']['name'];
 
@@ -437,11 +444,13 @@ class Auth extends CI_Controller
         }
       }
       $this->db->set('name', $name);
+      $this->db->set('no_telp', $nohp);
       $this->db->set('nim', $nim);
       $this->db->set('prodi', $prodi);
       $this->db->where('email', $email);
       $this->db->update('user');
-      redirect('users/main');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile berasil diubah</div>');
+      redirect('auth/editprofilemhs');
     }
   }
 
@@ -497,6 +506,114 @@ class Auth extends CI_Controller
       $this->db->set('name', $name);
       $this->db->set('nip', $nip);
       $this->db->set('prodi', $prodi);
+      $this->db->where('email', $email);
+      $this->db->update('user');
+      redirect('users/main');
+    }
+  }
+
+  public function editprofilekaur()
+  {
+    $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $data = array(
+      'title' => 'Edit Profile',
+      'user'  => $user
+    );
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules(
+      'nim',
+      'Nim',
+      'required|min_length[10]',
+      array(
+        'required'      =>  '%s harus diisi',
+        'min_length[10]' =>  '%s angka yang diisi kurang'
+      )
+    );
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerKaur', $data);
+      $this->load->view('templates/dashboard/sidebarKaur', $data);
+      $this->load->view('dashboard/kaur/editprofile', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $name = $this->input->post('name');
+      $email = $this->input->post('email');
+
+      $upload_image = $_FILES['images']['name'];
+
+      if ($upload_image) {
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '2048';
+        $config['upload_path']   = './assets/img/profile/';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('images')) {
+          $old_image = $data['user']['images'];
+          if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+          }
+          $new_image = $this->upload->data('file_name');
+          $this->db->set('images', $new_image);
+        } else {
+          echo $this->upload->display_errors();
+        }
+      }
+      $this->db->set('name', $name);
+      $this->db->where('email', $email);
+      $this->db->update('user');
+      redirect('users/main');
+    }
+  }
+
+  public function editprofileadmin()
+  {
+    $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $data = array(
+      'title' => 'Edit Profile',
+      'user'  => $user
+    );
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules(
+      'nim',
+      'Nim',
+      'required|min_length[10]',
+      array(
+        'required'      =>  '%s harus diisi',
+        'min_length[10]' =>  '%s angka yang diisi kurang'
+      )
+    );
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/dashboard/headerAdmin', $data);
+      $this->load->view('templates/dashboard/sidebarAdmin', $data);
+      $this->load->view('dashboard/kaur/editprofile', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $name = $this->input->post('name');
+      $email = $this->input->post('email');
+
+      $upload_image = $_FILES['images']['name'];
+
+      if ($upload_image) {
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '2048';
+        $config['upload_path']   = './assets/img/profile/';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('images')) {
+          $old_image = $data['user']['images'];
+          if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+          }
+          $new_image = $this->upload->data('file_name');
+          $this->db->set('images', $new_image);
+        } else {
+          echo $this->upload->display_errors();
+        }
+      }
+      $this->db->set('name', $name);
       $this->db->where('email', $email);
       $this->db->update('user');
       redirect('users/main');
