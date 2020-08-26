@@ -27,9 +27,9 @@
                 <th scope="col">Nama</th>
                 <th scope="col">NIM</th>
                 <th scope="col">Prodi</th>
-                <th scope="col">No. Hp</th>
                 <th scope="col">Kosentrasi</th>
                 <th scope="col">Dosen wali</th>
+                <th scope="col">Status</th>
                 <th scope="col" class="action">Aksi</th>
               </tr>
             </thead>

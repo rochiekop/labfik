@@ -69,7 +69,7 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('users/pengajuantugasakhir') ?>">Pengajuan</a></li>
+            <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
             <?php if (count($dosbing) == 2) : ?>
               <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
               <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>

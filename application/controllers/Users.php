@@ -78,7 +78,7 @@ class Users extends CI_Controller
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     if (!empty($title)) {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, masukkan judul lain</div>');
-      redirect('users/pengajuantugasakhir');
+      redirect('users/pendaftarantugasakhir');
     } else {
       if (!empty($_FILES['filependaftaran']['name'])) {
         $path = "./assets/upload/thesis/" . $this->session->userdata('username');
@@ -107,7 +107,7 @@ class Users extends CI_Controller
           );
           $this->db->insert('guidance', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
-          redirect('users/pengajuantugasakhir');
+          redirect('users/pendaftarantugasakhir');
         } else {
           echo $this->upload->display_errors();
         }
@@ -121,7 +121,7 @@ class Users extends CI_Controller
 
     if (!empty($title)) {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, silakan cari judul lain.</div>');
-      redirect('users/pengajuantugasakhir');
+      redirect('users/pendaftarantugasakhir');
     } else {
       $data = array(
         'judul' => $this->input->post('title'),
@@ -130,11 +130,11 @@ class Users extends CI_Controller
       );
       $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
-      redirect('users/pengajuantugasakhir');
+      redirect('users/pendaftarantugasakhir');
     }
   }
 
-  public function pengajuantugasakhir()
+  public function pendaftarantugasakhir()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -151,7 +151,7 @@ class Users extends CI_Controller
       if ($this->form_validation->run() == false) {
         $this->load->view('templates/dashboard/headerDosenMhs', $data);
         $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view('dashboard/users/pengajuantugasakhir', $data);
+        $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
         $this->load->view('templates/dashboard/footer');
       } else {
         $query = $this->user_model->checkDosen();
@@ -165,13 +165,13 @@ class Users extends CI_Controller
           );
           $this->db->insert('dosbing', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pengajuantugasakhir');
+          redirect('users/pendaftarantugasakhir');
         } elseif ($query['status'] == "Sudah Disetujui") {
           $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
-          redirect('users/pengajuantugasakhir');
+          redirect('users/pendaftarantugasakhir');
         } else {
           $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pengajuantugasakhir');
+          redirect('users/pendaftarantugasakhir');
         }
       }
     }
@@ -182,7 +182,7 @@ class Users extends CI_Controller
     $id = $this->input->post('id');
     $this->db->delete('dosbing', ['id' => $id]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
-    redirect('users/pengajuantugasakhir');
+    redirect('users/pendaftarantugasakhir');
   }
   public function bimbingantugasakhir()
   {
@@ -361,6 +361,7 @@ class Users extends CI_Controller
   public function tambahdosbing()
   {
     $data['title'] = 'LABFIK | Tambah Dosen Pembimbing';
+    // $mhs = $this->db->user_model->getPendaftarTa();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/tambahdosbing', $data);

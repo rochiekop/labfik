@@ -2,7 +2,7 @@
   <main class="akun-container">
 
     <div class="fik-section-title2">
-      <h4>Judul Tugas Akhir : <?= $title['judul'] ?></h4>
+      <h4>Pendaftaran Tugas Akhir</h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
     <?php if (empty($title)) : ?>
@@ -60,7 +60,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">Form Pendaftaran Tugas Akhir / Skripsi</h6>
+          <h6 class="modal-title" id="exampleModalLabel">Form Pendaftaran Tugas Akhir</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,20 +68,22 @@
         <form action="<?= base_url('users/inputformpendaftaran') ?>" method="post" enctype="multipart/form-data">
           <div class="modal-body">
             <input type="hidden" id="id_mhs" name="id_mhs" value="<?= $mhs['id'] ?>">
-            <div class="form-group">
-              <label for="title">Judul</label>
-              <input type="text" name="title" value="<?= set_value('title'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-              <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
+            <div class="row">
+              <div class="col-lg-11" id="dynamic">
+                <div class="form-group">
+                  <label for="exampleFormControlFile1" id="judul">Judul 1</label>
+                  <textarea name="title[]" class="form-control" required rows="2"><?= set_value('title'); ?></textarea>
+                  <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
+                </div>
+              </div>
+              <div class="col-lg" style="margin-top: 45px;margin-left:-10px" id="icon">
+                <a id="tambah"> <span class="fas fa-plus"></span></a>
+              </div>
             </div>
             <div class="form-group">
               <label for="kosentrasi">Kosentrasi</label>
               <input type="text" name="peminatan" value="<?= set_value('peminatan'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
               <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
-            </div>
-            <div class="form-group">
-              <label for="dosenwali">Dosen Wali</label>
-              <input type="text" name="dosenwali" value="<?= set_value('dosenwali'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-              <?php echo form_error('dosenwali', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
               <label for="exampleFormControlFile1">Formulir Pendaftaran</label>
@@ -157,3 +159,26 @@
       </div>
     </div>
   <?php endforeach; ?>
+
+  <script>
+    $(document).ready(function() {
+      var no = 1;
+      $('#tambah').click(function() {
+        no++;
+        if (no <= 3) {
+          $('#dynamic').append('<div id="row' + no + '"><label for="exampleFormControlFile1" id="judul">Judul ' + no + '</label><div style="margin-top:0px;margin-bottom:10px;"><textarea name="title[]" class="form-control" required rows="2"></textarea></div></div>');
+          $('#icon').append('<div id="row' + no + '" style="margin-top:75px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
+        } else {
+          no = 1;
+        }
+        alert(no)
+      });
+      $(document).on('click', '.btn_remove', function() {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
+        $('#row' + button_id + '').remove();
+        no = no - 1;
+        alert(no)
+      });
+    });
+  </script>
