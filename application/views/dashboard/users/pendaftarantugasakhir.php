@@ -8,7 +8,8 @@
     <?php if (empty($title)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php else : ?>
-      <a data-toggle="modal" data-target="#viewjudul" class="btn btn-sm btn-primary" style="color:#fff">Edit</a>
+      <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
+      <!-- <a data-toggle="modal" data-target="#viewjudul" class="btn btn-sm btn-primary" style="color:#fff">Edit</a> -->
       <!-- <?php if (count($cdosbing) < 2) : ?>
         <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-secondary" style="color:#fff">Pilih Dosen Pembimbing</a>
       <?php endif; ?> -->
@@ -72,8 +73,8 @@
               <div class="col-lg-11" id="dynamic">
                 <div class="form-group">
                   <label for="exampleFormControlFile1" id="judul">Judul 1</label>
-                  <textarea name="title[]" class="form-control" required rows="2"><?= set_value('title'); ?></textarea>
-                  <?php echo form_error('title', '<small class="text-danger">', '</small>'); ?>
+                  <textarea name="judul[]" class="form-control" required rows="2"><?= set_value('judul'); ?></textarea>
+                  <?php echo form_error('judul', '<small class="text-danger">', '</small>'); ?>
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 45px;margin-left:-10px" id="icon">
@@ -86,8 +87,38 @@
               <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
-              <label for="exampleFormControlFile1">Formulir Pendaftaran</label>
-              <input type="file" class="form-control" name="filependaftaran" required style="padding:13px 16px">
+              <label for="exampleFormControlFile1">Kartu Studi Mahasiswa (KSM)</label>
+              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+            </div>
+            <div class="row">
+              <div class="col-lg-11" id="dynamic">
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Surat Pernyataan Tugas Akhir</label>
+                  <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+                </div>
+              </div>
+              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
+                <a href="<?= base_url('assets/formtemplateta/1A. SURAT PERNYATAAN PENDAFTARAN TA.docx') ?>"> <span class="fas fa-download" title="Download Template"></span></a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Sertifikat EPRT</label>
+              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Sertifikat TAK</label>
+              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+            </div>
+            <div class="row">
+              <div class="col-lg-11" id="dynamic">
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Persetujuan Daftar TA</label>
+                  <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+                </div>
+              </div>
+              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
+                <a href="<?= base_url('assets/formtemplateta/FORMULIR PENDAFTARAN TA UPDATE.doc') ?>"> <span class="fas fa-download" title="Download Template"></span></a>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -166,19 +197,18 @@
       $('#tambah').click(function() {
         no++;
         if (no <= 3) {
-          $('#dynamic').append('<div id="row' + no + '"><label for="exampleFormControlFile1" id="judul">Judul ' + no + '</label><div style="margin-top:0px;margin-bottom:10px;"><textarea name="title[]" class="form-control" required rows="2"></textarea></div></div>');
+          $('#dynamic').append('<div id="row' + no + '"><label for="exampleFormControlFile1" id="judul">Judul ' + no + '</label><div style="margin-top:0px;margin-bottom:10px;"><textarea name="judul[]" class="form-control" required rows="2"></textarea></div></div>');
           $('#icon').append('<div id="row' + no + '" style="margin-top:75px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
-        } else {
-          no = 1;
         }
-        alert(no)
+        // alert(no)
       });
       $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");
+        no = 2
         $('#row' + button_id + '').remove();
         $('#row' + button_id + '').remove();
         no = no - 1;
-        alert(no)
+        // alert(no)
       });
     });
   </script>

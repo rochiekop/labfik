@@ -70,48 +70,61 @@ class Users extends CI_Controller
   public function inputformpendaftaran()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
-    $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $data['dosbing'] = $this->user_model->getDosbing();
-    $data['cdosbing'] = $this->user_model->checkButton();
+    // $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
+    // $data['dosbing'] = $this->user_model->getDosbing();
+    // $data['cdosbing'] = $this->user_model->checkButton();
     $this->form_validation->set_rules('title', 'Judul', 'required|trim');
-    $title = $this->db->get_where('guidance', ['judul' => $this->input->post('title')])->row_array();
-    $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    if (!empty($title)) {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, masukkan judul lain</div>');
-      redirect('users/pendaftarantugasakhir');
-    } else {
-      if (!empty($_FILES['filependaftaran']['name'])) {
-        $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-        if (!is_dir($path)) {
-          $create = mkdir($path, 0777, TRUE);
-          if (!$create)
-            return;
-        }
-        $config['allowed_types'] = 'pdf|docx|jpeg|gif|png|jpg';
-        $config['max_size'] = '20048';  //20MB max
-        $config['max_width'] = '8480'; // pixel
-        $config['max_height'] = '8480'; // pixel
-        $config['file_name'] = $_FILES['filependaftaran']['name'];
-        $config['upload_path'] = $path;
-        $this->upload->initialize($config);
-        if ($this->upload->do_upload('filependaftaran')) {
-          $file = $this->upload->data();
-          $data = array(
-            'id' => uniqid(),
-            'id_mhs' => $this->input->post('id_mhs'),
-            'judul' => $this->input->post('title'),
-            'peminatan' => $this->input->post('peminatan'),
-            'dosen_wali' => $this->input->post('dosenwali'),
-            'form_pendaftaran' => $file['file_name'],
-            'status' => 'Dikirim',
-          );
-          $this->db->insert('guidance', $data);
-          $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
-          redirect('users/pendaftarantugasakhir');
-        } else {
-          echo $this->upload->display_errors();
+    // $title = $this->db->get_where('guidance', ['judul' => $this->input->post('title')])->row_array();
+    // $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
+
+    if (!empty($_FILES['filependaftaran']['name'])) {
+      $path = "./assets/upload/thesis/" . $this->session->userdata('username');
+      if (!is_dir($path)) {
+        $create = mkdir($path, 0777, TRUE);
+        if (!$create)
+          return;
+      }
+      $alltitle = count($this->input->post('judul'));
+      for ($i = 0; $i < $alltitle; $i++) {
+        $data = [
+          'id' => uniqid(),
+          'id_mhs' => $this->input->post('id_mhs'),
+          'judul' => $this->input->post('judul')[$i],
+          'peminatan' => $this->input->post('peminatan'),
+          'status' => "Dikirim",
+        ];
+        $this->db->insert('guidance', $data);
+      }
+      $allfile = count($_FILES['filependaftaran']['name']);
+      for ($i = 0; $i < $allfile; $i++) {
+        if (!empty($_FILES['filependaftaran']['name'][$i])) {
+          $_FILES['file']['name'] = $_FILES['filependaftaran']['name'][$i];
+          $_FILES['file']['type'] = $_FILES['filependaftaran']['type'][$i];
+          $_FILES['file']['tmp_name'] = $_FILES['filependaftaran']['tmp_name'][$i];
+          $_FILES['file']['error'] = $_FILES['filependaftaran']['error'][$i];
+          $_FILES['file']['size'] = $_FILES['filependaftaran']['size'][$i];
+          $config['upload_path'] = $path;
+          $config['allowed_types'] = 'pdf';
+          $config['max_size'] = '20024';  //20MB max
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+          if ($this->upload->do_upload('file')) {
+            $file = $this->upload->data();
+            $data = array(
+              'id' => uniqid(),
+              'id_mhs' => $this->input->post('id_mhs'),
+              'file' => $file['file_name'],
+              'status' => "Dikirim",
+              'date' => date('Y-m-d'),
+            );
+            $this->db->insert('file_pendaftaran', $data);
+          } else {
+            echo $this->upload->display_errors();
+          }
         }
       }
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
+      redirect('users/pendaftarantugasakhir');
     }
   }
 
