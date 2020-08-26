@@ -85,6 +85,9 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
             <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan</a></li>
             <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
             <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
+            <?php if ($this->session->userdata('dosen_wali') != null) : ?>
+              <li><a href="<?= base_url('users/permintaanTA') ?>">Permintaan TA</a></li>
+            <?php endif; ?>
           </ul>
         </div>
       </div>

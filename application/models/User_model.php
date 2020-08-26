@@ -285,6 +285,16 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getpermintaan()
+	{
+		$this->db->select('*,user.name,user.nim,guidance.judul,user.prodi');
+		$this->db->from('file_pendaftaran');
+		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
+		$this->db->join('guidance', 'guidance.id_mhs = user.id');
+		$this->db->where('file_pendaftaran.id', 'desc');
+		return $this->db->get()->result_array();
+	}
+
 	public function checkDosen()
 	{
 		$this->db->select('dosbing.*, guidance.id as id_guidance,guidance.id_mhs');

@@ -223,6 +223,16 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
+  public function permintaanTA()
+  {
+    $data['title'] = 'LABFIK | Daftar Permintaan TA';
+    $data['pta'] = $this->user_model->getpermintaan();
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/permintaanta', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
   public function acceptedbimbingan($id)
   {
     $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
