@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2020 at 04:58 PM
+-- Generation Time: Aug 27, 2020 at 05:01 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -231,7 +231,8 @@ CREATE TABLE `file_pendaftaran` (
   `id_mhs` varchar(64) NOT NULL,
   `nama` varchar(64) NOT NULL,
   `file` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status_adminlaa` varchar(64) NOT NULL,
+  `status_doswal` varchar(64) NOT NULL,
   `komentar` varchar(255) NOT NULL,
   `date` varchar(64) NOT NULL,
   `date_edit` varchar(64) NOT NULL
@@ -241,12 +242,12 @@ CREATE TABLE `file_pendaftaran` (
 -- Dumping data for table `file_pendaftaran`
 --
 
-INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status`, `komentar`, `date`, `date_edit`) VALUES
-('5f46a907326fc', '44', 'KSM', 'Surat_Tugas_Asdos_Semester_Genap_TA_2019-2020.pdf', 'Disetujui wali', '', '2020-08-27', ''),
-('5f46a90734305', '44', 'Surat Pernyataan TA', 'Algo_GP.pdf', 'Acc Admin LAA', 'Tulisan Kurang Jelas', '2020-08-27', '27-08-2020'),
-('5f46a90735dda', '44', 'Sertifikat EPRT', 'Form_Penilaian_Rochi.pdf', 'Disetujui wali', '', '2020-08-27', ''),
-('5f46a90737e94', '44', 'Sertifikat TAK', 'mockup_KP.pdf', 'Update File', '', '2020-08-27', '27-08-2020'),
-('5f46a9073a790', '44', 'Persetujuan Daftar TA', 'Surat_Pernyataan_Rochi.pdf', 'Acc Admin LAA', '', '2020-08-27', '');
+INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
+('5f46a907326fc', '44', 'KSM', 'Surat_Tugas_Asdos_Semester_Genap_TA_2019-2020.pdf', 'Disetujui wali', '', '', '2020-08-27', ''),
+('5f46a90734305', '44', 'Surat Pernyataan TA', 'Algo_GP.pdf', 'Acc Admin LAA', '', 'Tulisan Kurang Jelas', '2020-08-27', '27-08-2020'),
+('5f46a90735dda', '44', 'Sertifikat EPRT', 'Form_Penilaian_Rochi.pdf', 'Disetujui wali', '', '', '2020-08-27', ''),
+('5f46a90737e94', '44', 'Sertifikat TAK', 'mockup_KP.pdf', 'Update File', '', '', '2020-08-27', '27-08-2020'),
+('5f46a9073a790', '44', 'Persetujuan Daftar TA', 'Surat_Pernyataan_Rochi.pdf', 'Acc Admin LAA', '', '', '2020-08-27', '');
 
 -- --------------------------------------------------------
 
