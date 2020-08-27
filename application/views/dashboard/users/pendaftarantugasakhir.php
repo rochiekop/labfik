@@ -44,7 +44,8 @@
                 <?php else : ?>
                   <td></td>
                 <?php endif ?>
-                <?php if ($k['status'] == 'Dikirim') : ?>
+                <?php if ($k['status'] != 'Tolak') : ?>
+                  <td></td>
                 <?php else : ?>
                   <td><?= $k['komentar'] ?></td>
                 <?php endif; ?>
