@@ -247,6 +247,72 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
+  public function daftarfile($id)
+  {
+    $data = array(
+      'title'  =>  'LABFIK | Daftar Permintaan TA',
+      'pta'    =>  $this->user_model->getfile($id)
+    );
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/daftarfile', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  function tambah_aksi($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $komentar = $this->input->post('komentar');
+      $data = array(
+        'komentar' => $komentar
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile' . $data1);
+    }
+  }
+
+  public function accta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status' => 'Disetujui wali'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
+      redirect('users/daftarfile');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+      redirect('users/daftarfile');
+    }
+  }
+
+  public function tolakpermintaanta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status' => 'Ditolak'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
+      redirect('users/daftarfile');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+      redirect('users/daftarfile');
+    }
+  }
+
   public function acceptedbimbingan($id)
   {
     $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
