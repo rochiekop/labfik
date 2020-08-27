@@ -3,10 +3,9 @@
 
     <div class="fik-section-title2">
         <h4>
-            <? $title ?>
+            <?= $title ?>
         </h4>
     </div>
-    <?= $this->session->flashdata('message'); ?>
     <div class="input-group">
         <div class="input-group-append">
             <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
@@ -30,32 +29,20 @@
                     <th scope="col">Mahasiswa</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
-                    <th scope="col">Judul TA</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" style="width:130px">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($pta)) : ?>
-                    <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
+                    <td colspan="5" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
                         <tr>
                             <th scope="row"><?= ++$no ?></th>
-                            <td><a type="button" href="<?= base_url(); ?>"></a>Detail</td>
+                            <td><a href="<?= base_url('users/daftarfile/') . $t['id_mhs']; ?>" class="btn badge badge-secondary">Detail</a></td>
                             <td><?= $t['name'] ?></td>
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>
-                            <td><?= $t['judul'] ?></td>
-                            <?php if ($t['status'] == 'Menunggu Acc') : ?>
-                                <td class="action" style="width:130px;text-align:center;">
-                                    <a href="#" class="btn badge badge-success">Acc</a>
-                                    <a data-toggle="modal" data-target="#" class="btn badge badge-danger" style="color: white;">Tolak</a>
-                                </td>
-                            <?php else : ?>
-                                <td></td>
-                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -65,9 +52,7 @@
 </main>
 <!-- End Main Container -->
 
-<!-- Modal Tolak Permintaan -->
-
-<script>
+<!-- <script>
     $(document).ready(function() {
         var keyword = document.getElementById('keyword');
         var container = document.getElementById('container');
@@ -107,4 +92,4 @@
             }
         })
     });
-</script>
+</script> -->
