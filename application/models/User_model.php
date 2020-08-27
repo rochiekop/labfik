@@ -449,4 +449,12 @@ class User_model extends CI_Model
 		$this->db->where('status', 'Diterima');
 		return count($this->db->get()->result_array());
 	}
+
+	public function getDosenWali()
+	{
+		$this->db->select('id,kode_dosen,name');
+		$this->db->from('user');
+		$this->db->where('kode_dosen !=', "");
+		return $this->db->get()->result_array();
+	}
 }

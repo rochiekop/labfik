@@ -82,12 +82,12 @@ $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetuj
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
+            <?php if ($this->session->userdata('dosen_wali') == 1) : ?>
+              <li><a href="<?= base_url('users/permintaanTA') ?>">Pendaftaran</a></li>
+            <?php endif; ?>
             <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan</a></li>
             <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
             <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
-            <?php if ($this->session->userdata('dosen_wali') != null) : ?>
-              <li><a href="<?= base_url('users/permintaanTA') ?>">Permintaan TA</a></li>
-            <?php endif; ?>
           </ul>
         </div>
       </div>

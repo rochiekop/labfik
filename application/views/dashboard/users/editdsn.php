@@ -26,20 +26,32 @@
                     <div class="card-body">
                         <div class="custom-form">
                             <div class="form-group">
-                                <input type="text" name="email" value="<?= $user['email'] ?>" class="form-control" autocomplete="off" readonly />
-                                <label>Email</label>
+                                <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="Name" required="required" autocomplete="off" />
+                                <label>Nama</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="Name" required="required" autocomplete="off" />
-                                <label>Name</label>
+                                <input type="text" name="nip" value="<?= $user['nip'] ?>" class="form-control" autocomplete="off" />
+                                <label>NIP</label>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="kode_dosen" value="<?= $user['kode_dosen'] ?>" class="form-control" placeholder="kode_dosen" required="required" autocomplete="off" />
                                 <label>Kode Dosen</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nip" placeholder="Nip" value="<?= $user['nip'] ?>" class="form-control" required="required" autocomplete="off" />
-                                <label>Nip</label>
+                                <input type="text" name="email" value="<?= $user['email'] ?>" class="form-control" autocomplete="off" readonly />
+                                <label>Email</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="prodi" required="required" autocomplete="off" />
+                                <label>Prodi</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="alamat" value="<?= $user['alamat'] ?>" class="form-control" placeholder="alamat" required="required" autocomplete="off" />
+                                <label>Alamat</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nohp" placeholder="No. Telp" value="<?= $user['no_telp'] ?>" class="form-control" required="required" autocomplete="off" />
+                                <label>No. Telp</label>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">

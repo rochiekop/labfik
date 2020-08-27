@@ -194,6 +194,7 @@ class Auth extends CI_Controller
             'name' => $login['name'],
             'role_id' => $login['role_id'],
             'koordinator' => $login['koordinator'],
+            'dosen_wali' => $login['dosen_wali'],
             'logged_in' => TRUE
           );
 
@@ -393,9 +394,11 @@ class Auth extends CI_Controller
   public function editprofilemhs()
   {
     $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $dosen = $this->user_model->getDosenWali();
     $data = array(
       'title' => 'Edit Profile',
-      'user'  => $user
+      'user'  => $user,
+      'dosen'  => $dosen,
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
     $this->form_validation->set_rules('nohp', 'Nomor Handphone', 'required|trim|integer', [
@@ -422,6 +425,8 @@ class Auth extends CI_Controller
       $nim = $this->input->post('nim');
       $email = $this->input->post('email');
       $nohp = $this->input->post('nohp');
+      $dosenwali = $this->input->post('dosenwali');
+      $alamat = $this->input->post('alamat');
 
       $upload_image = $_FILES['images']['name'];
 
@@ -447,7 +452,13 @@ class Auth extends CI_Controller
       $this->db->set('no_telp', $nohp);
       $this->db->set('nim', $nim);
       $this->db->set('prodi', $prodi);
+      $this->db->set('dosen_wali', $dosenwali);
+      $this->db->set('alamat', $alamat);
       $this->db->where('email', $email);
+      $this->db->update('user');
+
+      $this->db->set('dosen_wali', '1');
+      $this->db->where('id', $dosenwali);
       $this->db->update('user');
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile berasil diubah</div>');
       redirect('auth/editprofilemhs');
@@ -482,6 +493,9 @@ class Auth extends CI_Controller
       $prodi = $this->input->post('prodi');
       $nip = $this->input->post('nip');
       $email = $this->input->post('email');
+      $alamat = $this->input->post('alamat');
+      $nohp = $this->input->post('nohp');
+      $kodedosen = $this->input->post('kode_dosen');
 
       $upload_image = $_FILES['images']['name'];
 
@@ -505,7 +519,10 @@ class Auth extends CI_Controller
       }
       $this->db->set('name', $name);
       $this->db->set('nip', $nip);
+      $this->db->set('alamat', $alamat);
       $this->db->set('prodi', $prodi);
+      $this->db->set('no_telp', $nohp);
+      $this->db->set('kode_dosen', $kodedosen);
       $this->db->where('email', $email);
       $this->db->update('user');
       redirect('users/main');
