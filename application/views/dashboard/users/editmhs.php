@@ -28,7 +28,7 @@
                         <div class="custom-form">
                             <div class="form-group">
                                 <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" placeholder="Name" required="required" autocomplete="off" />
-                                <label>Name</label>
+                                <label>Nama</label>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="nim" placeholder="Nim" value="<?= $user['nim'] ?>" class="form-control" required="required" autocomplete="off" />
@@ -41,6 +41,24 @@
                             <div class="form-group">
                                 <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
                                 <label>Prodi</label>
+                            </div>
+                            <select name="dosenwali" required class="form-control" style="margin-bottom: 15px;">
+                                <option value="">Pilih Dosen Wali</option>
+                                <?php foreach ($dosen as $doswal) { ?>
+                                    <?php if ($user['dosen_wali'] == $doswal['id']) : ?>
+                                        <option value="<?= $doswal['id'] ?>" selected>
+                                            <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
+                                        </option>
+                                    <?php else : ?>
+                                        <option value="<?= $doswal['id'] ?>">
+                                            <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php } ?>
+                            </select>
+                            <div class="form-group">
+                                <input type="text" name="alamat" value="<?= $user['alamat'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
+                                <label>Alamat</label>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="nohp" value="<?= $user['no_telp'] ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
@@ -56,7 +74,6 @@
                         <button class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

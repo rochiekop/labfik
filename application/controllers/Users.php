@@ -84,17 +84,20 @@ class Users extends CI_Controller
         if (!$create)
           return;
       }
-      $alltitle = count($this->input->post('judul'));
-      for ($i = 0; $i < $alltitle; $i++) {
-        $data = [
-          'id' => uniqid(),
-          'id_mhs' => $this->input->post('id_mhs'),
-          'judul' => $this->input->post('judul')[$i],
-          'peminatan' => $this->input->post('peminatan'),
-          'status' => "Dikirim",
-        ];
-        $this->db->insert('guidance', $data);
-      }
+
+      $data = [
+        'id' => uniqid(),
+        'id_mhs' => $this->input->post('id_mhs'),
+        'judul_1' => $this->input->post('judul1'),
+        'judul_2' => $this->input->post('judul2'),
+        'judul_3' => $this->input->post('judul3'),
+        'peminatan' => $this->input->post('peminatan'),
+        'tahun' => date('Y'),
+        'status_file' => "Dikirim",
+        'date' => date("d/m/Y")
+      ];
+      $this->db->insert('guidance', $data);
+
       $allfile = count($_FILES['filependaftaran']['name']);
       for ($i = 0; $i < $allfile; $i++) {
         if (!empty($_FILES['filependaftaran']['name'][$i])) {
@@ -110,12 +113,25 @@ class Users extends CI_Controller
           $this->upload->initialize($config);
           if ($this->upload->do_upload('file')) {
             $file = $this->upload->data();
+            if ($i == 0) {
+              $namafile = 'KSM';
+            } elseif ($i == 1) {
+              $namafile = 'Surat Pernyataan TA';
+            } elseif ($i == 2) {
+              $namafile = 'Sertifikat EPRT';
+            } elseif ($i == 3) {
+              $namafile = 'Sertifikat TAK';
+            } else {
+              $namafile = 'Persetujuan Daftar TA';
+            }
+            // $id_guidance = $this->db->get_where('guidance', ['id_mhs' => $this->input->post('id_mhs')])->row()->id;
             $data = array(
               'id' => uniqid(),
               'id_mhs' => $this->input->post('id_mhs'),
+              'nama' => $namafile,
               'file' => $file['file_name'],
               'status' => "Dikirim",
-              'date' => date('Y-m-d'),
+              'date' => date('d-m-Y'),
             );
             $this->db->insert('file_pendaftaran', $data);
           } else {
@@ -151,43 +167,41 @@ class Users extends CI_Controller
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $data['dosbing'] = $this->user_model->getDosbing();
-    $data['cdosbing'] = $this->user_model->checkButton();
-    $data['dosen'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
+    $data['file'] = $this->db->get_where('file_pendaftaran', ['id_mhs' => $this->session->userdata('id')])->result_array();
     $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
     $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     // Check profile
-    if ($data['mhs']['nim'] == '' or $data['mhs']['prodi'] == '' or $data['mhs']['no_telp'] == '') {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Lengkapi profile terlebih dahulu agar dapat mengajukan TA. </div>');
-      redirect('auth/editprofilemhs');
-    } else {
-      if ($this->form_validation->run() == false) {
-        $this->load->view('templates/dashboard/headerDosenMhs', $data);
-        $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-        $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
-        $this->load->view('templates/dashboard/footer');
-      } else {
-        $query = $this->user_model->checkDosen();
-        if (empty($query)) {
-          $data = array(
-            'id' => uniqid(),
-            // 'id_mhs' => $this->input->post('id_mhs'),
-            'id_dosen' => $this->input->post('dosbing'),
-            'id_guidance' => $this->input->post('id_guidance'),
-            'status' => 'Menunggu Persetujuan'
-          );
-          $this->db->insert('dosbing', $data);
-          $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pendaftarantugasakhir');
-        } elseif ($query['status'] == "Sudah Disetujui") {
-          $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
-          redirect('users/pendaftarantugasakhir');
-        } else {
-          $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
-          redirect('users/pendaftarantugasakhir');
-        }
-      }
-    }
+    // if ($data['mhs']['nim'] == '' or $data['mhs']['prodi'] == '' or $data['mhs']['no_telp'] == '') {
+    //   $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Lengkapi profile terlebih dahulu agar dapat mengajukan TA. </div>');
+    //   redirect('auth/editprofilemhs');
+    // } else {
+    // if ($this->form_validation->run() == false) {
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
+    $this->load->view('templates/dashboard/footer');
+    // } else {
+    //   $query = $this->user_model->checkDosen();
+    //   if (empty($query)) {
+    //     $data = array(
+    //       'id' => uniqid(),
+    //       // 'id_mhs' => $this->input->post('id_mhs'),
+    //       'id_dosen' => $this->input->post('dosbing'),
+    //       'id_guidance' => $this->input->post('id_guidance'),
+    //       'status' => 'Menunggu Persetujuan'
+    //     );
+    //     $this->db->insert('dosbing', $data);
+    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
+    //     redirect('users/pendaftarantugasakhir');
+    //   } elseif ($query['status'] == "Sudah Disetujui") {
+    //     $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
+    //     redirect('users/pendaftarantugasakhir');
+    //   } else {
+    //     $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
+    //     redirect('users/pendaftarantugasakhir');
+    //   }
+    // }
+    // }
   }
 
   public function deletepengajuandosbing()
@@ -231,6 +245,72 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/permintaanta', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function daftarfile($id)
+  {
+    $data = array(
+      'title'  =>  'LABFIK | Daftar Permintaan TA',
+      'pta'    =>  $this->user_model->getfile($id)
+    );
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/daftarfile', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  function tambah_aksi($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $komentar = $this->input->post('komentar');
+      $data = array(
+        'komentar' => $komentar
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile' . $data1);
+    }
+  }
+
+  public function accta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status' => 'Disetujui wali'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
+      redirect('users/daftarfile');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+      redirect('users/daftarfile');
+    }
+  }
+
+  public function tolakpermintaanta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status' => 'Ditolak'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
+      redirect('users/daftarfile');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+      redirect('users/daftarfile');
+    }
   }
 
   public function acceptedbimbingan($id)
@@ -303,7 +383,7 @@ class Users extends CI_Controller
         "id_guidance" => $this->input->post('id_guidance', true),
         "send_to" => $this->input->post('fordosen', true),
         "pdf_file" => implode(', ', $data),
-        "date" => date('Y-m-d'),
+        "date" => date('d-m-Y'),
         "keterangan" => $this->input->post('keterangan', true),
         "status" => "Dikirim",
       ];
@@ -389,5 +469,35 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/tambahdosbing', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function editfilependaftaran()
+  {
+    $path = "./assets/upload/thesis/" . $this->session->userdata('username') . "/";
+    $id = $this->input->post('id');
+    $oldfile = $this->input->post('oldfile');
+    if (!empty($_FILES['files']['name'])) {
+      $config['upload_path'] = $path;
+      $config['allowed_types'] = 'pdf';
+      $config['max_size'] = '20024';  //20MB max
+      $config['file_name'] = $_FILES['files']['name'];
+      $this->upload->initialize($config);
+      $this->load->library('upload', $config);
+      if ($this->upload->do_upload('files')) {
+        //delete video in direktori
+        @unlink($path . $oldfile);
+        $file = $this->upload->data();
+        $data = [
+          "file" => $file['file_name'],
+          "status" => "Update File",
+          "date_edit" => date('d-m-Y')
+        ];
+        $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Dokumen ' . $this->input->post('nama') . ' berhasil diupdate</div>');
+        redirect('users/pendaftarantugasakhir');
+      } else {
+        echo $this->upload->display_errors();
+      }
+    }
   }
 }

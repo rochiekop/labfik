@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2020 at 02:46 AM
+-- Generation Time: Aug 27, 2020 at 05:01 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -223,25 +223,59 @@ INSERT INTO `dosbing` (`id`, `id_dosen`, `id_guidance`, `date`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `file_pendaftaran`
+--
+
+CREATE TABLE `file_pendaftaran` (
+  `id` varchar(64) NOT NULL,
+  `id_mhs` varchar(64) NOT NULL,
+  `nama` varchar(64) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `status_adminlaa` varchar(64) NOT NULL,
+  `status_doswal` varchar(64) NOT NULL,
+  `komentar` varchar(255) NOT NULL,
+  `date` varchar(64) NOT NULL,
+  `date_edit` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `file_pendaftaran`
+--
+
+INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
+('5f46a907326fc', '44', 'KSM', 'Surat_Tugas_Asdos_Semester_Genap_TA_2019-2020.pdf', 'Disetujui wali', '', '', '2020-08-27', ''),
+('5f46a90734305', '44', 'Surat Pernyataan TA', 'Algo_GP.pdf', 'Acc Admin LAA', '', 'Tulisan Kurang Jelas', '2020-08-27', '27-08-2020'),
+('5f46a90735dda', '44', 'Sertifikat EPRT', 'Form_Penilaian_Rochi.pdf', 'Disetujui wali', '', '', '2020-08-27', ''),
+('5f46a90737e94', '44', 'Sertifikat TAK', 'mockup_KP.pdf', 'Update File', '', '', '2020-08-27', '27-08-2020'),
+('5f46a9073a790', '44', 'Persetujuan Daftar TA', 'Surat_Pernyataan_Rochi.pdf', 'Acc Admin LAA', '', '', '2020-08-27', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `guidance`
 --
 
 CREATE TABLE `guidance` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `id_mhs` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `judul` varchar(255) NOT NULL,
+  `judul_1` varchar(255) NOT NULL,
+  `judul_2` varchar(255) NOT NULL,
+  `judul_3` varchar(255) NOT NULL,
+  `keterangan` varchar(64) NOT NULL,
+  `komentar` varchar(255) NOT NULL,
   `peminatan` varchar(255) NOT NULL,
-  `dosen_wali` varchar(255) NOT NULL,
-  `form_pendaftaran` varchar(255) NOT NULL,
-  `status` varchar(100) NOT NULL
+  `tahun` varchar(10) NOT NULL,
+  `status_file` varchar(255) NOT NULL,
+  `date` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul`, `peminatan`, `dosen_wali`, `form_pendaftaran`, `status`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', 'Desain Visual', '', '0', '');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`) VALUES
+('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020'),
+('5f46a9072febf', '44', 'asdds', 'asdasd', 'sdadas', '', '', 'Advertising', '2020', 'Acc Dosen Wali', '27/08/2020');
 
 -- --------------------------------------------------------
 
@@ -576,7 +610,7 @@ CREATE TABLE `user` (
   `nim` varchar(11) NOT NULL,
   `nip` int(11) NOT NULL,
   `koordinator` varchar(1) NOT NULL,
-  `dosen_wali` varchar(10) NOT NULL,
+  `dosen_wali` varchar(64) NOT NULL,
   `prodi` varchar(64) NOT NULL,
   `kode_dosen` varchar(64) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -596,8 +630,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordinator`, `dosen_wali`, `prodi`, `kode_dosen`, `email`, `alamat`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
 ('39', 'kaurlab', 'Kaur Lab ', '', '', 0, '', '', '', '', 'kaurlab@gmail.com', '0', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
-('44', 'ihdar', 'Rafif ihdhar', '0851221132434', '1301130763', 0, '', '', 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', '0', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'online'),
-('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '', '', 0, '', '', 'Desain Komunikasi Visual', '', 'sulthan.kurniawan@gmail.com', '0', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
+('44', 'ihdar', 'Rafif ihdhar', '0851221132434', '1301130763', 0, '', '5f1e7dc5ca07e', 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', 'Bengkulu', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'online'),
+('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', 2147483647, '', '1', 'Desain Komunikasi Visual', 'CSH10', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
 ('5f2128a43c90b', 'akathan', 'akathan', '', '', 0, '1', '', 'Test', '', 'sulthan.angka@gmail.com', '0', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'offline'),
 ('5f28dbe13ddf9', 'manhattan', 'AX', '', '', 0, '', '', 'Desain Komunikasi Visual', '', 'manhattan@gmail.com', '0', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
 ('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', 0, '', '', 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', '0', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'offline'),
@@ -679,6 +713,12 @@ ALTER TABLE `correction`
 -- Indexes for table `dosbing`
 --
 ALTER TABLE `dosbing`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `file_pendaftaran`
+--
+ALTER TABLE `file_pendaftaran`
   ADD PRIMARY KEY (`id`);
 
 --

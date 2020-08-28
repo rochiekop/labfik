@@ -341,11 +341,22 @@ class User_model extends CI_Model
 
 	public function getpermintaan()
 	{
-		$this->db->select('*,user.name,user.nim,guidance.judul,user.prodi');
+		$this->db->select('guidance.*, user.name, user.nim, user.prodi');
+		$this->db->from('guidance');
+		$this->db->join('user', 'guidance.id_mhs = user.id');
+		$this->db->order_by('guidance.id', 'desc');
+		$this->db->where('user.dosen_wali', $this->session->userdata('id'));
+		$this->db->group_by('user.id');
+		return $this->db->get()->result_array();
+	}
+
+	public function getfile($id)
+	{
+		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
 		$this->db->from('file_pendaftaran');
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
-		$this->db->join('guidance', 'guidance.id_mhs = user.id');
-		$this->db->where('file_pendaftaran.id', 'desc');
+		$this->db->where('id_mhs', $id);
+		$this->db->order_by('file_pendaftaran.id', 'desc');
 		return $this->db->get()->result_array();
 	}
 
@@ -502,5 +513,13 @@ class User_model extends CI_Model
 		$this->db->where('id_peminjam', $this->session->userdata('id'));
 		$this->db->where('status', 'Diterima');
 		return count($this->db->get()->result_array());
+	}
+
+	public function getDosenWali()
+	{
+		$this->db->select('id,kode_dosen,name');
+		$this->db->from('user');
+		$this->db->where('kode_dosen !=', "");
+		return $this->db->get()->result_array();
 	}
 }
