@@ -90,4 +90,16 @@ class Item extends CI_Controller
             redirect(site_url('item/listAdmin'));
         }
     }
+
+    public function search()
+    {
+        $search=  $this->input->post('search');
+        $query = $this->item_model->searchItem($search);
+        echo json_encode ($query);
+    }
+
+    public function listAdminAjax()
+    {
+        
+    }
 }

@@ -103,4 +103,16 @@ class Item_model extends CI_Model
             return array_map('unlink', glob(FCPATH."uploads/item/$filename.*"));
         }
     }
+
+    function searchItem($search){
+        $this->db->select('*');
+        $this->db->from->('item');
+        $this->db->where('name', $search);
+        $this->db->or_where('quantity', $search);
+        $this->db->or_where('access', $search);
+        $this->db->or_where('description', $search);
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
 }
