@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2020 at 07:20 AM
+-- Generation Time: Aug 29, 2020 at 08:58 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -31,8 +31,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `file_pendaftaran` (
   `id` varchar(64) NOT NULL,
   `id_mhs` varchar(64) NOT NULL,
+  `nama` varchar(64) NOT NULL,
   `file` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status_adminlaa` varchar(64) NOT NULL,
+  `status_doswal` varchar(64) NOT NULL,
+  `komentar` varchar(255) NOT NULL,
   `date` varchar(64) NOT NULL,
   `date_edit` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,12 +44,12 @@ CREATE TABLE `file_pendaftaran` (
 -- Dumping data for table `file_pendaftaran`
 --
 
-INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `file`, `status`, `date`, `date_edit`) VALUES
-('5f45f03fa66c5', '44', 'Form_Penilaian_Pembimbing_Lapangan_Rochi.pdf', 'Dikirim', '2020-08-26 00:00:00', '0000-00-00 00:00:00'),
-('5f45f03fa85d0', '44', 'Form_Penilaian_Rochi.pdf', 'Dikirim', '2020-08-26 00:00:00', '0000-00-00 00:00:00'),
-('5f45f03fab5d2', '44', '1920-2_IF_LembarPengesahanKP_1301170761_merge.pdf', 'Dikirim', '2020-08-26 00:00:00', '0000-00-00 00:00:00'),
-('5f45f03fad65f', '44', 'Surat_Pernyataan_Rochi.pdf', 'Dikirim', '2020-08-26 00:00:00', '0000-00-00 00:00:00'),
-('5f45f03faf720', '44', 'Form_penilaian_pembimbing_akademik-Rahma.pdf', 'Dikirim', '2020-08-26 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
+('5f48af170781e', '44', 'KSM', 'mockup_KP.pdf', 'Disetujui', '', '', '28-08-2020', '28-08-2020'),
+('5f48af170a405', '44', 'Surat Pernyataan TA', '43967_A_Drunkard’s_Walk.pdf', 'Disetujui', '', '', '28-08-2020', ''),
+('5f48af170bc38', '44', 'Sertifikat EPRT', 'as_pdf1.pdf', 'Disetujui', '', '', '28-08-2020', '28-08-2020'),
+('5f48af170d477', '44', 'Sertifikat TAK', 'as_pdf.pdf', 'Disetujui', '', '', '28-08-2020', ''),
+('5f48af171022d', '44', 'Persetujuan Daftar TA', 'PrecipitFX.pdf', 'Disetujui', '', '', '28-08-2020', '');
 
 --
 -- Indexes for dumped tables

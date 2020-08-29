@@ -83,6 +83,7 @@ class Adminlaa extends CI_Controller
   {
     $id = decrypt_url($id);
     $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+
     if ($file) {
       $data = [
         'status_adminlaa' => 'Disetujui',
@@ -98,7 +99,8 @@ class Adminlaa extends CI_Controller
         // $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' diterima</div>');
-      redirect(base_url('adminlaa/viewdetail/' . encrypt_url($id)));
+
+      redirect(base_url('adminlaa/viewdetail/' . encrypt_url($file['id_mhs'])));
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
       $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
