@@ -44,6 +44,19 @@ class Item extends CI_Controller
         $this->load->view("templates/dashboard/footer");
     }
 
+    public function listAjax()
+    {
+        $query = $this->item_model->allItem();
+        echo json_encode ($query);
+    }
+
+    public function search()
+    {
+        $search =  $this->input->post('search');
+        $query = $this->item_model->searchItem($search);
+        echo json_encode ($query);
+    }
+
     public function add()
     {
         $item = $this->item_model;
@@ -91,15 +104,4 @@ class Item extends CI_Controller
         }
     }
 
-    public function search()
-    {
-        $search=  $this->input->post('search');
-        $query = $this->item_model->searchItem($search);
-        echo json_encode ($query);
-    }
-
-    public function listAdminAjax()
-    {
-        
-    }
 }
