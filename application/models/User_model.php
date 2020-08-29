@@ -201,50 +201,16 @@ class User_model extends CI_Model
 		return $result;
 	}
 
-	// public function loadData($excel)
-	// {
-	// 	for ($i = 0; $i < count($dataarray); $i++)
-	// 	{
-	// 		if ($dataarray[$i]['role'] == 'dosen')
-	// 		{
-	// 			$role_id = '3';
-	// 		}
-	// 		else if ($dataarray[$i]['role'] == 'mahasiswa')
-	// 		{
-	// 			$role_id = '4';
-	// 		}
-
-	// 		$data = array(
-	// 			'id' => uniqid(),
-	// 			'username' => $dataarray[$i]['username'],
-	// 			'name' => $dataarray[$i]['name'],
-	// 			'email' => $dataarray[$i]['email'],
-	// 			'images' => 'default.jpg',
-	// 			'password' => md5('fiktelu'.$dataarray[$i]['password']),
-	// 			'role_id' => $role_id,
-	// 			'is_active' => '1'
-	// 		);
-
-	// 		$this->db->insert('user', $data);
-	// 	}
-	// }
-
-	
-
-	// public function ambilDosenWali()
-	// {
-	// 	$this->db->select('dosen_wali');
-	// 	$this->db->from('user');
-	// 	$this->db->where('id', $this->session->userdata('id'));
-	// 	$query = $this->db->get();
-	// 	$dosen_wali = $query->row();
-
-	// 	$this->db->select('name');
-	// 	$this->db->from('user');
-	// 	$this->db->where('id', $dosen_wali);
-	// 	$result = $query->row();
-	// 	return $result;
-	// }
+	public function KoordinatorTAList()
+	{
+		$this->db->select('id,name,is_active,status,images');
+		$this->db->from($this->User);
+		$this->db->where('role_id', '3');
+		$this->db->where('koordinator_ta', '1');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result;
+	}
 
 	public function KaurList()
 	{
@@ -263,8 +229,10 @@ class User_model extends CI_Model
 		// $this->db->select('id,name,picture_url,is_active');
 		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
-		$this->db->where("role_id", "3");
-		$this->db->or_where("role_id", "4");
+		$this->db->group_start();
+			$this->db->where("role_id", "3");
+			$this->db->or_where("role_id", "4");
+		$this->db->group_end();
 		$this->db->where("is_active", "1");
 		$query = $this->db->get();
 		$r = $query->result_array();

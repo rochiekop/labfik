@@ -88,6 +88,32 @@ class Chat extends CI_Controller {
 			$this->load->view('templates/dashboard/footer'); 
 		}
 	}
+
+	public function getAllKoordinatorTA()
+	{
+		$list = $this->user_model->KoordinatorTAList();
+		$data['strTitle']='Semua Koordinator TA';
+		$data['strsubTitle']='Koordinator TA';
+		$data['chatTitle']='Pilih Koordinator TA yang ingin anda hubungi';
+
+		$userslist=[];
+		foreach($list as $u){
+			$userslist[]=
+			[
+				'id' => $u['id'],
+				'name' => $u['name'],
+				// 'images' => $this->user_model->ImagesById($u['id']),
+				'images' => $u['images'],
+				'status' => $u['status'],
+				'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
+			];
+		}
+		$data['userslist']=$userslist;
+		$this->load->view('templates/dashboard/headerKaur');
+		$this->load->view('templates/dashboard/sidebarKaur');
+		$this->load->view('chat/chat',$data); 
+		$this->load->view('templates/dashboard/footer'); 
+	}
 	
     public function send_text_message()
     {
