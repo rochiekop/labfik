@@ -5,7 +5,11 @@
       <h4>Pendaftaran Tugas Akhir</h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
-    <?php if (empty($title)) : ?>
+    <?php if ($statusfile == null) : ?>
+    <?php elseif ($statusfile == "Disetujui adminlaa") : ?>
+      <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="#" class="btn btn-primary btn-sm" style="margin-top:6px;">Helpdesk</a> </div>
+    <?php endif; ?>
+    <?php if (empty($cek)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php else : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
@@ -30,27 +34,49 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no = 0;
-            foreach ($file as $k) : ?>
-              <tr>
-                <td><?= $k['nama'] ?></td>
-                <?php if ($k['status'] == 'Ditolak') : ?>
-                  <td></td>
-                <?php else : ?>
-                  <td><?= $k['status'] ?></td>
-                <?php endif; ?>
-                <?php if ($k['status'] == 'Ditolak Admin LAA' or $k['status'] == 'Ditolak Dosen Wali') : ?>
-                  <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
-                <?php else : ?>
-                  <td></td>
-                <?php endif ?>
-                <?php if ($k['status'] != 'Tolak') : ?>
-                  <td></td>
-                <?php else : ?>
-                  <td><?= $k['komentar'] ?></td>
-                <?php endif; ?>
-              </tr>
-            <?php endforeach; ?>
+            <?php if ($statusfile == null) : ?>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($file as $k) : ?>
+                <tr>
+                  <!-- For Dosen Wali -->
+                  <td><?= $k['nama'] ?></td>
+                  <?php if ($statusfile == "Menunggu persetujuan") : ?>
+                    <?php if ($k['status_doswal'] == 'Ditolak') :  ?>
+                      <td></td>
+                      <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php elseif ($k['status_doswal'] == 'Disetujui' or $k['status_doswal'] == 'Dikirim') : ?>
+                      <td><?= $k['status_doswal'] ?></td>
+                      <td></td>
+                      <td></td>
+                    <?php elseif ($k['status_doswal'] == 'Update') : ?>
+                      <td><?= $k['status_doswal'] ?></td>
+                      <td></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php else : ?>
+                      <td>Dikirim</td>
+                      <td></td>
+                      <td></td>
+                    <?php endif; ?>
+                  <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui adminlaa") : ?>
+                    <?php if ($k['status_adminlaa'] == 'Ditolak') :  ?>
+                      <td></td>
+                      <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php elseif ($k['status_adminlaa'] == 'Disetujui' or $k['status_adminlaa'] == 'Dikirim') : ?>
+                      <td><?= $k['status_adminlaa'] ?></td>
+                      <td></td>
+                      <td></td>
+                    <?php elseif ($k['status_adminlaa'] == 'Update') : ?>
+                      <td><?= $k['status_adminlaa'] ?></td>
+                      <td></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif ?>
           </tbody>
         </table>
       </div>
@@ -150,7 +176,7 @@
               <div class="form-group" style="margin-bottom:0">
                 <label><?= $f['nama'] ?></label>
                 <input type="hidden" name="id" value="<?= $f['id'] ?>">
-                <input type="text" name="oldfile" value="<?= $f['file'] ?>">
+                <input type="hidden" name="oldfile" value="<?= $f['file'] ?>">
                 <input type="hidden" name="nama" value="<?= $f['nama'] ?>">
                 <input type="file" class="form-control" id="exampleFormControlFile1" name="files" style="padding:13px 16px">
               </div>

@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="fik-tour-item">
-      <img src="_assets/img/12.jpg" alt="">
+      <img src="<?= base_url('assets/img/12.jpg') ?>" alt="">
       <div class="fik-tour-text">
         <h5>MEET 360</h5>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -230,9 +230,9 @@
             <img src="<?= base_url('assets/img/10.jpg') ?>" alt="" />
           </div>
           <div class="item-text">
-            <h6><a href="#">Unit Bisnis</a></h6>
+            <h6><a href="<?= base_url('unit/bisnis') ?>">Unit Bisnis</a></h6>
             <p>Kami siap memberikan yang terbaik.</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+            <a href="<?= base_url('unit/bisnis') ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
           </div>
         </div>
       </div>
@@ -242,9 +242,9 @@
             <img src="<?= base_url('assets/img/11.jpg') ?>" alt="" />
           </div>
           <div class="item-text">
-            <h6><a href="#">Partnership</a></h6>
+            <h6><a href="<?= base_url('unit/partnership') ?>">Partnership</a></h6>
             <p>Butuh media partner? Kesini aja!!</p>
-            <a href="#" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+            <a href="<?= base_url('unit/bisnis') ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
           </div>
         </div>
       </div>

@@ -468,4 +468,32 @@ class User_model extends CI_Model
 		$this->db->where('kode_dosen !=', "");
 		return $this->db->get()->result_array();
 	}
+
+	// Cek Number of status accepted in filependaftaran
+	public function getStatusDWali($id)
+	{
+		$this->db->select('status_doswal');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_doswal', 'Disetujui Dosen Wali');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
+	}
+
+	public function getDiSetujuiAdminLaa($id)
+	{
+		$this->db->select('status_adminlaa');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_adminlaa', 'Disetujui');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
+	}
+
+	public function getDiTolakiAdminLaa($id)
+	{
+		$this->db->select('status_adminlaa');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_adminlaa', 'Ditolak');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
+	}
 }

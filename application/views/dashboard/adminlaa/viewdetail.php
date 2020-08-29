@@ -39,19 +39,20 @@
                   <td><?= $f['nama'] ?></td>
                   <td> <a href="<?= base_url('assets/upload/thesis/') . $f['username'] . '/' . $f['file'] ?>" download title="Download File"><?= $f['file'] ?></a></td>
                   <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
-                  <?php if ($f['status'] == "Dikirim" or $f['status'] == "Update File") : ?>
+                  <!-- Action -->
+                  <?php if ($f['status_adminlaa'] == "Dikirim" or $f['status_adminlaa'] == "Update") : ?>
                     <td> <a href="<?= base_url('adminlaa/accfilependaftaran/') . encrypt_url($f['id']); ?>" class="btn badge badge-success">Acc</a>
                       <a data-toggle="modal" data-target="#tolak<?= $f['id'] ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                     </td>
                     <td></td>
+                    <td><?= $f['komentar'] ?></td>
+                  <?php elseif ($f['status_adminlaa'] == "Disetujui") : ?>
                     <td></td>
-                  <?php elseif ($f['status'] == "Acc Admin LAA") : ?>
+                    <td><b><?= $f['status_adminlaa'] ?></b></td>
                     <td></td>
-                    <td><b>Acc</b></td>
+                  <?php elseif ($f['status_adminlaa'] == "Ditolak") : ?>
                     <td></td>
-                  <?php elseif ($f['status'] == "Ditolak Admin LAA") : ?>
-                    <td></td>
-                    <td><b>Tolak</b></td>
+                    <td><b><?= $f['status_adminlaa'] ?></b></td>
                     <td><?= $f['komentar'] ?></td>
                   <?php endif; ?>
                 </tr>

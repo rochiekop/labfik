@@ -130,7 +130,8 @@ class Users extends CI_Controller
               'id_mhs' => $this->input->post('id_mhs'),
               'nama' => $namafile,
               'file' => $file['file_name'],
-              'status' => "Dikirim",
+              // 'status_doswal' => "Dikirim",
+              'status_adminlaa' => "Dikirim",
               'date' => date('d-m-Y'),
             );
             $this->db->insert('file_pendaftaran', $data);
@@ -165,43 +166,21 @@ class Users extends CI_Controller
 
   public function pendaftarantugasakhir()
   {
-    $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
-    $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $data['file'] = $this->db->get_where('file_pendaftaran', ['id_mhs' => $this->session->userdata('id')])->result_array();
+    $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
+    $file = $this->db->get_where('file_pendaftaran', ['id_mhs' => $this->session->userdata('id')])->result_array();
+    $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
+    $data = array(
+      'mhs' => $mhs,
+      'file' => $file,
+      'cek' => $cek,
+      'statusfile' => $cek['status_file'],
+      'title' => 'LABFIK | Pengajuan Tugas Akhir',
+    );
     $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
-    $data['title'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    // Check profile
-    // if ($data['mhs']['nim'] == '' or $data['mhs']['prodi'] == '' or $data['mhs']['no_telp'] == '') {
-    //   $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Lengkapi profile terlebih dahulu agar dapat mengajukan TA. </div>');
-    //   redirect('auth/editprofilemhs');
-    // } else {
-    // if ($this->form_validation->run() == false) {
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
     $this->load->view('templates/dashboard/footer');
-    // } else {
-    //   $query = $this->user_model->checkDosen();
-    //   if (empty($query)) {
-    //     $data = array(
-    //       'id' => uniqid(),
-    //       // 'id_mhs' => $this->input->post('id_mhs'),
-    //       'id_dosen' => $this->input->post('dosbing'),
-    //       'id_guidance' => $this->input->post('id_guidance'),
-    //       'status' => 'Menunggu Persetujuan'
-    //     );
-    //     $this->db->insert('dosbing', $data);
-    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan telah dikirim, tunggu sampai dosen memberikan balasan</div>');
-    //     redirect('users/pendaftarantugasakhir');
-    //   } elseif ($query['status'] == "Sudah Disetujui") {
-    //     $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Dosen tersebut sudah menjadi dosen pembimbing kamu, pilih dosen lain.</div>');
-    //     redirect('users/pendaftarantugasakhir');
-    //   } else {
-    //     $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kamu telah mengirimkan pengajuan, tunggu sampai dosen memberikan balasan</div>');
-    //     redirect('users/pendaftarantugasakhir');
-    //   }
-    // }
-    // }
   }
 
   public function deletepengajuandosbing()
@@ -487,10 +466,16 @@ class Users extends CI_Controller
         //delete video in direktori
         @unlink($path . $oldfile);
         $file = $this->upload->data();
+        $status = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row()->status_file;
+        if ($status == "") {
+          $status = "status_doswal";
+        } else {
+          $status = "status_adminlaa";
+        }
         $data = [
           "file" => $file['file_name'],
-          "status" => "Update File",
-          "date_edit" => date('d-m-Y')
+          $status => "Update",
+          "date_edit" => date('d-m-Y'),
         ];
         $this->db->update('file_pendaftaran', $data, ['id' => $id]);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Dokumen ' . $this->input->post('nama') . ' berhasil diupdate</div>');
@@ -498,6 +483,9 @@ class Users extends CI_Controller
       } else {
         echo $this->upload->display_errors();
       }
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Masukkan file yang akan diupload</div>');
+      redirect('users/pendaftarantugasakhir');
     }
   }
 }

@@ -52,8 +52,14 @@
                   <td><?= $t['prodi'] ?></td>
                   <td><?= $t['peminatan'] ?></td>
                   <td><?= $t['tahun'] ?></td>
-                  <?php if ($t['status_file'] == "Acc Dosen Wali") : ?>
-                    <td>Belum Acc</td>
+                  <?php if ($t['status_file'] == "Disetujui wali" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
+                    <td>Menunggu Persetujuan</td>
+                  <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
+                    <td><?= $t['diterima'] ?> Diterima, <?= $t['ditolak'] ?> Ditolak</td>
+                  <?php elseif ($t['updated'] != "0") : ?>
+                    <td><?= $t['updated'] ?> File baru</td>
+                  <?php else : ?>
+                    <td>Disetujui</td>
                   <?php endif; ?>
                 </tr>
               <?php endforeach; ?>
@@ -62,5 +68,6 @@
         </table>
       </table>
     </div>
+    <!-- <?php var_dump($mahasiswa) ?> -->
   </main>
   <!-- End Main Container -->

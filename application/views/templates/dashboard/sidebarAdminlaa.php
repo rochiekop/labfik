@@ -13,16 +13,6 @@
         <a href="<?= base_url('adminlaa') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
       </div>
       <div class="divider"></div>
-      <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
-        <div id="collapse4" class="collapse" data-parent="#accordion">
-          <ul>
-            <li><a href="<?= base_url('adminlaa/pendaftaranta') ?>">Pendaftaran</a></li>
-            <li><a href="<?= base_url('adminlaa/bimbingandsn') ?>">Bimbingan</a></li>
-            <li><a href="<?= base_url('adminlaa/penguji') ?>">Penguji</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
   <!-- End Side Menu -->

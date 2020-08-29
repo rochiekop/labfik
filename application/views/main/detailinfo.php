@@ -92,7 +92,7 @@
 </div>
 
 
-<script src="<?= base_url('assets/tambahan.js') ?>"></script>
+<script src="<?= base_url('assets/js/tambahan.js'); ?>"></script>
 <script>
   function copyclipboard() {
     var copyText = document.getElementById("copyLink");
