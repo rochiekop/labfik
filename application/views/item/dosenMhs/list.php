@@ -32,3 +32,24 @@
     </div>
   </main>
   <!-- End Main Container -->
+
+  <script>
+    function getItem()
+    {
+      $.ajax({
+        url: 'Item/listAjax',
+        type: 'POST',
+        cache: false,
+        success: function(data){
+          
+        }
+      })
+    }
+
+    function getSeacrh()
+    {
+
+    }
+
+
+  </script>

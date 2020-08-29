@@ -57,13 +57,13 @@ class Notification_model extends CI_Model
             // $this->db->join('guidance', 'notification.guidance_id = guidance.id');
             // $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
 
-            // $this->db->where('notification.user_id', $this->session->userdata('id'));
-            // $this->db->group_start();
-            //     $this->db->where('notification.description', 'Peminjaman diizinkan');
-            //     $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
-            //     $this->db->or_where('notification.description', 'accepted');
-            //     $this->db->or_where('notification.description', 'declined');
-            // $this->db->group_end();
+            $this->db->where('notification.user_id', $this->session->userdata('id'));
+            $this->db->group_start();
+                $this->db->where('notification.description', 'Peminjaman diizinkan');
+                $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+                $this->db->or_where('notification.description', 'accepted');
+                $this->db->or_where('notification.description', 'declined');
+            $this->db->group_end();
 
             $query = $this->db->get();
             $result = $query->result();

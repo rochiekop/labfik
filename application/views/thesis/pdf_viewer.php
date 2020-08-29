@@ -25,7 +25,6 @@
 
                     <embed src="<?= base_url('assets/upload/thesis/'.$file->username.'/'.$pdf_file) ?>" width="700" height="420" type="application/pdf">
                     
-
                 </div>
             </div>
         </div>

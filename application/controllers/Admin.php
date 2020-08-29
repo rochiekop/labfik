@@ -9,8 +9,11 @@ class Admin extends CI_Controller
     $this->load->model('admin_model');
     $this->load->model('main_model');
     $this->load->model('booking_model');
+    $this->load->model('user_model');
+    $this->load->model('auth_model');
     $this->load->library('upload');
     $this->load->library('pagination');
+    // $this->load->library('excel_reader');
     is_logged_in();
   }
   public function index()
@@ -987,4 +990,85 @@ class Admin extends CI_Controller
     $this->load->view('dashboard/admin/response', $data);
     $this->load->view('templates/dashboard/footer');
   }
+
+  // IMPORT USER
+  public function addUser()
+  {
+    $data['title'] = ' LABFIK | Tambah User';
+    $data['user'] = $this->user_model->UserList();
+
+    $this->load->view('templates/dashboard/headerAdmin', $data);
+    $this->load->view('templates/dashboard/sidebarAdmin', $data);
+    $this->load->view('dashboard/admin/user_list', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function downloadTemplate()
+  {
+    force_download('assets/import_user/template/template.xlsx',NULL);
+  }
+
+  public function importFile()
+  {
+    // redirect('admin/addUser');
+    if ( isset($_POST['import'])) 
+    {
+      $file = $_FILES['user']['tmp_name'];
+
+      // Medapatkan ekstensi file csv yang akan diimport.
+      $ekstensi  = explode('.', $_FILES['user']['name']);
+
+      // Tampilkan peringatan jika submit tanpa memilih menambahkan file.
+      if (empty($file)) {
+        echo 'File tidak boleh kosong!';
+      } else {
+        // Validasi apakah file yang diupload benar-benar file csv.
+        if (strtolower(end($ekstensi)) === 'csv' && $_FILES["user"]["size"] > 0) {
+
+          $i = 0;
+          $handle = fopen($file, "r");
+          while (($row = fgetcsv($handle, 2048))) {
+            $i++;
+            if ($i == 1) continue;
+
+            $salt = $this->auth_model->salt();
+            $password = $this->auth_model->makePassword('fiktelu'.$row[3], $salt);
+
+            if ($row[4] == 'dosen')
+            {
+              $role_id = '3';
+            }
+            else if ($row[4] == 'mahasiswa')
+            {
+              $role_id = '4';
+            }
+            
+            // Data yang akan disimpan ke dalam databse
+            $data = [
+              'id' => uniqid(),
+              'username' => $row[0],
+              'name' => $row[1],
+              'email' => $row[2],
+              'images' => 'default.jpg',
+              'password' => $password,
+              'salt' => $salt,
+              'role_id' => $role_id,
+              'is_active' => '1'
+            ];
+
+            // Simpan data ke database.
+            $this->db->insert('user', $data);
+          }
+
+          fclose($handle);
+          redirect('admin/addUser');
+
+        } else {
+          echo 'Format file tidak valid!';
+        }
+      }
+    }
+	}
+
+  
 }

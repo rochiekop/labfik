@@ -192,6 +192,60 @@ class User_model extends CI_Model
 		return $r;
 	}
 
+	public function UserList()
+	{
+		$this->db->select('*');
+		$this->db->from($this->User);
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result;
+	}
+
+	// public function loadData($excel)
+	// {
+	// 	for ($i = 0; $i < count($dataarray); $i++)
+	// 	{
+	// 		if ($dataarray[$i]['role'] == 'dosen')
+	// 		{
+	// 			$role_id = '3';
+	// 		}
+	// 		else if ($dataarray[$i]['role'] == 'mahasiswa')
+	// 		{
+	// 			$role_id = '4';
+	// 		}
+
+	// 		$data = array(
+	// 			'id' => uniqid(),
+	// 			'username' => $dataarray[$i]['username'],
+	// 			'name' => $dataarray[$i]['name'],
+	// 			'email' => $dataarray[$i]['email'],
+	// 			'images' => 'default.jpg',
+	// 			'password' => md5('fiktelu'.$dataarray[$i]['password']),
+	// 			'role_id' => $role_id,
+	// 			'is_active' => '1'
+	// 		);
+
+	// 		$this->db->insert('user', $data);
+	// 	}
+	// }
+
+	
+
+	// public function ambilDosenWali()
+	// {
+	// 	$this->db->select('dosen_wali');
+	// 	$this->db->from('user');
+	// 	$this->db->where('id', $this->session->userdata('id'));
+	// 	$query = $this->db->get();
+	// 	$dosen_wali = $query->row();
+
+	// 	$this->db->select('name');
+	// 	$this->db->from('user');
+	// 	$this->db->where('id', $dosen_wali);
+	// 	$result = $query->row();
+	// 	return $result;
+	// }
+
 	public function KaurList()
 	{
 		// $this->db->select('id,name,picture_url,is_active');
@@ -296,6 +350,16 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getpermintaanta()
+	{
+		$this->db->select('guidance.*, user.name, user.nim, user.prodi');
+		$this->db->from('guidance');
+		$this->db->join('user', 'guidance.id_mhs = user.id');
+		$this->db->order_by('guidance.id', 'desc');
+		$this->db->group_by('user.id');
+		return $this->db->get()->result_array();
+	}
+
 	public function getfile($id)
 	{
 		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
@@ -304,6 +368,15 @@ class User_model extends CI_Model
 		$this->db->where('id_mhs', $id);
 		$this->db->order_by('file_pendaftaran.id', 'desc');
 		return $this->db->get()->result_array();
+	}
+
+	public function getMhsbyId($id)
+	{
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun');
+		$this->db->from('guidance');
+		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->where('id_mhs', $id);
+		return $this->db->get()->row_array();
 	}
 
 	public function checkDosen()

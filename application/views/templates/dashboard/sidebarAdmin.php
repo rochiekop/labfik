@@ -92,7 +92,12 @@
       </div> -->
       <div class="divider show-mobile"></div>
       <div class="card">
-        <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-plus"></span> Request Token</a>
+        <a href="<?= base_url('admin/addUser') ?>" class="btn"><span class="fas fa-user-plus"></span> Tambah User</a>
+        <!-- <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a> -->
+      </div>
+      <div class="divider show-mobile"></div>
+      <div class="card">
+        <a href="<?= base_url('admin/activationrequest') ?>" class="btn"><span class="fas fa-user-check"></span> Request Token</a>
         <!-- <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a> -->
       </div>
       <!-- <div class="card logout hide-mobile">
