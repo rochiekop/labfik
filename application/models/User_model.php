@@ -350,6 +350,16 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getpermintaanta()
+	{
+		$this->db->select('guidance.*, user.name, user.nim, user.prodi');
+		$this->db->from('guidance');
+		$this->db->join('user', 'guidance.id_mhs = user.id');
+		$this->db->order_by('guidance.id', 'desc');
+		$this->db->group_by('user.id');
+		return $this->db->get()->result_array();
+	}
+
 	public function getfile($id)
 	{
 		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
@@ -358,6 +368,15 @@ class User_model extends CI_Model
 		$this->db->where('id_mhs', $id);
 		$this->db->order_by('file_pendaftaran.id', 'desc');
 		return $this->db->get()->result_array();
+	}
+
+	public function getMhsbyId($id)
+	{
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun');
+		$this->db->from('guidance');
+		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->where('id_mhs', $id);
+		return $this->db->get()->row_array();
 	}
 
 	public function checkDosen()
@@ -521,5 +540,33 @@ class User_model extends CI_Model
 		$this->db->from('user');
 		$this->db->where('kode_dosen !=', "");
 		return $this->db->get()->result_array();
+	}
+
+	// Cek Number of status accepted in filependaftaran
+	public function getStatusDWali($id)
+	{
+		$this->db->select('status_doswal');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_doswal', 'Disetujui Dosen Wali');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
+	}
+
+	public function getDiSetujuiAdminLaa($id)
+	{
+		$this->db->select('status_adminlaa');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_adminlaa', 'Disetujui');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
+	}
+
+	public function getDiTolakiAdminLaa($id)
+	{
+		$this->db->select('status_adminlaa');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('status_adminlaa', 'Ditolak');
+		$this->db->where('id_mhs', $id);
+		return count($this->db->get()->result_array());
 	}
 }

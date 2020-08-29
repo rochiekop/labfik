@@ -186,7 +186,7 @@ function Booking() {
 						}
 					} else {
 						var html = '';
-						console.log(data)
+						// console.log(data)
 						for (i in data) {
 							var time = data[i];
 							var splitTime = time.split(", ");
@@ -244,7 +244,7 @@ function bookingByAdmin() {
 						'18.30 - 19.30', '19.30 - 20.30', '20.30 - 21.30',
 						'21.30 - 22.30'
 					];
-					console.log(data)
+					// console.log(data)
 					if (!data.time) {
 						var html = '';
 						for (i in arrTime) {

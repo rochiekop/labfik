@@ -15,18 +15,10 @@ class Adminlaa extends CI_Controller
 
   public function index()
   {
-    $data['title'] = 'LABFIK | Dashboard';
-    $this->load->view('templates/dashboard/headerAdminlaa', $data);
-    $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
-    $this->load->view('dashboard/adminlaa/index', $data);
-    $this->load->view('templates/dashboard/footer');
-  }
-
-  public function pendaftaranta()
-  {
     $guidance = $this->db->get('guidance')->result_array();
     $name = $this->adminlaa_model->getMhs();
     // $file = $this->adminlaa_model->getFiles();
+    // getDiSetujuiAdminLaa($id)
     $data = array(
       'title'     => 'LABFIK | Pendaftaran TA',
       'guidance' => $guidance,
@@ -35,9 +27,10 @@ class Adminlaa extends CI_Controller
     );
     $this->load->view('templates/dashboard/headerAdminlaa', $data);
     $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
-    $this->load->view('dashboard/adminlaa/pendaftaranta', $data);
+    $this->load->view('dashboard/adminlaa/index', $data);
     $this->load->view('templates/dashboard/footer');
   }
+
 
   public function deletependaftarta()
   {
@@ -90,18 +83,26 @@ class Adminlaa extends CI_Controller
   {
     $id = decrypt_url($id);
     $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
-    $nama = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->nama;
     if ($file) {
       $data = [
-        'status' => 'Acc Admin LAA',
+        'status_adminlaa' => 'Disetujui',
+        'komentar' => '',
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $nama . ' diterima</div>');
-      redirect('adminlaa/viewdetail/' . encrypt_url($id));
+      $cekstatus = $this->adminlaa_model->cekstatus($file['id_mhs']);
+
+      if ($cekstatus == 5) {
+        $data = [
+          'status_file' => 'Disetujui Admin Laa',
+        ];
+        // $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
+      }
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' diterima</div>');
+      redirect(base_url('adminlaa/viewdetail/' . encrypt_url($id)));
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
       $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
-      redirect('adminlaa/viewdetail/' . encrypt_url($id));
+      redirect(base_url('adminlaa/viewdetail/' . encrypt_url($id)));
     }
   }
 
@@ -113,7 +114,7 @@ class Adminlaa extends CI_Controller
     $nama = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->nama;
     if ($file) {
       $data = [
-        'status' => 'Ditolak Admin LAA',
+        'status_adminlaa' => 'Ditolak',
         'komentar' => $komentar,
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
