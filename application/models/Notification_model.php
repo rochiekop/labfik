@@ -79,6 +79,7 @@ class Notification_model extends CI_Model
             $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
             $this->db->join('item', 'borrowing.item_id=item.id');
             $this->db->where('notification.description', 'Barang ini ingin dipinjam');
+            $this->db->order_by('date', 'ASC');
             $query = $this->db->get();
             $result = $query->result();
             return $result;
@@ -92,6 +93,7 @@ class Notification_model extends CI_Model
             $this->db->where('notification.description', 'Peminjaman diizinkan');
             $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
             $this->db->group_end();
+            $this->db->order_by('date', 'ASC');
             $query = $this->db->get();
             $result = $query->result();
             return $result;

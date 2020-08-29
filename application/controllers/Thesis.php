@@ -58,6 +58,7 @@ class Thesis extends CI_Controller
     public function saveCorrection()
     {
         $this->thesis_model->saveCorrection();
+        redirect('Thesis');
     }
 
     public function checkCorrectionEmpty($thesis_id, $page)
