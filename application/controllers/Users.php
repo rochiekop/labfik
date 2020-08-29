@@ -226,11 +226,31 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
+  public function accpermintaanta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('guidance', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status_file' => 'Disetujui wali'
+      );
+      $this->db->update('guidance', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
+      redirect('users/permintaanTA');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+      redirect('users/permintaanTA');
+    }
+  }
+
   public function daftarfile($id)
   {
+    $pta = $this->user_model->getfile($id);
+    $mhs = $this->user_model->getMhsbyId($id);
     $data = array(
-      'title'  =>  'LABFIK | Daftar Permintaan TA',
-      'pta'    =>  $this->user_model->getfile($id)
+      'title'  =>  'File Pendaftaran: ',
+      'pta'    =>  $pta,
+      'mhs'    =>  $mhs
     );
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
@@ -264,14 +284,16 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status' => 'Disetujui wali'
+        'status_doswal' => 'Disetujui wali'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
-      redirect('users/daftarfile');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
-      redirect('users/daftarfile');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
     }
   }
 
@@ -281,14 +303,16 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status' => 'Ditolak'
+        'status_doswal' => 'Ditolak'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
-      redirect('users/daftarfile');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
-      redirect('users/daftarfile');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
     }
   }
 
@@ -475,7 +499,7 @@ class Users extends CI_Controller
         $data = [
           "file" => $file['file_name'],
           $status => "Update",
-          "date_edit" => date('d-m-Y'),
+          "date_edit" => date('d-m-Y')
         ];
         $this->db->update('file_pendaftaran', $data, ['id' => $id]);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Dokumen ' . $this->input->post('nama') . ' berhasil diupdate</div>');
@@ -487,5 +511,15 @@ class Users extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Masukkan file yang akan diupload</div>');
       redirect('users/pendaftarantugasakhir');
     }
+  }
+
+  public function takoor()
+  {
+    $data['title'] = 'LABFIK | Daftar Permintaan TA';
+    $data['pta'] = $this->user_model->getpermintaanta();
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/accpermintaanta', $data);
+    $this->load->view('templates/dashboard/footer');
   }
 }

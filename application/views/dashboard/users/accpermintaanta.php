@@ -48,7 +48,7 @@
                             <td><?= $t['prodi'] ?></td>
                             <td><?= $t['peminatan'] ?></td>
                             <td><?= $t['tahun'] ?></td>
-                            <?php if ($t['status_file'] == "Dikirim") : ?>
+                            <?php if ($t['status_file'] == "Disetujui") : ?>
                                 <td>&nbsp;&nbsp;</td>
                                 <td class="action" style="width:130px">
                                     <a href="<?= base_url('users/accpermintaanta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Terima</a>
