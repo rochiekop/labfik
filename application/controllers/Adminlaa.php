@@ -17,13 +17,12 @@ class Adminlaa extends CI_Controller
   {
     $guidance = $this->db->get('guidance')->result_array();
     $name = $this->adminlaa_model->getMhs();
-    // $file = $this->adminlaa_model->getFiles();
-    // getDiSetujuiAdminLaa($id)
+    $namea = $this->adminlaa_model->getMhs1();
     $data = array(
       'title'     => 'LABFIK | Pendaftaran TA',
       'guidance' => $guidance,
-      // 'file' => $file,
-      'mahasiswa' => $name
+      'mahasiswa' => $name,
+      'mahasiswa1' => $namea,
     );
     $this->load->view('templates/dashboard/headerAdminlaa', $data);
     $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
@@ -31,30 +30,6 @@ class Adminlaa extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-
-  public function deletependaftarta()
-  {
-    $id = $this->input->post('id');
-    $file = $this->input->post('file');
-    $path = "./assets/upload/thesis/" . $this->input->post('username') . "/";
-    if ($file) {
-      @unlink($path . $file);
-    }
-    $this->db->delete('guidance', ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir ditolak.</div>');
-    redirect('adminlaa/pendaftaranta');
-  }
-
-  public function terimapendaftaran($id)
-  {
-    $id = decrypt_url($id);
-    $data = [
-      "status" => 'Diterima',
-    ];
-    $this->db->update('guidance', $data, ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir diterima.</div>');
-    redirect('adminlaa/pendaftaranta');
-  }
 
 
   public function viewdetail($id)
@@ -74,7 +49,7 @@ class Adminlaa extends CI_Controller
       $this->load->view('templates/dashboard/footer');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
-      $id = $this->db->get_where('file_pendafataran', ['id' => $id])->row()->id;
+      $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
       redirect('adminlaa/viewdetail/' . encrypt_url($id));
     }
   }
@@ -96,7 +71,6 @@ class Adminlaa extends CI_Controller
         $data = [
           'status_file' => 'Disetujui Admin Laa',
         ];
-        // $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' diterima</div>');
 
@@ -121,7 +95,7 @@ class Adminlaa extends CI_Controller
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $nama . ' ditolak</div>');
-      redirect('adminlaa/viewdetail/' . encrypt_url($id));
+      redirect('adminlaa/viewdetail/' . encrypt_url($file['id_mhs']));
     }
   }
 }

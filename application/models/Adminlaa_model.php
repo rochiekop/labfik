@@ -22,12 +22,20 @@ class Adminlaa_model extends CI_Model
   }
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun,guidance.date,guidance.status_file,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Disetujui") AS diterima,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Ditolak") AS ditolak,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Update") AS updated');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun,guidance.date,guidance.status_file,(SELECT user.name from user where user.id = user.dosen_wali) AS dosen_wali,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Disetujui") AS diterima,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Ditolak") AS ditolak,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Update") AS updated');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
     $this->db->where('guidance.status_file', 'Disetujui wali');
+    $this->db->or_where('guidance.status_file', 'Disetujui Adminlaa');
     $this->db->group_by('file_pendaftaran.id_mhs');
+    return $this->db->get()->result_array();
+  }
+
+  public function getMhs1()
+  {
+    $this->db->select('(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Disetujui" GROUP BY id_mhs) AS diterima,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Ditolak") AS ditolak,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Update") AS updated');
+    $this->db->from('file_pendaftaran');
     return $this->db->get()->result_array();
   }
 
@@ -36,6 +44,7 @@ class Adminlaa_model extends CI_Model
     $this->db->select('file_pendaftaran.id,file_pendaftaran.id_mhs,file_pendaftaran.nama,file_pendaftaran.file,user.username,file_pendaftaran.status_adminlaa,file_pendaftaran.komentar');
     $this->db->from('file_pendaftaran');
     $this->db->join('user', 'user.id = file_pendaftaran.id_mhs');
+    $this->db->where('id_mhs', $id);
     return $this->db->get()->result_array();
   }
 

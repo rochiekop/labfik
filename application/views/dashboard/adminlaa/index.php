@@ -69,7 +69,6 @@
         </table>
       </table>
     </div>
-    <!-- <?php var_dump($mahasiswa) ?> -->
   </main>
   <!-- End Main Container -->
 

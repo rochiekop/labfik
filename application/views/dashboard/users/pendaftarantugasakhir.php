@@ -11,11 +11,10 @@
     <?php endif; ?>
     <?php if (empty($cek)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
-    <?php else : ?>
+    <?php elseif ($statusfile != "Disetujui adminlaa") : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
-    <br>
-    <br>
+    <br><br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
         <center>
@@ -59,6 +58,7 @@
                       <td></td>
                       <td></td>
                     <?php endif; ?>
+                    <!-- For Adminlaa -->
                   <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui adminlaa") : ?>
                     <?php if ($k['status_adminlaa'] == 'Ditolak') :  ?>
                       <td></td>

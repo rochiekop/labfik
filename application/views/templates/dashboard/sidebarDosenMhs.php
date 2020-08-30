@@ -4,7 +4,9 @@ $query = "SELECT *
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
 $sql = "SELECT * FROM dosbing JOIN guidance ON dosbing.id_guidance = guidance.id WHERE guidance.id_mhs = ? AND dosbing.status = ?";
+$profile = "SELECT * FROM user WHERE id = ? ";
 $dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetujui'))->result_array();
+$profile = $this->db->query($profile, array($this->session->userdata('id')))->row_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2020 at 09:48 PM
+-- Generation Time: Aug 30, 2020 at 03:51 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -42,7 +42,8 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 (2, 'Kepala Urusan'),
 (3, 'Dosen'),
 (4, 'Mahasiswa'),
-(5, 'Admin LAA');
+(5, 'Admin LAA'),
+(6, 'Koordinator TA');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +63,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

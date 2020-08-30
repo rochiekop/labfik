@@ -145,25 +145,6 @@ class Users extends CI_Controller
     }
   }
 
-  public function editjudulta()
-  {
-    $title = $this->user_model->cektitle();
-
-    if (!empty($title)) {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, silakan cari judul lain.</div>');
-      redirect('users/pendaftarantugasakhir');
-    } else {
-      $data = array(
-        'judul' => $this->input->post('title'),
-        'peminatan' => $this->input->post('peminatan'),
-        'dosen_wali' => $this->input->post('dosenwali'),
-      );
-      $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
-      redirect('users/pendaftarantugasakhir');
-    }
-  }
-
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -176,11 +157,17 @@ class Users extends CI_Controller
       'statusfile' => $cek['status_file'],
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
     );
-    $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
-    $this->load->view('templates/dashboard/footer');
+
+    if ($mhs['no_telp'] != "" and $mhs['nim'] != "" and $mhs['dosen_wali'] != "" and $mhs['prodi'] != "" and $mhs['alamat'] != "") {
+      $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Untuk mengakses menu Pendaftaran Tugas Akhir, lengkapi profile terlebih dahulu.</div>');
+      redirect('auth/editprofilemhs');
+    }
   }
 
   public function deletepengajuandosbing()
