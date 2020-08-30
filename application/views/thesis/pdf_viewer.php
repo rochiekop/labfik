@@ -36,13 +36,16 @@
                     <div class="box-tools pull-right"></div>
                 </div>
                 <div class="card-body" >
-                    <form action="<?= base_url('thesis')?>" method="post">
+                    <!-- <form action="<?= base_url('thesis')?>" method="post">
                         <input type="text" name="thesis_id" id="thesis_id" value="<?= $thesis_id ?>" hidden >
                         <input type="text" name="pdf_file" id="pdf_file" value="<?= $pdf_file ?>" hidden >
                         <input type="text" name="username" id="username" value="<?= $file->username ?>" hidden >
                         <textarea name="correction" id="correction" class="form-control" cols="30" rows="10"><?= $correction ?></textarea>
-                    </form>
+                    </form> -->
                     <!-- <p id="content"></p> -->
+
+                    <textarea name="correction_dosen1" id="correction_dosen1" class="form-control" cols="30" rows="10"><?= $correction_dosen1 ?></textarea>
+                    <textarea name="correction_dosen2" id="correction_dosen2" class="form-control" cols="30" rows="10"><?= $correction_dosen2 ?></textarea>
                 </div>
             </div>
         </div>
