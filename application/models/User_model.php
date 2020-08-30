@@ -229,8 +229,8 @@ class User_model extends CI_Model
 		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
 		$this->db->group_start();
-			$this->db->where("role_id", "3");
-			$this->db->or_where("role_id", "4");
+		$this->db->where("role_id", "3");
+		$this->db->or_where("role_id", "4");
 		$this->db->group_end();
 		$this->db->where("is_active", "1");
 		$query = $this->db->get();
@@ -338,11 +338,32 @@ class User_model extends CI_Model
 		return count($this->db->get()->result_array());
 	}
 
+	public function cekstatuskoor($id)
+	{
+		$this->db->select('status_doswal');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('id_mhs', $id);
+		$this->db->where('status_doswal', "Disetujui koor");
+		return count($this->db->get()->result_array());
+	}
+
 	public function getpermintaanta()
 	{
-		$this->db->select('guidance.*, user.name, user.nim, user.prodi');
+		$this->db->select('user.name,
+		user.nim,
+		user.prodi,
+		user.id,
+		guidance.peminatan,
+		user.no_telp,
+		guidance.tahun,
+		guidance.date,
+		guidance.status_file,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Disetujui wali") AS diterima,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Ditolak wali") AS ditolak,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Update file") AS updated');
 		$this->db->from('guidance');
-		$this->db->join('user', 'guidance.id_mhs = user.id');
+		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
 		$this->db->order_by('guidance.id', 'desc');
 		$this->db->group_by('user.id');
 		return $this->db->get()->result_array();
@@ -358,6 +379,16 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getfilekoor($id)
+	{
+		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
+		$this->db->from('file_pendaftaran');
+		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
+		$this->db->where('id_mhs', $id);
+		$this->db->where('file_pendaftaran.nama', 'Surat Pernyataan TA');
+		$this->db->order_by('file_pendaftaran.id', 'desc');
+		return $this->db->get()->result_array();
+	}
 	public function getMhsbyId($id)
 	{
 		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun');

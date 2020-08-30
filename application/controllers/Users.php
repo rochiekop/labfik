@@ -469,16 +469,25 @@ class Users extends CI_Controller
         @unlink($path . $oldfile);
         $file = $this->upload->data();
         $status = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row()->status_file;
+        $status1 = $this->db->get_where('file_pendaftaran', ['status_doswal' => 'Ditolak koor'])->row();
         if ($status == "") {
           $status = "status_doswal";
         } else {
           $status = "status_adminlaa";
         }
-        $data = [
-          "file" => $file['file_name'],
-          $status => "Update",
-          "date_edit" => date('d-m-Y')
-        ];
+        if ($status1) {
+          $data = [
+            "file" => $file['file_name'],
+            $status => "Update",
+            "date_edit" => date('d-m-Y')
+          ];
+        } else {
+          $data = [
+            "file" => $file['file_name'],
+            $status => "Update file",
+            "date_edit" => date('d-m-Y')
+          ];
+        }
         $this->db->update('file_pendaftaran', $data, ['id' => $id]);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Dokumen ' . $this->input->post('nama') . ' berhasil diupdate</div>');
         redirect('users/pendaftarantugasakhir');
@@ -499,5 +508,66 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/accpermintaanta', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+
+  public function viewdetail($id)
+  {
+    $pta = $this->user_model->getfilekoor($id);
+    $mhs = $this->user_model->getMhsbyId($id);
+    $data = array(
+      'title'  =>  'File Pendaftaran: ',
+      'pta'    =>  $pta,
+      'mhs'    =>  $mhs
+    );
+    $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    $this->load->view('dashboard/users/viewdetail', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function acckoorta($id)
+  {
+    $id = decrypt_url($id);
+    $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($file) {
+      $data = array(
+        'status_doswal' => 'Disetujui koor'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $cekstatus = $this->user_model->cekstatus($file['id_mhs']);
+
+      if ($cekstatus == 5) {
+        $data = [
+          'status_file' => 'Disetujui koor',
+        ];
+        $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
+      }
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    }
+  }
+
+  public function tolakpermintaankoor($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $data = array(
+        'status_doswal' => 'Ditolak koor'
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    }
   }
 }

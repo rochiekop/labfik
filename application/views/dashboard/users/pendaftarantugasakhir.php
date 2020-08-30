@@ -40,15 +40,23 @@
                 <tr>
                   <!-- For Dosen Wali -->
                   <td><?= $k['nama'] ?></td>
-                  <?php if ($statusfile == "Menunggu persetujuan") : ?>
-                    <?php if ($k['status_doswal'] == 'Ditolak') :  ?>
-                      <td></td>
+                  <?php if ($statusfile == "Disetujui koor" or $statusfile == "Dikirim") : ?>
+                    <?php if ($k['status_doswal'] == 'Ditolak wali') :  ?>
+                      <td>Ditolak wali dosen</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
-                    <?php elseif ($k['status_doswal'] == 'Disetujui' or $k['status_doswal'] == 'Dikirim') : ?>
+                    <?php elseif ($k['status_doswal'] == 'Ditolak koor') :  ?>
+                      <td>Ditolak Koordinator KK</td>
+                      <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php elseif ($k['status_doswal'] == 'Disetujui wali' or $k['status_doswal'] == 'Dikirim' or $k['status_doswal'] == 'Disetujui koor') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
                       <td></td>
+                    <?php elseif ($k['status_doswal'] == 'Update file') : ?>
+                      <td><?= $k['status_doswal'] ?></td>
+                      <td></td>
+                      <td><?= $k['komentar'] ?></td>
                     <?php elseif ($k['status_doswal'] == 'Update') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
