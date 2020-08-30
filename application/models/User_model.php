@@ -205,8 +205,7 @@ class User_model extends CI_Model
 	{
 		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
-		$this->db->where('role_id', '3');
-		$this->db->where('koordinator_ta', '1');
+		$this->db->where('role_id', '6');
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result;
