@@ -94,7 +94,7 @@ class Users extends CI_Controller
         'peminatan' => $this->input->post('peminatan'),
         'tahun' => date('Y'),
         'status_file' => "Dikirim",
-        'date' => date("d/m/Y")
+        'date' => date("d-m-Y")
       ];
       $this->db->insert('guidance', $data);
 
@@ -145,25 +145,6 @@ class Users extends CI_Controller
     }
   }
 
-  public function editjudulta()
-  {
-    $title = $this->user_model->cektitle();
-
-    if (!empty($title)) {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Judul "' . $this->input->post('title') . '" sudah digunakan, silakan cari judul lain.</div>');
-      redirect('users/pendaftarantugasakhir');
-    } else {
-      $data = array(
-        'judul' => $this->input->post('title'),
-        'peminatan' => $this->input->post('peminatan'),
-        'dosen_wali' => $this->input->post('dosenwali'),
-      );
-      $this->db->update('guidance', $data, ['id' => $this->input->post('id')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
-      redirect('users/pendaftarantugasakhir');
-    }
-  }
-
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -176,11 +157,17 @@ class Users extends CI_Controller
       'statusfile' => $cek['status_file'],
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
     );
-    $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
-    $this->load->view('templates/dashboard/footer');
+
+    if ($mhs['no_telp'] != "" and $mhs['nim'] != "" and $mhs['dosen_wali'] != "" and $mhs['prodi'] != "" and $mhs['alamat'] != "") {
+      $this->form_validation->set_rules('dosbing', 'Dosen Pembimbing', 'required|trim');
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/pendaftarantugasakhir', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Untuk mengakses menu Pendaftaran Tugas Akhir, lengkapi profile terlebih dahulu.</div>');
+      redirect('auth/editprofilemhs');
+    }
   }
 
   public function deletepengajuandosbing()
@@ -226,23 +213,6 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-  public function accpermintaanta($id)
-  {
-    $id = decrypt_url($id);
-    $data = $this->db->get_where('guidance', ['id' => $id])->row_array();
-    if ($data) {
-      $data = array(
-        'status_file' => 'Disetujui wali'
-      );
-      $this->db->update('guidance', $data, ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
-      redirect('users/permintaanTA');
-    } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
-      redirect('users/permintaanTA');
-    }
-  }
-
   public function daftarfile($id)
   {
     $pta = $this->user_model->getfile($id);
@@ -281,12 +251,20 @@ class Users extends CI_Controller
   public function accta($id)
   {
     $id = decrypt_url($id);
-    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
-    if ($data) {
+    $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($file) {
       $data = array(
         'status_doswal' => 'Disetujui wali'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $cekstatus = $this->user_model->cekstatus($file['id_mhs']);
+
+      if ($cekstatus == 5) {
+        $data = [
+          'status_file' => 'Disetujui wali',
+        ];
+        $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
+      }
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('users/daftarfile/' . $data1);
@@ -303,7 +281,7 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status_doswal' => 'Ditolak'
+        'status_doswal' => 'Ditolak wali'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');

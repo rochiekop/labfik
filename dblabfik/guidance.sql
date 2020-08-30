@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2020 at 08:58 AM
+-- Generation Time: Aug 30, 2020 at 03:49 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -48,7 +48,8 @@ CREATE TABLE `guidance` (
 
 INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`) VALUES
 ('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020'),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui adminlaa', '28/08/2020');
+('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui wali', '28/08/2020'),
+('5f4a4c07f3949', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul Dua', 'Judul Tiga', '', '', 'Advertising', '2020', 'Disetujui wali', '29/08/2020');
 
 --
 -- Indexes for dumped tables

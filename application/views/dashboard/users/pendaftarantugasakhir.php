@@ -6,15 +6,14 @@
     </div>
     <?= $this->session->flashdata('message'); ?>
     <?php if ($statusfile == null) : ?>
-    <?php elseif ($statusfile == "Disetujui adminlaa") : ?>
+    <?php elseif ($statusfile == "Disetujui Adminlaa") : ?>
       <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="<?= base_url('Chat/getAllKoordinatorTA') ?>" class="btn btn-primary btn-sm" style="margin-top:6px;">Hubungi Koordinator TA</a> </div>
-    <?php endif; ?>
-    <?php if (empty($cek)) : ?>
-      <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php else : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
-    <br>
+    <?php if (empty($cek)) : ?>
+      <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
+    <?php endif; ?>
     <br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
@@ -59,7 +58,8 @@
                       <td></td>
                       <td></td>
                     <?php endif; ?>
-                  <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui adminlaa") : ?>
+                    <!-- For Adminlaa -->
+                  <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui Adminlaa") : ?>
                     <?php if ($k['status_adminlaa'] == 'Ditolak') :  ?>
                       <td></td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>

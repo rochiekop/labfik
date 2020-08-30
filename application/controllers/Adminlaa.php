@@ -15,46 +15,35 @@ class Adminlaa extends CI_Controller
 
   public function index()
   {
-    $guidance = $this->db->get('guidance')->result_array();
+    $data['guidance'] = $this->db->get('guidance')->result_array();
     $name = $this->adminlaa_model->getMhs();
-    // $file = $this->adminlaa_model->getFiles();
-    // getDiSetujuiAdminLaa($id)
-    $data = array(
-      'title'     => 'LABFIK | Pendaftaran TA',
-      'guidance' => $guidance,
-      // 'file' => $file,
-      'mahasiswa' => $name
-    );
+    $data['title'] = 'LABFIK | Pendaftaran TA';
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'no_telp' => $u['no_telp'],
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->adminlaa_model->countStatus($u['id'], 'Disetujui'),
+          'ditolak' => $this->adminlaa_model->countStatus($u['id'], 'Ditolak'),
+          'updated' => $this->adminlaa_model->countStatus($u['id'], 'Update'),
+        ];
+    }
+    $data['mahasiswa'] = $userslist;
+
     $this->load->view('templates/dashboard/headerAdminlaa', $data);
     $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
     $this->load->view('dashboard/adminlaa/index', $data);
     $this->load->view('templates/dashboard/footer');
   }
 
-
-  public function deletependaftarta()
-  {
-    $id = $this->input->post('id');
-    $file = $this->input->post('file');
-    $path = "./assets/upload/thesis/" . $this->input->post('username') . "/";
-    if ($file) {
-      @unlink($path . $file);
-    }
-    $this->db->delete('guidance', ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir ditolak.</div>');
-    redirect('adminlaa/pendaftaranta');
-  }
-
-  public function terimapendaftaran($id)
-  {
-    $id = decrypt_url($id);
-    $data = [
-      "status" => 'Diterima',
-    ];
-    $this->db->update('guidance', $data, ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir diterima.</div>');
-    redirect('adminlaa/pendaftaranta');
-  }
 
 
   public function viewdetail($id)
@@ -74,7 +63,7 @@ class Adminlaa extends CI_Controller
       $this->load->view('templates/dashboard/footer');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
-      $id = $this->db->get_where('file_pendafataran', ['id' => $id])->row()->id;
+      $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
       redirect('adminlaa/viewdetail/' . encrypt_url($id));
     }
   }
@@ -91,14 +80,13 @@ class Adminlaa extends CI_Controller
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $cekstatus = $this->adminlaa_model->cekstatus($file['id_mhs']);
-
       if ($cekstatus == 5) {
         $data = [
-          'status_file' => 'Disetujui Admin Laa',
+          'status_file' => 'Disetujui Adminlaa',
         ];
-        // $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' diterima</div>');
+      $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' disetujui</div>');
 
       redirect(base_url('adminlaa/viewdetail/' . encrypt_url($file['id_mhs'])));
     } else {
@@ -121,7 +109,7 @@ class Adminlaa extends CI_Controller
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $nama . ' ditolak</div>');
-      redirect('adminlaa/viewdetail/' . encrypt_url($id));
+      redirect('adminlaa/viewdetail/' . encrypt_url($file['id_mhs']));
     }
   }
 }

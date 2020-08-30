@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2020 at 08:58 AM
+-- Generation Time: Aug 30, 2020 at 03:49 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -47,9 +47,14 @@ CREATE TABLE `file_pendaftaran` (
 INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
 ('5f48af170781e', '44', 'KSM', 'mockup_KP.pdf', 'Disetujui', '', '', '28-08-2020', '28-08-2020'),
 ('5f48af170a405', '44', 'Surat Pernyataan TA', '43967_A_Drunkard’s_Walk.pdf', 'Disetujui', '', '', '28-08-2020', ''),
-('5f48af170bc38', '44', 'Sertifikat EPRT', 'as_pdf1.pdf', 'Disetujui', '', '', '28-08-2020', '28-08-2020'),
+('5f48af170bc38', '44', 'Sertifikat EPRT', 'as_pdf1.pdf', 'Ditolak', '', 'Test dulu', '28-08-2020', '28-08-2020'),
 ('5f48af170d477', '44', 'Sertifikat TAK', 'as_pdf.pdf', 'Disetujui', '', '', '28-08-2020', ''),
-('5f48af171022d', '44', 'Persetujuan Daftar TA', 'PrecipitFX.pdf', 'Disetujui', '', '', '28-08-2020', '');
+('5f48af171022d', '44', 'Persetujuan Daftar TA', 'PrecipitFX.pdf', 'Disetujui', '', '', '28-08-2020', ''),
+('5f4a4c0803770', '5f4a4b0ee4b42', 'KSM', 'PrecipitFX.pdf', 'Ditolak', '', 'Tes', '29-08-2020', ''),
+('5f4a4c080bcec', '5f4a4b0ee4b42', 'Surat Pernyataan TA', 'mockup_KP.pdf', 'Dikirim', '', '', '29-08-2020', ''),
+('5f4a4c080f91f', '5f4a4b0ee4b42', 'Sertifikat EPRT', 'Surat_Tugas_Asdos_Semester_Genap_TA_2019-2020.pdf', 'Dikirim', '', '', '29-08-2020', ''),
+('5f4a4c0811ed1', '5f4a4b0ee4b42', 'Sertifikat TAK', 'Algo_GP.pdf', 'Ditolak', '', 'Ditolak kedua', '29-08-2020', ''),
+('5f4a4c0815a74', '5f4a4b0ee4b42', 'Persetujuan Daftar TA', '737Immersion.pdf', 'Dikirim', '', '', '29-08-2020', '');
 
 --
 -- Indexes for dumped tables

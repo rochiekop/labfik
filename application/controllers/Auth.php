@@ -257,6 +257,8 @@ class Auth extends CI_Controller
       redirect('users/main');
     } elseif ($set == 5) {
       redirect('adminlaa');
+    } elseif ($set = 5) {
+      redirect('koordinator_ta');
     } else {
       redirect('auth');
     }

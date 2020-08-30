@@ -50,7 +50,13 @@
           <li><a href="<?= base_url('main/lab'); ?>">Lab</a></li>
           <li><a href="<?= base_url('news'); ?>">News</a></li>
           <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
-          <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
+          <?php if ($this->session->userdata('role_id') == 5) : ?>
+            <li><a href="<?= base_url('main/peminjaman'); ?>">Pendaftaran TA</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 6) : ?>
+            <li><a href="<?= base_url('main/peminjaman'); ?>">Management TA</a></li>
+          <?php else : ?>
+            <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
+          <?php endif; ?>
           <li><a href="<?= base_url('unit'); ?>">Unit Jasa</a></li>
         </ul>
         <ul class="right">

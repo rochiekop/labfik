@@ -308,13 +308,34 @@ class User_model extends CI_Model
 
 	public function getpermintaan()
 	{
-		$this->db->select('guidance.*, user.name, user.nim, user.prodi');
+		$this->db->select('user.name,
+		user.nim,
+		user.prodi,
+		user.id,
+		guidance.peminatan,
+		user.no_telp,
+		guidance.tahun,
+		guidance.date,
+		guidance.status_file,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Disetujui wali") AS diterima,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Ditolak wali") AS ditolak,
+		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Update file") AS updated');
 		$this->db->from('guidance');
-		$this->db->join('user', 'guidance.id_mhs = user.id');
-		$this->db->order_by('guidance.id', 'desc');
+		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
 		$this->db->where('user.dosen_wali', $this->session->userdata('id'));
+		$this->db->order_by('guidance.id', 'desc');
 		$this->db->group_by('user.id');
 		return $this->db->get()->result_array();
+	}
+
+	public function cekstatus($id)
+	{
+		$this->db->select('status_doswal');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('id_mhs', $id);
+		$this->db->where('status_doswal', "Disetujui wali");
+		return count($this->db->get()->result_array());
 	}
 
 	public function getpermintaanta()
