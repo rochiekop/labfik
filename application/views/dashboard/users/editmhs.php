@@ -42,20 +42,22 @@
                                 <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
                                 <label>Prodi</label>
                             </div>
-                            <select name="dosenwali" required class="form-control" style="margin-bottom: 15px;">
-                                <option value="">Pilih Dosen Wali</option>
-                                <?php foreach ($dosen as $doswal) { ?>
-                                    <?php if ($user['dosen_wali'] == $doswal['id']) : ?>
-                                        <option value="<?= $doswal['id'] ?>" selected>
-                                            <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
-                                        </option>
-                                    <?php else : ?>
-                                        <option value="<?= $doswal['id'] ?>">
-                                            <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
-                                        </option>
-                                    <?php endif; ?>
-                                <?php } ?>
-                            </select>
+                            <div class="form-group">
+                                <select name="dosenwali" required class="form-control" style="margin-bottom: 15px;">
+                                    <option value="">Pilih Dosen Wali</option>
+                                    <?php foreach ($dosen as $doswal) { ?>
+                                        <?php if ($user['dosen_wali'] == $doswal['id']) : ?>
+                                            <option value="<?= $doswal['id'] ?>" selected>
+                                                <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
+                                            </option>
+                                        <?php else : ?>
+                                            <option value="<?= $doswal['id'] ?>">
+                                                <?= $doswal['kode_dosen'] . ' - ' . $doswal['name'] ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php } ?>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="alamat" value="<?= $user['alamat'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
                                 <label>Alamat</label>
