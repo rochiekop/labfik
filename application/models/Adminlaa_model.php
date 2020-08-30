@@ -22,7 +22,7 @@ class Adminlaa_model extends CI_Model
   }
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun,guidance.date,guidance.status_file,(SELECT user.name from user where user.id = user.dosen_wali) AS dosen_wali,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Disetujui") AS diterima,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Ditolak") AS ditolak,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Update") AS updated');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -32,12 +32,22 @@ class Adminlaa_model extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  public function getMhs1()
+  public function countStatus($id_mhs, $status)
   {
-    $this->db->select('(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Disetujui" GROUP BY id_mhs) AS diterima,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Ditolak") AS ditolak,(SELECT count(status_adminlaa) from file_pendaftaran where status_adminlaa = "Update") AS updated');
+    $this->db->select('id');
     $this->db->from('file_pendaftaran');
-    return $this->db->get()->result_array();
+    $this->db->where('id_mhs', $id_mhs);
+    $this->db->where('status_adminlaa', $status); // Disetujui, Ditolak
+    return count($this->db->get()->result_array());
   }
+  public function getDosenWali($dosen_wali)
+  {
+    $this->db->select('name');
+    $this->db->from('user');
+    $this->db->where('id', $dosen_wali);
+    return $this->db->get()->row();
+  }
+
 
   public function getFiles($id)
   {

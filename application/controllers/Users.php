@@ -94,7 +94,7 @@ class Users extends CI_Controller
         'peminatan' => $this->input->post('peminatan'),
         'tahun' => date('Y'),
         'status_file' => "Dikirim",
-        'date' => date("d/m/Y")
+        'date' => date("d-m-Y")
       ];
       $this->db->insert('guidance', $data);
 
