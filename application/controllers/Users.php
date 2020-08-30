@@ -213,23 +213,6 @@ class Users extends CI_Controller
     $this->load->view('templates/dashboard/footer');
   }
 
-  public function accpermintaanta($id)
-  {
-    $id = decrypt_url($id);
-    $data = $this->db->get_where('guidance', ['id' => $id])->row_array();
-    if ($data) {
-      $data = array(
-        'status_file' => 'Disetujui wali'
-      );
-      $this->db->update('guidance', $data, ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
-      redirect('users/permintaanTA');
-    } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
-      redirect('users/permintaanTA');
-    }
-  }
-
   public function daftarfile($id)
   {
     $pta = $this->user_model->getfile($id);
@@ -268,12 +251,20 @@ class Users extends CI_Controller
   public function accta($id)
   {
     $id = decrypt_url($id);
-    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
-    if ($data) {
+    $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($file) {
       $data = array(
         'status_doswal' => 'Disetujui wali'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $cekstatus = $this->user_model->cekstatus($file['id_mhs']);
+
+      if ($cekstatus == 5) {
+        $data = [
+          'status_file' => 'Disetujui wali',
+        ];
+        $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
+      }
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta disetujui</div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('users/daftarfile/' . $data1);
@@ -290,7 +281,7 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status_doswal' => 'Ditolak'
+        'status_doswal' => 'Ditolak wali'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
