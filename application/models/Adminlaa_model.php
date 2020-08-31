@@ -40,6 +40,7 @@ class Adminlaa_model extends CI_Model
     $this->db->where('status_adminlaa', $status); // Disetujui, Ditolak
     return count($this->db->get()->result_array());
   }
+
   public function getDosenWali($dosen_wali)
   {
     $this->db->select('name');

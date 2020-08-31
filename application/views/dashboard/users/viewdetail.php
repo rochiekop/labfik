@@ -89,7 +89,7 @@
     <div class="modal fade" id="komen<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="<?= base_url('users/tambah_aksi/') . encrypt_url($t['id']); ?>" method="post">
+                <form action="<?= base_url('users/komentarta/') . encrypt_url($t['id']); ?>" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Beri Komentar disini</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
