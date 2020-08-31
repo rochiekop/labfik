@@ -17,9 +17,22 @@ class Koordinator_ta extends CI_Controller
 
   public function index()
   {
-    $data = array(
-      'title' => "Laboratotium FIK | Kuota Dosen Tugas Akhir",
-    );
+    $getDosen = $this->koordinatorta_model->getDosen();
+    $data['title'] =  "Laboratotium FIK | Kuota Dosen Tugas Akhir";
+    $userslist = [];
+    foreach ($getDosen as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+    $data['dosen'] = $userslist;
+
     $this->load->view("templates/dashboard/headerKoorTa", $data);
     $this->load->view("templates/dashboard/sidebarKoorTa");
     $this->load->view("dashboard/koorta/index", $data);
@@ -28,10 +41,25 @@ class Koordinator_ta extends CI_Controller
 
   public function pengajuan()
   {
-    $mhs = $this->koordinatorta_model->getMhs();
     $data['title'] = "Laboratotium FIK | Pengajuan Tugas Akhir";
     $data['lecturer'] = $this->koordinatorta_model->getThesisLecturer();
+    $mhs = $this->koordinatorta_model->getMhs();
+    $getDosen = $this->koordinatorta_model->getDosen();
 
+    $userslist = [];
+    foreach ($getDosen as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'prodi' => $u['prodi'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+    $data['dosen'] = $userslist;
     $userslist = [];
     foreach ($mhs as $u) {
       $userslist[] =
@@ -75,5 +103,63 @@ class Koordinator_ta extends CI_Controller
     $this->load->view("templates/dashboard/sidebarKoorTa");
     $this->load->view("dashboard/koorta/sidang", $data);
     $this->load->view("templates/dashboard/footer");
+  }
+
+  public function insertKuotaPembimbing()
+  {
+    $id  = $this->input->post('id_dosen');
+    $kbimbingan  = $this->input->post('kbimbingan');
+    $cek = $this->db->get_where('user', ['id' => $id])->row_array();
+    if ($cek['kuota_bimbingan'] != $kbimbingan) {
+      $data = [
+        'kuota_bimbingan' => $kbimbingan
+      ];
+      $this->db->update('user', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' berhasil ditambahkan menjadi ' . $kbimbingan . ' Mahasiswa.</div>');
+      redirect('koordinator_ta');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' sekarang sudah ' . $kbimbingan . ' Mahasiswa.</div>');
+      redirect('koordinator_ta');
+    }
+  }
+
+  public function insertKuotaPenguji()
+  {
+    $id  = $this->input->post('id_dosen');
+    $kpenguji  = $this->input->post('kpenguji');
+    $cek = $this->db->get_where('user', ['id' => $id])->row_array();
+    if ($cek['kuota_bimbingan'] != $kpenguji) {
+      $data = [
+        'kuota_penguji' => $kpenguji
+      ];
+      $this->db->update('user', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kuota penguji untuk dosen ' . $cek['name'] . ' berhasil ditambahkan menjadi ' . $kpenguji . ' Mahasiswa.</div>');
+      redirect('koordinator_ta');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' sekarang sudah ' . $kpenguji . ' Mahasiswa.</div>');
+      redirect('koordinator_ta');
+    }
+  }
+
+  public function addDosenPembimbing()
+  {
+    $dosbing1 = $this->input->post('dosbing1');
+    $dosbing2 = $this->input->post('dosbing2');
+    $idguidance = $this->input->post('id_guidance');
+    if ($dosbing1 == $dosbing2) {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Mohon untuk memilih dosen pembimbing yang berbeda</div>');
+      redirect('koordinator_ta/pengajuan');
+    } else {
+      $data = [
+        'id' => uniqid(),
+        'id_guidance' => $idguidance,
+        'dosen_pembimbing1' => $dosbing1,
+        'dosen_pembimbing2' => $dosbing2,
+        'date' => date('m-d-Y H:i:s'),
+      ];
+      $this->db->insert('thesis_lecturers', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $dosbing1 . ' dan ' . $dosbing2 . ' berhasil ditambahakan sebagai dosen pembimbing</div>');
+      redirect('koordinator_ta/pengajuan');
+    }
   }
 }

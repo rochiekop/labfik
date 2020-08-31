@@ -26,7 +26,7 @@ class Kategori_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('kategori');
-        $this->db->order_by('id_kategori', 'desc');
+        $this->db->order_by('id_kategori', 'asc');
         $query = $this->db->get();
         return $query->result();
     }

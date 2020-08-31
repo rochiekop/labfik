@@ -6,14 +6,17 @@
     </div>
     <?= $this->session->flashdata('message'); ?>
     <?php if ($statusfile == null) : ?>
-    <?php elseif ($statusfile == "Disetujui Adminlaa") : ?>
+    <?php elseif ($statusfile == "Disetujui Adminlaa" and empty($thesis_lecturers)) : ?>
       <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="<?= base_url('Chat/getAllKoordinatorTA') ?>" class="btn btn-primary btn-sm" style="margin-top:6px;">Hubungi Koordinator TA</a> </div>
-    <?php else : ?>
-      <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
+    <?php elseif (!empty($thesis_lecturers)) : ?>
+      <div class="alert alert-success">Koordinator TA telah menambahkan dosen pembimbing 1 dan dosen pembimbing 2 sebagai pembimbing tugas akhir anda,<br> <a href="<?= base_url('users/bimbingantugasakhir') ?>" class="btn btn-success btn-sm" style="margin-top:6px;">Mulai Bimbingan</a> </div>
     <?php endif; ?>
     <?php if (empty($cek)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
+    <?php elseif ($statusfile != "Disetujui Adminlaa") : ?>
+      <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
+
     <br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
@@ -28,8 +31,12 @@
             <tr>
               <th scope="col">Pendaftaran</th>
               <th scope="col">Status</th>
-              <th scope="col" style="width:120px">Aksi</th>
-              <th scope="col" style="width:35%;">Keterangan & Status</th>
+              <?php if ($statusfile == "Disetujui Adminlaa") : ?>
+                <th scope="col" style="width:120px">Lihat</th>
+              <?php else : ?>
+                <th scope="col" style="width:120px">Aksi</th>
+                <th scope="col" style="width:35%;">Komentar</th>
+              <?php endif; ?>
             </tr>
           </thead>
           <tbody>
@@ -40,15 +47,23 @@
                 <tr>
                   <!-- For Dosen Wali -->
                   <td><?= $k['nama'] ?></td>
-                  <?php if ($statusfile == "Menunggu persetujuan") : ?>
-                    <?php if ($k['status_doswal'] == 'Ditolak') :  ?>
-                      <td></td>
+                  <?php if ($statusfile == "Disetujui koor" or $statusfile == "Dikirim") : ?>
+                    <?php if ($k['status_doswal'] == 'Ditolak wali') :  ?>
+                      <td>Ditolak wali dosen</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
-                    <?php elseif ($k['status_doswal'] == 'Disetujui' or $k['status_doswal'] == 'Dikirim') : ?>
+                    <?php elseif ($k['status_doswal'] == 'Ditolak koor') :  ?>
+                      <td>Ditolak Koordinator KK</td>
+                      <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
+                      <td><?= $k['komentar'] ?></td>
+                    <?php elseif ($k['status_doswal'] == 'Disetujui wali' or $k['status_doswal'] == 'Dikirim' or $k['status_doswal'] == 'Disetujui koor') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
                       <td></td>
+                    <?php elseif ($k['status_doswal'] == 'Update file') : ?>
+                      <td><?= $k['status_doswal'] ?></td>
+                      <td></td>
+                      <td><?= $k['komentar'] ?></td>
                     <?php elseif ($k['status_doswal'] == 'Update') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
@@ -61,11 +76,14 @@
                     <!-- For Adminlaa -->
                   <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui Adminlaa") : ?>
                     <?php if ($k['status_adminlaa'] == 'Ditolak') :  ?>
-                      <td></td>
+                      <td>Ditolak Admin Laa</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
                     <?php elseif ($k['status_adminlaa'] == 'Disetujui' or $k['status_adminlaa'] == 'Dikirim') : ?>
                       <td><?= $k['status_adminlaa'] ?></td>
+                      <?php if ($statusfile == "Disetujui Adminlaa") : ?>
+                        <td><a data-toggle="modal" data-target="#view<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Lihat</a></td>
+                      <?php endif; ?>
                       <td></td>
                       <td></td>
                     <?php elseif ($k['status_adminlaa'] == 'Update') : ?>
@@ -160,6 +178,26 @@
       </div>
     </div>
   </div>
+
+  <?php foreach ($file as $m) : ?>
+    <div class="modal fade bd-example-modal-lg" id="view<?= $m['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="exampleModalLabel"><?= $m['nama'] ?></h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <embed src="<?= base_url('assets/upload/thesis/') . $m['username'] . '/' . $m['file'] ?>" width="100%" height="650px" type="application/pdf">
+            </embed>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+
 
   <?php foreach ($file as $f) : ?>
     <div class="modal fade" id="upload<?= $f['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

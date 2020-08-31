@@ -583,7 +583,7 @@ a:not([href]):hover {
 	top: -22px;
 	width: 20px;
 	border: 10px solid transparent;
-	border-bottom: 12px solid #FB8C00
+	border-bottom: 11px solid #FB8C00
 }
 
 .dropdown-menu .dropdown-item.regisdropdown {
@@ -591,7 +591,6 @@ a:not([href]):hover {
 	padding: 1px;
 	width: 100px
 }
-
 
 .dropdown-menu .dropdown-item.regisdropdown::after {
 	content: ' ';
@@ -1646,7 +1645,7 @@ a:not([href]):hover {
 	z-index: 1;
 	top: 0;
 	right: 1px;
-	left: 20px;
+	left: 1px;
 	height: 100%
 }
 
@@ -2295,7 +2294,8 @@ a:not([href]):hover {
 	right: 20px;
 	bottom: 20px;
 	width: 50%;
-	border-radius: 6px
+	border-radius: 6px;
+	height: 312px !important
 }
 
 .fik-custom-table .table thead {
@@ -2469,12 +2469,6 @@ a:not([href]):hover {
 	display: none;
 }
 
-.fik-feed .feed-container .news {
-	float: left;
-	width: 33.333%;
-	padding: 10px;
-	display: none;
-}
 
 .fik-feed .feed-container .feed-item .card {
 	height: 100%;

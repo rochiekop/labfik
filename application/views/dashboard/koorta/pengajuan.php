@@ -1,6 +1,6 @@
   <!-- Main Container -->
   <main class="akun-container">
-
+    <?= $this->session->flashdata('message'); ?>
     <div class="fik-section-title2">
       <h4>Pengajuan Tugas Akhir</h4>
     </div>
@@ -79,26 +79,31 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="#">
+          <form action="<?= base_url('koordinator_ta/adddosenpembimbing') ?>" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group">
+                <input type="hidden" name="id_guidance" id="id_guidance" value="<?= $m['id'] ?>" placeholder="">
+              </div>
+              <div class="form-group">
                 <label for="dospeng">Masukkan Dosen Pembimbing 1</label>
-                <select class="form-control">
-                  <option>1 (3/5)</option>
-                  <option>2 (2/5)</option>
-                  <option disabled>3 (5/5)</option>
-                  <option>4 (1/5)</option>
-                  <option>5 (0/5)</option>
+                <select class="form-control" required name="dosbing1">
+                  <option value="">Dosen Pembimbing 1</option>
+                  <?php foreach ($dosen as $q) : ?>
+                    <?php if ($m['prodi'] == $q['prodi'] and $q['kuota_bimbingan'] > $q['count_bimbingan']) : ?>
+                      <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div class="form-group">
                 <label for="dospeng2">Masukkan Dosen Pembimbing 2</label>
-                <select class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <select class="form-control" required name="dosbing2">
+                  <option value="">Dosen Pembimbing 2</option>
+                  <?php foreach ($dosen as $q) : ?>
+                    <?php if ($m['prodi'] == $q['prodi'] and $q['kuota_bimbingan'] > $q['count_bimbingan']) : ?>
+                      <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <a href="<?= base_url('koordinator_ta'); ?>" class="btn btn-sm btn-secondary">Buat Kuota Dosen</a>

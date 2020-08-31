@@ -10,6 +10,7 @@ class Auth extends CI_Controller
     $this->load->library('form_validation');
     $this->load->model('auth_model');
     $this->load->model('user_model');
+    $this->load->model('kategori_model');
     // is_logged_in();
   }
 
@@ -253,7 +254,9 @@ class Auth extends CI_Controller
       redirect('admin');
     } elseif ($set == 2) {
       redirect('kaur');
-    } elseif ($set == 3 or $set == 4) {
+    } elseif ($set == 3) {
+      redirect('users/main');
+    } elseif ($set == 4) {
       redirect('users/main');
     } elseif ($set == 5) {
       redirect('adminlaa');
@@ -397,10 +400,13 @@ class Auth extends CI_Controller
   {
     $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
     $dosen = $this->user_model->getDosenWali();
+    $prodi = $this->kategori_model->listing_kat();
+
     $data = array(
       'title' => 'Edit Profile',
       'user'  => $user,
       'dosen'  => $dosen,
+      'prodi' => $prodi,
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
     $this->form_validation->set_rules('nohp', 'Nomor Handphone', 'required|trim|integer', [
@@ -462,7 +468,7 @@ class Auth extends CI_Controller
       $this->db->set('dosen_wali', '1');
       $this->db->where('id', $dosenwali);
       $this->db->update('user');
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile berasil diubah</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berasil diubah</div>');
       redirect('auth/editprofilemhs');
     }
   }
@@ -470,9 +476,11 @@ class Auth extends CI_Controller
   public function editprofiledsn()
   {
     $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    $prodi = $this->kategori_model->listing_kat();
     $data = array(
       'title' => 'Edit Profile',
-      'user'  => $user
+      'user'  => $user,
+      'prodi' => $prodi
     );
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
     $this->form_validation->set_rules(
@@ -527,7 +535,8 @@ class Auth extends CI_Controller
       $this->db->set('kode_dosen', $kodedosen);
       $this->db->where('email', $email);
       $this->db->update('user');
-      redirect('users/main');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berasil diubah</div>');
+      redirect('auth/editprofiledsn');
     }
   }
 

@@ -41,11 +41,19 @@
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
                             <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
-                            <?php if ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update file") : ?>
+                            <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim" or ($t['status_doswal'] == "Ditolak koor") or ($t['status_doswal'] == "Update")) : ?>
+                                <td></td>
+                                <td><b>Menunggu Persetujuan</b></td>
+                                <td></td>
+                            <?php elseif ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update file" or $t['status_doswal'] == "Disetujui koor") : ?>
                                 <td> <a href="<?= base_url('users/accta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Acc</a>
                                     <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                                 </td>
                                 <td></td>
+                                <td></td>
+                            <?php elseif ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim") : ?>
+                                <td></td>
+                                <td><b>Menunggu Persetujuan</b></td>
                                 <td></td>
                             <?php elseif ($t['status_doswal'] == "Disetujui wali") : ?>
                                 <td></td>

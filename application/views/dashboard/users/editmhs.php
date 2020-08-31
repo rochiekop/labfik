@@ -39,8 +39,20 @@
                                 <label>Email</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="Prodi" required="required" autocomplete="off" />
-                                <label>Prodi</label>
+                                <select name="prodi" required class="form-control" style="margin-bottom: 15px;">
+                                    <option value="">Pilih Program Studi</option>
+                                    <?php foreach ($prodi as $p) { ?>
+                                        <?php if ($user['prodi'] == $p->nama_kategori) : ?>
+                                            <option value="<?= $p->nama_kategori ?>" selected>
+                                                <?= $p->nama_kategori ?>
+                                            </option>
+                                        <?php else : ?>
+                                            <option value="<?= $p->nama_kategori ?>">
+                                                <?= $p->nama_kategori ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <select name="dosenwali" required class="form-control" style="margin-bottom: 15px;">

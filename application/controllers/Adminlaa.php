@@ -84,8 +84,8 @@ class Adminlaa extends CI_Controller
         $data = [
           'status_file' => 'Disetujui Adminlaa',
         ];
+        $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
-      $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' disetujui</div>');
 
       redirect(base_url('adminlaa/viewdetail/' . encrypt_url($file['id_mhs'])));

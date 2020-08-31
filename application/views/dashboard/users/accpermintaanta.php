@@ -31,7 +31,6 @@
                     <th scope="col">Peminatan</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,18 +41,19 @@
                     foreach ($pta as $t) : ?>
                         <tr>
                             <th scope="row"><?= ++$no ?></th>
-                            <td><a href="<?= base_url('users/daftarfile/') . $t['id_mhs']; ?>" class="btn badge badge-secondary">Detail</a></td>
+                            <td><a href="<?= base_url('users/viewdetail/') . $t['id']; ?>" class="btn badge badge-secondary">Detail</a></td>
                             <td><?= $t['name'] ?></td>
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>
                             <td><?= $t['peminatan'] ?></td>
                             <td><?= $t['tahun'] ?></td>
-                            <?php if ($t['status_file'] == "Disetujui") : ?>
-                                <td>&nbsp;&nbsp;</td>
-                                <td class="action" style="width:130px">
-                                    <a href="<?= base_url('users/accpermintaanta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Terima</a>
-                                </td>
-                            <?php elseif ($t['status_file'] == "Disetujui wali") : ?>
+                            <?php if ($t['status_file'] == "Dikirim" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
+                                <td>Menunggu Persetujuan</td>
+                            <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
+                                <td><?= $t['diterima'] ?> Disetujui wali, <?= $t['ditolak'] ?> Ditolak</td>
+                            <?php elseif ($t['updated'] != "0") : ?>
+                                <td><?= $t['updated'] ?> File baru</td>
+                            <?php else : ?>
                                 <td>Disetujui</td>
                             <?php endif; ?>
                         </tr>

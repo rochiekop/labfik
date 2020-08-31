@@ -11,6 +11,7 @@
 
     echo form_open_multipart(base_url('auth/editprofiledsn'), 'class="form-horizontal"');
     ?>
+    <?= $this->session->flashdata('message'); ?>
     <div class="fik-section-title2">
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
@@ -30,7 +31,7 @@
                                 <label>Nama</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nip" value="<?= $user['nip'] ?>" class="form-control" autocomplete="off" />
+                                <input type="text" name="nip" value="<?= $user['nip'] ?>" class="form-control" autocomplete="off" required />
                                 <label>NIP</label>
                             </div>
                             <div class="form-group">
@@ -42,8 +43,20 @@
                                 <label>Email</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="prodi" value="<?= $user['prodi'] ?>" class="form-control" placeholder="prodi" required="required" autocomplete="off" />
-                                <label>Prodi</label>
+                                <select name="prodi" required class="form-control" style="margin-bottom: 15px;">
+                                    <option value="">Pilih Program Studi</option>
+                                    <?php foreach ($prodi as $p) { ?>
+                                        <?php if ($user['prodi'] == $p->nama_kategori) : ?>
+                                            <option value="<?= $p->nama_kategori ?>" selected>
+                                                <?= $p->nama_kategori ?>
+                                            </option>
+                                        <?php else : ?>
+                                            <option value="<?= $p->nama_kategori ?>">
+                                                <?= $p->nama_kategori ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="alamat" value="<?= $user['alamat'] ?>" class="form-control" placeholder="alamat" required="required" autocomplete="off" />
