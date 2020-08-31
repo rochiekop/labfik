@@ -205,8 +205,7 @@ class User_model extends CI_Model
 	{
 		$this->db->select('id,name,is_active,status,images');
 		$this->db->from($this->User);
-		$this->db->where('role_id', '3');
-		$this->db->where('koordinator_ta', '1');
+		$this->db->where('role_id', '6');
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result;
@@ -465,7 +464,7 @@ class User_model extends CI_Model
 
 	public function getfilebimbinganbyid($id)
 	{
-		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan,thesis.correction');
+		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->where('thesis.id_guidance', $id);
