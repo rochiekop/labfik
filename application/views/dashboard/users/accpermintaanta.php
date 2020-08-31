@@ -28,7 +28,8 @@
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
-                    <th scope="col">Peminatan</th>
+                    <th scope="col">Konsentrasi</th>
+                    <th scope="col">Dosen Wali</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Status</th>
                 </tr>
@@ -46,11 +47,12 @@
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>
                             <td><?= $t['peminatan'] ?></td>
+                            <td><?= $t['dosen_wali'] ?></td>
                             <td><?= $t['tahun'] ?></td>
                             <?php if ($t['status_file'] == "Dikirim" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
                                 <td>Menunggu Persetujuan</td>
-                            <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
-                                <td><?= $t['diterima'] ?> Disetujui wali, <?= $t['ditolak'] ?> Ditolak</td>
+                            <?php elseif ($t['diterima'] != 1 and $t['updated'] == "0") : ?>
+                                <td>Ditolak</td>
                             <?php elseif ($t['updated'] != "0") : ?>
                                 <td><?= $t['updated'] ?> File baru</td>
                             <?php else : ?>

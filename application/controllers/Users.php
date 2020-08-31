@@ -227,8 +227,27 @@ class Users extends CI_Controller
 
   public function permintaanTA()
   {
-    $data['title'] = 'LABFIK | Daftar Permintaan TA';
-    $data['pta'] = $this->user_model->getpermintaan();
+    $data['guidance'] = $this->db->get('guidance')->result_array();
+    $name = $this->user_model->getpermintaan();
+    $data['title'] = 'LABFIK | Pendaftaran TA';
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'no_telp' => $u['no_telp'],
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui wali'),
+          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak wali'),
+          'updated' => $this->user_model->countStatus($u['id'], 'Update file'),
+        ];
+    }
+    $data['pta'] = $userslist;
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/permintaanta', $data);
@@ -531,8 +550,28 @@ class Users extends CI_Controller
 
   public function takoor()
   {
-    $data['title'] = 'LABFIK | Daftar Permintaan TA';
-    $data['pta'] = $this->user_model->getpermintaanta();
+    $data['guidance'] = $this->db->get('guidance')->result_array();
+    $name = $this->user_model->getpermintaanta();
+    $data['title'] = 'LABFIK | Pendaftaran TA';
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'no_telp' => $u['no_telp'],
+          'dosen_wali' => $this->user_model->getdosenwalita($u['dosen_wali'])->name,
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui koor'),
+          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak koor'),
+          'updated' => $this->user_model->countStatus($u['id'], 'Update'),
+        ];
+    }
+    $data['pta'] = $userslist;
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/accpermintaanta', $data);
@@ -563,12 +602,11 @@ class Users extends CI_Controller
         'status_doswal' => 'Disetujui koor'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
-      $cekstatus = $this->user_model->cekstatus($file['id_mhs']);
+      $cekstatus = $this->user_model->cekstatuskoor($file['id_mhs']);
 
-      if ($cekstatus == 5) {
+      if ($cekstatus == 1) {
         $data = [
           'status_file' => 'Disetujui koor',
-          'komentar' => '',
         ];
         $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
@@ -588,8 +626,7 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status_doswal' => 'Ditolak koor',
-        'komentar' => '',
+        'status_doswal' => 'Ditolak koor'
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
@@ -599,6 +636,26 @@ class Users extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada</div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('users/viewdetail/' . $data1);
+    }
+  }
+
+  function komentarta($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $komentar = $this->input->post('komentar');
+      $data = array(
+        'komentar' => $komentar
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail' . $data1);
     }
   }
 }
