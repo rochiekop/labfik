@@ -62,13 +62,13 @@
               <td>
                 <?php $file = explode(",", $f['pdf_file']); ?>
                 <?php foreach ($file as $t) : ?>
-                  <form action="<?= base_url('thesis') ?>" method="post">
+                  <!-- <form action="<?= base_url('thesis') ?>" method="post">
                     <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
                     <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $f['correction'] ?></textarea>
                     <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
                     <button type="submit"><?= $t ?></button>
-                  </form>
-                  <br>
+                  </form> -->
+                  <a href="<?= base_url('thesis/openFile'.$f['id'].'/'.$t) ?>"><?= $t ?></a>
                 <?php endforeach; ?>
               </td>
               <td>

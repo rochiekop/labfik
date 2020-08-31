@@ -14,11 +14,11 @@ class Item extends CI_Controller
 
     public function index()
     {
-
     }
 
     public function listAdmin()
     {
+
         $data["item"] = $this->item_model->getAll();
         $this->load->view("templates/dashboard/headerAdmin");
         $this->load->view("templates/dashboard/sidebarAdmin");
@@ -47,14 +47,14 @@ class Item extends CI_Controller
     public function listAjax()
     {
         $query = $this->item_model->allItem();
-        echo json_encode ($query);
+        echo json_encode($query);
     }
 
     public function search()
     {
         $search =  $this->input->post('search');
         $query = $this->item_model->searchItem($search);
-        echo json_encode ($query);
+        echo json_encode($query);
     }
 
     public function add()
@@ -103,5 +103,4 @@ class Item extends CI_Controller
             redirect(site_url('item/listAdmin'));
         }
     }
-
 }

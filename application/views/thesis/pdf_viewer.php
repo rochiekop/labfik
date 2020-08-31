@@ -23,7 +23,8 @@
                     </div>
                     <canvas id='thesis_canvas'></canvas> -->
 
-                    <embed src="<?= base_url('assets/upload/thesis/'.$file->username.'/'.$pdf_file) ?>" width="700" height="420" type="application/pdf">
+                    <!-- <embed src="<?= base_url('assets/upload/thesis/'.$file->username.'/'.$pdf_file) ?>" width="700" height="420" type="application/pdf"> -->
+                    <embed src="<?= base_url('assets/upload/thesis/'.$username->username.'/'.$pdf_file) ?>" width="700" height="420" type="application/pdf">
                     
                 </div>
             </div>
@@ -44,8 +45,11 @@
                     </form> -->
                     <!-- <p id="content"></p> -->
 
-                    <textarea name="correction_dosen1" id="correction_dosen1" class="form-control" cols="30" rows="10"><?= $correction_dosen1 ?></textarea>
-                    <textarea name="correction_dosen2" id="correction_dosen2" class="form-control" cols="30" rows="10"><?= $correction_dosen2 ?></textarea>
+                    <form action="<?= base_url('thesis/saveCorrection')?>" method="post">
+                        <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10"><?= $correction->correction1 ?></textarea>
+                        <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10"><?= $correction->correction2 ?></textarea>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -60,8 +64,22 @@
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: 'textarea',
+    // tinymce.init({
+    //     selector: 'textarea',
+    //     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+    //     plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+    //     toolbar: 'save restoredraft checklist',
+    //     toolbar_mode: 'floating',
+    //     tinycomments_mode: 'embedded',
+    //     tinycomments_author: '<?= $this->session->userdata('username') ?>',
+    //     height: '460',
+    //     // readonly : 1
+    // });
+
+    if (<?= $this->session->userdata('id') ?> == <?= $lecturers->dosen_pembimbing1 ?>)
+    {
+        tinymce.init({
+        selector: '#correction1',
         // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
         plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
         toolbar: 'save restoredraft checklist',
@@ -69,8 +87,51 @@
         tinycomments_mode: 'embedded',
         tinycomments_author: '<?= $this->session->userdata('username') ?>',
         height: '460',
-        // readonly : 1
-    });
+        });
+    }
+    else if (<?= $this->session->userdata('id') ?> != <?= $lecturers->dosen_pembimbing1 ?>)
+    {
+        tinymce.init({
+        selector: '#correction1',
+        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: '<?= $this->session->userdata('username') ?>',
+        height: '460',
+        readonly : 1
+        });
+    }
+
+    if (<?= $this->session->userdata('id') ?> == <?= $lecturers->dosen_pembimbing2 ?>)
+    {
+        tinymce.init({
+        selector: '#correction2',
+        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: '<?= $this->session->userdata('username') ?>',
+        height: '460',
+        });
+    }
+    else if (<?= $this->session->userdata('id') ?> != <?= $lecturers->dosen_pembimbing2 ?>)
+    {
+        tinymce.init({
+        selector: '#correction2',
+        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'save restoredraft checklist',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: '<?= $this->session->userdata('username') ?>',
+        height: '460',
+        readonly : 1
+        });
+    }
+    
 </script>
 
 <!-- PDF.js -->

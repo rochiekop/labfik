@@ -41,7 +41,7 @@
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
                             <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
-                            <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim") : ?>
+                            <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim" or ($t['status_doswal'] == "Ditolak koor") or ($t['status_doswal'] == "Update")) : ?>
                                 <td></td>
                                 <td><b>Menunggu Persetujuan</b></td>
                                 <td></td>

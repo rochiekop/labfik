@@ -72,10 +72,9 @@ $profile = $this->db->query($profile, array($this->session->userdata('id')))->ro
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
-            <?php if (count($dosbing) == 2) : ?>
-              <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
-              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
-            <?php endif; ?>
+
+            <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
+            <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
           </ul>
         </div>
       </div>

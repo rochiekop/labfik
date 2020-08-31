@@ -40,7 +40,7 @@
                   <td> <a href="<?= base_url('assets/upload/thesis/') . $f['username'] . '/' . $f['file'] ?>" download title="Download File"><?= $f['file'] ?></a></td>
                   <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
                   <!-- Action -->
-                  <?php if ($f['status_adminlaa'] == "Dikirim" or $f['status_adminlaa'] == "Update") : ?>
+                  <?php if ($f['status_adminlaa'] == "" or $f['status_adminlaa'] == "Update") : ?>
                     <td> <a href="<?= base_url('adminlaa/accfilependaftaran/') . encrypt_url($f['id']); ?>" class="btn badge badge-success">Acc</a>
                       <a data-toggle="modal" data-target="#tolak<?= $f['id'] ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                     </td>
