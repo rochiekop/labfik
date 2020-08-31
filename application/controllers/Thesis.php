@@ -24,7 +24,7 @@ class Thesis extends CI_Controller
 
         // $data['thesis_id'] = $thesis_id;
         // $data['pdf_file'] = $pdf_file;
-        // $data['file'] = $this->thesis_model->getFile($thesis_id, $pdf_file);
+        // $data['file'] = $this->thesis_model->getUsername($thesis_id);
         // $data['correction'] = $this->thesis_model->getCorrection($thesis_id)->correction;
 
         // $this->load->view('templates/dashboard/headerDosenMhs');
@@ -33,23 +33,42 @@ class Thesis extends CI_Controller
         // $this->load->view("templates/dashboard/footer");
     }
 
-    public function openFile($username, $pdf_file)
+    public function openFile($thesis_id, $pdf_file)
     {
-        
-    }
+        $data['pdf_file'] = $pdf_file;
+        $data['username'] = $this->thesis_model->getUsername($thesis_id);
+        $data['correction'] = $this->thesis_model->getCorrection($thesis_id);
+        $data['lecturers'] = $this->thesis_model->getLecturers($thesis_id);
 
-
-    public function add()
-    {
-        $this->thesis_model->saveCorrection();
-
-        $data["correction"] = $this->thesis_model->getCorrection();
-
-        $this->load->view("templates/dashboard/headerDosenMhs");
-        $this->load->view("templates/dashboard/sidebarDosenMhs");
+        $this->load->view('templates/dashboard/headerDosenMhs');
+        $this->load->view('templates/dashboard/sidebarDosenMhs');
         $this->load->view("thesis/pdf_viewer", $data);
         $this->load->view("templates/dashboard/footer");
     }
+
+    public function saveCorrection()
+    {
+        $this->thesis_model->saveCorrection();
+        redirect('openFile'); // ganti redirect ke pemilihan file thesis yang ingin di comment
+    }
+
+    // public function getAllCorrection($guidance_id)
+    // {
+    //     $data['correction'] = $this->thesis_model->getAllCorrection($guidance_id);
+    // }
+
+
+    // public function add()
+    // {
+    //     $this->thesis_model->saveCorrection();
+
+    //     $data["correction"] = $this->thesis_model->getCorrection();
+
+    //     $this->load->view("templates/dashboard/headerDosenMhs");
+    //     $this->load->view("templates/dashboard/sidebarDosenMhs");
+    //     $this->load->view("thesis/pdf_viewer", $data);
+    //     $this->load->view("templates/dashboard/footer");
+    // }
 
     // public function getCorrection($thesis_id, $page)
     // {
@@ -61,16 +80,10 @@ class Thesis extends CI_Controller
     //     // echo "test berhasil";
     // }
 
-    public function saveCorrection()
-    {
-        $this->thesis_model->saveCorrection();
-        redirect('Thesis');
-    }
-
-    public function checkCorrectionEmpty($thesis_id, $page)
-    {
-        $this->thesis_model->checkCorrectionEmpty($thesis_id, $page);
-    }
+    // public function checkCorrectionEmpty($thesis_id, $page)
+    // {
+    //     $this->thesis_model->checkCorrectionEmpty($thesis_id, $page);
+    // }
     
 }
 
