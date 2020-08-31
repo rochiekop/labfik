@@ -5,15 +5,32 @@
     <h4>Bimbingan</h4>
   </div>
 
-  Nama &nbsp&nbsp: <?= $mhsbyid['name'] ?> <br>
-  NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['nim'] ?> <br>
-  Prodi &nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['prodi'] ?>
+  <table>
+    <tr>
+      <td>Nama</td>
+      <td>:</td>
+      <td><?= $mhsbyid['name'] ?></td>
+    </tr>
+    <tr>
+      <td>NIM</td>
+      <td>:</td>
+      <td><?= $mhsbyid['nim'] ?></td>
+    </tr>
+    <tr>
+      <td>Prodi</td>
+      <td>:</td>
+      <td><?= $mhsbyid['prodi'] ?></td>
+    </tr>
+    <tr>
+      <td>No.Telp</td>
+      <td>:</td>
+      <td><?= $mhsbyid['no_telp'] ?></td>
+    </tr>
+  </table>
   <br>
-  <br>
-
   <input type="hidden" value="siap_sidang" />
   <?php
-  for ($x = 1; $x <= 4; $x++) {
+  for ($x = 1; $x <= 3; $x++) {
     if ($x - 1 == count($preview)) {
       echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
     } else {

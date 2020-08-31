@@ -3,7 +3,7 @@
 
     <div class="fik-section-title2">
         <h4>
-            <?= $title ?>
+            List Pendaftar Tugas Akhir Mahasiswa Wali
         </h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
@@ -23,7 +23,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col" style="width:48px">No</th>
+                    <th scope="col" style="width:48px">#</th>
                     <th scope="col" style="width:90px">&nbsp;</th>
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>

@@ -25,50 +25,35 @@
           <th scope="col">Mahasiswa</th>
           <th scope="col">NIM</th>
           <th scope="col">Prodi</th>
-          <th scope="col">Judul</th>
-          <th scope="col">Status</th>
+          <th scope="col">Peminatan</th>
+          <th scope="col">Tahun</th>
         </tr>
       </thead>
       <tbody>
         <?php if (empty($bimbingan)) : ?>
-          <td colspan="6" style="background-color: whitesmoke;text-align:center">Daftar bimbingan kosong</td>
+          <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar bimbingan kosong</td>
         <?php else : ?>
           <?php $no = 0;
           foreach ($bimbingan as $t) : ?>
             <tr>
               <th scope="row" style="width:60px"><?= ++$no ?></th>
-              <td class="action" style="width:160px">
-                <a href="<?= base_url('users/progressbimbingan/') . encrypt_url($t['id_guidance']); ?>" class="btn badge badge-primary">Lihat Progres</a>
-              </td>
-              <td><?= $t['nama_mhs'] ?></td>
+              <?php if ($t['file_bimbingan'] != 0) : ?>
+                <td class="action" style="width:160px">
+                  <a href="<?= base_url('users/progressbimbingan/') . encrypt_url($t['id_guidance']); ?>" class="btn badge badge-primary">Lihat Progres</a>
+                </td>
+              <?php else : ?>
+                <td><b>Belum Melakukan Bimbingan</b></td>
+              <?php endif; ?>
+              <td><?= $t['name'] ?></td>
               <td><?= $t['nim'] ?></td>
               <td><?= $t['prodi'] ?></td>
-              <td><?= $t['judul'] ?></td>
-              <td><?= $t['status'] ?></td>
+              <td><?= $t['peminatan'] ?></td>
+              <td><?= $t['tahun'] ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
-        <!-- <tr>
-          <th scope="row" style="width:60px">1</th>
-          <td class="action" style="width:160px">
-            <a href="#" class="btn badge badge-primary">Lihat Progress (1)</a>
-          </td>
-          <td>Near Sakarin</td>
-          <td>0123456789</td>
-          <td>Desain Komunikasi Visual / Advertising</td>
-        </tr>
-        <tr>
-          <th scope="row" style="width:60px">1</th>
-          <td class="action" style="width:160px">
-            <a href="#" class="btn badge badge-primary">Lihat Progress</a>
-          </td>
-          <td>Near Sakarin</td>
-          <td>0123456789</td>
-          <td>Desain Komunikasi Visual / Advertising</td>
-        </tr> -->
       </tbody>
     </table>
   </div>
 </main>
 <!-- End Main Container -->
-<!-- <?php var_dump($bimbingan) ?> -->
