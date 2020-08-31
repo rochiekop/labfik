@@ -272,18 +272,6 @@ class User_model extends CI_Model
 	}
 
 
-	// Dosbing 
-	public function getDosbing()
-	{
-		$this->db->select('user.name AS nama_dosen,dosbing.id as id_dosbing,dosbing.id_dosen,dosbing.id_guidance,dosbing.date,dosbing.status,guidance.*');
-		$this->db->from('dosbing');
-		$this->db->join('guidance', 'dosbing.id_guidance = guidance.id');
-		// $this->db->join('user', 'user.id = guidance.id_mhs');
-		$this->db->join('user', 'dosbing.id_dosen = user.id');
-		$this->db->where('guidance.id_mhs', $this->session->userdata('id'));
-		return $this->db->get()->result_array();
-	}
-
 	public function checkButton()
 	{
 		$this->db->select('user.name AS nama_dosen,dosbing.*,guidance.*');
@@ -407,23 +395,29 @@ class User_model extends CI_Model
 
 	public function getMhsBimbingan()
 	{
-		$this->db->select('thesis.*,user.name AS nama_mhs,user.nim,user.prodi,dosbing.status,thesis.status,guidance.judul,guidance.id as id_guidance');
-		$this->db->from('thesis');
-		$this->db->join('guidance', 'thesis.id_guidance = guidance.id');
+		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun');
+		$this->db->from('thesis_lecturers');
+		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
-		$this->db->join('dosbing', 'dosbing.id_guidance = guidance.id');
-		$this->db->where('id_dosen', $this->session->userdata('id'));
-		$this->db->where('dosbing.status', 'Disetujui');
-		$this->db->group_by('thesis.id_guidance');
+		$this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
+		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
 		return $this->db->get()->result_array();
+	}
+
+	public function countFileBimbingan($id_guidance)
+	{
+		$this->db->select('id');
+		$this->db->from('thesis');
+		$this->db->where('id_guidance', $id_guidance);
+		return count($this->db->get()->result_array());
 	}
 
 	public function getallbimbingan()
 	{
 		$this->db->select('GROUP_CONCAT(user.name SEPARATOR " , ") as dosen_name,thesis.*');
 		$this->db->from('user');
-		$this->db->join('dosbing', 'user.id = dosbing.id_dosen');
-		$this->db->join('guidance', 'dosbing.id_guidance = guidance.id');
+		$this->db->join('guidance', 'user.id = guidance.id_mhs');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
 		$this->db->join('thesis', 'thesis.id_guidance = guidance.id');
 		$this->db->where('id_mhs', $this->session->userdata('id'));
 		$this->db->group_by('thesis.id');
@@ -454,7 +448,7 @@ class User_model extends CI_Model
 	}
 	public function getmhsbimbinganbyid($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi');
+		$this->db->select('user.name,user.nim,user.prodi,no_telp');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('user', 'guidance.id_mhs = user.id');
@@ -582,5 +576,13 @@ class User_model extends CI_Model
 		$this->db->where('status_adminlaa', 'Ditolak');
 		$this->db->where('id_mhs', $id);
 		return count($this->db->get()->result_array());
+	}
+
+	public function getDosenPembimbing($id)
+	{
+		$this->db->select('name');
+		$this->db->from('user');
+		$this->db->where('id', $id);
+		return $this->db->get()->row_array();
 	}
 }

@@ -171,6 +171,10 @@ class Users extends CI_Controller
     $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
+    if (!empty($thesis_lecturers)) {
+      $dosbing1 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
+      $dosbing2 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
+    }
     $data = array(
       'mhs' => $mhs,
       'file' => $file,
@@ -178,6 +182,8 @@ class Users extends CI_Controller
       'statusfile' => $cek['status_file'],
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
       'thesis_lecturers' =>  $thesis_lecturers,
+      'dosbing1' => $dosbing1,
+      'dosbing2' => $dosbing2
     );
 
     if ($mhs['no_telp'] != "" and $mhs['nim'] != "" and $mhs['dosen_wali'] != "" and $mhs['prodi'] != "" and $mhs['alamat'] != "") {
@@ -192,22 +198,20 @@ class Users extends CI_Controller
     }
   }
 
-  // public function deletepengajuandosbing()
-  // {
-  //   $id = $this->input->post('id');
-  //   $this->db->delete('dosbing', ['id' => $id]);
-  //   $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
-  //   redirect('users/pendaftarantugasakhir');
-  // }
+
   public function bimbingantugasakhir()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['guide'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    $data['mhs'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $data['dosbing'] = $this->user_model->getDosbing();
     $data['allhistory'] = $this->user_model->getallbimbingan();
     $data['buttonaddbimbingan'] = $this->user_model->checkaddbimbingan();
     $data['buttonaddbimbingan2'] = $this->user_model->checkaddbimbingan2();
+    $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
+    $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
+    if (!empty($thesis_lecturers)) {
+      $data['dosbing1'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
+      $data['dosbing2'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
+    }
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/bimbinganta', $data);
@@ -405,7 +409,7 @@ class Users extends CI_Controller
         "id_guidance" => $this->input->post('id_guidance', true),
         "send_to" => $this->input->post('fordosen', true),
         "pdf_file" => implode(', ', $data),
-        "date" => date('d-m-Y'),
+        "date" => date('Y-m-d'),
         "keterangan" => $this->input->post('keterangan', true),
         "status" => "Dikirim",
       ];
@@ -427,7 +431,22 @@ class Users extends CI_Controller
   public function bimbingandsn()
   {
     $data['title'] = 'LABFIK | Daftar Bimbingan';
-    $data['bimbingan'] = $this->user_model->getMhsBimbingan();
+    $bimbingan = $this->user_model->getMhsBimbingan();
+    $userslist = [];
+    foreach ($bimbingan as $u) {
+      $userslist[] =
+        [
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'tahun' => $u['tahun'],
+          'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
+        ];
+    }
+    $data['bimbingan'] = $userslist;
+
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/bimbingandsn', $data);
@@ -475,7 +494,7 @@ class Users extends CI_Controller
         @unlink($path . '/' . $t);
       }
       $this->db->delete('thesis', ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">file berhasil dibatalkan</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File bimbingan berhasil dibatalkan</div>');
       redirect('users/bimbingantugasakhir');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda hapus tidak ada</div>');
