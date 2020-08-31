@@ -498,7 +498,6 @@ class User_model extends CI_Model
 		$this->db->where('thesis.status', 'Preview 1');
 		$this->db->or_where('thesis.status', 'Preview 2');
 		$this->db->or_where('thesis.status', 'Preview 3');
-		$this->db->or_where('thesis.status', 'Preview 4');
 		return $this->db->get()->result_array();
 	}
 
