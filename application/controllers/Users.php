@@ -10,9 +10,21 @@ class Users extends CI_Controller
     $this->load->library('pagination');
     $this->load->model('user_model');
     $this->load->model('admin_model');
+    $this->load->model('adminlaa_model');
     $this->load->model('booking_model');
     $this->load->library('encryption');
     is_logged_in();
+  }
+
+  public function completeprofile()
+  {
+    $profile = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
+    if ($this->session->userdata('role_id') == 3) {
+      if ($profile['no_telp'] == "" or $profile['nip'] == "" or $profile['kode_dosen'] == "" or $profile['alamat'] == "") {
+        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Agar dapat mengakses fitur yang tersedia, lengkapi profile terlebih dahulu.</div>');
+        redirect('auth/editprofiledsn');
+      }
+    }
   }
 
   public function main()
@@ -28,10 +40,13 @@ class Users extends CI_Controller
       'blast' =>  $blast,
       'bnumb' =>  $bnumb,
     );
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/index');
-    $this->load->view('templates/dashboard/footer');
+    if ($this->completeprofile()) {
+    } else {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/index');
+      $this->load->view('templates/dashboard/footer');
+    }
   }
 
   public function daftarsemuatempat()
@@ -39,10 +54,13 @@ class Users extends CI_Controller
     $data['title'] = 'LABFIK | Semua Tempat';
     $data['dt_tempat'] = $this->user_model->getAllDtTempat();
     $data['kruangan'] = $this->admin_model->kategoriruangan();
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/daftarTempat');
-    $this->load->view('templates/dashboard/footer');
+    if ($this->completeprofile()) {
+    } else {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/daftarTempat');
+      $this->load->view('templates/dashboard/footer');
+    }
   }
 
   public function helpdesk()
@@ -59,10 +77,13 @@ class Users extends CI_Controller
     $data['title'] = 'LABFIK | Riwayat Peminjaman Tempat';
     $user_id = $this->session->userdata('id');
     $data["mybooking"] = $this->booking_model->getByUserId($user_id);
-    $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/logBooking', $data);
-    $this->load->view('templates/dashboard/footer');
+    if ($this->completeprofile()) {
+    } else {
+      $this->load->view('templates/dashboard/headerDosenMhs', $data);
+      $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+      $this->load->view('dashboard/users/logBooking', $data);
+      $this->load->view('templates/dashboard/footer');
+    }
   }
 
 
@@ -130,8 +151,7 @@ class Users extends CI_Controller
               'id_mhs' => $this->input->post('id_mhs'),
               'nama' => $namafile,
               'file' => $file['file_name'],
-              // 'status_doswal' => "Dikirim",
-              'status_adminlaa' => "Dikirim",
+              'status_doswal' => "Dikirim",
               'date' => date('d-m-Y'),
             );
             $this->db->insert('file_pendaftaran', $data);
@@ -148,14 +168,16 @@ class Users extends CI_Controller
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $file = $this->db->get_where('file_pendaftaran', ['id_mhs' => $this->session->userdata('id')])->result_array();
+    $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
+    $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
     $data = array(
       'mhs' => $mhs,
       'file' => $file,
       'cek' => $cek,
       'statusfile' => $cek['status_file'],
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
+      'thesis_lecturers' =>  $thesis_lecturers,
     );
 
     if ($mhs['no_telp'] != "" and $mhs['nim'] != "" and $mhs['dosen_wali'] != "" and $mhs['prodi'] != "" and $mhs['alamat'] != "") {
@@ -170,13 +192,13 @@ class Users extends CI_Controller
     }
   }
 
-  public function deletepengajuandosbing()
-  {
-    $id = $this->input->post('id');
-    $this->db->delete('dosbing', ['id' => $id]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
-    redirect('users/pendaftarantugasakhir');
-  }
+  // public function deletepengajuandosbing()
+  // {
+  //   $id = $this->input->post('id');
+  //   $this->db->delete('dosbing', ['id' => $id]);
+  //   $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajuan berhasil dibatalkan</div>');
+  //   redirect('users/pendaftarantugasakhir');
+  // }
   public function bimbingantugasakhir()
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
@@ -310,22 +332,22 @@ class Users extends CI_Controller
     }
   }
 
-  public function tolakpermintaanbimbingan()
-  {
-    $id = $this->input->post('id');
-    $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
-    if ($data) {
-      // $data = array(
-      //   'status' => 'Ditolak'
-      // );
-      $this->db->delete('dosbing', ['id' => $id]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan bimbingan ditolak</div>');
-      redirect('users/permintaanbimbingan');
-    } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
-      redirect('users/permintaanbimbingan');
-    }
-  }
+  // public function tolakpermintaanbimbingan()
+  // {
+  //   $id = $this->input->post('id');
+  //   $data = $this->db->get_where('dosbing', ['id' => $id])->row_array();
+  //   if ($data) {
+  //     // $data = array(
+  //     //   'status' => 'Ditolak'
+  //     // );
+  //     $this->db->delete('dosbing', ['id' => $id]);
+  //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan bimbingan ditolak</div>');
+  //     redirect('users/permintaanbimbingan');
+  //   } else {
+  //     $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda cari tidak ada/div>');
+  //     redirect('users/permintaanbimbingan');
+  //   }
+  // }
 
 
   public function addbimbingan()
@@ -470,12 +492,19 @@ class Users extends CI_Controller
         $file = $this->upload->data();
         $status = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row()->status_file;
         $status1 = $this->db->get_where('file_pendaftaran', ['status_doswal' => 'Ditolak koor'])->row();
-        if ($status == "") {
+        $update = $this->db->get_where('file_pendaftaran', ['status_adminlaa' => 'Ditolak'])->row();
+        if ($status == "Dikirim" or $status == "Disetujui koor") {
           $status = "status_doswal";
         } else {
           $status = "status_adminlaa";
         }
         if ($status1) {
+          $data = [
+            "file" => $file['file_name'],
+            $status => "Update",
+            "date_edit" => date('d-m-Y')
+          ];
+        } elseif ($update) {
           $data = [
             "file" => $file['file_name'],
             $status => "Update",
@@ -539,6 +568,7 @@ class Users extends CI_Controller
       if ($cekstatus == 5) {
         $data = [
           'status_file' => 'Disetujui koor',
+          'komentar' => '',
         ];
         $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
@@ -558,7 +588,8 @@ class Users extends CI_Controller
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($data) {
       $data = array(
-        'status_doswal' => 'Ditolak koor'
+        'status_doswal' => 'Ditolak koor',
+        'komentar' => '',
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan ta ditolak</div>');
