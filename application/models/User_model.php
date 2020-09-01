@@ -272,18 +272,6 @@ class User_model extends CI_Model
 	}
 
 
-	// Dosbing 
-	public function getDosbing()
-	{
-		$this->db->select('user.name AS nama_dosen,dosbing.id as id_dosbing,dosbing.id_dosen,dosbing.id_guidance,dosbing.date,dosbing.status,guidance.*');
-		$this->db->from('dosbing');
-		$this->db->join('guidance', 'dosbing.id_guidance = guidance.id');
-		// $this->db->join('user', 'user.id = guidance.id_mhs');
-		$this->db->join('user', 'dosbing.id_dosen = user.id');
-		$this->db->where('guidance.id_mhs', $this->session->userdata('id'));
-		return $this->db->get()->result_array();
-	}
-
 	public function checkButton()
 	{
 		$this->db->select('user.name AS nama_dosen,dosbing.*,guidance.*');
@@ -308,18 +296,7 @@ class User_model extends CI_Model
 
 	public function getpermintaan()
 	{
-		$this->db->select('user.name,
-		user.nim,
-		user.prodi,
-		user.id,
-		guidance.peminatan,
-		user.no_telp,
-		guidance.tahun,
-		guidance.date,
-		guidance.status_file,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Disetujui wali") AS diterima,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Ditolak wali") AS ditolak,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Update file") AS updated');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -327,6 +304,23 @@ class User_model extends CI_Model
 		$this->db->order_by('guidance.id', 'desc');
 		$this->db->group_by('user.id');
 		return $this->db->get()->result_array();
+	}
+
+	public function getdosenwalita($dosen_wali)
+	{
+		$this->db->select('name');
+		$this->db->from('user');
+		$this->db->where('id', $dosen_wali);
+		return $this->db->get()->row();
+	}
+
+	public function countStatus($id_mhs, $status)
+	{
+		$this->db->select('id');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('id_mhs', $id_mhs);
+		$this->db->where('status_doswal', $status); // Disetujui, Ditolak
+		return count($this->db->get()->result_array());
 	}
 
 	public function cekstatus($id)
@@ -343,24 +337,14 @@ class User_model extends CI_Model
 		$this->db->select('status_doswal');
 		$this->db->from('file_pendaftaran');
 		$this->db->where('id_mhs', $id);
+		$this->db->where('nama', "Surat Pernyataan TA");
 		$this->db->where('status_doswal', "Disetujui koor");
 		return count($this->db->get()->result_array());
 	}
 
 	public function getpermintaanta()
 	{
-		$this->db->select('user.name,
-		user.nim,
-		user.prodi,
-		user.id,
-		guidance.peminatan,
-		user.no_telp,
-		guidance.tahun,
-		guidance.date,
-		guidance.status_file,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Disetujui wali") AS diterima,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Ditolak wali") AS ditolak,
-		(SELECT count(status_doswal) from file_pendaftaran where status_doswal = "Update file") AS updated');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -375,7 +359,7 @@ class User_model extends CI_Model
 		$this->db->from('file_pendaftaran');
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
 		$this->db->where('id_mhs', $id);
-		$this->db->order_by('file_pendaftaran.id', 'desc');
+		$this->db->order_by('file_pendaftaran.id', 'asc');
 		return $this->db->get()->result_array();
 	}
 
@@ -386,7 +370,6 @@ class User_model extends CI_Model
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
 		$this->db->where('id_mhs', $id);
 		$this->db->where('file_pendaftaran.nama', 'Surat Pernyataan TA');
-		$this->db->order_by('file_pendaftaran.id', 'desc');
 		return $this->db->get()->result_array();
 	}
 	public function getMhsbyId($id)
@@ -412,23 +395,29 @@ class User_model extends CI_Model
 
 	public function getMhsBimbingan()
 	{
-		$this->db->select('thesis.*,user.name AS nama_mhs,user.nim,user.prodi,dosbing.status,thesis.status,guidance.judul,guidance.id as id_guidance');
-		$this->db->from('thesis');
-		$this->db->join('guidance', 'thesis.id_guidance = guidance.id');
+		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun');
+		$this->db->from('thesis_lecturers');
+		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
-		$this->db->join('dosbing', 'dosbing.id_guidance = guidance.id');
-		$this->db->where('id_dosen', $this->session->userdata('id'));
-		$this->db->where('dosbing.status', 'Disetujui');
-		$this->db->group_by('thesis.id_guidance');
+		$this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
+		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
 		return $this->db->get()->result_array();
+	}
+
+	public function countFileBimbingan($id_guidance)
+	{
+		$this->db->select('id');
+		$this->db->from('thesis');
+		$this->db->where('id_guidance', $id_guidance);
+		return count($this->db->get()->result_array());
 	}
 
 	public function getallbimbingan()
 	{
 		$this->db->select('GROUP_CONCAT(user.name SEPARATOR " , ") as dosen_name,thesis.*');
 		$this->db->from('user');
-		$this->db->join('dosbing', 'user.id = dosbing.id_dosen');
-		$this->db->join('guidance', 'dosbing.id_guidance = guidance.id');
+		$this->db->join('guidance', 'user.id = guidance.id_mhs');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
 		$this->db->join('thesis', 'thesis.id_guidance = guidance.id');
 		$this->db->where('id_mhs', $this->session->userdata('id'));
 		$this->db->group_by('thesis.id');
@@ -459,7 +448,7 @@ class User_model extends CI_Model
 	}
 	public function getmhsbimbinganbyid($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi');
+		$this->db->select('user.name,user.nim,user.prodi,no_telp');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('user', 'guidance.id_mhs = user.id');
@@ -504,7 +493,6 @@ class User_model extends CI_Model
 		$this->db->where('thesis.status', 'Preview 1');
 		$this->db->or_where('thesis.status', 'Preview 2');
 		$this->db->or_where('thesis.status', 'Preview 3');
-		$this->db->or_where('thesis.status', 'Preview 4');
 		return $this->db->get()->result_array();
 	}
 
@@ -587,5 +575,13 @@ class User_model extends CI_Model
 		$this->db->where('status_adminlaa', 'Ditolak');
 		$this->db->where('id_mhs', $id);
 		return count($this->db->get()->result_array());
+	}
+
+	public function getDosenPembimbing($id)
+	{
+		$this->db->select('name');
+		$this->db->from('user');
+		$this->db->where('id', $id);
+		return $this->db->get()->row_array();
 	}
 }

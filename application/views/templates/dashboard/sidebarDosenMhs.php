@@ -3,10 +3,8 @@ $query = "SELECT *
   FROM `kategoriruangan`
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
-$sql = "SELECT * FROM dosbing JOIN guidance ON dosbing.id_guidance = guidance.id WHERE guidance.id_mhs = ? AND dosbing.status = ?";
-$profile = "SELECT * FROM user WHERE id = ? ";
-$dosbing = $this->db->query($sql, array($this->session->userdata('id'), 'Disetujui'))->result_array();
-$profile = $this->db->query($profile, array($this->session->userdata('id')))->row_array();
+$thesis_lecturer = "SELECT thesis_lecturers.id FROM guidance JOIN thesis_lecturers ON thesis_lecturers.id_guidance = guidance.id WHERE guidance.id_mhs = ?";
+$bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('id')))->result_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">
@@ -72,9 +70,10 @@ $profile = $this->db->query($profile, array($this->session->userdata('id')))->ro
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
-
-            <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
-            <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
+            <?php if (!empty($bimbingan)) : ?>
+              <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
+              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
+            <?php endif ?>
           </ul>
         </div>
       </div>
@@ -86,7 +85,6 @@ $profile = $this->db->query($profile, array($this->session->userdata('id')))->ro
             <?php if ($this->session->userdata('dosen_wali') == 1) : ?>
               <li><a href="<?= base_url('users/permintaanTA') ?>">Pendaftaran</a></li>
             <?php endif; ?>
-            <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Permintaan</a></li>
             <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
             <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
           </ul>
@@ -98,28 +96,16 @@ $profile = $this->db->query($profile, array($this->session->userdata('id')))->ro
           <div id="collapse5" class="collapse" data-parent="#accordion">
             <ul>
               <li><a href="<?= base_url('users/takoor') ?>">Permintaan TA</a></li>
-              <li><a href="<?= base_url('users/tambahdosbing') ?>">Tambah Pembimbing</a></li>
+              <!-- <li><a href="<?= base_url('users/tambahdosbing') ?>">Tambah Pembimbing</a></li>
               <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Dosen Pembimbing</a></li>
               <li><a href="<?= base_url('users/tambahdosenpenguji') ?>">Tambah Penguji</a></li>
               <li><a href="<?= base_url('users/bimbingandsn') ?>">Dosen Penguji</a></li>
-              <li><a href="<?= base_url('users/penguji') ?>">Sidang</a></li>
+              <li><a href="<?= base_url('users/penguji') ?>">Sidang</a></li> -->
             </ul>
           </div>
         </div>
       <?php endif; ?>
     <?php endif; ?>
-    <!-- <div class="divider"></div>
-    <div class="card">
-      <a href="<?= base_url('thesis') ?>" class="btn"><span class="fas fa-align-left"></span> Bimbingan TA</a>
-      <a href="#" class="btn"><span class="fas fa-graduation-cap"></span> Sidang</a>
-    </div>
-    <div class="divider show-mobile"></div>
-    <div class="card">
-      <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
-    </div>
-    <div class="card logout">
-      <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
-    </div> -->
   </div>
 </div>
 

@@ -42,7 +42,7 @@
           </thead>
           <tbody id="laboratorium">
             <?php if (empty($mahasiswa)) : ?>
-              <td colspan="8" style="background-color: whitesmoke;text-align:center">List Pendaftaran kosong</td>
+              <td colspan="9" style="background-color: whitesmoke;text-align:center">List Pendaftaran kosong</td>
             <?php else : ?>
               <?php $no = 0;
               foreach ($mahasiswa as $t) : ?>

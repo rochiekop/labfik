@@ -5,27 +5,52 @@
     <h4>Bimbingan</h4>
   </div>
 
-  Nama &nbsp&nbsp: <?= $mhsbyid['name'] ?> <br>
-  NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['nim'] ?> <br>
-  Prodi &nbsp&nbsp&nbsp&nbsp: <?= $mhsbyid['prodi'] ?>
+  <table>
+    <thead>
+      <th style="width: 60px;"></th>
+      <th style="width: 10px;"></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 20px;">Nama</td>
+        <td>:</td>
+        <td><?= $mhsbyid['name'] ?></td>
+      </tr>
+      <tr>
+        <td>NIM</td>
+        <td>:</td>
+        <td><?= $mhsbyid['nim'] ?></td>
+      </tr>
+      <tr>
+        <td>Prodi</td>
+        <td>:</td>
+        <td><?= $mhsbyid['prodi'] ?></td>
+      </tr>
+      <tr>
+        <td>No.Telp</td>
+        <td>:</td>
+        <td><?= $mhsbyid['no_telp'] ?></td>
+      </tr>
+    </tbody>
+  </table>
   <br>
-  <br>
-
   <input type="hidden" value="siap_sidang" />
   <?php
-  for ($x = 1; $x <= 4; $x++) {
+  for ($x = 1; $x <= 3; $x++) {
     if ($x - 1 == count($preview)) {
       echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
     } else {
       echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:5px;">Preview ' . $x . '</button>';
     }
   }
-  if (count($preview) == 4) {
+  if (count($preview) == 3) {
     echo '<button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>';
   } else {
     echo '<button type="submit" class="btn btn-sm btn-secondary" disabled style="color:#fff">Berikan Siap Sidang</button>';
   }
   ?>
+  <?php var_dump(count($preview)) ?>
   <br>
   <br>
   <div class="table-responsive">
@@ -68,7 +93,7 @@
                     <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
                     <button type="submit"><?= $t ?></button>
                   </form> -->
-                  <a href="<?= base_url('thesis/openFile'.$f['id'].'/'.$t) ?>"><?= $t ?></a>
+                  <a href="<?= base_url('thesis/openFile' . $f['id'] . '/' . $t) ?>"><?= $t ?></a>
                 <?php endforeach; ?>
               </td>
               <td>

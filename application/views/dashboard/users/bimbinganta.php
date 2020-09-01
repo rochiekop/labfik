@@ -4,31 +4,15 @@
     <div class="fik-section-title2">
       <h4>Bimbingan</h4>
     </div>
-    <div class="dropdown">
-      <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
-        <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
-      <?php else : ?>
-        <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
-      <?php endif; ?>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <?php foreach ($dosbing as $d) : ?>
-          <a class="dropdown-item" href="#"><?= $d['nama_dosen'] ?></a>
-        <?php endforeach; ?>
-      </div>
-    </div>
+    <p>Pembimbing 1 : <?= $dosbing1['name'] ?></p>
+    <p>Pembimbing 2 :<?= $dosbing2['name'] ?></p>
     <br>
-    <div class="input-group">
-      <div class="input-group-append">
-        <button class="btn btn-primary dropdown-toggle filter" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
-        <div class="dropdown-menu" id="dropdown">
-          <a class="dropdown-item item">Dosen</a>
-          <a class="dropdown-item item">Status</a>
-          <a class="dropdown-item item">Tanggal</a>
-          <a class="dropdown-item item">Keterangan</a>
-        </div>
-      </div>
-      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
-    </div>
+    <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
+      <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
+    <?php else : ?>
+      <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
+    <?php endif; ?>
+    <br>
     <br>
     <div id="container">
       <div class="table-responsive">
@@ -156,42 +140,6 @@
   <?php endforeach; ?>
   <script>
     $(document).ready(function() {
-      var keyword = document.getElementById('keyword');
-      var container = document.getElementById('container');
-      $(".item").click(function() {
-        var text = $(this).text();
-        // alert(id)
-        $("#filter").text(text)
-        if (text != '') {
-          load_data(keyword = null, text);
-        } else {
-          load_data();
-        }
-      });
-
-      function load_data(keyword, filter) {
-        $.ajax({
-          url: '<?= base_url('search/fetchdatabimbingan') ?>',
-          method: "POST",
-          data: {
-            keyword: keyword,
-            filter: filter,
-          },
-          success: function(data) {
-            $('#bimbingan').html(data);
-            // console.log(data)
-          }
-        });
-      }
-      keyword.addEventListener('keyup', function() {
-        var keyword = $(this).val();
-        var filter = $('#filter').text()
-        if (keyword != '') {
-          load_data(keyword, filter);
-        } else {
-          load_data();
-        }
-      })
       var no = 1;
       $('#tambah').click(function() {
         no++;
