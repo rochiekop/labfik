@@ -49,10 +49,10 @@
                             <td><?= $t['tahun'] ?></td>
                             <?php if ($t['status_file'] == "Disetujui koor" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
                                 <td>Menunggu Persetujuan</td>
-                            <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
-                                <td><?= $t['diterima'] ?> Disetujui wali, <?= $t['ditolak'] ?> Ditolak</td>
+                            <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0" and $t['updated'] != "5") : ?>
+                                <td><?= $t['diterima'] ?>&nbsp; Disetujui wali, <?= $t['ditolak'] ?> Ditolak, <?= $t['dikirim'] ?> Menunggu</td>
                             <?php elseif ($t['updated'] != "0") : ?>
-                                <td><?= $t['updated'] ?> File baru</td>
+                                <td><?= $t['updated'] ?>&nbsp; File baru</td>
                             <?php else : ?>
                                 <td>Disetujui</td>
                             <?php endif; ?>

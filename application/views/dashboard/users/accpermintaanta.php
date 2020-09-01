@@ -54,7 +54,7 @@
                             <?php elseif ($t['diterima'] != 1 and $t['updated'] == "0") : ?>
                                 <td>Ditolak</td>
                             <?php elseif ($t['updated'] != "0") : ?>
-                                <td><?= $t['updated'] ?> File baru</td>
+                                <td><?= $t['updated'] ?>&nbsp; File baru</td>
                             <?php else : ?>
                                 <td>Disetujui</td>
                             <?php endif; ?>

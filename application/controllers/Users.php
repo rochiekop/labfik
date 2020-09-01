@@ -249,6 +249,7 @@ class Users extends CI_Controller
           'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui wali'),
           'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak wali'),
           'updated' => $this->user_model->countStatus($u['id'], 'Update file'),
+          'dikirim' => $this->user_model->countStatus($u['id'], 'Dikirim'),
         ];
     }
     $data['pta'] = $userslist;
