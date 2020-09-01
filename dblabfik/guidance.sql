@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2020 at 03:49 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Waktu pembuatan: 01 Sep 2020 pada 15.55
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guidance`
+-- Struktur dari tabel `guidance`
 --
 
 CREATE TABLE `guidance` (
@@ -39,24 +39,26 @@ CREATE TABLE `guidance` (
   `peminatan` varchar(255) NOT NULL,
   `tahun` varchar(10) NOT NULL,
   `status_file` varchar(255) NOT NULL,
+  `correction_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
+  `correction_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
   `date` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `guidance`
+-- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020'),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui wali', '28/08/2020'),
-('5f4a4c07f3949', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul Dua', 'Judul Tiga', '', '', 'Advertising', '2020', 'Disetujui wali', '29/08/2020');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `correction_penguji1`, `correction_penguji2`, `date`) VALUES
+('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '', '', '10/02/2020'),
+('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '', '', '28/08/2020'),
+('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '', '', '30-08-2020');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `guidance`
+-- Indeks untuk tabel `guidance`
 --
 ALTER TABLE `guidance`
   ADD PRIMARY KEY (`id`);

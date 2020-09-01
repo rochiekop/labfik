@@ -18,7 +18,7 @@ class Thesis_model extends CI_Model
 
     public function getCorrection($thesis_id)
     {
-        $this->db->select('correction1, correction2');
+        $this->db->select('id, correction1, correction2');
         $this->db->from('thesis');
         $this->db->where('id', $thesis_id);
         $query = $this->db->get();
@@ -39,24 +39,28 @@ class Thesis_model extends CI_Model
 
     public function getLecturers($thesis_id)
     {
-        $this->db->select('thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2');
+        $this->db->select('id_guidance');
+        $this->db->from('thesis');
+        $this->db->where('id', $thesis_id);
+        $query = $this->db->get();
+        $guidance_id = $query->row()->id_guidance;
+
+        $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2');
         $this->db->from('thesis_lecturers');
-        $this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
-        $this->db->join('thesis', 'guidance.id = thesis.guidance_id');
-        $this->db->where('thesis_id', $thesis_id);
+        $this->db->where('id_guidance', $guidance_id);
         $query = $this->db->get();
         $result = $query->row();
         return $result;
     }
 
-    public function saveCorrection()
+    public function saveCorrection($thesis_id)
     {
         $post = $this->input->post();
         $data = array(
             'correction1' => $post['correction1'],
             'correction2' => $post['correction2']
 		);
-		$this->db->update('thesis', $data, array('id' => $id));
+		$this->db->update('thesis', $data, array('id' => $thesis_id));
     }
     
 }

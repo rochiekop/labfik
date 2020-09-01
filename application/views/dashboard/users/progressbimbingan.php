@@ -93,7 +93,7 @@
                     <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
                     <button type="submit"><?= $t ?></button>
                   </form> -->
-                  <a href="<?= base_url('thesis/openFile' . $f['id'] . '/' . $t) ?>"><?= $t ?></a>
+                  <a href="<?= base_url('thesis/openFile/'.$f['id'].'/'.$t) ?>"><?= $t ?></a><br>
                 <?php endforeach; ?>
               </td>
               <td>
