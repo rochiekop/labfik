@@ -47,7 +47,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                            <?php elseif ($t['status_doswal'] == "Disetujui koor" or $t['status_doswal'] == "Ditolak wali") : ?>
+                            <?php elseif ($t['status_doswal'] == "Disetujui koor" or $t['status_doswal'] == "Ditolak wali" or $t['status_doswal'] == "Disetujui wali") :  ?>
                                 <td></td>
                                 <td><b>Acc</b></td>
                                 <td></td>
