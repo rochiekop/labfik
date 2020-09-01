@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Agu 2020 pada 06.30
+-- Waktu pembuatan: 01 Sep 2020 pada 15.55
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -35,6 +35,8 @@ CREATE TABLE `thesis` (
   `pdf_file` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `keterangan` text NOT NULL,
   `date` date NOT NULL,
+  `correction1` text CHARACTER SET utf8mb4 NOT NULL,
+  `correction2` text CHARACTER SET utf8mb4 NOT NULL,
   `status` varchar(124) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42,12 +44,8 @@ CREATE TABLE `thesis` (
 -- Dumping data untuk tabel `thesis`
 --
 
-INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `status`) VALUES
-('123', '5f299fa2c3429', 'Semua', 'Tatul_IF1_Tugas3_Muhammad_Sulthan_Angka_Kurniawan_13011746601.pdf', 'upload terbaru', '2020-08-10', 'Dikirim'),
-('5f29c93c10807', '5f299fa2c3429', '', 'Matplotlib_CheatSheet.pdf', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum autem debitis temporibus dolores blanditiis iste aliquid voluptas', '2020-08-05', 'Selesai'),
-('5f2a6ad1f0ae7', '5f299fa2c3429', 'Semua', 'Algo_GP.pdf', 'Bab 2 Latar Belakang', '2020-08-05', 'Selesai'),
-('5f2c12f45cc84', '5f2abc71e4f34', 'Semua', 'Algo_GP.pdf', 'BAB I ', '2020-08-06', 'Selesai'),
-('test', '5f299fa2c3429', 'Semua', 'Tatul_IF1_Tugas3_Muhammad_Sulthan_Angka_Kurniawan_1301174660.pdf', 'tata tulis ilmiah', '2020-08-10', 'Selesai');
+INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
+('5f4d19384750c', '5f48af1704a46', 'Semua', 'c3.pdf, try.pdf', 'Keterangan 1', '2020-08-31', '', '', 'Dikirim');
 
 --
 -- Indexes for dumped tables

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2020 at 07:08 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Waktu pembuatan: 01 Sep 2020 pada 15.56
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Struktur dari tabel `booking`
 --
 
 CREATE TABLE `booking` (
@@ -37,11 +37,11 @@ CREATE TABLE `booking` (
   `time` varchar(100) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `status` varchar(50) NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `booking`
+-- Dumping data untuk tabel `booking`
 --
 
 INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined`, `time`, `keterangan`, `status`, `date_created`) VALUES
@@ -62,7 +62,7 @@ INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined
 -- --------------------------------------------------------
 
 --
--- Table structure for table `borrowing`
+-- Struktur dari tabel `borrowing`
 --
 
 CREATE TABLE `borrowing` (
@@ -77,7 +77,7 @@ CREATE TABLE `borrowing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `borrowing`
+-- Dumping data untuk tabel `borrowing`
 --
 
 INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`, `reason`, `status`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `borrowing` (`id`, `user_id`, `item_id`, `quantity`, `start`, `end`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat`
+-- Struktur dari tabel `chat`
 --
 
 CREATE TABLE `chat` (
@@ -116,7 +116,7 @@ CREATE TABLE `chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `chat`
+-- Dumping data untuk tabel `chat`
 --
 
 INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_name`, `file_ext`, `mime_type`, `message_date_time`, `ip_address`, `status`) VALUES
@@ -151,18 +151,18 @@ INSERT INTO `chat` (`id`, `sender_id`, `receiver_id`, `message`, `attachment_nam
 -- --------------------------------------------------------
 
 --
--- Table structure for table `child_kategori`
+-- Struktur dari tabel `child_kategori`
 --
 
 CREATE TABLE `child_kategori` (
   `id_ck` int(11) NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `nama_child` varchar(128) NOT NULL,
-  `post_update` timestamp NOT NULL DEFAULT current_timestamp()
+  `post_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `child_kategori`
+-- Dumping data untuk tabel `child_kategori`
 --
 
 INSERT INTO `child_kategori` (`id_ck`, `id_kategori`, `nama_child`, `post_update`) VALUES
@@ -173,35 +173,7 @@ INSERT INTO `child_kategori` (`id_ck`, `id_kategori`, `nama_child`, `post_update
 -- --------------------------------------------------------
 
 --
--- Table structure for table `correction`
---
-
-CREATE TABLE `correction` (
-  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `page` int(11) NOT NULL,
-  `correction` text CHARACTER SET utf8mb4 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `correction`
---
-
-INSERT INTO `correction` (`id`, `thesis_id`, `page`, `correction`) VALUES
-('5f37a398cbf2e', 'test', 1, 'testing correction'),
-('5f37b41e9616b', 'test', 2, 'correction 2'),
-('5f38f6c5cbd94', 'test', 3, 'correction 3'),
-('5f38f6d2ae0ea', 'test', 4, 'correction 4'),
-('5f38f6d2d325c', 'test', 5, 'correction 5'),
-('5f38f6d304091', 'test', 6, 'correction 6'),
-('5f38f6d3246e8', 'test', 7, 'correction 7'),
-('5f38f6d34c409', 'test', 8, 'correction 8'),
-('5f3e367fb4936', '5f3e362c739ae', 1, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `file_pendaftaran`
+-- Struktur dari tabel `file_pendaftaran`
 --
 
 CREATE TABLE `file_pendaftaran` (
@@ -217,7 +189,7 @@ CREATE TABLE `file_pendaftaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `file_pendaftaran`
+-- Dumping data untuk tabel `file_pendaftaran`
 --
 
 INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
@@ -235,7 +207,7 @@ INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guidance`
+-- Struktur dari tabel `guidance`
 --
 
 CREATE TABLE `guidance` (
@@ -249,22 +221,24 @@ CREATE TABLE `guidance` (
   `peminatan` varchar(255) NOT NULL,
   `tahun` varchar(10) NOT NULL,
   `status_file` varchar(255) NOT NULL,
+  `correction_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
+  `correction_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
   `date` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `guidance`
+-- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020'),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '28/08/2020'),
-('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '30-08-2020');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `correction_penguji1`, `correction_penguji2`, `date`) VALUES
+('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '', '', '10/02/2020'),
+('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '', '', '28/08/2020'),
+('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '', '', '30-08-2020');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item`
+-- Struktur dari tabel `item`
 --
 
 CREATE TABLE `item` (
@@ -277,7 +251,7 @@ CREATE TABLE `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `item`
+-- Dumping data untuk tabel `item`
 --
 
 INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) VALUES
@@ -289,7 +263,7 @@ INSERT INTO `item` (`id`, `name`, `quantity`, `access`, `image`, `description`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -297,11 +271,11 @@ CREATE TABLE `kategori` (
   `nama_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
   `slug_kategori` varchar(255) CHARACTER SET latin1 NOT NULL,
   `urutan` int(11) DEFAULT NULL,
-  `tanggal_update` timestamp NOT NULL DEFAULT current_timestamp()
+  `tanggal_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `slug_kategori`, `urutan`, `tanggal_update`) VALUES
@@ -314,17 +288,17 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `slug_kategori`, `urutan
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategoriruangan`
+-- Struktur dari tabel `kategoriruangan`
 --
 
 CREATE TABLE `kategoriruangan` (
   `id` varchar(64) NOT NULL,
   `kategori` varchar(255) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kategoriruangan`
+-- Dumping data untuk tabel `kategoriruangan`
 --
 
 INSERT INTO `kategoriruangan` (`id`, `kategori`, `date_created`) VALUES
@@ -342,7 +316,7 @@ INSERT INTO `kategoriruangan` (`id`, `kategori`, `date_created`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
+-- Struktur dari tabel `notification`
 --
 
 CREATE TABLE `notification` (
@@ -356,12 +330,12 @@ CREATE TABLE `notification` (
   `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `subject` enum('','booking','borrowing','creation','chat','news','thesis') CHARACTER SET utf8mb4 NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('unread','read') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `notification`
+-- Dumping data untuk tabel `notification`
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `booking_id`, `borrowing_id`, `creation_id`, `chat_id`, `info_id`, `thesis_id`, `subject`, `description`, `date`, `status`) VALUES
@@ -381,7 +355,7 @@ INSERT INTO `notification` (`id`, `user_id`, `booking_id`, `borrowing_id`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ruangan`
+-- Struktur dari tabel `ruangan`
 --
 
 CREATE TABLE `ruangan` (
@@ -391,11 +365,11 @@ CREATE TABLE `ruangan` (
   `akses` varchar(100) NOT NULL,
   `kapasitas` int(5) NOT NULL,
   `images` varchar(255) NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ruangan`
+-- Dumping data untuk tabel `ruangan`
 --
 
 INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `kapasitas`, `images`, `date`) VALUES
@@ -411,7 +385,7 @@ INSERT INTO `ruangan` (`id`, `id_kategori`, `ruangan`, `akses`, `kapasitas`, `im
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tampilan`
+-- Struktur dari tabel `tampilan`
 --
 
 CREATE TABLE `tampilan` (
@@ -427,29 +401,29 @@ CREATE TABLE `tampilan` (
   `No_wa` varchar(15) NOT NULL,
   `No_hp` varchar(15) NOT NULL,
   `tanggal_post` datetime NOT NULL,
-  `tanggal_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `views` int(11) NOT NULL DEFAULT 0,
+  `tanggal_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `views` int(11) NOT NULL DEFAULT '0',
   `judul` varchar(30) NOT NULL,
   `deskripsi` text NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT 0,
+  `likes` int(11) NOT NULL DEFAULT '0',
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tampilan_like`
+-- Struktur dari tabel `tampilan_like`
 --
 
 CREATE TABLE `tampilan_like` (
   `id` int(11) NOT NULL,
   `id_tampilan` int(11) NOT NULL,
   `ip` varchar(200) CHARACTER SET latin1 NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tampilan_like`
+-- Dumping data untuk tabel `tampilan_like`
 --
 
 INSERT INTO `tampilan_like` (`id`, `id_tampilan`, `ip`, `date`) VALUES
@@ -462,7 +436,7 @@ INSERT INTO `tampilan_like` (`id`, `id_tampilan`, `ip`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_info`
+-- Struktur dari tabel `tb_info`
 --
 
 CREATE TABLE `tb_info` (
@@ -472,11 +446,11 @@ CREATE TABLE `tb_info` (
   `images` varchar(100) NOT NULL,
   `body` text NOT NULL,
   `uploadby` varchar(255) NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_info`
+-- Dumping data untuk tabel `tb_info`
 --
 
 INSERT INTO `tb_info` (`id`, `title`, `slug`, `images`, `body`, `uploadby`, `date`) VALUES
@@ -485,7 +459,7 @@ INSERT INTO `tb_info` (`id`, `title`, `slug`, `images`, `body`, `uploadby`, `dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_lab`
+-- Struktur dari tabel `tb_lab`
 --
 
 CREATE TABLE `tb_lab` (
@@ -494,11 +468,11 @@ CREATE TABLE `tb_lab` (
   `title` varchar(100) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `body` varchar(500) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_lab`
+-- Dumping data untuk tabel `tb_lab`
 --
 
 INSERT INTO `tb_lab` (`id`, `images`, `title`, `slug`, `body`, `date`) VALUES
@@ -513,7 +487,7 @@ INSERT INTO `tb_lab` (`id`, `images`, `title`, `slug`, `body`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_panel`
+-- Struktur dari tabel `tb_panel`
 --
 
 CREATE TABLE `tb_panel` (
@@ -523,11 +497,11 @@ CREATE TABLE `tb_panel` (
   `body` text NOT NULL,
   `video` varchar(500) NOT NULL,
   `thumb` varchar(255) NOT NULL,
-  `date_create` datetime NOT NULL DEFAULT current_timestamp()
+  `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_panel`
+-- Dumping data untuk tabel `tb_panel`
 --
 
 INSERT INTO `tb_panel` (`id`, `title`, `slug`, `body`, `video`, `thumb`, `date_create`) VALUES
@@ -536,7 +510,7 @@ INSERT INTO `tb_panel` (`id`, `title`, `slug`, `body`, `video`, `thumb`, `date_c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_slider`
+-- Struktur dari tabel `tb_slider`
 --
 
 CREATE TABLE `tb_slider` (
@@ -544,11 +518,11 @@ CREATE TABLE `tb_slider` (
   `title` varchar(100) NOT NULL,
   `images` varchar(100) NOT NULL,
   `body` varchar(500) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_slider`
+-- Dumping data untuk tabel `tb_slider`
 --
 
 INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
@@ -559,7 +533,7 @@ INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thesis`
+-- Struktur dari tabel `thesis`
 --
 
 CREATE TABLE `thesis` (
@@ -569,20 +543,22 @@ CREATE TABLE `thesis` (
   `pdf_file` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `keterangan` text NOT NULL,
   `date` date NOT NULL,
+  `correction1` text CHARACTER SET utf8mb4 NOT NULL,
+  `correction2` text CHARACTER SET utf8mb4 NOT NULL,
   `status` varchar(124) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `thesis`
+-- Dumping data untuk tabel `thesis`
 --
 
-INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `status`) VALUES
-('5f4d19384750c', '5f48af1704a46', 'Semua', 'c3.pdf, try.pdf', 'Keterangan 1', '2020-08-31', 'Dikirim');
+INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
+('5f4d19384750c', '5f48af1704a46', 'Semua', 'c3.pdf, try.pdf', 'Keterangan 1', '2020-08-31', '', '', 'Dikirim');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thesis_lecturers`
+-- Struktur dari tabel `thesis_lecturers`
 --
 
 CREATE TABLE `thesis_lecturers` (
@@ -597,7 +573,7 @@ CREATE TABLE `thesis_lecturers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `thesis_lecturers`
+-- Dumping data untuk tabel `thesis_lecturers`
 --
 
 INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `dosen_pembimbing1`, `dosen_pembimbing2`, `dosen_penguji1`, `dosen_penguji2`, `date`, `date_edit`) VALUES
@@ -606,7 +582,7 @@ INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `dosen_pembimbing1`, `dosen
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -634,7 +610,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordinator`, `dosen_wali`, `kuota_bimbingan`, `kuota_penguji`, `prodi`, `kode_dosen`, `email`, `alamat`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
@@ -652,7 +628,7 @@ INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordina
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_role`
+-- Struktur dari tabel `user_role`
 --
 
 CREATE TABLE `user_role` (
@@ -661,7 +637,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data untuk tabel `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
@@ -675,7 +651,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_token`
+-- Struktur dari tabel `user_token`
 --
 
 CREATE TABLE `user_token` (
@@ -690,13 +666,13 @@ CREATE TABLE `user_token` (
 --
 
 --
--- Indexes for table `booking`
+-- Indeks untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `borrowing`
+-- Indeks untuk tabel `borrowing`
 --
 ALTER TABLE `borrowing`
   ADD PRIMARY KEY (`id`),
@@ -704,167 +680,161 @@ ALTER TABLE `borrowing`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `chat`
+-- Indeks untuk tabel `chat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `child_kategori`
+-- Indeks untuk tabel `child_kategori`
 --
 ALTER TABLE `child_kategori`
   ADD PRIMARY KEY (`id_ck`);
 
 --
--- Indexes for table `correction`
---
-ALTER TABLE `correction`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `file_pendaftaran`
+-- Indeks untuk tabel `file_pendaftaran`
 --
 ALTER TABLE `file_pendaftaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `guidance`
+-- Indeks untuk tabel `guidance`
 --
 ALTER TABLE `guidance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `item`
+-- Indeks untuk tabel `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kategori`
+-- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `kategoriruangan`
+-- Indeks untuk tabel `kategoriruangan`
 --
 ALTER TABLE `kategoriruangan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `notification`
+-- Indeks untuk tabel `notification`
 --
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ruangan`
+-- Indeks untuk tabel `ruangan`
 --
 ALTER TABLE `ruangan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tampilan`
+-- Indeks untuk tabel `tampilan`
 --
 ALTER TABLE `tampilan`
   ADD PRIMARY KEY (`id_tampilan`);
 
 --
--- Indexes for table `tampilan_like`
+-- Indeks untuk tabel `tampilan_like`
 --
 ALTER TABLE `tampilan_like`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_info`
+-- Indeks untuk tabel `tb_info`
 --
 ALTER TABLE `tb_info`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_lab`
+-- Indeks untuk tabel `tb_lab`
 --
 ALTER TABLE `tb_lab`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_panel`
+-- Indeks untuk tabel `tb_panel`
 --
 ALTER TABLE `tb_panel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_slider`
+-- Indeks untuk tabel `tb_slider`
 --
 ALTER TABLE `tb_slider`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `thesis`
+-- Indeks untuk tabel `thesis`
 --
 ALTER TABLE `thesis`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `thesis_lecturers`
+-- Indeks untuk tabel `thesis_lecturers`
 --
 ALTER TABLE `thesis_lecturers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_role`
+-- Indeks untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_token`
+-- Indeks untuk tabel `user_token`
 --
 ALTER TABLE `user_token`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `child_kategori`
+-- AUTO_INCREMENT untuk tabel `child_kategori`
 --
 ALTER TABLE `child_kategori`
   MODIFY `id_ck` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tampilan`
+-- AUTO_INCREMENT untuk tabel `tampilan`
 --
 ALTER TABLE `tampilan`
   MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
--- AUTO_INCREMENT for table `tampilan_like`
+-- AUTO_INCREMENT untuk tabel `tampilan_like`
 --
 ALTER TABLE `tampilan_like`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tb_panel`
+-- AUTO_INCREMENT untuk tabel `tb_panel`
 --
 ALTER TABLE `tb_panel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
--- AUTO_INCREMENT for table `user_role`
+-- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;

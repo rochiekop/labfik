@@ -45,7 +45,7 @@
                     </form> -->
                     <!-- <p id="content"></p> -->
 
-                    <form action="<?= base_url('thesis/saveCorrection')?>" method="post">
+                    <form action="<?= base_url('thesis/saveCorrection/'.$correction->id.'/'.encrypt_url($lecturers->id_guidance))?>" method="post">
                         <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10"><?= $correction->correction1 ?></textarea>
                         <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10"><?= $correction->correction2 ?></textarea>
                     </form>
@@ -63,72 +63,83 @@
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<input type="text" id="user_id" value="<?= $this->session->userdata('id') ?>" hidden>
+<input type="text" id="dosen_pembimbing1" value="<?= $lecturers->dosen_pembimbing1 ?>" hidden>
+<input type="text" id="dosen_pembimbing2" value="<?= $lecturers->dosen_pembimbing2 ?>" hidden>
 <script>
+
+    var user_id = document.getElementById("user_id").value;
+    var dosen_pembimbing1 = document.getElementById("dosen_pembimbing1").value;
+    var dosen_pembimbing2 = document.getElementById("dosen_pembimbing2").value;
+
     // tinymce.init({
     //     selector: 'textarea',
     //     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-    //     plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-    //     toolbar: 'save restoredraft checklist',
+    //     plugins: 'save autosave preview autolink lists media powerpaste table',
+    //     toolbar: 'save restoredraft',
     //     toolbar_mode: 'floating',
     //     tinycomments_mode: 'embedded',
-    //     tinycomments_author: '<?= $this->session->userdata('username') ?>',
-    //     height: '460',
+    //     // height: '460',
+    //     height: '230',
     //     // readonly : 1
     // });
 
-    if (<?= $this->session->userdata('id') ?> == <?= $lecturers->dosen_pembimbing1 ?>)
+    if (user_id == dosen_pembimbing1)
     {
         tinymce.init({
-        selector: '#correction1',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460',
+            selector: '#correction1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media powerpaste table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
         });
     }
-    else if (<?= $this->session->userdata('id') ?> != <?= $lecturers->dosen_pembimbing1 ?>)
+    else if (user_id != dosen_pembimbing1)
     {
         tinymce.init({
-        selector: '#correction1',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460',
-        readonly : 1
+            selector: '#correction1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media powerpaste table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
         });
     }
 
-    if (<?= $this->session->userdata('id') ?> == <?= $lecturers->dosen_pembimbing2 ?>)
+    if (user_id == dosen_pembimbing2)
     {
         tinymce.init({
-        selector: '#correction2',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460',
+            selector: '#correction2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media powerpaste table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
         });
     }
-    else if (<?= $this->session->userdata('id') ?> != <?= $lecturers->dosen_pembimbing2 ?>)
+    else if (user_id != dosen_pembimbing2)
     {
         tinymce.init({
-        selector: '#correction2',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460',
-        readonly : 1
+            selector: '#correction2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media powerpaste table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
         });
     }
     
