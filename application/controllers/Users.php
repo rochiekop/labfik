@@ -151,6 +151,7 @@ class Users extends CI_Controller
               'id_mhs' => $this->input->post('id_mhs'),
               'nama' => $namafile,
               'file' => $file['file_name'],
+              'status_adminlaa' => "Dikirim",
               'status_doswal' => "Dikirim",
               'date' => date('d-m-Y'),
             );
@@ -174,7 +175,11 @@ class Users extends CI_Controller
     if (!empty($thesis_lecturers)) {
       $dosbing1 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
       $dosbing2 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
+    } else {
+      $dosbing1 = null;
+      $dosbing2 = null;
     }
+
     $data = array(
       'mhs' => $mhs,
       'file' => $file,
@@ -300,7 +305,8 @@ class Users extends CI_Controller
     $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     if ($file) {
       $data = array(
-        'status_doswal' => 'Disetujui wali'
+        'status_doswal' => 'Disetujui wali',
+        'komentar' => ''
       );
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $cekstatus = $this->user_model->cekstatus($file['id_mhs']);
