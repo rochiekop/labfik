@@ -19,7 +19,11 @@
                     echo $error;
                     echo '</p>';
                 }
-
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div id="uploaded_file"></div>
+                    </div>
+                </div>
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
                 <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbymhs') ?>">
@@ -129,7 +133,11 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                        if (data.result == '1') {
+                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                        } else {
+                            $('#uploaded_file').html('<p style="color:#EA4335;">Tolong Lihat Kembali Data Anda</p>');
+                        }
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();
