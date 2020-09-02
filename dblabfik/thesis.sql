@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Sep 2020 pada 15.55
+-- Waktu pembuatan: 02 Sep 2020 pada 12.18
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -39,13 +39,6 @@ CREATE TABLE `thesis` (
   `correction2` text CHARACTER SET utf8mb4 NOT NULL,
   `status` varchar(124) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `thesis`
---
-
-INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
-('5f4d19384750c', '5f48af1704a46', 'Semua', 'c3.pdf, try.pdf', 'Keterangan 1', '2020-08-31', '', '', 'Dikirim');
 
 --
 -- Indexes for dumped tables
