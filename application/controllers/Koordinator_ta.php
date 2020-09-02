@@ -15,31 +15,8 @@ class Koordinator_ta extends CI_Controller
     is_logged_in();
   }
 
+
   public function index()
-  {
-    $getDosen = $this->koordinatorta_model->getDosen();
-    $data['title'] =  "Laboratotium FIK | Kuota Dosen Tugas Akhir";
-    $userslist = [];
-    foreach ($getDosen as $u) {
-      $userslist[] =
-        [
-          'id' => $u['id'],
-          'name' => $u['name'],
-          'kuota_bimbingan' => $u['kuota_bimbingan'],
-          'kuota_penguji' => $u['kuota_penguji'],
-          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
-          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
-        ];
-    }
-    $data['dosen'] = $userslist;
-
-    $this->load->view("templates/dashboard/headerKoorTa", $data);
-    $this->load->view("templates/dashboard/sidebarKoorTa");
-    $this->load->view("dashboard/koorta/index", $data);
-    $this->load->view("templates/dashboard/footer");
-  }
-
-  public function pengajuan()
   {
     $data['title'] = "Laboratotium FIK | Pengajuan Tugas Akhir";
     $data['lecturer'] = $this->koordinatorta_model->getThesisLecturer();
@@ -79,7 +56,30 @@ class Koordinator_ta extends CI_Controller
 
     $this->load->view("templates/dashboard/headerKoorTa", $data);
     $this->load->view("templates/dashboard/sidebarKoorTa");
-    $this->load->view("dashboard/koorta/pengajuan", $data);
+    $this->load->view("dashboard/koorta/index", $data);
+    $this->load->view("templates/dashboard/footer");
+  }
+  public function kuotadosen()
+  {
+    $getDosen = $this->koordinatorta_model->getDosen();
+    $data['title'] =  "Laboratotium FIK | Kuota Dosen Tugas Akhir";
+    $userslist = [];
+    foreach ($getDosen as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+    $data['dosen'] = $userslist;
+
+    $this->load->view("templates/dashboard/headerKoorTa", $data);
+    $this->load->view("templates/dashboard/sidebarKoorTa");
+    $this->load->view("dashboard/koorta/kuotadosen", $data);
     $this->load->view("templates/dashboard/footer");
   }
 
@@ -146,9 +146,11 @@ class Koordinator_ta extends CI_Controller
     $dosbing1 = $this->input->post('dosbing1');
     $dosbing2 = $this->input->post('dosbing2');
     $idguidance = $this->input->post('id_guidance');
+    $pemb1 = $this->adminlaa_model->getDosenWali($dosbing1);
+    $pemb2 = $this->adminlaa_model->getDosenWali($dosbing2);
     if ($dosbing1 == $dosbing2) {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Mohon untuk memilih dosen pembimbing yang berbeda</div>');
-      redirect('koordinator_ta/pengajuan');
+      redirect('koordinator_ta');
     } else {
       $data = [
         'id' => uniqid(),
@@ -158,8 +160,8 @@ class Koordinator_ta extends CI_Controller
         'date' => date('m-d-Y H:i:s'),
       ];
       $this->db->insert('thesis_lecturers', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $dosbing1 . ' dan ' . $dosbing2 . ' berhasil ditambahakan sebagai dosen pembimbing</div>');
-      redirect('koordinator_ta/pengajuan');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $pemb1->name . ' dan ' . $pemb2->name . ' berhasil ditambahakan sebagai dosen pembimbing</div>');
+      redirect('koordinator_ta');
     }
   }
 }

@@ -172,6 +172,7 @@ class Users extends CI_Controller
     $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
+    $kosentrasi = $this->db->get('child_kategori')->result_array();
     if (!empty($thesis_lecturers)) {
       $dosbing1 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
       $dosbing2 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
@@ -188,7 +189,8 @@ class Users extends CI_Controller
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
       'thesis_lecturers' =>  $thesis_lecturers,
       'dosbing1' => $dosbing1,
-      'dosbing2' => $dosbing2
+      'dosbing2' => $dosbing2,
+      'kosentrasi' => $kosentrasi
     );
 
     if ($mhs['no_telp'] != "" and $mhs['nim'] != "" and $mhs['dosen_wali'] != "" and $mhs['prodi'] != "" and $mhs['alamat'] != "") {
@@ -450,6 +452,7 @@ class Users extends CI_Controller
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
+          'dosen_pemb1' => $u['dosen_pembimbing1'],
           'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
         ];
     }

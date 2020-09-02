@@ -128,11 +128,19 @@
               <input name="judul3" class="form-control" value="<?= set_value('judul'); ?>">
               <?php echo form_error('judul3', '<small class="text-danger">', '</small>'); ?>
             </div>
-            <div class="form-group">
-              <label for="kosentrasi">Kosentrasi</label>
-              <input type="text" name="peminatan" value="<?= set_value('peminatan'); ?>" class="form-control" placeholder="" required="required" autocomplete="off" />
-              <?php echo form_error('peminatan', '<small class="text-danger">', '</small>'); ?>
-            </div>
+            <?php if ($mhs['prodi'] == "Desain Komunikasi Visual") : ?>
+              <div class="form-group">
+                <label for="kosentrasi">Kosentrasi</label>
+                <select name="peminatan" required class="form-control" id="peminatan">
+                  <option value="">Pilih Kosentrasi</option>
+                  <?php foreach ($kosentrasi as $k) { ?>
+                    <option value="<?= $k['nama_child'] ?>">
+                      <?= $k['nama_child'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php endif; ?>
             <div class="form-group">
               <label for="exampleFormControlFile1">Kartu Studi Mahasiswa (KSM)</label>
               <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">

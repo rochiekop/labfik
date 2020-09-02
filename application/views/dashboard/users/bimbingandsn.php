@@ -27,6 +27,7 @@
           <th scope="col">Prodi</th>
           <th scope="col">Peminatan</th>
           <th scope="col">Tahun</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -49,6 +50,11 @@
               <td><?= $t['prodi'] ?></td>
               <td><?= $t['peminatan'] ?></td>
               <td><?= $t['tahun'] ?></td>
+              <?php if ($this->session->userdata('id') == $t['dosen_pemb1']) { ?>
+                <td><b>Pembimbing 1</b></td>
+              <?php } else { ?>
+                <td><b>Pembimbing 2</b></td>
+              <?php } ?>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
