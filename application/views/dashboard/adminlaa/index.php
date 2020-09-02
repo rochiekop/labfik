@@ -9,7 +9,15 @@
 
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h5>List Pendaftaran Tugas Akhir</h5>
+      <h4>Pengajuan Tugas Akhir</h4>
+    </div>
+    <div class="alert alert-warning">
+      <ul class="list-dot-ul">
+        <li><b>257</b> Pengajuan Belum Ada Aksi</li>
+        <li><b>257</b> Pengajuan Dokumen Belum Lengkap</li>
+        <li><b>7</b> Pengajuan Ditolak</li>
+        <li><b>3298</b> Total Pengajuan Sepanjang Waktu</li>
+      </ul>
     </div>
     <div class="input-group">
       <div class="input-group-append">

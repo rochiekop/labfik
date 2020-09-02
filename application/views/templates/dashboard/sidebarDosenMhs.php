@@ -66,7 +66,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
     <div class="divider"></div>
     <?php if ($this->session->userdata('role_id') == 4) : ?>
       <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
@@ -79,7 +79,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
       </div>
     <?php else : ?>
       <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-list"></span> TA Online</a>
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
         <div id="collapse4" class="collapse" data-parent="#accordion">
           <ul>
             <?php if ($this->session->userdata('dosen_wali') == 1) : ?>
@@ -92,21 +92,15 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
       </div>
       <?php if ($this->session->userdata('koordinator') == 1) : ?>
         <div class="card">
-          <a href="#" class="btn" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5"><span class="fas fa-tasks"></span> Management TA</a>
-          <div id="collapse5" class="collapse" data-parent="#accordion">
-            <ul>
-              <li><a href="<?= base_url('users/takoor') ?>">Permintaan TA</a></li>
-              <!-- <li><a href="<?= base_url('users/tambahdosbing') ?>">Tambah Pembimbing</a></li>
-              <li><a href="<?= base_url('users/permintaanbimbingan') ?>">Dosen Pembimbing</a></li>
-              <li><a href="<?= base_url('users/tambahdosenpenguji') ?>">Tambah Penguji</a></li>
-              <li><a href="<?= base_url('users/bimbingandsn') ?>">Dosen Penguji</a></li>
-              <li><a href="<?= base_url('users/penguji') ?>">Sidang</a></li> -->
-            </ul>
-          </div>
+          <a href="<?= base_url('users/takoor') ?>" class="btn"><span class="fas fa-users"></span> Pengajuan TA</a>
         </div>
       <?php endif; ?>
     <?php endif; ?>
+    <div class="card logout">
+      <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
+    </div>
   </div>
+
 </div>
 
 <!--Exit Modal -->

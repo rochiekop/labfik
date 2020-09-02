@@ -448,10 +448,11 @@ class User_model extends CI_Model
 	}
 	public function getmhsbimbinganbyid($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,no_telp');
+		$this->db->select('user.name,user.nim,user.prodi,no_telp,thesis_lecturers.dosen_pembimbing1');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('user', 'guidance.id_mhs = user.id');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
 		$this->db->where('thesis.id_guidance', $id);
 		return $this->db->get()->row_array();
 	}
@@ -461,6 +462,7 @@ class User_model extends CI_Model
 		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
 		$this->db->where('thesis.id_guidance', $id);
 		return $this->db->get()->result_array();
 	}

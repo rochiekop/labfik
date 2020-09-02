@@ -24,8 +24,8 @@
           </ul>
         </div>
         <div class="card">
-          <a href="<?= base_url('admin/dt_info') ?>" class="btn hide-mobile"><span class="fas fa-receipt"></span> News dan Event</a>
-          <a href="<?= base_url('admin/dt_lab') ?>" class="btn hide-mobile"><span class="fas fa-qrcode"></span> Laboratorium</a>
+          <a href="<?= base_url('admin/dt_info') ?>" class="btn hide-mobile"><span class="fas fa-bullhorn"></span> News dan Event</a>
+          <a href=" <?= base_url('admin/dt_lab') ?>" class="btn hide-mobile"><span class="fas fa-qrcode"></span> Laboratorium</a>
         </div>
       </div>
       <div class="divider"></div>

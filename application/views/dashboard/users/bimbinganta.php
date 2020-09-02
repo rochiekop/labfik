@@ -1,78 +1,163 @@
   <!-- Main Container -->
   <main class="akun-container">
-    <?= $this->session->flashdata('message'); ?>
     <div class="fik-section-title2">
       <h4>Bimbingan</h4>
     </div>
+    <?= $this->session->flashdata('message'); ?>
     <p>Pembimbing 1 : <?= $dosbing1['name'] ?></p>
     <p>Pembimbing 2 :<?= $dosbing2['name'] ?></p>
     <br>
-    <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
-      <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
-    <?php else : ?>
-      <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
-    <?php endif; ?>
-    <br>
-    <br>
-    <div id="container">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <!-- <th scope="col">Dosen</th> -->
-              <th scope="col" style="width:30%">Keterangan</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">View Dokumen</th>
-              <th scope="col">Status</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody id="bimbingan">
-            <?php if (empty($allhistory)) : ?>
-              <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
-            <?php else : ?>
-              <?php $no = 0;
-              foreach ($allhistory as $t) : ?>
-                <tr>
-                  <td scope="row"><?= ++$no ?></td>
-                  <!-- <td><?= $t['dosen_name'] ?></td> -->
-                  <td><?= $t['keterangan'] ?></td>
-                  <td><?= $t['date'] ?></td>
-                  <td>
-                    <!-- <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a> -->
-                    <?php $file = explode(",", $t['pdf_file']); ?>
-                    <?php foreach ($file as $f) : ?>
-                      <form action="<?= base_url('thesis') ?>" method="post">
-                        <input type="text" name="thesis_id" value="<?= $t['id'] ?>" hidden>
-                        <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $t['correction'] ?></textarea>
-                        <input type="text" name="pdf_file" value="<?= $f ?>" hidden>
-                        <button type="submit"><?= $f ?></button>
-                      </form>
-                      <br>
-                    <?php endforeach; ?>
-                  </td>
-                  <?php if ($t['status'] == "Dikirim") : ?>
-                    <td><b>Dikirim</b></td>
-                  <?php elseif ($t['status'] == "Selesai" or $t['status'] == "Preview 1" or $t['status'] == "Preview 2" or $t['status'] == "Preview 3" or $t['status'] == "Preview 4") : ?>
-                    <td><span class="badge badge-success"><?= $t['status'] ?></span></td>
-                  <?php elseif ($t['status'] == "Revisi") : ?>
-                    <td><span class="badge badge-danger">Revisi</span></td>
-                  <?php endif; ?>
-                  <?php if ($t['status'] == "Dikirim") : ?>
-                    <td><a data-toggle="modal" data-target="#Jkdbs<?= encrypt_url($t['id']); ?>" class="badge badge-danger" style="color:white">Batalkan</a></td>
-                  <?php else : ?>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent" style="padding-top:20px;">
+
+      <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+        <div class="alert alert-warning">
+          Preview 1. Tahap awal bimbingan tugas akhir.
+        </div>
+        <div class="dropdown">
+          <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
+            <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
+          <?php else : ?>
+            <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
+          <?php endif; ?>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <!-- <th scope="col">Dosen</th> -->
+                <th scope="col" style="width:30%">Keterangan</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">View Dokumen</th>
+                <th scope="col">Status</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="bimbingan">
+              <?php if (empty($allhistory)) : ?>
+                <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
+              <?php else : ?>
+                <?php $no = 0;
+                foreach ($allhistory as $t) : ?>
+                  <tr>
+                    <td scope="row"><?= ++$no ?></td>
+                    <!-- <td><?= $t['dosen_name'] ?></td> -->
+                    <td><?= $t['keterangan'] ?></td>
+                    <td><?= $t['date'] ?></td>
                     <td>
-                      <center>~</center>
+                      <!-- <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a> -->
+                      <?php $file = explode(",", $t['pdf_file']); ?>
+                      <?php foreach ($file as $f) : ?>
+                        <form action="<?= base_url('thesis') ?>" method="post">
+                          <input type="text" name="thesis_id" value="<?= $t['id'] ?>" hidden>
+                          <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $t['correction'] ?></textarea>
+                          <input type="text" name="pdf_file" value="<?= $f ?>" hidden>
+                          <button type="submit"><?= $f ?></button>
+                        </form>
+                        <br>
+                      <?php endforeach; ?>
                     </td>
-                  <?php endif; ?>
-                </tr>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </tbody>
-        </table>
+                    <?php if ($t['status'] == "Dikirim") : ?>
+                      <td><b>Dikirim</b></td>
+                    <?php elseif ($t['status'] == "Selesai" or $t['status'] == "Preview 1" or $t['status'] == "Preview 2" or $t['status'] == "Preview 3" or $t['status'] == "Preview 4") : ?>
+                      <td><span class="badge badge-success"><?= $t['status'] ?></span></td>
+                    <?php elseif ($t['status'] == "Revisi") : ?>
+                      <td><span class="badge badge-danger">Revisi</span></td>
+                    <?php endif; ?>
+                    <?php if ($t['status'] == "Dikirim") : ?>
+                      <td><a data-toggle="modal" data-target="#Jkdbs<?= encrypt_url($t['id']); ?>" class="badge badge-danger" style="color:white">Batalkan</a></td>
+                    <?php else : ?>
+                      <td>
+                        <center>~</center>
+                      </td>
+                    <?php endif; ?>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <div class="tab-pane fade" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+        <div class="alert alert-warning">
+          Preview 2. Tahap audiensi/presentasi.
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dosen Pembimbing</th>
+                <th scope="col">Dosen Penguji</th>
+                <th scope="col">Tgl. Sidang</th>
+                <th scope="col">Waktu</th>
+                <th scope="col">Aksi</th>
+                <th scope="col">Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>
+                  Mark Hoover <br>
+                  Momo Delia
+                </td>
+                <td>
+                  David Hans <br>
+                  Hassle Amelia
+                </td>
+                <td>12 April 2020</td>
+                <td>13:30</td>
+                <td><a href="#" class="badge badge-success">Zoom</a></td>
+                <td><a href="#" class="badge badge-secondary">Lihat Nilai</a></td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>
+                  Mark Hoover <br>
+                  Momo Delia
+                </td>
+                <td>
+                  David Hans <br>
+                  Hassle Amelia
+                </td>
+                <td>12 April 2020</td>
+                <td>13:30</td>
+                <td><a href="#" class="badge badge-success">Zoom</a></td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tiga" role="tabpanel" aria-labelledby="tiga-tab">
+        <div class="alert alert-warning">
+          Preview 3. Tahap Persetujuan
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="pat" role="tabpanel" aria-labelledby="pat-tab">
+        ...
+      </div>
+
     </div>
+
   </main>
   <!-- End Main Container -->
 

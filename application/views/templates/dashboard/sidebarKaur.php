@@ -55,9 +55,9 @@
       <!-- <div class="card">
         <a href="<?= base_url('main/helpdesk') ?>" class="btn show-mobile"><span class="fas fa-life-ring"></span> Helpdesk</a>
       </div> -->
-      <!-- <div class="card logout">
+      <div class="card logout">
         <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
-      </div> -->
+      </div>
     </div>
   </div>
   <!-- End Side Menu -->
