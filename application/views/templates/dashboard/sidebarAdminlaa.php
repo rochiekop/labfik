@@ -10,7 +10,7 @@
       </div>
       <div class="divider show-mobile" style="margin-top:20px"></div>
       <div class="card">
-        <a href="<?= base_url('adminlaa') ?>" class="btn"><span class="fas fa-th-large"></span> Pendaftaran</a>
+        <a href="<?= base_url('adminlaa') ?>" class="btn"><span class="fas fa-align-left"></span> Pendaftaran</a>
       </div>
       <div class="divider"></div>
       <div class="card">

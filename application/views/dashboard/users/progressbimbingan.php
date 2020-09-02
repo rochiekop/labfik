@@ -2,7 +2,7 @@
 <main class="akun-container">
 
   <div class="fik-section-title2">
-    <h4>Bimbingan</h4>
+    <h4>Bimbingan <?= $mhsbyid['name'] ?></h4>
   </div>
 
   <table>
@@ -35,48 +35,72 @@
     </tbody>
   </table>
   <br>
+  <?php if ($this->session->userdata('id') == $mhsbyid['dosen_pembimbing1']) { ?>
+    <td> Status Anda : Pembimbing 1</b></td>
+  <?php } else { ?>
+    <td> Status Anda : Pembimbing 2</td>
+  <?php } ?>
+  <br>
+  <br>
   <input type="hidden" value="siap_sidang" />
-  <?php
-  for ($x = 1; $x <= 3; $x++) {
-    if ($x - 1 == count($preview)) {
-      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" title="Berikan Preview ' . $x . '" data-target="#previewmodal">Preview ' . $x . '</button>';
-    } else {
-      echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:5px;">Preview ' . $x . '</button>';
-    }
-  }
-  if (count($preview) == 3) {
-    echo '<button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>';
-  } else {
-    echo '<button type="submit" class="btn btn-sm btn-secondary" disabled style="color:#fff">Berikan Siap Sidang</button>';
-  }
-  ?>
+  <!-- <?php
+        for ($x = 1; $x <= 3; $x++) {
+          if ($x - 1 == count($preview)) {
+            echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" title="Berikan Preview ' . $x . '" data-target="#previewmodal">Preview ' . $x . '</button>';
+          } else {
+            echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:5px;">Preview ' . $x . '</button>';
+          }
+        }
+        if (count($preview) == 3) {
+          echo '<button type="submit" class="btn btn-sm btn-primary" style="color:#fff">Berikan Siap Sidang</button>';
+        } else {
+          echo '<button type="submit" class="btn btn-sm btn-secondary" disabled style="color:#fff">Berikan Siap Sidang</button>';
+        }
+        ?> -->
 
-  <br>
-  <br>
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col" style="width:35%;">Keterangan</th>
-          <!-- <th scope="col">File</th> -->
-          <th scope="col">Dokumen</th>
-          <th scope="col">Project</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (empty($filebimbingan)) : ?>
-          <td colspan="6" style="background-color: whitesmoke;text-align:center">Daftar permintaan bimbingan kosong</td>
-        <?php else : ?>
-          <?php $no = 0;
-          foreach ($filebimbingan as $f) : ?>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent" style="padding-top:20px;">
+
+    <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+      <div class="alert alert-warning">
+        Mahasiswa ini sudah melaksanakan bimbingan dan siap untuk melaksanakan preview 2
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
             <tr>
-              <th scope="row"><?= ++$no ?></th>
-              <td>
-                <?= $f['keterangan'] ?>
-              </td>
-              <!-- <td>
+              <th scope="col">#</th>
+              <th scope="col" style="width:35%;">Keterangan</th>
+              <!-- <th scope="col">File</th> -->
+              <th scope="col">View Dokumen</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php if (empty($filebimbingan)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">Daftar permintaan bimbingan kosong</td>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($filebimbingan as $f) : ?>
+                <tr>
+                  <th scope="row"><?= ++$no ?></th>
+                  <td>
+                    <?= $f['keterangan'] ?>
+                  </td>
+                  <!-- <td>
                 <?php
                 $file = explode(",", $f['pdf_file']);
                 foreach ($file as $t) {
@@ -85,34 +109,140 @@
                 ?>
                 <a href="#" class="btn badge badge-secondary">Unduh</a>
               </td> -->
-              <td>
-                <?php $file = explode(",", $f['pdf_file']); ?>
-                <?php foreach ($file as $t) : ?>
-                  <!-- <form action="<?= base_url('thesis') ?>" method="post">
+                  <td>
+                    <?php $file = explode(",", $f['pdf_file']); ?>
+                    <?php foreach ($file as $t) : ?>
+                      <!-- <form action="<?= base_url('thesis') ?>" method="post">
                     <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
                     <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $f['correction'] ?></textarea>
                     <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
                     <button type="submit"><?= $t ?></button>
                   </form> -->
-                  <a href="<?= base_url('thesis/openFile/'.$f['id'].'/'.$t) ?>"><?= $t ?></a><br>
-                <?php endforeach; ?>
+                      <a href="<?= base_url('thesis/openFile/' . $f['id'] . '/' . $t) ?>"><?= $t ?></a><br>
+                    <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <a href="#" class="btn badge badge-success">Selesai</a>
+                    <a href="#" class="btn badge badge-danger">Revisi</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+      <div class="alert alert-warning">
+        Preview 2. Tahap audiensi/presentasi.
+      </div>
+      <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a> -->
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Dosen Pembimbing</th>
+              <th scope="col">Dosen Penguji</th>
+              <th scope="col">Tgl. Sidang</th>
+              <th scope="col">Aksi</th>
+              <th scope="col">Nilai</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>
+                <b>Mark Hoover</b> <br>
+                Momo Delia
               </td>
               <td>
-                <?php $file = explode(",", $f['link_project']); ?>
-                <?php foreach ($file as $t) : ?>
-                  <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
-                <?php endforeach; ?>
+                David Hans <br>
+                -
+              </td>
+              <td>Selasa, 12 April 2020 <br> 13:30</td>
+              <td><a href="#" class="badge badge-success">Zoom</a></td>
+              <td><a href="#" class="badge badge-secondary">Berikan Nilai</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tiga" role="tabpanel" aria-labelledby="tiga-tab">
+      <div class="alert alert-warning">
+        Preview 3. Tahap Persetujuan
+      </div>
+      <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a>
+    </div>
+
+    <div class="tab-pane fade" id="pat" role="tabpanel" aria-labelledby="pat-tab">
+      <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Dosen Pembimbing</th>
+              <th scope="col">Dosen Penguji</th>
+              <th scope="col">Tgl. Sidang</th>
+              <th scope="col">Aksi</th>
+              <th scope="col">Nilai</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>
+                <b>Mark Hoover</b> <br>
+                Momo Delia
+              </td>
+              <td>
+                <<<<<<< HEAD David Hans <br>
+                  Momoka
+                  =======
+                  <?php $file = explode(",", $f['link_project']); ?>
+                  <?php foreach ($file as $t) : ?>
+                    <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
+                  <?php endforeach; ?>
               </td>
               <td>
                 <a href="#" class="btn badge badge-success">Selesai</a>
                 <a href="#" class="btn badge badge-danger">Revisi</a>
+                >>>>>>> 9ac5c91dc593973a0c4a53ec886cd36c4b0dec6f
               </td>
+              <td>Selasa, 12 April 2020 <br> 13:30</td>
+              <td><a href="#" class="badge badge-info">Zoom</a></td>
+              <td><a href="#" class="badge badge-secondary">Berikan Nilai</a></td>
             </tr>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
+
+</main>
+<!-- End Main Container -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">Anda Yakin?</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button></a>
+        <a href="#" class="btn btn-sm btn-primary">Ya, Lanjutkan!</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 </main>
 <!-- End Main Container -->
 
