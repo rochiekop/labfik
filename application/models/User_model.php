@@ -395,7 +395,7 @@ class User_model extends CI_Model
 
 	public function getMhsBimbingan()
 	{
-		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun');
+		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun,thesis_lecturers.dosen_pembimbing1');
 		$this->db->from('thesis_lecturers');
 		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');

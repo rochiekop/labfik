@@ -99,17 +99,35 @@ class Adminlaa extends CI_Controller
   public function tolakfilependaftaran()
   {
     $id = $this->input->post('id');
-    $komentar = $this->input->post('komentar');
     $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
     $nama = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->nama;
     if ($file) {
       $data = [
         'status_adminlaa' => 'Ditolak',
-        'komentar' => $komentar,
       ];
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $nama . ' ditolak</div>');
       redirect('adminlaa/viewdetail/' . encrypt_url($file['id_mhs']));
+    }
+  }
+
+  function berikomentar($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $komentar = $this->input->post('komentar');
+      $data = array(
+        'komentar' => $komentar
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail/' . $data1);
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/viewdetail' . $data1);
     }
   }
 }

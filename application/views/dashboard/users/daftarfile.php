@@ -108,8 +108,8 @@
                         <textarea name="komentar" id="komentar" cols="46" rows="5"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
                 </form>
             </div>
@@ -137,8 +137,6 @@
 <script>
     tinymce.init({
         selector: 'textarea',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview autolink lists media powerpaste table',
         toolbar: 'save restoredraft',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',

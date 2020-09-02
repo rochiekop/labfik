@@ -51,7 +51,7 @@
                     <td><b><?= $f['status_adminlaa'] ?></b></td>
                     <td></td>
                   <?php elseif ($f['status_adminlaa'] == "Ditolak") : ?>
-                    <td></td>
+                    <td><a data-toggle="modal" data-target="#komen<?= encrypt_url($f['id']); ?>" class="badge badge-warning" style="color:white">Beri Tanggapan</a></td>
                     <td><b><?= $f['status_adminlaa'] ?></b></td>
                     <td><?= $f['komentar'] ?></td>
                   <?php endif; ?>
@@ -85,24 +85,40 @@
   <?php endforeach; ?>
 
   <?php foreach ($file as $f) : ?>
-    <!-- Modal -->
-    <div class="modal fade" id="tolak<?= $f['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="komen<?= encrypt_url($f['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="<?= base_url('adminlaa/berikomentar/') . encrypt_url($f['id']); ?>" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Beri Komentar disini</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <textarea name="komentar" id="komentar" cols="46" rows="5"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+  <?php foreach ($file as $f) : ?>
+    <!-- Declined -->
+    <div class="modal fade bd-example-modal-sm" id="tolak<?= $f['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel"> Tolak Dokumen <?= $f['nama'] ?> ?</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <p class="modal-title" id="exampleModalLabel"> Tolak Dokumen <?= $f['nama'] ?> ?</p>
           </div>
           <form action="<?= base_url('adminlaa/tolakfilependaftaran') ?>" method="post" enctype="multipart/form-data">
-            <div class="modal-body">
-              <input type="hidden" name="id" value="<?= $f['id'] ?>">
-              <div class="form-group" style="margin-bottom:0;">
-                <label for="exampleFormControlTextarea1"><b>Berikan Feedback</b></label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="komentar" rows="3" placeholder="Contoh: KSM Salah"></textarea>
-              </div>
-            </div>
+
+            <input type="hidden" name="id" value="<?= $f['id'] ?>">
+
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
               <button type="submit" class="btn btn-sm btn-danger">Kirim</button>
@@ -111,5 +127,15 @@
         </div>
       </div>
     </div>
-    </div>
   <?php endforeach; ?>
+
+  <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    tinymce.init({
+      selector: 'textarea',
+      toolbar: 'save restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // he
+    });
+  </script>

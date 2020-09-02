@@ -28,7 +28,7 @@
                 </div>
                 <div class="item-text">
                   <h6><?= $l['title'] ?></h6>
-                  <p><?= $l['body'] ?></p>
+                  <p><?= substr_replace($l['body'], "...", 100); ?></p>
                   <a href="<?= base_url('main/labview/') . $l['slug']; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
                 </div>
               </div>

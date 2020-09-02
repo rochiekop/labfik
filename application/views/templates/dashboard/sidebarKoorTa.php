@@ -9,8 +9,8 @@
     </div>
     <div class="divider show-mobile" style="margin-top:20px"></div>
     <div class="card">
-      <a href="<?= base_url('koordinator_ta') ?>" class="btn"><span class="fas fa-user"></span> Kuota Dosen</a>
-      <a href="<?= base_url('koordinator_ta/pengajuan') ?>" class="btn"><span class="fas fa-bell"></span> Pengajuan</a>
+      <a href="<?= base_url('koordinator_ta') ?>" class="btn"><span class="fas fa-bell"></span> Pengajuan</a>
+      <a href="<?= base_url('koordinator_ta/kuotadosen') ?>" class="btn"><span class="fas fa-user"></span> Kuota Dosen</a>
       <a href="<?= base_url('koordinator_ta/previewdua') ?>" class="btn"><span class="fas fa-comment"></span> Preview 2</a>
       <a href="<?= base_url('koordinator_ta/sidang') ?>" class="btn"><span class="fas fa-university"></span> Sidang</a>
     </div>
