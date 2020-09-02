@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Sep 2020 pada 12.18
+-- Waktu pembuatan: 02 Sep 2020 pada 18.04
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -39,19 +39,25 @@ CREATE TABLE `guidance` (
   `peminatan` varchar(255) NOT NULL,
   `tahun` varchar(10) NOT NULL,
   `status_file` varchar(255) NOT NULL,
-  `correction_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
-  `correction_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
-  `date` varchar(64) NOT NULL
+  `date` varchar(64) NOT NULL,
+  `penilan_pembimbing1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pembimbing1` int(3) NOT NULL,
+  `penilaian_pembimbing2` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pembimbing2` int(3) NOT NULL,
+  `penilaian_pengawas1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pengawas1` int(3) NOT NULL,
+  `penilaian_pengawas2` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pengawas2` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `correction_penguji1`, `correction_penguji2`, `date`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '', '', '10/02/2020'),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '', '', '28/08/2020'),
-('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '', '', '30-08-2020');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `penilan_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_pengawas1`, `nilai_pengawas1`, `penilaian_pengawas2`, `nilai_pengawas2`) VALUES
+('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020', '', 0, '', 0, '', 0, '', 0),
+('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '28/08/2020', '', 0, '', 0, '', 0, '', 0),
+('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '30-08-2020', '', 0, '', 0, '', 0, '', 0);
 
 --
 -- Indexes for dumped tables

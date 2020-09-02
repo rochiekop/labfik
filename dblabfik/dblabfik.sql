@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Sep 2020 pada 15.56
+-- Waktu pembuatan: 02 Sep 2020 pada 18.04
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -221,19 +221,25 @@ CREATE TABLE `guidance` (
   `peminatan` varchar(255) NOT NULL,
   `tahun` varchar(10) NOT NULL,
   `status_file` varchar(255) NOT NULL,
-  `correction_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
-  `correction_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
-  `date` varchar(64) NOT NULL
+  `date` varchar(64) NOT NULL,
+  `penilan_pembimbing1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pembimbing1` int(3) NOT NULL,
+  `penilaian_pembimbing2` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pembimbing2` int(3) NOT NULL,
+  `penilaian_pengawas1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pengawas1` int(3) NOT NULL,
+  `penilaian_pengawas2` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pengawas2` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `correction_penguji1`, `correction_penguji2`, `date`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '', '', '10/02/2020'),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '', '', '28/08/2020'),
-('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '', '', '30-08-2020');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `penilan_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_pengawas1`, `nilai_pengawas1`, `penilaian_pengawas2`, `nilai_pengawas2`) VALUES
+('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020', '', 0, '', 0, '', 0, '', 0),
+('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '28/08/2020', '', 0, '', 0, '', 0, '', 0),
+('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '30-08-2020', '', 0, '', 0, '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -541,6 +547,7 @@ CREATE TABLE `thesis` (
   `id_guidance` varchar(64) NOT NULL,
   `send_to` varchar(64) NOT NULL,
   `pdf_file` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `link_project` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `keterangan` text NOT NULL,
   `date` date NOT NULL,
   `correction1` text CHARACTER SET utf8mb4 NOT NULL,
@@ -552,8 +559,8 @@ CREATE TABLE `thesis` (
 -- Dumping data untuk tabel `thesis`
 --
 
-INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
-('5f4d19384750c', '5f48af1704a46', 'Semua', 'c3.pdf, try.pdf', 'Keterangan 1', '2020-08-31', '', '', 'Dikirim');
+INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `link_project`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
+('5f4faf4dadfc8', '5f48af1704a46', 'Semua', 'KHS_Muhammad_Sulthan_Angka_Kurniawan.pdf, SL_Muhammad_Sulthan_Angka_Kurniawan.pdf', 'https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing', 'testing link sending', '2020-09-02', '', '', 'Dikirim');
 
 -- --------------------------------------------------------
 
@@ -616,8 +623,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordinator`, `dosen_wali`, `kuota_bimbingan`, `kuota_penguji`, `prodi`, `kode_dosen`, `email`, `alamat`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
 ('39', 'kaurlab', 'Kaur Lab ', '', '', '', '', '', 0, 0, '', '', 'kaurlab@gmail.com', '', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
 ('44', 'ihdar', 'Rafif ihdar', '0851221132434', '1301130763', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', 'Bengkulu', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'offline'),
-('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '2147483647', '', '1', 5, 4, 'Desain Komunikasi Visual', 'CSH10', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'online'),
-('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '', 9, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'offline'),
+('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '2147483647', '', '1', 5, 4, 'Desain Komunikasi Visual', 'CSH10', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
+('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '', 9, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'online'),
 ('5f28dbe13ddf9', 'manhattan', 'Manhattan', '08121002931', '', '12345678910', '', '', 11, 1, 'Desain Interior', 'MHN10', 'manhattan@gmail.com', 'Buah Batu, Bandung', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
 ('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', '', '', '', 0, 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', '', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'offline'),
 ('5f43c46f3b0df', 'adminlaa', 'Admin LAA', '', '', '', '', '', 0, 0, '', '', 'adminlaafik@gmail.com', '', 'default.jpg', '86f9d10cd1d13ff0ec318766b3ba445f0913f482d39581851a18bcd239dbd2cf', '$2y$10$NcoX.mxiqsXOR1DH2YJ9JeCVKPcxM5Quwnlk1hk28/Yh4cAAld9QS', 5, 1, 1598276719, 'offline'),
@@ -813,13 +820,13 @@ ALTER TABLE `child_kategori`
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tampilan_like`
