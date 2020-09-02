@@ -199,8 +199,18 @@
                 Momo Delia
               </td>
               <td>
-                David Hans <br>
-                Momoka
+                <<<<<<< HEAD David Hans <br>
+                  Momoka
+                  =======
+                  <?php $file = explode(",", $f['link_project']); ?>
+                  <?php foreach ($file as $t) : ?>
+                    <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
+                  <?php endforeach; ?>
+              </td>
+              <td>
+                <a href="#" class="btn badge badge-success">Selesai</a>
+                <a href="#" class="btn badge badge-danger">Revisi</a>
+                >>>>>>> 9ac5c91dc593973a0c4a53ec886cd36c4b0dec6f
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
               <td><a href="#" class="badge badge-info">Zoom</a></td>

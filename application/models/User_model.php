@@ -459,7 +459,7 @@ class User_model extends CI_Model
 
 	public function getfilebimbinganbyid($id)
 	{
-		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan');
+		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan, thesis.link_project');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');

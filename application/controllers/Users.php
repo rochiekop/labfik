@@ -418,6 +418,7 @@ class Users extends CI_Controller
         "id_guidance" => $this->input->post('id_guidance', true),
         "send_to" => $this->input->post('fordosen', true),
         "pdf_file" => implode(', ', $data),
+        "link_project" => implode(', ', $this->input->post('link_project', true)),
         "date" => date('Y-m-d'),
         "keterangan" => $this->input->post('keterangan', true),
         "status" => "Dikirim",
