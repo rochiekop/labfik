@@ -96,12 +96,23 @@
             <div class="row">
               <div class="col-lg-11" id="dynamic">
                 <div class="form-group">
-                  <label for="exampleFormControlFile1">Pilih Dokumen</label>
+                  <label for="exampleFormControlFile1">Kirim Dokumen</label>
                   <input type="file" class="form-control" name="fileta[]" required style="padding:13px 16px">
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
                 <a id="tambah"> <span class="fas fa-plus"></span></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-11" id="dynamic2">
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Link Project</label>
+                  <input type="text" class="form-control" name="link_project[]" required style="padding:13px 16px">
+                </div>
+              </div>
+              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon2">
+                <a id="tambah2"> <span class="fas fa-plus"></span></a>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:0;">
@@ -138,6 +149,7 @@
       </div>
     </div>
   <?php endforeach; ?>
+
   <script>
     $(document).ready(function() {
       var no = 1;
@@ -145,6 +157,21 @@
         no++;
         $('#dynamic').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="file" name="fileta[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
         $('#icon').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
+      });
+      $(document).on('click', '.btn_remove', function() {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
+        $('#row' + button_id + '').remove();
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      var no = 1;
+      $('#tambah2').click(function() {
+        no++;
+        $('#dynamic2').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="text" name="link_project[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
+        $('#icon2').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
       });
       $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");

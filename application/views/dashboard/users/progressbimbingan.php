@@ -60,7 +60,8 @@
           <th scope="col">#</th>
           <th scope="col" style="width:35%;">Keterangan</th>
           <!-- <th scope="col">File</th> -->
-          <th scope="col">View Dokumen</th>
+          <th scope="col">Dokumen</th>
+          <th scope="col">Project</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
@@ -94,6 +95,12 @@
                     <button type="submit"><?= $t ?></button>
                   </form> -->
                   <a href="<?= base_url('thesis/openFile/'.$f['id'].'/'.$t) ?>"><?= $t ?></a><br>
+                <?php endforeach; ?>
+              </td>
+              <td>
+                <?php $file = explode(",", $f['link_project']); ?>
+                <?php foreach ($file as $t) : ?>
+                  <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
                 <?php endforeach; ?>
               </td>
               <td>
