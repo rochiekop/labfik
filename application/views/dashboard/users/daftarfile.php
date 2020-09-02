@@ -138,7 +138,7 @@
     tinymce.init({
         selector: 'textarea',
         // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview autolink lists media powerpaste table',
+        plugins: 'save autosave preview autolink lists media table',
         toolbar: 'save restoredraft',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',
