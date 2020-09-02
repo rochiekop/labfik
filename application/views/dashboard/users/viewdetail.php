@@ -47,7 +47,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                            <?php elseif ($t['status_doswal'] == "Disetujui koor" or $t['status_doswal'] == "Ditolak wali") : ?>
+                            <?php elseif ($t['status_doswal'] == "Disetujui koor" or $t['status_doswal'] == "Ditolak wali" or $t['status_doswal'] == "Disetujui wali") :  ?>
                                 <td></td>
                                 <td><b>Acc</b></td>
                                 <td></td>
@@ -77,7 +77,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <embed src="<?= base_url('assets/upload/thesis/') . $t['username'] . "/" . $t['file'] ?>" type="application/pdf" width="700" height="420" />
+                    <embed src="<?= base_url('assets/upload/thesis/') . $t['username'] . "/" . $t['file'] ?>" type="application/pdf" width="100%" height="650px" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -130,12 +130,10 @@
     tinymce.init({
         selector: 'textarea',
         // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'save restoredraft checklist',
+        plugins: 'save autosave preview autolink lists media powerpaste table',
+        toolbar: 'save restoredraft',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',
-        tinycomments_author: '<?= $this->session->userdata('username') ?>',
-        height: '460',
-        // readonly : 1
+        // he
     });
 </script>

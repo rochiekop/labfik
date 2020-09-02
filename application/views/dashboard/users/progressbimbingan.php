@@ -39,7 +39,7 @@
   <?php
   for ($x = 1; $x <= 3; $x++) {
     if ($x - 1 == count($preview)) {
-      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" data-target="#previewmodal">Preview ' . $x . '</button>';
+      echo '<button class="btn btn-sm btn-primary" style="color:#fff;margin-right:5px;" data-toggle="modal" title="Berikan Preview ' . $x . '" data-target="#previewmodal">Preview ' . $x . '</button>';
     } else {
       echo '<button class="btn btn-sm btn-secondary" disabled style="color:#fff;margin-right:5px;">Preview ' . $x . '</button>';
     }
@@ -50,7 +50,7 @@
     echo '<button type="submit" class="btn btn-sm btn-secondary" disabled style="color:#fff">Berikan Siap Sidang</button>';
   }
   ?>
-  <?php var_dump(count($preview)) ?>
+
   <br>
   <br>
   <div class="table-responsive">

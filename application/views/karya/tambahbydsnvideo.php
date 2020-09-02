@@ -22,6 +22,11 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div id="uploaded_file"></div>
+                    </div>
+                </div>
                 <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbydsn') ?>">
                     <div class="card-body">
                         <div class="custom-form">
@@ -130,7 +135,11 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>karya/listbydsn";
+                        if (data.result == '1') {
+                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                        } else {
+                            $('#uploaded_file').html('<p style="color:#EA4335;">Tolong Lihat Kembali Data Anda</p>');
+                        }
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();

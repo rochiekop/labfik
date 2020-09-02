@@ -292,7 +292,10 @@ summary {
 }
 
 canvas {
-	display: inline-block
+	display: inline-block;
+	max-width: 100%;
+	vertical-align: middle;
+	border-style: none
 }
 
 template {
@@ -575,6 +578,13 @@ a:not([href]):hover {
 	/* width: 280px */
 }
 
+.dropdown-menu .dropdown-item.regisdropdown {
+	background-color: transparent !important;
+	padding: 1px;
+	width: 100px
+}
+
+
 .dropdown-menu .dropdown-item.regis-dropdown::after {
 	content: ' ';
 	display: block;
@@ -583,13 +593,7 @@ a:not([href]):hover {
 	top: -22px;
 	width: 20px;
 	border: 10px solid transparent;
-	border-bottom: 11px solid #FB8C00
-}
-
-.dropdown-menu .dropdown-item.regisdropdown {
-	background-color: transparent !important;
-	padding: 1px;
-	width: 100px
+	border-bottom: 12px solid #FB8C00
 }
 
 .dropdown-menu .dropdown-item.regisdropdown::after {
@@ -787,7 +791,8 @@ a:not([href]):hover {
 
 .navbar-brand {
 	font-weight: bold;
-	position: relative
+	position: relative;
+	z-index: 1
 }
 
 .navbar-brand img {
@@ -826,16 +831,19 @@ a:not([href]):hover {
 
 .fik-navbar-menu ul {
 	top: 0;
-	margin: 0 !important
+	margin: 0
 }
 
 .fik-navbar-menu ul.center {
 	position: absolute;
-	left: 50%;
+	z-index: 0;
+	left: 0;
+	right: 0;
 	display: block;
 	list-style: none;
-	-webkit-transform: translateX(-50%);
-	transform: translateX(-50%)
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center
 }
 
 .fik-navbar-menu ul.left {
@@ -910,8 +918,7 @@ a:not([href]):hover {
 	left: 16px;
 	display: block;
 	content: ' ';
-	border-top: 3px solid #fb8c00;
-	background-color: red
+	border-top: 3px solid #fb8c00
 }
 
 .fik-navbar-menu li.active a {
@@ -2295,7 +2302,8 @@ a:not([href]):hover {
 	bottom: 20px;
 	width: 50%;
 	border-radius: 6px;
-	height: 312px !important
+	height: 312px !important;
+	background-color: #000
 }
 
 .fik-custom-table .table thead {
@@ -2461,14 +2469,6 @@ a:not([href]):hover {
 	width: 33.333%;
 	padding: 10px
 }
-
-.fik-feed .feed-container .feed-iteminfo {
-	float: left;
-	width: 33.333%;
-	padding: 10px;
-	display: none;
-}
-
 
 .fik-feed .feed-container .feed-item .card {
 	height: 100%;
@@ -3061,6 +3061,15 @@ a:not([href]):hover {
 	top: -100px
 }
 
+.nav-link.disabled {
+	opacity: .5;
+	text-decoration: line-through
+}
+
+.akun-container .table-responsive table {
+	min-width: 640px
+}
+
 /* Reg Role */
 .fik-reg-role {
 	text-align: left;
@@ -3134,6 +3143,7 @@ a:not([href]):hover {
 	font-weight: bold
 }
 
+/* Uni */
 .fik-unit-feed {
 	position: relative;
 	margin: 40px 0;
@@ -3254,6 +3264,52 @@ a:not([href]):hover {
 	font-weight: bold;
 }
 
+@media (max-width:1280px) {
+	.db-menu-trigger {
+		display: block !important;
+		position: absolute;
+		left: 10px;
+		padding: 0 10px;
+		font-size: 18px
+	}
+
+	.fik-db-side-menu {
+		left: -260px;
+		transition: .25s ease;
+		opacity: 0
+	}
+
+	.fik-db-side-menu.show {
+		left: 0;
+		transition: .25s ease;
+		opacity: 1
+	}
+
+	.akun-container {
+		padding: 20px
+	}
+
+	.navbar-brand.akun {
+		border-right: 0;
+		margin-left: 40px
+	}
+
+	.akun-helpdesk.dua {
+		padding: 0 20px
+	}
+
+	.fik-footer .credit {
+		padding: 23px 20px 22px !important;
+		text-align: center !important
+	}
+
+	.grid-bartemp>div {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%
+	}
+}
+
 @media (max-width:1000px) {
 	.fik-feed .feed-container .feed-item {
 		float: left;
@@ -3286,200 +3342,6 @@ a:not([href]):hover {
 
 	.prodi-cat li:last-child {
 		padding-right: 20px
-	}
-}
-
-@media (max-width:767px) {
-	.show-mobile {
-		display: block !important
-	}
-
-	.hide-mobile {
-		display: none !important
-	}
-
-	.menu-trigger {
-		display: block;
-		position: absolute;
-		left: 10px;
-		padding: 0 10px;
-		font-size: 18px
-	}
-
-	.db-menu-trigger {
-		display: block;
-		position: absolute;
-		left: 10px;
-		padding: 0 10px;
-		font-size: 18px
-	}
-
-	.navbar-brand {
-		margin-left: 40px
-	}
-
-	.fik-navbar-menu ul.center {
-		background-color: #fff;
-		right: 0;
-		top: 52px;
-		left: 0;
-		-webkit-transform: unset;
-		transform: unset;
-		border-bottom: 1px solid #ccc;
-		display: none
-	}
-
-	.fik-navbar-menu ul.center li {
-		float: none;
-	}
-
-	.fik-navbar-menu ul.center li a {
-		display: block;
-	}
-
-	.fik-navbar-menu ul.center li a:hover {
-		background-color: rgba(0, 0, 0, .075);
-	}
-
-	.fik-navbar-menu li.active:after {
-		display: none
-	}
-
-	.fik-db-side-menu {
-		left: -260px;
-		transition: .25s ease;
-		opacity: 0
-	}
-
-	.fik-db-side-menu.show {
-		left: 0;
-		transition: .25s ease;
-		opacity: 1
-	}
-
-	.akun-container {
-		padding: 20px
-	}
-
-	.fik-footer .credit {
-		padding: 23px 20px 22px !important
-	}
-
-	.akun-helpdesk.dua {
-		padding: 20px
-	}
-
-	.akun-helpdesk.dua .col-md-4 .fik-section-title2 {
-		display: none;
-	}
-
-	.akun-helpdesk.dua .col-md-4 {
-		position: fixed;
-		top: 0px;
-		left: 0;
-		bottom: 60px;
-		right: 0;
-		z-index: 1;
-		height: 110px;
-		overflow: hidden;
-	}
-
-	.akun-helpdesk.dua .col-md-4.show {
-		height: 410px
-	}
-
-	.akun-helpdesk.dua .col-md-4 .card {
-		position: absolute;
-		top: 60px !important;
-		right: 15px;
-		bottom: 0;
-		left: 15px;
-		margin-bottom: 20px;
-		height: 300px
-	}
-
-	.akun-helpdesk.dua .col-md-4.show .card {
-		border: 1px solid #aaa;
-	}
-
-	.akun-helpdesk.dua .col-md-4 .card-header h6::after {
-		content: ' - Buka List';
-		font-size: 13px;
-	}
-
-	.akun-helpdesk.dua .col-md-4.show .card-header h6::after {
-		content: ' - Tutup List';
-		font-size: 13px;
-	}
-
-	.akun-helpdesk.dua .col-md-8 {
-		position: fixed;
-		top: 120px;
-		left: 0;
-		bottom: 60px;
-		right: 0;
-	}
-
-	.akun-helpdesk.dua .col-md-4 .card {
-		position: absolute;
-		top: 85px;
-		right: 15px;
-		bottom: 0;
-		left: 15px;
-		margin-bottom: 20px
-	}
-
-	.akun-helpdesk.dua .col-md-4 .card .card-body {
-		overflow-y: auto
-	}
-
-	#chatSection {
-		position: absolute;
-		top: 0;
-		right: 15px;
-		bottom: 0;
-		left: 15px;
-		overflow: hidden;
-		margin-bottom: 0;
-		border-radius: 0;
-		box-shadow: 0 3px 20px -4px rgba(0, 0, 0, .1)
-	}
-
-	.fik-about-overview .card {
-		padding: 20px;
-		height: auto;
-	}
-
-	.fik-about-overview .content-left {
-		padding: 0
-	}
-
-	.fik-about-overview h6 {
-		font-size: 12px;
-		letter-spacing: 2px;
-		font-weight: bold
-	}
-
-	.fik-about-overview h4 {
-		margin: 26px 0
-	}
-
-	.fik-about-overview p {
-		height: 57px;
-		overflow: hidden
-	}
-
-	.fik-about-overview a.btn {
-		padding-left: 20px;
-		padding-right: 20px;
-		letter-spacing: 2px;
-		margin-top: 37px
-	}
-
-	.fik-about-overview video {
-		position: unset;
-		width: 100%;
-		margin-top: 20px;
 	}
 
 	.fik-custom-table .table thead {
@@ -3554,6 +3416,185 @@ a:not([href]):hover {
 		width: 116px;
 		padding: 6px 12px
 	}
+}
+
+@media (max-width:900px) {
+	.show-mobile {
+		display: block !important
+	}
+
+	.hide-mobile {
+		display: none !important
+	}
+
+	.menu-trigger {
+		display: block;
+		position: absolute;
+		left: 10px;
+		padding: 0 10px;
+		font-size: 18px
+	}
+
+	.navbar-brand {
+		margin-left: 40px
+	}
+
+	.fik-navbar-menu ul.center {
+		background-color: #fff;
+		right: 0;
+		top: 52px;
+		left: 0;
+		-webkit-transform: unset;
+		transform: unset;
+		border-bottom: 1px solid #ccc;
+		display: none
+	}
+
+	.fik-navbar-menu ul.center li {
+		float: none;
+	}
+
+	.fik-navbar-menu ul.center li a {
+		display: block;
+	}
+
+	.fik-navbar-menu ul.center li a:hover {
+		background-color: rgba(0, 0, 0, .075);
+	}
+
+	.fik-navbar-menu li.active:after {
+		display: none
+	}
+
+	.akun-helpdesk.dua .col-md-4 .fik-section-title2 {
+		display: none;
+	}
+
+	.akun-helpdesk.dua .col-md-4 {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		max-width: none !important;
+		width: 100% !important;
+		z-index: 1;
+		height: 60px
+	}
+
+	.akun-helpdesk.dua .col-md-4.show {
+		height: 410px
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card {
+		position: relative !important;
+		top: 40px !important;
+		right: 0 !important;
+		left: 0 !important;
+		margin-bottom: 0px;
+		height: 61px;
+		border: 1px solid transparent;
+		border-radius: 0;
+		border-bottom: 1px solid #cccc;
+	}
+
+	.akun-helpdesk.dua .col-md-4.show .card {
+		border: 1px solid #aaa;
+		height: 300px
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card-header {
+		padding: 0
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card-header h6 {
+		padding: 20px
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card-header h6::after {
+		content: ' - Buka List';
+		font-size: 13px;
+	}
+
+	.akun-helpdesk.dua .col-md-4.show .card-header h6::after {
+		content: ' - Tutup List';
+		font-size: 13px;
+	}
+
+	.akun-helpdesk.dua .col-md-8 {
+		position: fixed;
+		top: 120px;
+		left: 0;
+		bottom: 60px;
+		right: 0;
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card {
+		position: absolute;
+		top: 85px;
+		right: 15px;
+		bottom: 0;
+		left: 15px;
+		margin-bottom: 20px
+	}
+
+	.akun-helpdesk.dua .col-md-4 .card .card-body {
+		overflow-y: auto
+	}
+
+	.akun-helpdesk.dua .col-md-8 {
+		max-width: none !important;
+		width: 100% !important
+	}
+
+	#chatSection {
+		position: absolute;
+		top: 0;
+		right: 15px;
+		bottom: 0;
+		left: 15px;
+		overflow: hidden;
+		margin-bottom: 4px;
+		border-radius: 0;
+		box-shadow: 0 3px 20px -4px rgba(0, 0, 0, .1)
+	}
+
+	.fik-about-overview .card {
+		padding: 20px;
+		height: auto;
+	}
+
+	.fik-about-overview .content-left {
+		padding: 0
+	}
+
+	.fik-about-overview h6 {
+		font-size: 12px;
+		letter-spacing: 2px;
+		font-weight: bold
+	}
+
+	.fik-about-overview h4 {
+		margin: 26px 0
+	}
+
+	.fik-about-overview p {
+		height: 57px;
+		overflow: hidden
+	}
+
+	.fik-about-overview a.btn {
+		padding-left: 20px;
+		padding-right: 20px;
+		letter-spacing: 2px;
+		margin-top: 37px
+	}
+
+	.fik-about-overview video {
+		position: unset;
+		width: 100%;
+		margin-top: 20px;
+		height: auto !important
+	}
 
 	.fik-feed .feed-container .feed-item {
 		float: left;
@@ -3562,8 +3603,8 @@ a:not([href]):hover {
 	}
 
 	.fik-footer .container {
-		padding-top: 80px;
-		padding-bottom: 80px;
+		padding-top: 40px;
+		padding-bottom: 40px;
 		color: #fff
 	}
 
@@ -3605,10 +3646,6 @@ a:not([href]):hover {
 		font-size: 12px
 	}
 
-	.navbar-brand.akun {
-		border-right: 0
-	}
-
 	.fik-feed .feed-container .feed-item {
 		float: left;
 		width: 50% !important
@@ -3618,6 +3655,28 @@ a:not([href]):hover {
 		float: left;
 		width: 100%;
 		height: 300px;
+	}
+
+	.fik-unit-feed--section {
+		width: 100%;
+		padding: 0;
+		margin-bottom: 24px;
+		text-align: left !important;
+	}
+
+	.fik-unit-feed--content {
+		width: 100%;
+		padding: 0 !important
+	}
+
+	.margin-t50 {
+		margin-top: 24px;
+	}
+
+	.grid-bartemp>div {
+		-ms-flex: 0 0 33.3333%;
+		flex: 0 0 33.3333%;
+		max-width: 33.3333%
 	}
 }
 
@@ -3658,6 +3717,12 @@ a:not([href]):hover {
 		width: auto;
 		border-radius: 0
 	}
+
+	.grid-bartemp>div {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%
+	}
 }
 
 @media (max-width:480px) {
@@ -3665,4 +3730,18 @@ a:not([href]):hover {
 		float: left;
 		width: 100% !important
 	}
+
+	.grid-bartemp>div {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+
+	.fik-feed .feed-container .feed-iteminfo {
+		float: left;
+		width: 33.333%;
+		padding: 10px;
+		display: none;
+	}
+
 }

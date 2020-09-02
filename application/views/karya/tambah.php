@@ -20,6 +20,11 @@
 
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
                 ?>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div id="uploaded_file"></div>
+                    </div>
+                </div>
                 <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbymhs') ?>">
                     <div class="card-body">
                         <div class="custom-form">
@@ -92,9 +97,6 @@
     </div>
 </main>
 <script>
-
-</script>
-<script>
     const image = document.getElementById('file-0');
     const previewContainer = document.getElementById('imagePreview');
     const previewImage = previewContainer.querySelector(".placeholder-img")
@@ -138,7 +140,11 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                        if (data.result == '1') {
+                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                        } else {
+                            $('#uploaded_file').html('<p style="color:#EA4335;">Tolong Lihat Kembali Data Anda</p>');
+                        }
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();
