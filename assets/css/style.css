@@ -584,7 +584,6 @@ a:not([href]):hover {
 	width: 100px
 }
 
-
 .dropdown-menu .dropdown-item.regis-dropdown::after {
 	content: ' ';
 	display: block;
@@ -606,7 +605,6 @@ a:not([href]):hover {
 	border: 10px solid transparent;
 	border-bottom: 12px solid #FB8C00
 }
-
 
 .dropdown-menu .dropdown-item.regis-dropdown h6 {
 	margin-bottom: 16px
@@ -991,7 +989,9 @@ a:not([href]):hover {
 	left: 0;
 	width: 260px;
 	padding: 4px 0;
-	background-color: #EF6C00
+	background-color: #EF6C00;
+	overflow-y: auto;
+	padding-bottom: 64px;
 }
 
 .fik-db-side-menu #accordion .divider {
@@ -1065,7 +1065,8 @@ a:not([href]):hover {
 	bottom: 0;
 	width: 260px;
 	padding: 7px 0 8px;
-	border-top: 1px dashed rgba(255, 255, 255, .25)
+	border-top: 1px dashed rgba(255, 255, 255, .25);
+	background-color: #EF6C00
 }
 
 .fik-db-side-menu #accordion .card.profil {
@@ -2090,12 +2091,18 @@ a:not([href]):hover {
 
 .jadwal-ruangan .table tbody {
 	display: block;
-	position: relative
+	position: relative;
+	border: 0 !important
 }
 
 .jadwal-ruangan .table tr {
 	display: block;
 	margin: -5px;
+	background-color: transparent !important;
+	display: flex;
+	flex-wrap: wrap;
+	border: 0 !important;
+	padding: 1px;
 }
 
 .jadwal-ruangan .table tr::after {
@@ -2108,36 +2115,51 @@ a:not([href]):hover {
 	display: block;
 	float: left;
 	width: 20% !important;
-	border: 0;
+	border: 5px solid #fff;
+	box-shadow: 0 0 0 1px inset #ccc;
 	padding: 5px;
 	position: relative;
+	border-radius: 10px;
+	padding-left: 38px
 }
 
 .jadwal-ruangan .table tr td input[type="checkbox"] {
-	position: relative;
-	top: 1px;
-	margin-right: 8px
+	position: absolute;
+	z-index: 2;
+	left: 14px;
+	top: 16px;
 }
 
 .jadwal-ruangan .table tr td a {
 	display: block;
-	border: 1px solid #ccc;
-	height: 44px !important;
-	line-height: 44px;
 	border-radius: 5px;
-	position: relative;
-	padding: 0 10px
+	padding: 8px 10px;
+	padding-left: 0;
+	text-align: left
 }
 
-.jadwal-ruangan .table tr td.red a {
+.jadwal-ruangan .table tr td.red {
 	background-color: #ff1744;
 	color: #fff;
 	pointer-events: none;
-	border: 0
+	box-shadow: unset;
 }
 
-.jadwal-ruangan .table tr td a:hover {
-	border-color: #fb8c00;
+.jadwal-ruangan .table tr td.red a {
+	color: #fff
+}
+
+.jadwal-ruangan .table tr td.non-checkbox {
+	padding-left: 0;
+}
+
+.jadwal-ruangan .table tr td.non-checkbox a {
+	text-align: center;
+	padding-left: 10px
+}
+
+.jadwal-ruangan .table tr td:hover {
+	box-shadow: 0 0 0 1px inset #fb8c00
 }
 
 .jadwal-ruangan .table tr td a img {
@@ -2470,6 +2492,14 @@ a:not([href]):hover {
 	padding: 10px
 }
 
+.fik-feed .feed-container .feed-iteminfo {
+	float: left;
+	width: 33.333%;
+	padding: 10px;
+	display: none;
+}
+
+
 .fik-feed .feed-container .feed-item .card {
 	height: 100%;
 }
@@ -2505,7 +2535,8 @@ a:not([href]):hover {
 	overflow: hidden;
 	margin: 16px 0 28px;
 	font-size: 10px;
-	font-weight: 500
+	font-weight: 500;
+	height: 30px
 }
 
 .fik-feed.fik-feed-50 .feed-container .feed-item {
@@ -3308,6 +3339,10 @@ a:not([href]):hover {
 		flex: 0 0 25%;
 		max-width: 25%
 	}
+
+	.jadwal-ruangan .table tr td {
+		width: 25% !important
+	}
 }
 
 @media (max-width:1000px) {
@@ -3415,6 +3450,10 @@ a:not([href]):hover {
 	.fik-custom-table .table tr th.status .badge {
 		width: 116px;
 		padding: 6px 12px
+	}
+
+	.jadwal-ruangan .table tr td {
+		width: 33.33333% !important
 	}
 }
 
@@ -3737,11 +3776,7 @@ a:not([href]):hover {
 		max-width: 100%
 	}
 
-	.fik-feed .feed-container .feed-iteminfo {
-		float: left;
-		width: 33.333%;
-		padding: 10px;
-		display: none;
+	.jadwal-ruangan .table tr td {
+		width: 50% !important
 	}
-
 }
