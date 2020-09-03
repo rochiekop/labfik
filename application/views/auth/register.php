@@ -27,6 +27,7 @@
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/popper.min.js'); ?>"></script>
   <script src="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/js/bootstrap.min.js'); ?>"></script>
   <script src="<?= base_url('assets/vendor/owl-carousel/owl.carousel.min.js'); ?>"></script>
+  <link rel="icon" href="<?php echo base_url(); ?>assets/img/logo/favicon.png" type="image/gif">
 </head>
 
 <body>
