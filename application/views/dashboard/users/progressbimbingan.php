@@ -75,17 +75,17 @@
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
     <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
-      <!-- <div class="alert alert-warning">
+      <div class="alert alert-warning">
         Mahasiswa ini sudah melaksanakan bimbingan dan siap untuk melaksanakan preview 2
-      </div> -->
+      </div>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col" style="width:25%;">Keterangan</th>
-              <th scope="col">Dokumen</th>
-              <th scope="col" style="width:25%;">Project</th>
+              <th scope="col" style="width:35%;">Keterangan</th>
+              <!-- <th scope="col">File</th> -->
+              <th scope="col">View Dokumen</th>
               <th scope="col">Status</th>
             </tr>
           </thead>
@@ -100,16 +100,25 @@
                   <td>
                     <?= $f['keterangan'] ?>
                   </td>
+                  <!-- <td>
+                <?php
+                $file = explode(",", $f['pdf_file']);
+                foreach ($file as $t) {
+                  echo "$t <br>";
+                }
+                ?>
+                <a href="#" class="btn badge badge-secondary">Unduh</a>
+              </td> -->
                   <td>
                     <?php $file = explode(",", $f['pdf_file']); ?>
                     <?php foreach ($file as $t) : ?>
+                      <!-- <form action="<?= base_url('thesis') ?>" method="post">
+                    <input type="text" name="thesis_id" value="<?= $f['id'] ?>" hidden>
+                    <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $f['correction'] ?></textarea>
+                    <input type="text" name="pdf_file" value="<?= $t ?>" hidden>
+                    <button type="submit"><?= $t ?></button>
+                  </form> -->
                       <a href="<?= base_url('thesis/openFile/' . $f['id'] . '/' . $t) ?>"><?= $t ?></a><br>
-                    <?php endforeach; ?>
-                  </td>
-                  <td>
-                    <?php $file = explode(",", $f['link_project']); ?>
-                    <?php foreach ($file as $t) : ?>
-                      <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
                     <?php endforeach; ?>
                   </td>
                   <td>
@@ -189,16 +198,19 @@
                 <b>Mark Hoover</b> <br>
                 Momo Delia
               </td>
-              <td>HEAD David Hans <br>
-                Momoka
-                <!-- <?php $file = explode(",", $f['link_project']); ?>
-                <?php foreach ($file as $t) : ?>
-                  <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
-                <?php endforeach; ?> -->
+              <td>
+                <<<<<<< HEAD David Hans <br>
+                  Momoka
+                  =======
+                  <?php $file = explode(",", $f['link_project']); ?>
+                  <?php foreach ($file as $t) : ?>
+                    <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
+                  <?php endforeach; ?>
               </td>
               <td>
                 <a href="#" class="btn badge badge-success">Selesai</a>
                 <a href="#" class="btn badge badge-danger">Revisi</a>
+                >>>>>>> 9ac5c91dc593973a0c4a53ec886cd36c4b0dec6f
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
               <td><a href="#" class="badge badge-info">Zoom</a></td>

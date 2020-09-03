@@ -62,7 +62,7 @@ class Adminlaa extends CI_Controller
       $this->load->view('dashboard/adminlaa/viewdetail', $data);
       $this->load->view('templates/dashboard/footer');
     } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data yang anda minta tidak ada</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
       $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
       redirect('adminlaa/viewdetail/' . encrypt_url($id));
     }
@@ -123,11 +123,11 @@ class Adminlaa extends CI_Controller
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
-      redirect('adminlaa/viewdetail/' . encrypt_url($data1));
+      redirect('users/viewdetail/' . $data1);
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
-      redirect('adminlaa/viewdetail' . encrypt_url($data1));
+      redirect('users/viewdetail' . $data1);
     }
   }
 }
