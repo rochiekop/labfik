@@ -13,7 +13,7 @@
     <?php elseif ($statusfile != "Disetujui Adminlaa") : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
-    <br><br>
+    <br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
         <center>

@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 <?php if (empty($pta)) : ?>
-                    <td colspan="8" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA kosong</td>
+                    <td colspan="8" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
