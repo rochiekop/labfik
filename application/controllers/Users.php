@@ -171,6 +171,11 @@ class Users extends CI_Controller
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
     $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
+    var_dump($cek);
+    die;
+    if ($cek == NULL) {
+      $cek['status_file'] = '';
+    }
     $kosentrasi = $this->db->get('child_kategori')->result_array();
     $data = array(
       'mhs' => $mhs,

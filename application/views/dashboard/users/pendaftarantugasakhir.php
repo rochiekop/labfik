@@ -4,7 +4,7 @@
       <h4>Pendaftaran Tugas Akhir</h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
-    <?php if ($statusfile == null) : ?>
+    <?php if ($statusfile == '') : ?>
     <?php elseif ($statusfile == "Disetujui Adminlaa" and empty($thesis_lecturers)) : ?>
       <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="<?= base_url('Chat/getAllKoordinatorTA') ?>" class="btn btn-primary btn-sm" style="margin-top:6px;">Hubungi Koordinator TA</a> </div>
     <?php endif; ?>
@@ -13,7 +13,7 @@
     <?php elseif ($statusfile != "Disetujui Adminlaa") : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
-    <br>
+    <br><br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
         <center>
