@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Sep 2020 pada 18.04
+-- Waktu pembuatan: 03 Sep 2020 pada 15.30
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -626,7 +626,7 @@ INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordina
 ('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '2147483647', '', '1', 5, 4, 'Desain Komunikasi Visual', 'CSH10', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
 ('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '', 9, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'online'),
 ('5f28dbe13ddf9', 'manhattan', 'Manhattan', '08121002931', '', '12345678910', '', '', 11, 1, 'Desain Interior', 'MHN10', 'manhattan@gmail.com', 'Buah Batu, Bandung', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
-('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', '', '', '', 0, 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', '', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'offline'),
+('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', 'Pemalang', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'online'),
 ('5f43c46f3b0df', 'adminlaa', 'Admin LAA', '', '', '', '', '', 0, 0, '', '', 'adminlaafik@gmail.com', '', 'default.jpg', '86f9d10cd1d13ff0ec318766b3ba445f0913f482d39581851a18bcd239dbd2cf', '$2y$10$NcoX.mxiqsXOR1DH2YJ9JeCVKPcxM5Quwnlk1hk28/Yh4cAAld9QS', 5, 1, 1598276719, 'offline'),
 ('5f4a2f00c828f', 'koordinatorta', 'Koordinator Tugas Akhir', '', '', '', '', '', 0, 0, '', '', 'koordinatorta@gmail.com', '', 'default.jpg', 'f911697a55fa9d230ac8da335637ad58491d2aaee5f984a1cef8c4fd6312c2ad', '$2y$10$y6DAeeBN.kLq3CjdLuXuY.feFDUIdI51UUfGQB9yKo4ZMohnnuUGy', 6, 1, 1598697216, 'offline'),
 ('5f4a4b0ee4b42', 'testing', 'Testing', '08512312323', '1301170012', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Interior', '', 'testing@gmail.com', 'Bandung', 'Cat.jpg', '701e1ef19005a5ff4815342180233ee1a3ece22187c1e8d028cdafea436a943d', '$2y$10$2aaRJKEVgnmJ1TQzl8wm9e.m1NIkRGaEjYfPX3S35/eUvq9J3DWSW', 4, 1, 1598704398, 'offline'),
