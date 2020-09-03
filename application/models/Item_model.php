@@ -107,7 +107,7 @@ class Item_model extends CI_Model
     public function allItem()
     {
         $this->db->select('*');
-        $this->db->from->('item');
+        $this->db->from('item');
         $query = $this->db->get();
         $result = $query->result();
         return $result;
@@ -115,7 +115,7 @@ class Item_model extends CI_Model
 
     public function searchItem($search){
         $this->db->select('*');
-        $this->db->from->('item');
+        $this->db->from('item');
         $this->db->where('name', $search);
         $this->db->or_where('quantity', $search);
         $this->db->or_where('access', $search);
