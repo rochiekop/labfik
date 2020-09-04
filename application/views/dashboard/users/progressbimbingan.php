@@ -119,7 +119,7 @@
           </tbody>
         </table>
         <div>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#import" style="color:white"><span class="fas fa-tasks"></span> Semua Koreksi</a> <br><br>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white"><span class="fas fa-tasks"></span> Semua Koreksi</a> <br><br>
         </div>
       </div>
     </div>
@@ -257,3 +257,45 @@
     </div>
   </div>
 <?php endforeach; ?>
+
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        plugins: 'save autosave preview autolink lists media table',
+        toolbar: 'save restoredraft',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        height: '460',
+        width: '555',
+        readonly : 1
+    });
+</script>
+
+<!-- Modal for all correction -->
+<div class="modal fade" id="all_correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import User</h5>
+      </div>
+      <div class="modal-body">
+        <div class="custom-form">
+          <table>
+            <td>
+              <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10"></textarea>        
+            </td>
+            <td>
+              <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10"></textarea>
+            </td>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

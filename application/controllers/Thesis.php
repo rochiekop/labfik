@@ -49,7 +49,7 @@ class Thesis extends CI_Controller
     public function saveCorrection($thesis_id, $id_guidance)
     {
         $this->thesis_model->saveCorrection($thesis_id);
-        redirect('users/progressbimbingan/'.$id_guidance); // ganti redirect ke pemilihan file thesis yang ingin di comment
+        redirect('users/progressbimbingan/'.$id_guidance);
     }
 
     // public function getAllCorrection($guidance_id)
