@@ -5,7 +5,6 @@
   </div>
   <?= $this->session->flashdata('message'); ?>
   <div>
-    <!-- <a class="btn btn-primary" href="http://localhost/labfik/admin/add_dtinfo" style="margin-left: 20px;"><span class="fas fa-fw fa-plus"></span> Import User </a> <br><br> -->
     <a class="btn btn-primary" data-toggle="modal" data-target="#import" style="color:white"><span class="fas fa-fw fa-plus"></span> Import User</a> <br><br>
   </div>
   <div class="input-group">
@@ -162,12 +161,25 @@
             <div class="custom-form">
 
             catatan: <br>
-            1. username disarankan untuk diisi sesuai dengan SSO <br>
-            2. password secara default akan ditambah karakter "fiktelu" pada awal string <br>
-            3. email disarankan untuk menggunakan SSO <br>
-            4. tulis 'mahasiswa' jika ingin membuat akun mahasiswa dan tulis 'dosen' jika ingin membuat akun dosen <br>
-            5. diharapkan untuk tidak mengulang import atau memasukan username yang sudah ada pada database <br>
-            6. simpan file sebagai CSV <br>
+            <ol style="margin-left:10px">
+              <li>username disarankan untuk diisi sesuai dengan SSO</li>
+              <li>password secara default akan ditambah karakter "fiktelu" pada awal string</li>
+              <li>email disarankan untuk menggunakan SSO</li>
+              <li>tulis 'mahasiswa' jika ingin membuat akun mahasiswa dan tulis 'dosen' jika ingin membuat akun dosen</li>
+              <li>diharapkan untuk tidak mengulang import atau memasukan username yang sudah ada pada database</li>
+              <li>
+                role dapat diisi dengan 
+                <ul style="margin-left:30px">
+                  <li>admin</li>
+                  <li>kepala urusan</li>
+                  <li>dosen</li>
+                  <li>mahasiswa</li>
+                  <li>admin laa</li>
+                  <li>koordinator ta</li>
+                </ul>
+              </li>
+              <li>simpan file sebagai CSV</li>
+            </ol>
             <br><br>
             
               <div class="form-group" style="margin-bottom:12px">

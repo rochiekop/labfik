@@ -118,6 +118,9 @@
             <?php endif; ?>
           </tbody>
         </table>
+        <div>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#import" style="color:white"><span class="fas fa-tasks"></span> Semua Koreksi</a> <br><br>
+        </div>
       </div>
     </div>
 

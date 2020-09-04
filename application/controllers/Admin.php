@@ -1040,7 +1040,7 @@ class Admin extends CI_Controller
             }
             else if ($row[4] == 'kepala urusan')
             {
-              $role_id = '2'
+              $role_id = '2';
             }
             else if ($row[4] == 'dosen')
             {
@@ -1052,11 +1052,11 @@ class Admin extends CI_Controller
             }
             else if ($row[4] == 'admin laa')
             {
-              $role_id = '5'
+              $role_id = '5';
             }
             else if ($row[4] == 'koordinator ta')
             {
-              $role_id = '6'
+              $role_id = '6';
             }
             
             // Data yang akan disimpan ke dalam databse

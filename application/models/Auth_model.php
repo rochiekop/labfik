@@ -69,11 +69,21 @@ class Auth_model extends CI_Model
     if ($user) {
       $password = $this->makePassword($password, $user['salt']);
 
-      $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
-      $query = $this->db->query($sql, array($username, $password));
-      $result = $query->row_array();
+      // $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+      // $query = $this->db->query($sql, array($username, $password));
+      // $result = $query->row_array();
 
-      return ($query->num_rows() == 1) ? $result : false;
+      // return ($query->num_rows() == 1) ? $result : false;
+
+      $this->db->select('*');
+      $this->db->from('user');
+      $this->db->where('username', $username);
+      $this->db->where('password', $password);
+      $query = $this->db->get();
+      $result = $query->row_array();
+      return $result;
+      
+      // return ($result == 1) ? $result : false;
     } // /if
     else {
       return false;
