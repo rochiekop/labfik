@@ -1053,7 +1053,10 @@ class Admin extends CI_Controller
               'password' => $password,
               'salt' => $salt,
               'role_id' => $role_id,
-              'is_active' => '1'
+              'is_active' => '1',
+              'kode_dosen' => $row[5],
+              'prodi' => $row[6],
+              'no_telp' => $row[7]
             ];
 
             // Simpan data ke database.
