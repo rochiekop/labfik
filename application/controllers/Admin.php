@@ -1034,13 +1034,29 @@ class Admin extends CI_Controller
             $salt = $this->auth_model->salt();
             $password = $this->auth_model->makePassword('fiktelu'.$row[3], $salt);
 
-            if ($row[4] == 'dosen')
+            if ($row[4] == 'admin')
+            {
+              $role_id = '1';
+            }
+            else if ($row[4] == 'kepala urusan')
+            {
+              $role_id = '2'
+            }
+            else if ($row[4] == 'dosen')
             {
               $role_id = '3';
             }
             else if ($row[4] == 'mahasiswa')
             {
               $role_id = '4';
+            }
+            else if ($row[4] == 'admin laa')
+            {
+              $role_id = '5'
+            }
+            else if ($row[4] == 'koordinator ta')
+            {
+              $role_id = '6'
             }
             
             // Data yang akan disimpan ke dalam databse
@@ -1053,7 +1069,10 @@ class Admin extends CI_Controller
               'password' => $password,
               'salt' => $salt,
               'role_id' => $role_id,
-              'is_active' => '1'
+              'is_active' => '1',
+              'kode_dosen' => $row[5],
+              'prodi' => $row[6],
+              'no_telp' => $row[7]
             ];
 
             // Simpan data ke database.

@@ -21,7 +21,7 @@
           <h4>Data Laboratorium Kosong</h4>
         <?php else : ?>
           <?php foreach ($dt_lab as $l) : ?>
-            <div class="feed-item">
+            <div class="feed-item feed-itemlab">
               <div class="card">
                 <div class="gambar">
                   <img src="<?= base_url('assets/img/laboratorium/thumbs/') . $l['images'] ?>" alt="<?= $l['title'] ?>" />
@@ -29,17 +29,20 @@
                 <div class="item-text">
                   <h6><?= $l['title'] ?></h6>
                   <p><?= substr_replace($l['body'], "...", 100); ?></p>
-                  <a href="<?= base_url('main/labview/') . $l['slug']; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
+                  <a href="<?= base_url('lab/details/') . $l['slug']; ?>" class="btn btn-primary btn-icon btn-icon-right btn-sm btn-pill"><b>READ MORE</b></a>
                 </div>
               </div>
             </div>
           <?php endforeach; ?>
         <?php endif; ?>
       </div>
+      <div style="margin-top:10px">
+        <div class="btn btn-primary btn-pill btn-icon btn-icon-left btn-icon-right fik-show-more-btn" id="loadMore"><span class="fas fa-chevron-down"></span><b>SHOW MORE</b><span class="fas fa-chevron-down"></span></div>
+      </div>
     </div>
   </div>
 </div>
-
+<script src="<?= base_url('assets/js/lab.js'); ?>"></script>
 <script src="<?= base_url('assets/js/tambahan.js'); ?>"></script>
 <script>
   $('.fik-carousel-karya').owlCarousel({

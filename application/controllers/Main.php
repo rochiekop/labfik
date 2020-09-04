@@ -27,26 +27,6 @@ class Main extends CI_Controller
   }
 
 
-  public function lab()
-  {
-    $data['title'] = 'FIKLAB | Laboratorium';
-    // Session name is $newData
-    $data['dt_lab'] = $this->main_model->getAllDtLab();
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/lab');
-    $this->load->view('templates/main/footer');
-  }
-
-  public function labview($slug)
-  {
-    $data['title'] = 'LABFIK | Detail Laboratorium';
-    // Session name is $newData
-    $data['labview'] = $this->main_model->getDtLabBySlug($slug);
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/labview');
-    $this->load->view('templates/main/footer');
-  }
-
   public function peminjaman()
   {
     $data['title'] = 'Laboratorium Fakultas Industri Kreatif Telkom University';
@@ -93,13 +73,4 @@ class Main extends CI_Controller
     $this->load->view('main/schedule', $data);
   }
 
-  public function profile($slug)
-  {
-    $data['title'] = 'LABFIK | Profile FIK';
-    $data['profile'] = $this->db->get_where('tb_panel', ['slug' => $slug])->row_array();
-    // Session name is $newData
-    $this->load->view('templates/main/header', $data);
-    $this->load->view('main/profile');
-    $this->load->view('templates/main/footer');
-  }
 }
