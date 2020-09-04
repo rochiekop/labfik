@@ -76,9 +76,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <object data="<?= base_url('assets/upload/thesis/') . $m['username'] . '/' . $m['file'] ?>" type="application/pdf">
-              <iframe src="https://docs.google.com/viewer?url=<?= base_url('assets/upload/thesis/') . $m['username'] . '/' . $m['file'] ?>&embedded=true"></iframe>
-            </object>
+            <embed src="<?= base_url('assets/upload/thesis/') . $m['username'] . '/' . $m['file'] ?>" width="100%" height="650px" />
           </div>
         </div>
       </div>
