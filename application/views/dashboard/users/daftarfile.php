@@ -85,7 +85,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <embed src="<?= base_url('assets/upload/thesis/') . $t['username'] . "/" . $t['file'] ?>" type="application/pdf" width="100%" height="650px" />
+                    <embed src="<?= base_url('assets/upload/thesis/') . $t['username'] . "/" . $t['file'] ?>" width="100%" height="650px" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -171,29 +171,30 @@ class Users extends CI_Controller
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
     $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
+    // $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
     $kosentrasi = $this->db->get('child_kategori')->result_array();
-    if (!empty($thesis_lecturers)) {
-      $dosbing1 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
-      $dosbing2 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
-    } else {
-      $dosbing1 = null;
-      $dosbing2 = null;
-    }
+    // if (!empty($thesis_lecturers)) {
+    //   $dosbing1 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
+    //   $dosbing2 = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
+    // } else {
+    //   $dosbing1 = null;
+    //   $dosbing2 = null;
+    // }
 
-    if (!isset($cek)) {
+    // var_dump($cek);
+    // die;
+    if ($cek == null) {
       $cek['status_file'] = '';
     }
-
     $data = array(
       'mhs' => $mhs,
       'file' => $file,
       'cek' => $cek,
       'statusfile' => $cek['status_file'],
       'title' => 'LABFIK | Pengajuan Tugas Akhir',
-      'thesis_lecturers' =>  $thesis_lecturers,
-      'dosbing1' => $dosbing1,
-      'dosbing2' => $dosbing2,
+      // 'thesis_lecturers' =>  $thesis_lecturers,
+      // 'dosbing1' => $dosbing1,
+      // 'dosbing2' => $dosbing2,
       'kosentrasi' => $kosentrasi
     );
 
