@@ -4,16 +4,18 @@
       <h4>Pendaftaran Tugas Akhir</h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
-    <?php if ($statusfile == '') : ?>
+    <?php if ($statusfile == null) : ?>
     <?php elseif ($statusfile == "Disetujui Adminlaa" and empty($thesis_lecturers)) : ?>
       <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="<?= base_url('Chat/getAllKoordinatorTA') ?>" class="btn btn-primary btn-sm" style="margin-top:6px;">Hubungi Koordinator TA</a> </div>
+    <?php elseif (!empty($thesis_lecturers)) : ?>
+      <div class="alert alert-success">Koordinator TA telah menambahkan <?= $dosbing1['name'] ?> dan <?= $dosbing2['name'] ?> sebagai dosen pembimbing tugas akhir anda,<br> <a href="<?= base_url('users/bimbingantugasakhir') ?>" class="btn btn-success btn-sm" style="margin-top:6px;">Mulai Bimbingan</a> </div>
     <?php endif; ?>
     <?php if (empty($cek)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php elseif ($statusfile != "Disetujui Adminlaa") : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
-    <br><br>
+    <br>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
         <center>
