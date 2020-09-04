@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laboratorium FIK</title>
+  <title>IFIK Fakultas Industri Kreatif</title>
 
   <!-- CSS Vendor -->
   <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap-4.5.0-dist/css/bootstrap.min.css'); ?>">
@@ -50,14 +50,17 @@
           <li><a href="<?= base_url('main/lab'); ?>">Lab</a></li>
           <li><a href="<?= base_url('news'); ?>">News</a></li>
           <li><a href="<?= base_url('Galery'); ?>">Gallery Karya</a></li>
+          <li><a href="<?= base_url('unit'); ?>">Unit Jasa</a></li>
           <?php if ($this->session->userdata('role_id') == 5) : ?>
             <li><a href="<?= base_url('main/peminjaman'); ?>">Pendaftaran TA</a></li>
           <?php elseif ($this->session->userdata('role_id') == 6) : ?>
             <li><a href="<?= base_url('main/peminjaman'); ?>">Management TA</a></li>
+          <?php elseif ($this->session->userdata('role_id') == 3 || $this->session->userdata('role_id') == 4) : ?>
+            <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
+            <li><a href="<?= base_url('main/peminjaman'); ?>">Tugas Akhir</a></li>
           <?php else : ?>
             <li><a href="<?= base_url('main/peminjaman'); ?>">Peminjaman</a></li>
           <?php endif; ?>
-          <li><a href="<?= base_url('unit'); ?>">Unit Jasa</a></li>
         </ul>
         <ul class="right">
           <div class="dropdown show fik-login-dropdown">
