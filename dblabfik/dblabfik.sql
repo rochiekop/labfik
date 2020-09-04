@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2020 at 12:55 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Sep 04, 2020 at 12:01 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -53,13 +52,11 @@ INSERT INTO `booking` (`id`, `id_peminjam`, `id_ruangan`, `date`, `date_declined
 ('5f1d2a87278ce', '44', '1', '0000-00-00', '2020-07-26', '13.30 - 14.30, 14.30 - 15.30, 15.30 - 16.30', 'Testing for schedule', 'Ditolak', '2020-07-26 14:02:31'),
 ('5f3a1b68280f7', '5f2930fa9e732', '5f15e3276fe2b', '2020-08-18', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30, 10.30 - 11.30', 'Test', 'Menunggu Acc', '2020-08-17 12:53:44'),
 ('5f3a214417bb0', '44', '10', '2020-08-23', '0000-00-00', '09.30 - 10.30', 'For testing', 'Menunggu Acc', '2020-08-17 13:18:44'),
-('5f3b8c86794c1', '5f1e7dc5ca07e', '4', '2020-08-20', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'Kelas pengganti', 'Diterima', '2020-08-18 15:08:38'),
+('5f3b8c86794c1', '5f1e7dc5ca07e', '4', '2020-08-20', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'Kelas pengganti', 'Menunggu Acc', '2020-08-18 15:08:38'),
 ('5f3fa05b29587', '5f28dbe13ddf9', '6', '2020-08-22', '0000-00-00', '08.30 - 09.30, 09.30 - 10.30', 'Kelas', 'Diterima', '2020-08-21 17:22:19'),
 ('5f3fa0b3621e9', '5f3e31113e0d3', '17', '2020-08-22', '0000-00-00', '07.30 - 08.30, 08.30 - 09.30', 'Kelas pengganti', 'Diterima', '2020-08-21 17:23:47'),
 ('5f3fa6492b7a4', '5f1e7dc5ca07e', '5f3e34922ed65', '0000-00-00', '2020-08-22', '08.30 - 09.30, 09.30 - 10.30, 11.30 - 12.30, 12.30 - 13.30', 'Test', 'Ditolak', '2020-08-21 17:47:37'),
-('5f3fd793b26b1', '5f1e7dc5ca07e', '17', '2020-08-22', '0000-00-00', '10.30 - 11.30, 11.30 - 12.30', 'Kelas pengganti', 'Diterima', '2020-08-21 21:17:55'),
-('5f4e510d929eb', '5f1e7dc5ca07e', '10', '0000-00-00', '2020-09-01', '07.30 - 08.30, 08.30 - 09.30', 'Kelas Pengganti', 'Ditolak', '2020-09-01 20:47:57'),
-('5f4e59b7afe95', '44', '10', '2020-09-01', '0000-00-00', '09.30 - 10.30, 10.30 - 11.30', 'Kelas', 'Menunggu Acc', '2020-09-01 21:24:55');
+('5f3fd793b26b1', '5f1e7dc5ca07e', '17', '2020-08-22', '0000-00-00', '10.30 - 11.30, 11.30 - 12.30', 'Kelas pengganti', 'Diterima', '2020-08-21 21:17:55');
 
 -- --------------------------------------------------------
 
@@ -169,36 +166,8 @@ CREATE TABLE `child_kategori` (
 
 INSERT INTO `child_kategori` (`id_ck`, `id_kategori`, `nama_child`, `post_update`) VALUES
 (1, 1, 'Fotografi Dasar dan Periklanan', '2020-07-09 11:46:58'),
-(2, 1, 'Tata Busana', '2020-07-11 23:49:58'),
+(2, 1, 'tata busana', '2020-07-11 23:49:58'),
 (4, 1, 'Semantika Produk', '2020-07-18 14:44:17');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `correction`
---
-
-CREATE TABLE `correction` (
-  `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `thesis_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
-  `page` int(11) NOT NULL,
-  `correction` text CHARACTER SET utf8mb4 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `correction`
---
-
-INSERT INTO `correction` (`id`, `thesis_id`, `page`, `correction`) VALUES
-('5f37a398cbf2e', 'test', 1, 'testing correction'),
-('5f37b41e9616b', 'test', 2, 'correction 2'),
-('5f38f6c5cbd94', 'test', 3, 'correction 3'),
-('5f38f6d2ae0ea', 'test', 4, 'correction 4'),
-('5f38f6d2d325c', 'test', 5, 'correction 5'),
-('5f38f6d304091', 'test', 6, 'correction 6'),
-('5f38f6d3246e8', 'test', 7, 'correction 7'),
-('5f38f6d34c409', 'test', 8, 'correction 8'),
-('5f3e367fb4936', '5f3e362c739ae', 1, '');
 
 -- --------------------------------------------------------
 
@@ -223,11 +192,11 @@ CREATE TABLE `file_pendaftaran` (
 --
 
 INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
-('5f50770e6cb48', '44', 'KSM', 'Algo_GP.pdf', 'Disetujui', 'Disetujui wali', '', '03-09-2020', ''),
-('5f50770e6e6c5', '44', 'Surat Pernyataan TA', 'Usecase2.pdf', 'Disetujui', 'Disetujui wali', '', '03-09-2020', '03-09-2020'),
-('5f50770e7196b', '44', 'Sertifikat EPRT', 'Algo_GP1.pdf', 'Disetujui', 'Disetujui wali', '', '03-09-2020', '03-09-2020'),
-('5f50770e73525', '44', 'Sertifikat TAK', 'Usecase1.pdf', 'Disetujui', 'Disetujui wali', '', '03-09-2020', '03-09-2020'),
-('5f50770e753fa', '44', 'Persetujuan Daftar TA', 'CDG4K3_Data_Mining_3.pdf', 'Disetujui', 'Disetujui wali', '', '03-09-2020', '');
+('5f520e562c9d1', '5f50f84ac76e6', 'KSM', 'PENGUMUMAN_YUDISIUM_29_JULI_20202.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', ''),
+('5f520e5649b7b', '5f50f84ac76e6', 'Surat Pernyataan TA', '3_FORM_NILAI_PEMBIMBING_LAPANGAN.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', ''),
+('5f520e56560a8', '5f50f84ac76e6', 'Sertifikat EPRT', 'PENGUMUMAN_YUDISIUM_29_JULI_20203.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', ''),
+('5f520e567cda3', '5f50f84ac76e6', 'Sertifikat TAK', 'PENGUMUMAN_YUDISIUM_29_JULI_20204.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', ''),
+('5f520e568e1b9', '5f50f84ac76e6', 'Persetujuan Daftar TA', 'PENGUMUMAN_YUDISIUM_29_JULI_20205.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', '');
 
 -- --------------------------------------------------------
 
@@ -262,7 +231,7 @@ CREATE TABLE `guidance` (
 --
 
 INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `penilan_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_pengawas1`, `nilai_pengawas1`, `penilaian_pengawas2`, `nilai_pengawas2`) VALUES
-('5f50770e69d11', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '03-09-2020', '', 0, '', 0, '', 0, '', 0);
+('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', 0, '', 0, '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -534,7 +503,7 @@ CREATE TABLE `tb_panel` (
 --
 
 INSERT INTO `tb_panel` (`id`, `title`, `slug`, `body`, `video`, `thumb`, `date_create`) VALUES
-(99, 'Laboratorium, Studio & Bengkel Fakultas Industri Kreatif', 'laboratorium-studio-bengkel-fakultas-industri-kreatif', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid cum error quo eligendi doloremque molestias placeat animi a harum, optio fugit blanditiis! Incidunt sequi velit harum sapiente sed nemo ipsa.', 'Aimer_『ONE』Short_Ver.（_Aimer_5th_album『Sun_Dance』『Penny_Rain』2019_04_10（水）2枚同時発売）.mp4', 'thumbnail_panel.jpg', '2020-07-28 13:33:06');
+(99, 'Fakultas Industri Kreatif', 'visi-fakultas-industri-kreatif', 'Visi\r\nMenjadi Unit Laboratorium yang memiliki layanan prima dalam mendukung Tridarma Perguruan Tinggi dan menjadi pusat pengembangan Creativepreneur di Fakultas Industri Kreatif ”\r\n\r\nMisi:\r\n1.	Menyelenggarakan Pelayanan Prima Laboratorium dalam pelaksanaan Tridharma Perguruan Tinggi bagi mahasiswa dan dosen di Fakultas Industri Kreatif.\r\n\r\n2.	Mengembangkan laboratorium di Bidang Industri Kreatif yang dapat berkolaborasi dengan industri, akademisi, swasta dan pemerintah untuk menghasilkan karya yang berdampak pada pertumbuhan ekonomi kreatif.\r\n\r\n3.	Menguatkan sistem tata kelola laboratorium yang transparan dan akuntabel sehingga mampu memberikan dampak positif bagi kemajuan fakultas dan Universitas.', 'Profil_Fakultas_Industri_Kreatif_-_TELKOM_UNIVERSITY.mp4', 'thumbvideofik1.jpg', '2020-07-28 13:33:06');
 
 -- --------------------------------------------------------
 
@@ -555,9 +524,9 @@ CREATE TABLE `tb_slider` (
 --
 
 INSERT INTO `tb_slider` (`id`, `title`, `images`, `body`, `date`) VALUES
-('10', 'Lab. FIK Sekarang Sudah Aktif!', 'IMG_9473_edit.jpg', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam ab, architecto, impedit incidunt eaque odit vero, temporibus exercitationem recusandae deserunt beatae hic nihil! Aspernatur quod dolorum error laudantium corrupti in!', '2020-07-12 10:33:55'),
-('14', 'Laboratorium Fakultas Industri Kreatif', 'IMG_9274.JPG', 'Laboratorium Fakultas Industri Kreatif', '2020-07-12 11:09:12'),
-('5', 'Lab. FIK Sekarang Sudah Aktif!', '15.jpg', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam ab, architecto, impedit incidunt eaque odit vero, temporibus exercitationem recusandae deserunt beatae hic nihil! Aspernatur quod dolorum error laudantium corrupti in!', '2020-06-19 02:33:56');
+('10', 'Pengumuman pemenang fotografi', 'WhatsApp_Image_2020-08-19_at_09_57_16.jpeg', 'Pada lomba fotografi kali ini dimenangkan oleh staff Laboratorium FIK sdr. Mamat Rohikmat. Selamat atas capaiannya', '2020-07-12 03:33:55'),
+('14', 'Laboratorium CGI Fakultas Industri Kreatif', 'IMG_9274.JPG', 'Laboratorium CGI memfasilitasi kebutuhan mahasiswa / dosen untuk kegiatan perlombaan dan riset', '2020-07-12 04:09:12'),
+('5', 'IFIK Sekarang Sudah Aktif!', 'GEDUNG_FIK.jpg', 'IFIK adalah web application yang memfasilitasi kebutuhan dosen, mahasiswa dan civitas akademika untuk mendapatkan informasi seputar Laboratorium Fakultas Industri Kreatif. Selain melihat informasi, IFIK menyediakan fasilitas untuk TA online, Peminjaman Online, Digital Storage, dan Kebutuhan surat yang berkaitan dengan mahasiswa secara online ', '2020-06-18 19:33:56');
 
 -- --------------------------------------------------------
 
@@ -583,7 +552,7 @@ CREATE TABLE `thesis` (
 --
 
 INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `link_project`, `keterangan`, `date`, `correction1`, `correction2`, `status`) VALUES
-('5f508b91a164f', '5f50770e69d11', 'Semua', 'Usecase.pdf', 'https://drive.google.com/file/d/1RyojIItrMlGuRIc84Q3sa3YSyLG4NPfa/view', 'File', '2020-09-03', '<p>Ini Koreksi dosebing 1</p>', '<p>Koreksi dosebing 2</p>', 'Dikirim');
+('5f4faf4dadfc8', '5f48af1704a46', 'Semua', 'KHS_Muhammad_Sulthan_Angka_Kurniawan.pdf, SL_Muhammad_Sulthan_Angka_Kurniawan.pdf', 'https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing', 'testing link sending', '2020-09-02', '', '', 'Dikirim');
 
 -- --------------------------------------------------------
 
@@ -607,7 +576,7 @@ CREATE TABLE `thesis_lecturers` (
 --
 
 INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `dosen_pembimbing1`, `dosen_pembimbing2`, `dosen_penguji1`, `dosen_penguji2`, `date`, `date_edit`) VALUES
-('5f508b32ebb93', '5f50770e69d11', '5f1e7dc5ca07e', '5f2128a43c90b', '', '', '09-03-2020 13:20:34', '');
+('5f4cc58d499f5', '5f48af1704a46', '5f1e7dc5ca07e', '5f2128a43c90b', '', '', '08-31-2020 16:40:29', '');
 
 -- --------------------------------------------------------
 
@@ -647,27 +616,18 @@ INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordina
 ('39', 'kaurlab', 'Kaur Lab ', '', '', '', '', '', 0, 0, '', '', 'kaurlab@gmail.com', '', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
 ('44', 'ihdar', 'Rafif ihdar', '0851221132434', '1301130763', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', 'Bengkulu', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'offline'),
 ('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '2147483647', '', '1', 5, 4, 'Desain Komunikasi Visual', 'CSH10', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
-('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '1', 9, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'online'),
-('5f28dbe13ddf9', 'manhattan', 'Manhattan', '08121002931', '', '12345678910', '', '', 11, 1, 'Desain Interior', 'MHN10', 'manhattan@gmail.com', 'Buah Batu, Bandung', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
-('5f3b9697e3aa5', 'akaguh', 'teguh akbar', '', '', '0', '', '1', 0, 0, 'Desain Komunikasi Visual', 'TGA', 'akaguh@telkomuniversity.ac.id', '', 'default.jpg', '09e8d25c6a0ada86dd912381b5f99eb500aed5c18d1924d53ab67007407fae24', '$2y$10$GaTaVEnhPY0JCXFxblq2Per4KEMzG7a28NFbkwbyJJIL8a85P0Omi', 3, 1, 1597740695, 'offline'),
+('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '', 9, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'online'),
+('5f28dbe13ddf9', 'manhattan', 'Manhattan', '08121002931', '', '12345678910', '', '1', 11, 1, 'Desain Interior', 'MHN10', 'manhattan@gmail.com', 'Buah Batu, Bandung', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
+('5f3b9697e3aa5', 'akaguh', 'teguh akbar', '', '', '0', '', '', 0, 0, '', '', 'akaguh@telkomuniversity.ac.id', '', 'default.jpg', '09e8d25c6a0ada86dd912381b5f99eb500aed5c18d1924d53ab67007407fae24', '$2y$10$GaTaVEnhPY0JCXFxblq2Per4KEMzG7a28NFbkwbyJJIL8a85P0Omi', 3, 1, 1597740695, 'offline'),
 ('5f3b9a05d0280', 'studiolab', 'studiolab', '', '', '0', '', '', 0, 0, '', '', 'studiolab@telkomuniversity.ac.id', '', 'default.jpg', 'c39117bf9f02c56cbdf71fbeb5b1e99caed803898f76473fc60f936d8abb9812', '$2y$10$7y54SBtYQvCJpp5fhnlAseBM.i382FzcyxT5RqZLvD5sbw06SVoMO', 1, 1, 1597741573, 'offline'),
-('5f3b9ad4037a3', 'teguh', 'teguh akbar', '', '', '0', '', '', 0, 0, '', '', 'teguhakbar@gmail.com', '', 'default.jpg', '8f8f7accedd8d9b4f8d37143a2ec6e9d85a868cdf8d49bd4c08ee3f0ba82b7a5', '$2y$10$PapAltAzCXGQzwO14OaJqOe0j1Gw/CdckmZYqf0ASGnmZQxDCGoY6', 2, 1, 1597741780, 'offline'),
+('5f3b9ad4037a3', 'teguh', 'teguh akbar', '', '', '0', '', '', 0, 0, '', '', 'radithandri@gmail.com', '', 'default.jpg', '8f8f7accedd8d9b4f8d37143a2ec6e9d85a868cdf8d49bd4c08ee3f0ba82b7a5', '$2y$10$PapAltAzCXGQzwO14OaJqOe0j1Gw/CdckmZYqf0ASGnmZQxDCGoY6', 2, 1, 1597741780, 'offline'),
 ('5f3c653160043', 'anggarwarok', 'Anggar Erdhina Adi', '', '', '0', '', '', 0, 0, '', '', 'anggarwarok@telkomuniversity.ac.id', '', 'default.jpg', '40633ea69c369ff478802712a7c876e17d80094aacb9829a7a86868b0f7fa392', '$2y$10$/jqUpfajO.UQiPzhPYDRX.0GSOl/adaIKWLvWoWMy2/dXsYbCIA7e', 3, 1, 1597793585, 'offline'),
-('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', '', '', '5f2128a43c90b', 0, 0, 'Desain Komunikasi Visual', '', 'snowm604011@gmail.com', '', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'offline'),
+('5f3e31113e0d3', 'rochieko', 'Rochi Eko Pambudi', '08329634743', '1301170761', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', 'Pemalang', 'default.jpg', '0409506e0855738c3297d9d520fa0ed68dae954baaec58100c64fff5b1c44879', '$2y$10$Pmz.lOPOCiydvg.mqJmyi.Zlt8eBHc41KBjRXtJtH0XFCo5RDZBVS', 4, 1, 1597911313, 'offline'),
 ('5f43c46f3b0df', 'adminlaa', 'Admin LAA', '', '', '', '', '', 0, 0, '', '', 'adminlaafik@gmail.com', '', 'default.jpg', '86f9d10cd1d13ff0ec318766b3ba445f0913f482d39581851a18bcd239dbd2cf', '$2y$10$NcoX.mxiqsXOR1DH2YJ9JeCVKPcxM5Quwnlk1hk28/Yh4cAAld9QS', 5, 1, 1598276719, 'offline'),
 ('5f4a2f00c828f', 'koordinatorta', 'Koordinator Tugas Akhir', '', '', '', '', '', 0, 0, '', '', 'koordinatorta@gmail.com', '', 'default.jpg', 'f911697a55fa9d230ac8da335637ad58491d2aaee5f984a1cef8c4fd6312c2ad', '$2y$10$y6DAeeBN.kLq3CjdLuXuY.feFDUIdI51UUfGQB9yKo4ZMohnnuUGy', 6, 1, 1598697216, 'offline'),
 ('5f4a4b0ee4b42', 'testing', 'Testing', '08512312323', '1301170012', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Interior', '', 'testing@gmail.com', 'Bandung', 'Cat.jpg', '701e1ef19005a5ff4815342180233ee1a3ece22187c1e8d028cdafea436a943d', '$2y$10$2aaRJKEVgnmJ1TQzl8wm9e.m1NIkRGaEjYfPX3S35/eUvq9J3DWSW', 4, 1, 1598704398, 'offline'),
-('5f50bc9c1438f', 'daniapsari', 'DIANI APSARI', '', '', '', '', '', 0, 0, '', '', 'dianiapsari@telkomuniversity.ac.id', '', 'default.jpg', '62f97792b47d6ecf6e1cd670f417341bab27398ec1a76c34e1dc8a645102103d', '$2y$10$uljn4osusM5PJgBamGWZgOIuIKfiYYfjLLrqfD1t5ULfjtZ9zEvBq', 3, 1, 0, 'offline'),
-('5f50bc9c4f01a', 'ariefbudiman', 'ARIEF BUDIMAN', '', '', '', '', '', 0, 0, '', '', 'ariefiink@telkomuniversity.ac.id', '', 'default.jpg', '71dd812ec1c001546a2fdc502e50a3b9e0e9b508aba7fbeca78f76b82b9b2b62', '$2y$10$BX26MQe3U1X0IrCQb4KwlO5CgzyI1OPYIMVzj77CbuK1kLPL7RC6.', 3, 1, 0, 'offline'),
-('5f50bc9c88a80', 'dickyhidayat', 'DICKY HIDAYAT', '', '', '', '', '', 0, 0, '', '', 'dickyhidayat@telkomuniversity.ac.id', '', 'default.jpg', 'b1881fb878ad7a7bb199a76178d910ff1871ff283c3cce8b5bcd5aec979f9c0d', '$2y$10$rSDPMWXHpn0ED8VDif4Z1eD9qLtqsE/sv9D/.mSl1s5Ks4UpdgZqi', 3, 1, 0, 'offline'),
-('5f50bc9cbf131', 'dimaskirsna', 'DIMAS KRISNA ADITYA', '', '', '', '', '', 0, 0, '', '', 'deedeeaditya@telkomuniversity.ac.id', '', 'default.jpg', '1bc34fd1658f163d461f250914c74dd8437e8d98f49daf5cce1761682973f9d0', '$2y$10$ykstuKdP0Qxym/LcQAVor.lXGjSZ0mm4UzVHENUdfTQWu9hA7h9x.', 3, 1, 0, 'offline'),
-('5f50bc9cf3189', 'gemaari', 'GEMA ARI PRAHARA', '', '', '', '', '', 0, 0, '', '', 'gemariff@telkomuniversity.ac.id', '', 'default.jpg', 'c4b7daa1fb14c557e794c11ef733adc132772a738c5d906f489187add48c56fb', '$2y$10$Jirbgflwq4B6CHE3iI./ZO2hc6u2zZ0XjOzsR69wtEQpGguh/JQt2', 3, 1, 0, 'offline'),
-('5f50bc9d30d93', 'sitihajar', 'SITI HAJAR KOMARIAH', '', '', '', '', '', 0, 0, '', '', 'sitihajar@telkomuniversity.ac.id', '', 'default.jpg', '30c0e1c8610d85017d7af614b31d8396b3b93c637fac52aee284e43077774fae', '$2y$10$lrvDzF1W5UTuT9UxwIPBT.Os09Ii4ATAr5EwHDPEfLh0OvtVDPJ1y', 3, 1, 0, 'offline'),
-('5f50bc9d5e3ee', 'sulistijono', 'SULISTIJONO', '', '', '', '', '', 0, 0, '', '', 'listijo@telkomuniversity.ac.id', '', 'default.jpg', 'bb3ed2d1d093c5795b070c5c92a3f0a288e48d3088d3c1c9295cbb88670fc1d6', '$2y$10$V0xxmguMkvhYMVAUAArsZObhNo2/UnXJpIHhweBBZPR6mTGy3fTPW', 3, 1, 0, 'offline'),
-('5f50bc9d92948', 'tiararadinska', 'TIARA RADINSKA DEANDA', '', '', '', '', '', 0, 0, '', '', 'tiaradinska@telkomuniversity.ac.id', '', 'default.jpg', '6a181a248715b8d20c642cddd66b3ad1da2ea6570b97c42c871092219f779be3', '$2y$10$z0yopJGcpi.kFehfDUyoe.vpUxKaZjt8BMmgwh6u1VLzLqGtqi4Pu', 3, 1, 0, 'offline'),
-('5f50bc9dc3e5a', 'rikytaufik', 'RIKY TAUFIK AFIF', '', '', '', '', '', 0, 0, '', '', 'rtaufikafif@telkomuniversity.ac.id', '', 'default.jpg', 'e4587bf849aee397d6e4805aca8b75e0f6da89f6eb94bad147362af4bdf5a1ef', '$2y$10$6wADhcA7PW7dLNIwy7Bkre8bS45PRel.FZo3wObDtBKJps6jzUtru', 3, 1, 0, 'offline'),
-('5f50c888a07af', 'fulan', 'Fulan', '085192006751', '1301170761', '', '', '5f3b9697e3aa5', 0, 0, 'Desain Komunikasi Visual', '', 'snowm6040@gmail.com', 'Bandung', 'default.jpg', '6b4539ff5693bdea3927211590d5e1c34d79affc8745f8e7a79cff97ff8c6c20', '$2y$10$zKBhu2vGhOByGsVNnMQVNuvjb.DjlIf05wQkacjWYhk2Psuns1M3K', 4, 1, 1599129736, 'online'),
-('8', 'admin', 'John Doe', '', '', '', '', '', 0, 0, '', '', 'admin@gmail.com', '', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, 'offline');
+('5f50f84ac76e6', 'aditiya', 'aditya novianto', '0812345433455', '2087001888', '', '', '5f28dbe13ddf9', 0, 0, 'Desain Komunikasi Visual', '', 'adityanovianto@gmail.com', 'bandung', 'default.jpg', '5f7df180329678b97fc44add4f223a409d5618186f57fb80d8c3844039867ceb', '$2y$10$Adifl.rSd9Q9Uhk8SsCOReqjrs4DdsI8cAIzeTg77DMFa3vOK72Q6', 4, 1, 1599141962, 'offline'),
+('8', 'admin', 'Admin LAB', '', '', '', '', '', 0, 0, '', '', 'admin@gmail.com', '', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, 'offline');
 
 -- --------------------------------------------------------
 
@@ -734,12 +694,6 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `child_kategori`
   ADD PRIMARY KEY (`id_ck`);
-
---
--- Indexes for table `correction`
---
-ALTER TABLE `correction`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `file_pendaftaran`
@@ -863,13 +817,13 @@ ALTER TABLE `child_kategori`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tampilan`
 --
 ALTER TABLE `tampilan`
-  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_tampilan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tampilan_like`

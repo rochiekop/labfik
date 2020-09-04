@@ -1005,14 +1005,13 @@ class Admin extends CI_Controller
 
   public function downloadTemplate()
   {
-    force_download('assets/import_user/template/template.xlsx',NULL);
+    force_download('assets/import_user/template/template.xlsx', NULL);
   }
 
   public function importFile()
   {
     // redirect('admin/addUser');
-    if ( isset($_POST['import'])) 
-    {
+    if (isset($_POST['import'])) {
       $file = $_FILES['user']['tmp_name'];
 
       // Medapatkan ekstensi file csv yang akan diimport.
@@ -1032,9 +1031,9 @@ class Admin extends CI_Controller
             if ($i == 1) continue;
 
             $salt = $this->auth_model->salt();
-            $password = $this->auth_model->makePassword('fiktelu'.$row[3], $salt);
+            $password = $this->auth_model->makePassword('fiktelu' . $row[3], $salt);
 
-            if ($row[4] == 'admin')
+            if ($row[4] == 'admin') 
             {
               $role_id = '1';
             }
@@ -1045,16 +1044,16 @@ class Admin extends CI_Controller
             else if ($row[4] == 'dosen')
             {
               $role_id = '3';
-            }
-            else if ($row[4] == 'mahasiswa')
+            } 
+            else if ($row[4] == 'mahasiswa') 
             {
               $role_id = '4';
-            }
-            else if ($row[4] == 'admin laa')
+            } 
+            else if ($row[4] == 'admin laa') 
             {
               $role_id = '5';
-            }
-            else if ($row[4] == 'koordinator ta')
+            } 
+            else if ($row[4] == 'koordinator ta') 
             {
               $role_id = '6';
             }
@@ -1081,13 +1080,10 @@ class Admin extends CI_Controller
 
           fclose($handle);
           redirect('admin/addUser');
-
         } else {
           echo 'Format file tidak valid!';
         }
       }
     }
-	}
-
-  
+  }
 }

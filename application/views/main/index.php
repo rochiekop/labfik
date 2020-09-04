@@ -84,16 +84,16 @@
       <img src="<?= base_url('assets/img/tour.png') ?>" alt="">
       <div class="fik-tour-text">
         <h5>FIK TOUR</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">START TOUR</a>
+        <p>Tour FIK ini merupakan sarana tour ke Fakultas Industri Kreatif menggunakan animasi 3D</p>
+        <a href="#" target="_blank" class="btn btn-">START TOUR</a>
       </div>
     </div>
     <div class="fik-tour-item">
       <img src="<?= base_url('assets/img/12.jpg') ?>" alt="">
       <div class="fik-tour-text">
         <h5>MEET 360</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <a href="https://api2.enscape3d.com/v1/view/2431c817-96e2-48f6-b6cd-d9b0649543a1" target="_blank" class="btn btn-">MORE</a>
+        <p>Tour FIK ini merupakan sarana tour ke Fakultas Industri Kreatif menggunakan animasi 3D menggunakan kamera 360</p>
+        <a href="#" target="_blank" class="btn btn-">MORE</a>
       </div>
     </div>
   </div>
