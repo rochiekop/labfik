@@ -140,6 +140,8 @@
                   <?php } ?>
                 </select>
               </div>
+            <?php else : ?>
+              <input type="hidden" name="peminatan" class="form-control" value="">
             <?php endif; ?>
             <div class="form-group">
               <label for="exampleFormControlFile1">Kartu Studi Mahasiswa (KSM)</label>
@@ -150,6 +152,7 @@
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Surat Pernyataan Tugas Akhir</label>
                   <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+                  <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
@@ -159,6 +162,7 @@
             <div class="form-group">
               <label for="exampleFormControlFile1">Sertifikat EPRT</label>
               <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+              <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
             </div>
             <div class="form-group">
               <label for="exampleFormControlFile1">Sertifikat TAK</label>
@@ -178,7 +182,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
-            <button type="submit" class="btn btn-sm btn-primary">Daftar</button>
+            <button type="submit" class="btn btn-sm btn-primary" name="daftar" value="Daftar">Daftar</button>
           </div>
         </form>
       </div>

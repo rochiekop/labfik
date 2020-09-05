@@ -5,7 +5,7 @@
     </div>
     <?= $this->session->flashdata('message'); ?>
     <p>Pembimbing 1 : <?= $dosbing1['name'] ?></p>
-    <p>Pembimbing 2 :<?= $dosbing2['name'] ?></p>
+    <p>Pembimbing 2 : <?= $dosbing2['name'] ?></p>
     <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
@@ -59,17 +59,6 @@
                     <td><?= $t['keterangan'] ?></td>
                     <td><?= $t['date'] ?></td>
                     <td>
-                      <!-- <a href="<?= base_url('users/viewfilepdf/') . encrypt_url($t['id']); ?>">view </a> -->
-                      <?php $file = explode(",", $t['pdf_file']); ?>
-                      <?php foreach ($file as $f) : ?>
-                        <form action="<?= base_url('thesis') ?>" method="post">
-                          <input type="text" name="thesis_id" value="<?= $t['id'] ?>" hidden>
-                          <textarea name="correction" id="correction" class="form-control" cols="30" rows="10" hidden><?= $t['correction'] ?></textarea>
-                          <input type="text" name="pdf_file" value="<?= $f ?>" hidden>
-                          <button type="submit"><?= $f ?></button>
-                        </form>
-                        <br>
-                      <?php endforeach; ?>
                     </td>
                     <?php if ($t['status'] == "Dikirim") : ?>
                       <td><b>Dikirim</b></td>
@@ -176,7 +165,6 @@
             <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
             <div class="form-group">
               <input type="hidden" class="form-control" value="Semua" id="exampleFormControlFile1" name="fordosen" style="padding:13px 16px">
-              </select>
             </div>
             <div class="row">
               <div class="col-lg-11" id="dynamic">
@@ -193,7 +181,7 @@
               <div class="col-lg-11" id="dynamic2">
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Link Project</label>
-                  <input type="text" class="form-control" name="link_project[]" required style="padding:13px 16px">
+                  <input type="text" class="form-control" name="link_project[]" style="padding:13px 16px">
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon2">
@@ -203,6 +191,9 @@
             <div class="form-group" style="margin-bottom:0;">
               <label for="ketbim">Keterangan</label>
               <textarea class="form-control" style="padding:12px" rows="5" required id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
+              <div class="invalid-feedback">
+                Please provide a valid city.
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -255,7 +246,7 @@
       var no = 1;
       $('#tambah2').click(function() {
         no++;
-        $('#dynamic2').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="text" name="link_project[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
+        $('#dynamic2').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="text" name="link_project[]" style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
         $('#icon2').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
       });
       $(document).on('click', '.btn_remove', function() {

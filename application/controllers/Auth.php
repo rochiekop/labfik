@@ -416,10 +416,11 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules(
       'nim',
       'Nim',
-      'required|min_length[10]',
+      'required|min_length[10]|numeric',
       array(
-        'required'      =>  '%s harus diisi',
-        'min_length[10]' =>  '%s angka yang diisi kurang',
+        'required'      =>  'Form %s harus diisi',
+        'min_length' =>  'Jumlah angka pada form %s yang diisi kurang!',
+        'numeric' =>  '%s harus diisi dengan angka!',
       )
     );
 
@@ -469,7 +470,7 @@ class Auth extends CI_Controller
       $this->db->set('dosen_wali', '1');
       $this->db->where('id', $dosenwali);
       $this->db->update('user');
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berasil diubah</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berhasil diubah</div>');
       redirect('auth/editprofilemhs');
     }
   }
@@ -536,7 +537,7 @@ class Auth extends CI_Controller
       $this->db->set('kode_dosen', $kodedosen);
       $this->db->where('email', $email);
       $this->db->update('user');
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berasil diubah</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile ' . $user['name'] . ' berhasil diubah</div>');
       redirect('auth/editprofiledsn');
     }
   }
