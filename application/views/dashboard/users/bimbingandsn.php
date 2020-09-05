@@ -32,7 +32,7 @@
       </thead>
       <tbody>
         <?php if (empty($bimbingan)) : ?>
-          <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar bimbingan kosong</td>
+          <td colspan="8" style="background-color: whitesmoke;text-align:center">Daftar bimbingan kosong</td>
         <?php else : ?>
           <?php $no = 0;
           foreach ($bimbingan as $t) : ?>
