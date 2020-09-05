@@ -83,7 +83,7 @@
               <th scope="col" style="width:30%;">Keterangan</th>
               <th scope="col" style="width:30%;">Dokumen</th>
               <th scope="col">Project</th>
-              <th scope="col">Status</th>
+              <th scope="col" style="width:30%;">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -110,8 +110,8 @@
                     <?php endforeach; ?>
                   </td>
                   <td>
-                    <a href="#" class="btn badge badge-success">Selesai</a>
                     <a href="#" class="btn badge badge-danger">Revisi</a>
+                    <a href="#" class="btn badge badge-success">Sesuai</a>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -119,7 +119,11 @@
           </tbody>
         </table>
         <div>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white"><span class="fas fa-tasks"></span> Semua Koreksi</a> <br><br>
+          <br>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a> 
+          <a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:10px; margin:2px"><span class="fas fa-star-half-alt"></span> Isi Penilaian</a>
+          <a class="btn btn-success" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
+          <a class="btn btn-danger" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
         </div>
       </div>
     </div>
@@ -279,18 +283,153 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Import User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Semua Koreksi</h5>
       </div>
       <div class="modal-body">
         <div class="custom-form">
           <table>
             <td>
-              <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10"></textarea>        
+              <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10">
+                <?php foreach ($allcorrection as $a) : ?>
+                  <?= $a->correction1 ?>
+                <?php endforeach; ?>
+              </textarea>        
             </td>
             <td>
-              <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10"></textarea>
+              <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10">
+                <?php foreach ($allcorrection as $a) : ?>
+                  <?= $a->correction2 ?>
+                <?php endforeach; ?>
+              </textarea>
             </td>
           </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for grading -->
+<div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
+      </div>
+      <div class="modal-body">
+        <div class="custom-form">
+            <form action="" method="POST">
+              <table>
+                <td>
+                  <div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 1</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 2</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 3</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 4</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 5</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 6</label>
+                    </div>
+                  </div>
+                  <div style="float: right">
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 7</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 8</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 9</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 10</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 11</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                      <label>Penilaian 12</label>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 1</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 2</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 3</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 4</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 5</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 6</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 7</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 8</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 9</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 10</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 11</label>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                    <label>Penilaian 12</label>
+                  </div>
+                </td>
+              </table>
+            </form>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

@@ -12,6 +12,7 @@ class Users extends CI_Controller
     $this->load->model('admin_model');
     $this->load->model('adminlaa_model');
     $this->load->model('booking_model');
+    $this->load->model('thesis_model');
     $this->load->library('encryption');
     is_logged_in();
   }
@@ -476,6 +477,7 @@ class Users extends CI_Controller
     $data['filebimbingan'] = $this->user_model->getfilebimbinganbyid($id);
     $data['preview'] = $this->user_model->getfilebimbinganpreview($id);
     $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($id);
+    $data['allcorrection'] = $this->thesis_model->getAllCorrection($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/progressbimbingan', $data);
