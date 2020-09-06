@@ -14,6 +14,7 @@ class Karya extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('kategori_model');
         $this->load->model('gambar_model');
+        is_logged_in();
     }
 
     public function listbymhs()
