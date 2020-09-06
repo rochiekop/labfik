@@ -1027,4 +1027,72 @@ class Search extends CI_Controller
     }
     echo $output;
   }
+
+  public function fetchdatapendaftarantakoorkk()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getpermintaanta($query, $filter);
+      } else {
+        $data = $this->user_model->getpermintaanta();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getpermintaanta($query, $filter);
+      } else {
+        $data = $this->user_model->getpermintaanta();
+      }
+    }
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'tahun' => $u['tahun'],
+          'dosen_pemb1' => $u['dosen_pembimbing1'],
+          'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
+        ];
+    }
+    $data = $userslist;
+    // var_dump($data);
+    // die;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <th scope="row" style="width:60px">' . ++$no . '</th>';
+        if ($i['file_bimbingan'] != 0) {
+          $output .= '<td>
+          <a href="' . base_url('users/progressbimbingan/') . encrypt_url($i['id_guidance']) . '" class="btn badge badge-primary">Lihat Progres</a>
+          </td>';
+        } else {
+          $output .= '<td><b>Belum Melakukan Bimbingan</b></td>';
+        };
+        $output .= '<td>' . $i['name'] . '</td>
+        <td>' . $i['nim'] . '</td>
+        <td>' . $i['prodi'] . '</td>
+        <td>' . $i['peminatan'] . '</td>
+        <td>' . $i['tahun'] . '</td>';
+        if ($this->session->userdata('id') == $i['dosen_pemb1']) {
+          $output .= '<td><b>Pembimbing 1</b></td>';
+        } else {
+          $output .= '<td><b>Pembimbing 2</b></td>';
+        };
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Mahasiswa yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
 }

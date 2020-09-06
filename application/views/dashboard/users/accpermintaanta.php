@@ -12,9 +12,12 @@
             <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
             <div class="dropdown-menu">
                 <a class="dropdown-item item">Semua</a>
-                <a class="dropdown-item item">Judul</a>
-                <a class="dropdown-item item">Tanggal</a>
-                <a class="dropdown-item item">Deskripsi</a>
+                <a class="dropdown-item item">Nama</a>
+                <a class="dropdown-item item">NIM</a>
+                <a class="dropdown-item item">Prodi</a>
+                <a class="dropdown-item item">Kosentrasi</a>
+                <a class="dropdown-item item">Dosen Wali</a>
+                <a class="dropdown-item item">Tahun</a>
             </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -34,7 +37,7 @@
                     <th scope="col">Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="pta">
                 <?php if (empty($pta)) : ?>
                     <td colspan="9" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA kosong</td>
                 <?php else : ?>
@@ -67,31 +70,30 @@
 </main>
 <!-- End Main Container -->
 
-<!-- <script>
+<script>
     $(document).ready(function() {
         var keyword = document.getElementById('keyword');
         var container = document.getElementById('container');
         $(".item").click(function() {
             var text = $(this).text();
-            // alert(text)
             $("#filter").text(text)
-            if (text != '') {
-                load_data(keyword = null, text);
-            } else {
-                load_data();
-            }
+            // if (text != '') {
+            //     load_data(keyword = null, text);
+            // } else {
+            //     load_data();
+            // }
         });
 
         function load_data(keyword, filter) {
             $.ajax({
-                url: '<?= base_url('search/fetchdatapermintaanbimbingan') ?>',
+                url: '<?= base_url('search/fetchdatapendaftarantakoorkk') ?>',
                 method: "POST",
                 data: {
                     keyword: keyword,
                     filter: filter,
                 },
                 success: function(data) {
-                    $('#pbimbingan').html(data);
+                    $('#pta').html(data);
                     // console.log(data)
                 }
             });
@@ -99,12 +101,11 @@
         keyword.addEventListener('keyup', function() {
             var keyword = $(this).val();
             var filter = $('#filter').text()
-            // alert(filter)
-            if (keyword != '') {
-                load_data(keyword, filter);
-            } else {
-                load_data();
-            }
+            // if (keyword != '') {
+            //     load_data(keyword, filter);
+            // } else {
+            //     load_data();
+            // }
         })
     });
-</script> -->
+</script>
