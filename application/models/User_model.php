@@ -419,6 +419,11 @@ class User_model extends CI_Model
 		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->group_start();
+		$this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
+		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
+		$this->db->group_end();
+		$this->db->group_start();
+
 		if ($filter == 'Nama') {
 			$this->db->like('user.name', $query);
 		} elseif ($filter == 'NIM') {
@@ -437,8 +442,6 @@ class User_model extends CI_Model
 			$this->db->or_like('guidance.peminatan', $query);
 		}
 		$this->db->group_end();
-		$this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
-		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
 		$this->db->order_by('guidance.id', 'desc');
 		return $this->db->get()->result_array();
 	}
@@ -625,6 +628,4 @@ class User_model extends CI_Model
 		$this->db->where('id', $id);
 		return $this->db->get()->row_array();
 	}
-
-	
 }
