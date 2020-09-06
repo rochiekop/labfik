@@ -224,9 +224,6 @@ class Users extends CI_Controller
     if (!empty($thesis_lecturers)) {
       $data['dosbing1'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
       $data['dosbing2'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
-    } else {
-      $data['dosbing1'] = '';
-      $data['dosbing2'] = '';
     }
     else {
       redirect('users/pendaftarantugasakhir');

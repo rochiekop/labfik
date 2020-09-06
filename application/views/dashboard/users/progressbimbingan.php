@@ -269,6 +269,10 @@
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<input type="text" id="user_id" value="<?= $this->session->userdata('id') ?>" hidden>
+<input type="text" id="dosen_pembimbing1" value="<?= $lecturers->dosen_pembimbing1 ?>" hidden>
+<input type="text" id="dosen_pembimbing2" value="<?= $lecturers->dosen_pembimbing2 ?>" hidden>
 <script>
   tinymce.init({
     selector: 'textarea',
