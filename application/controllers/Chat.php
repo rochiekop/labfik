@@ -7,6 +7,7 @@ class Chat extends CI_Controller {
 		parent::__construct();
 		$this->load->model(['chat_model','user_model']);
 		$this->load->helper('string');
+		is_logged_in();
 	}
 	
 	public function index()
