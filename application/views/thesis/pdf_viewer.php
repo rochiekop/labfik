@@ -73,8 +73,6 @@
     var dosen_pembimbing1 = document.getElementById("dosen_pembimbing1").value;
     var dosen_pembimbing2 = document.getElementById("dosen_pembimbing2").value;
 
-    alert(<?= $this->session->userdata('id') ?>)
-
     // tinymce.init({
     //     selector: 'textarea',
     //     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
