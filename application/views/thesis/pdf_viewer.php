@@ -67,8 +67,6 @@
 <input type="text" id="user_id" value="<?= $this->session->userdata('id') ?>" hidden>
 <input type="text" id="dosen_pembimbing1" value="<?= $lecturers->dosen_pembimbing1 ?>" hidden>
 <input type="text" id="dosen_pembimbing2" value="<?= $lecturers->dosen_pembimbing2 ?>" hidden>
-<input type="text" id="dosen_penguji1" value="<?= $lecturers->dosen_penguji1 ?>" hidden>
-<input type="text" id="dosen_penguji2" value="<?= $lecturers->dosen_penguji2 ?>" hidden>
 <script>
 
     var user_id = document.getElementById("user_id").value;
