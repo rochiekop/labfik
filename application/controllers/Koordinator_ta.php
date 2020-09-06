@@ -116,10 +116,10 @@ class Koordinator_ta extends CI_Controller
       ];
       $this->db->update('user', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' berhasil ditambahkan menjadi ' . $kbimbingan . ' Mahasiswa.</div>');
-      redirect('koordinator_ta');
+      redirect('koordinator_ta/kuotadosen');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' sekarang sudah ' . $kbimbingan . ' Mahasiswa.</div>');
-      redirect('koordinator_ta');
+      redirect('koordinator_ta/kuotadosen');
     }
   }
 
@@ -128,16 +128,16 @@ class Koordinator_ta extends CI_Controller
     $id  = $this->input->post('id_dosen');
     $kpenguji  = $this->input->post('kpenguji');
     $cek = $this->db->get_where('user', ['id' => $id])->row_array();
-    if ($cek['kuota_bimbingan'] != $kpenguji) {
+    if ($cek['kuota_penguji'] != $kpenguji) {
       $data = [
         'kuota_penguji' => $kpenguji
       ];
       $this->db->update('user', $data, ['id' => $id]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kuota penguji untuk dosen ' . $cek['name'] . ' berhasil ditambahkan menjadi ' . $kpenguji . ' Mahasiswa.</div>');
-      redirect('koordinator_ta');
+      redirect('koordinator_ta/kuotadosen');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Kuota bimbingan untuk dosen ' . $cek['name'] . ' sekarang sudah ' . $kpenguji . ' Mahasiswa.</div>');
-      redirect('koordinator_ta');
+      redirect('koordinator_ta/kuotadosen');
     }
   }
 

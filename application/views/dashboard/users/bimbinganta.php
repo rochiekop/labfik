@@ -12,7 +12,7 @@
         <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>

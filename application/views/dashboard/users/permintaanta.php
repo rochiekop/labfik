@@ -12,9 +12,11 @@
             <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
             <div class="dropdown-menu">
                 <a class="dropdown-item item">Semua</a>
-                <a class="dropdown-item item">Judul</a>
-                <a class="dropdown-item item">Tanggal</a>
-                <a class="dropdown-item item">Deskripsi</a>
+                <a class="dropdown-item item">Nama</a>
+                <a class="dropdown-item item">NIM</a>
+                <a class="dropdown-item item">Prodi</a>
+                <a class="dropdown-item item">Kosentrasi</a>
+                <a class="dropdown-item item">Tahun</a>
             </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -28,12 +30,12 @@
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
-                    <th scope="col">Peminatan</th>
+                    <th scope="col">Kosentrasi</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="permintaantadosenwali">
                 <?php if (empty($pta)) : ?>
                     <td colspan="8" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
@@ -54,7 +56,7 @@
                             <?php elseif ($t['updated'] != "0") : ?>
                                 <td><?= $t['updated'] ?>&nbsp; File baru</td>
                             <?php else : ?>
-                                <td>Disetujui</td>
+                                <td><b>Disetujui</b></td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
@@ -64,3 +66,44 @@
     </div>
 </main>
 <!-- End Main Container -->
+<script>
+    $(document).ready(function() {
+        var keyword = document.getElementById('keyword');
+        var container = document.getElementById('container');
+        $(".item").click(function() {
+            var text = $(this).text();
+            $("#filter").text(text)
+            if ((text != 'Semua')) {
+                load_data(text);
+            } else {
+                load_data()
+            }
+        });
+
+        function load_data(filter, keyword) {
+            $.ajax({
+                url: '<?= base_url('search/fetchdatapermintaantadosenwali') ?>',
+                method: "POST",
+                data: {
+                    filter: filter,
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    $('#permintaantadosenwali').html(data);
+                    // console.log(data)
+                }
+            });
+        }
+        keyword.addEventListener('keyup', function() {
+            var keyword = $(this).val();
+            var filter = $('#filter').text()
+            if (keyword != '') {
+                load_data(filter, keyword);
+            } else if (filter != "Semua" && filter != "Filter") {
+                load_data(filter);
+            } else {
+                load_data();
+            }
+        })
+    });
+</script>

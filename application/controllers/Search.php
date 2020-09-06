@@ -12,6 +12,8 @@ class Search extends CI_Controller
     parent::__construct();
     $this->load->model('ajax_search');
     $this->load->model('user_model');
+    $this->load->model('adminlaa_model');
+    $this->load->model('koordinatorta_model');
     // is_logged_in();
   }
 
@@ -656,6 +658,371 @@ class Search extends CI_Controller
     } else {
       $output .= '<tr>
                       <td colspan="7" style="background-color: whitesmoke;text-align:center">List Karya Kosong.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatapendaftaranadminlaa()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapendaftaranadminlaa($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapendaftaranadminlaa();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapendaftaranadminlaa($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapendaftaranadminlaa();
+      }
+    }
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->adminlaa_model->countStatus($u['id'], 'Disetujui'),
+          'ditolak' => $this->adminlaa_model->countStatus($u['id'], 'Ditolak'),
+          'updated' => $this->adminlaa_model->countStatus($u['id'], 'Update'),
+        ];
+    }
+    $data = $userslist;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td>' . ++$no . '</td>
+                    <td><a href="' . base_url('adminlaa/viewdetail/') . encrypt_url($i['id']) . '" class="btn badge badge-secondary">Details</a></td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['nim'] . '</td>
+                    <td>' . $i['prodi'] . '</td>
+                    <td>' . $i['peminatan'] . '</td>
+                    <td>' . $i['dosen_wali'] . '</td>
+                    <td>' . $i['tahun'] . '</td>
+                    ';
+        if ($i['status_file'] == "Disetujui wali" and $i['diterima'] == "0" and $i['ditolak'] == "0" and $i['updated'] == "0") {
+          $output .= '<td><b>Menunggu Persetujuan</b></td>';
+        } elseif ($i['diterima'] != 5 and $i['updated'] == "0") {
+          $output .= '<td><b>' . $i['diterima'] . ' Diterima, ' . $i['ditolak'] . ' Ditolak</b></td>';
+        } elseif ($i['updated'] != "0") {
+          $output .= '<td><b>' . $i['updated'] . ' File baru</b></td>';
+        } else {
+          $output .= '<td><b>Disetujui</b></td>';
+        }
+        '</tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Mahasiswa yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatapendaftarankoorta()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapendaftarankoorta($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapendaftarankoorta();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->ajax_search->fetchdatapendaftarankoorta($query, $filter);
+      } else {
+        $data = $this->ajax_search->fetchdatapendaftarankoorta();
+      }
+    }
+
+
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'tahun' => $u['tahun'],
+          'no_telp' => $u['no_telp'],
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+          'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
+        ];
+    }
+    $data = $userslist;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td><b>' . ++$no . '</b></td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['nim'] . '</td>
+                    <td>' . $i['prodi'] . '</td>
+                    <td>' . $i['peminatan'] . '</td>
+                    <td>' . $i['no_telp'] . '</td>
+                    <td>' . $i['dosen_wali'] . '</td>
+                    <td>' . $i['tahun'] . '</td>
+                    ';
+        if ($i['aksi'] != 0) {
+          $output .= '<td><b>Ditambahkan</b></td>';
+        } else {
+          $output .= '<td><a data-toggle="modal" data-target="#exampleModal' . $i['id'] . '" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a><td>';
+        }
+        '</tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Mahasiswa yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatakuotadosen()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->koordinatorta_model->getDosen($query, $filter);
+      } else {
+        $data = $this->koordinatorta_model->getDosen();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->koordinatorta_model->getDosen($query, $filter);
+      } else {
+        $data = $this->koordinatorta_model->getDosen();
+      }
+    }
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+
+    $data = $userslist;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <th scope="row">' . ++$no . '</th>
+                    <td>' . $i['name'] . '</td>';
+        $output .= '<td>
+                    <form action="' . base_url('koordinator_ta/insertkuotapembimbing') . '" method="POST">
+                    <input type="hidden" value="' . $i['id'] . '" name="id_dosen">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <select id="kbimbingan" name="kbimbingan" class="form-control" style="width:160px;height:28px;float:left;">
+                      
+                      ' . $x = 1;
+        $max = 15;
+        while ($x <= $max) {
+          if ($i['kuota_bimbingan'] == $x) {
+            $output .= '<option value="' . $x . '" selected>' . $x . '</option>';
+          } else {
+            $output .= '<option value="' . $x . '">' . $x . '</option>';
+          }
+          $x++;
+        };
+        $output  .=   '</select>&nbsp 
+        <button type="submit" class=" badge badge-success" style="color:#fff;height:28px;line-height:26px;">Simpan</button> &nbsp&nbsp;' . $i['count_bimbingan'] . '/' . $i['kuota_bimbingan'] . '
+                      <div class="clearfix"></div>
+                    </div>
+                  </form></td>';
+        $output .= '<td>
+                    <form action="' . base_url('koordinator_ta/insertkuotapenguji') . '" method="POST">
+                    <input type="hidden" value="' . $i['id'] . '" name="id_dosen">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <select id="kpenguji" name="kpenguji" class="form-control" style="width:160px;height:28px;float:left;">
+                      ' . $x = 1;
+        $max = 15;
+        while ($x <= $max) {
+          if ($i['kuota_penguji'] == $x) {
+            $output .=  '<option value="' . $x . '" selected>' . $x . '</option>';
+          } else {
+            $output .=  '<option value="' . $x . '">' . $x . '</option>';
+          }
+          $x++;
+        };
+        $output  .=   '</select>&nbsp;
+                      <button type="submit" class=" badge badge-success" style="color:#fff;height:28px;line-height:26px;">Simpan</button> &nbsp&nbsp;' . $i['count_penguji'] . '/' . $i['kuota_penguji'] . '
+                      <div class="clearfix"></div>
+                    </div>
+                  </form></td>
+                      </tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Dosen yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatapermintaantadosenwali()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getpermintaan($query, $filter);
+      } else {
+        $data = $this->user_model->getpermintaan();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getpermintaan($query, $filter);
+      } else {
+        $data = $this->user_model->getpermintaan();
+      }
+    }
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'no_telp' => $u['no_telp'],
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui wali'),
+          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak wali'),
+          'updated' => $this->user_model->countStatus($u['id'], 'Update file'),
+          'dikirim' => $this->user_model->countStatus($u['id'], 'Dikirim'),
+        ];
+    }
+    $data = $userslist;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <td>' . ++$no . '</td>
+                    <td><a href="' . base_url('users/daftarfile/') . $i['id'] . '" class="btn badge badge-secondary">Details</a></td>
+                    <td>' . $i['name'] . '</td>
+                    <td>' . $i['nim'] . '</td>
+                    <td>' . $i['prodi'] . '</td>
+                    <td>' . $i['peminatan'] . '</td>
+                    <td>' . $i['tahun'] . '</td>
+                    ';
+        if ($i['status_file'] == "Disetujui koor" and $i['diterima'] == "0" and $i['ditolak'] == "0" and $i['updated'] == "0") {
+          $output .= '<td><b>Menunggu Persetujuan</b></td>';
+        } elseif ($i['diterima'] != 5 and $i['updated'] == "0" and $i['updated'] != "5") {
+          $output .= '<td><b>' . $i['diterima'] . ' Diterima, ' . $i['ditolak'] . ' Ditolak, ' . $i['dikirim'] . ' Menunggu</b></td>';
+        } elseif ($i['updated'] != "0") {
+          $output .= '<td><b>' . $i['updated'] . ' File baru</b></td>';
+        } else {
+          $output .= '<td><b>Disetujui</b></td>';
+        }
+        '</tr>';
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Mahasiswa yang anda cari tidak ada.</td>
+                  </tr>';
+    }
+    echo $output;
+  }
+
+  public function fetchdatabimbingandosen()
+  {
+    $output = '';
+    if ($this->input->post('filter') != "Semua" and $this->input->post('filter') != "Filter") {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getMhsBimbingan($query, $filter);
+      } else {
+        $data = $this->user_model->getMhsBimbingan();
+      }
+    } else {
+      if ($this->input->post('keyword')) {
+        $query = $this->input->post('keyword');
+        $filter = $this->input->post('filter');
+        $data = $this->user_model->getMhsBimbingan($query, $filter);
+      } else {
+        $data = $this->user_model->getMhsBimbingan();
+      }
+    }
+    $userslist = [];
+    foreach ($data as $u) {
+      $userslist[] =
+        [
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'tahun' => $u['tahun'],
+          'dosen_pemb1' => $u['dosen_pembimbing1'],
+          'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
+        ];
+    }
+    $data = $userslist;
+    // var_dump($data);
+    // die;
+    if (!empty($data)) {
+      $no = 0;
+      foreach ($data as $i) {
+        $output .= '<tr>
+                    <th scope="row" style="width:60px">' . ++$no . '</th>';
+        if ($i['file_bimbingan'] != 0) {
+          $output .= '<td>
+          <a href="' . base_url('users/progressbimbingan/') . encrypt_url($i['id_guidance']) . '" class="btn badge badge-primary">Lihat Progres</a>
+          </td>';
+        } else {
+          $output .= '<td><b>Belum Melakukan Bimbingan</b></td>';
+        };
+        $output .= '<td>' . $i['name'] . '</td>
+        <td>' . $i['nim'] . '</td>
+        <td>' . $i['prodi'] . '</td>
+        <td>' . $i['peminatan'] . '</td>
+        <td>' . $i['tahun'] . '</td>';
+        if ($this->session->userdata('id') == $i['dosen_pemb1']) {
+          $output .= '<td><b>Pembimbing 1</b></td>';
+        } else {
+          $output .= '<td><b>Pembimbing 2</b></td>';
+        };
+      };
+    } else {
+      $output .= '<tr>
+                      <td colspan="9" style="background-color: whitesmoke;text-align:center">Data Mahasiswa yang anda cari tidak ada.</td>
                   </tr>';
     }
     echo $output;

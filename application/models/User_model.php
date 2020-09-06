@@ -294,13 +294,32 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function getpermintaan()
+	public function getpermintaan($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.status_file,');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
 		$this->db->where('user.dosen_wali', $this->session->userdata('id'));
+		$this->db->group_start();
+		if ($filter == 'Nama') {
+			$this->db->like('user.name', $query);
+		} elseif ($filter == 'NIM') {
+			$this->db->like('user.nim', $query);
+		} elseif ($filter == 'Prodi') {
+			$this->db->like('user.prodi', $query);
+		} elseif ($filter == 'Kosentrasi') {
+			$this->db->like('guidance.peminatan', $query);
+		} elseif ($filter == 'Tahun') {
+			$this->db->like('guidance.tahun', $query);
+		} else {
+			$this->db->like('user.name', $query);
+			$this->db->or_like('user.nim', $query);
+			$this->db->or_like('user.prodi', $query);
+			$this->db->or_like('guidance.peminatan', $query);
+			$this->db->or_like('guidance.tahun', $query);
+		}
+		$this->db->group_end();
 		$this->db->order_by('guidance.id', 'desc');
 		$this->db->group_by('user.id');
 		return $this->db->get()->result_array();
@@ -393,14 +412,34 @@ class User_model extends CI_Model
 		return $query->row_array();
 	}
 
-	public function getMhsBimbingan()
+	public function getMhsBimbingan($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun,thesis_lecturers.dosen_pembimbing1');
+		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun,thesis_lecturers.dosen_pembimbing1,thesis_lecturers.dosen_pembimbing2');
 		$this->db->from('thesis_lecturers');
 		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->group_start();
+		if ($filter == 'Nama') {
+			$this->db->like('user.name', $query);
+		} elseif ($filter == 'NIM') {
+			$this->db->like('user.nim', $query);
+		} elseif ($filter == 'Prodi') {
+			$this->db->like('user.prodi', $query);
+		} elseif ($filter == 'Kosentrasi') {
+			$this->db->like('guidance.peminatan', $query);
+		} elseif ($filter == 'Tahun') {
+			$this->db->like('guidance.tahun', $query);
+		} else {
+			$this->db->like('user.name', $query);
+			$this->db->or_like('guidance.tahun', $query);
+			$this->db->or_like('user.nim', $query);
+			$this->db->or_like('user.prodi', $query);
+			$this->db->or_like('guidance.peminatan', $query);
+		}
+		$this->db->group_end();
 		$this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
 		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
+		$this->db->order_by('guidance.id', 'desc');
 		return $this->db->get()->result_array();
 	}
 
@@ -448,7 +487,7 @@ class User_model extends CI_Model
 	}
 	public function getmhsbimbinganbyid($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,no_telp,thesis_lecturers.dosen_pembimbing1');
+		$this->db->select('user.name,user.nim,user.prodi,no_telp,thesis_lecturers.dosen_pembimbing1,guidance.peminatan');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('user', 'guidance.id_mhs = user.id');

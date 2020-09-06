@@ -7,14 +7,12 @@
     <form action="#$">
       <div class="input-group">
         <div class="input-group-prepend">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</button>
+          <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Nama A-Z</a>
-            <a class="dropdown-item" href="#">Tersedia</a>
-            <a class="dropdown-item" href="#">Penuh</a>
+            <a class="dropdown-item item">Nama</a>
           </div>
         </div>
-        <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Cari nama">
+        <input type="text" id="keyword" class="form-control" aria-label="Text input with dropdown button" placeholder="Pencarian">
       </div>
     </form>
     <div class="table-responsive">
@@ -27,7 +25,7 @@
             <th scope="col">Kuota Penguji</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="kuotadosen">
           <?php $no = 0;
           foreach ($dosen as $d) : ?>
             <tr>
@@ -86,3 +84,46 @@
     </div>
   </main>
   <!-- End Main Container -->
+
+  <script>
+    $(document).ready(function() {
+      var keyword = document.getElementById('keyword');
+      var container = document.getElementById('container');
+      $(".item").click(function() {
+        var text = $(this).text();
+        // alert(text)
+        $("#filter").text(text)
+        if ((text != 'Semua')) {
+          load_data(text);
+        } else {
+          load_data()
+        }
+      });
+
+      function load_data(filter, keyword) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatakuotadosen') ?>',
+          method: "POST",
+          data: {
+            filter: filter,
+            keyword: keyword,
+          },
+          success: function(data) {
+            $('#kuotadosen').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        if (keyword != '') {
+          load_data(filter, keyword);
+        } else if (filter != "Semua" && filter != "Filter") {
+          load_data(filter);
+        } else {
+          load_data();
+        }
+      })
+    });
+  </script>

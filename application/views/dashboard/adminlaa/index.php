@@ -13,20 +13,21 @@
     </div>
     <div class="alert alert-warning">
       <ul class="list-dot-ul">
-        <li><b>257</b> Pengajuan Belum Ada Aksi</li>
-        <li><b>257</b> Pengajuan Dokumen Belum Lengkap</li>
-        <li><b>7</b> Pengajuan Ditolak</li>
-        <li><b>3298</b> Total Pengajuan Sepanjang Waktu</li>
+        <li><b><?= $info['menunggu'] ?></b> Pengajuan Belum Ada Aksi</li>
+        <li><b><?= $info['updated'] ?></b> Pengajuan File Baru</li>
+        <li><b><?= $info['ditolak'] ?></b> Pengajuan Ditolak</li>
+        <li><b><?= $info['all'] ?></b> Total Pengajuan Sepanjang Waktu</li>
       </ul>
     </div>
     <div class="input-group">
       <div class="input-group-append">
         <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
+          <a class="dropdown-item item">Semua</a>
           <a class="dropdown-item item">Nama</a>
           <a class="dropdown-item item">NIM</a>
           <a class="dropdown-item item">Prodi</a>
-          <a class="dropdown-item item">Peminatan</a>
+          <a class="dropdown-item item">Kosentrasi</a>
           <a class="dropdown-item item">Tahun</a>
         </div>
       </div>
@@ -48,7 +49,7 @@
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody id="laboratorium">
+          <tbody id="pendaftaranta">
             <?php if (empty($mahasiswa)) : ?>
               <td colspan="9" style="background-color: whitesmoke;text-align:center">List Pendaftaran kosong</td>
             <?php else : ?>
@@ -97,30 +98,30 @@
         }
       });
 
-      // function load_data(filter, keyword) {
-      //   $.ajax({
-      //     url: '<?= base_url('search/fetchdatakategori') ?>',
-      //     method: "POST",
-      //     data: {
-      //       filter: filter,
-      //       keyword: keyword,
-      //     },
-      //     success: function(data) {
-      //       $('#container').html(data);
-      //       // console.log(data)
-      //     }
-      //   });
-      // }
-      // keyword.addEventListener('keyup', function() {
-      //   var keyword = $(this).val();
-      //   var filter = $('#filter').text()
-      //   if (keyword != '') {
-      //     load_data(filter, keyword);
-      //   } else if (filter != "Semua" && filter != "Filter") {
-      //     load_data(filter);
-      //   } else {
-      //     load_data();
-      //   }
-      // })
+      function load_data(filter, keyword) {
+        $.ajax({
+          url: '<?= base_url('search/fetchdatapendaftaranadminlaa') ?>',
+          method: "POST",
+          data: {
+            filter: filter,
+            keyword: keyword,
+          },
+          success: function(data) {
+            $('#pendaftaranta').html(data);
+            // console.log(data)
+          }
+        });
+      }
+      keyword.addEventListener('keyup', function() {
+        var keyword = $(this).val();
+        var filter = $('#filter').text()
+        if (keyword != '') {
+          load_data(filter, keyword);
+        } else if (filter != "Semua" && filter != "Filter") {
+          load_data(filter);
+        } else {
+          load_data();
+        }
+      })
     });
   </script>

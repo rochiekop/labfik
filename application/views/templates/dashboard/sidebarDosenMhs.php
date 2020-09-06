@@ -18,7 +18,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
     </div>
     <div class="divider show-mobile" style="margin-top:20px"></div>
     <div class="card">
-      <a href="<?= base_url('users/main') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
+      <a href="<?= base_url('users') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
     </div>
     <div class="divider"></div>
     <div class="card">

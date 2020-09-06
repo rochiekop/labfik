@@ -18,6 +18,15 @@ class Adminlaa extends CI_Controller
     $data['guidance'] = $this->db->get('guidance')->result_array();
     $name = $this->adminlaa_model->getMhs();
     $data['title'] = 'LABFIK | Pendaftaran TA';
+    $infolist = array(
+      'disetujui' => $this->adminlaa_model->countInfo('Disetujui'),
+      'ditolak' => $this->adminlaa_model->countInfo('Ditolak'),
+      'updated' => $this->adminlaa_model->countInfo('Update'),
+      'menunggu' => $this->adminlaa_model->countInfo('Dikirim'),
+      'all' => $this->adminlaa_model->countAllInfo(),
+    );
+
+    $data['info'] = $infolist;
     $userslist = [];
     foreach ($name as $u) {
       $userslist[] =
@@ -27,7 +36,6 @@ class Adminlaa extends CI_Controller
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
-          'no_telp' => $u['no_telp'],
           'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'status_file' => $u['status_file'],
           'tahun' => $u['tahun'],

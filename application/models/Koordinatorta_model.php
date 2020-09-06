@@ -5,10 +5,11 @@ class Koordinatorta_model extends CI_Model
 {
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,user.no_telp,guidance.tahun,guidance.date,guidance.status_file,guidance.date,user.dosen_wali,guidance.id');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,user.no_telp,guidance.tahun,guidance.status_file,user.dosen_wali');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
+    $this->db->order_by('guidance.id', 'desc');
     return $this->db->get()->result_array();
   }
 
@@ -29,12 +30,19 @@ class Koordinatorta_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
-  public function getDosen()
+  public function getDosen($query = null, $filter = null)
   {
     $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi');
     $this->db->from('user');
     $this->db->where('role_id', 3);
     $this->db->where('is_active', 1);
+    $this->db->group_start();
+    if ($filter == 'Nama') {
+      $this->db->like('user.name', $query);
+    } else {
+      $this->db->like('user.name', $query);
+    }
+    $this->db->group_end();
     return $this->db->get()->result_array();
   }
 

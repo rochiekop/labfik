@@ -28,7 +28,7 @@ class Users extends CI_Controller
     }
   }
 
-  public function main()
+  public function index()
   {
     $dt_tempat = $this->user_model->getDtTempat();
     $bprogress = $this->user_model->getBookingProgress();
@@ -224,6 +224,9 @@ class Users extends CI_Controller
     if (!empty($thesis_lecturers)) {
       $data['dosbing1'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
       $data['dosbing2'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
+    } else {
+      $data['dosbing1'] = '';
+      $data['dosbing2'] = '';
     }
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);

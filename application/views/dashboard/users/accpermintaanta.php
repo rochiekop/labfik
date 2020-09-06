@@ -50,13 +50,13 @@
                             <td><?= $t['dosen_wali'] ?></td>
                             <td><?= $t['tahun'] ?></td>
                             <?php if ($t['status_file'] == "Dikirim" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
-                                <td>Menunggu Persetujuan</td>
-                            <?php elseif ($t['diterima'] != 1 and $t['updated'] == "0") : ?>
-                                <td>Ditolak</td>
+                                <td><b>Menunggu Persetujuan</b></td>
+                            <?php elseif ($t['ditolak'] != "0") : ?>
+                                <td><b>Ditolak</b></td>
                             <?php elseif ($t['updated'] != "0") : ?>
-                                <td><?= $t['updated'] ?>&nbsp; File baru</td>
+                                <td><b><?= $t['updated'] ?>&nbsp; File baru</b></td>
                             <?php else : ?>
-                                <td>Disetujui</td>
+                                <td><b>Disetujui</b></td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
