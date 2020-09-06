@@ -159,29 +159,27 @@
         <div class="modal-body">
           <a href="<?= base_url('admin/downloadTemplate') ?>" class="btn btn-primary" style="color:white"><span class="fa fa-download"></span> Download Template</a> <br><br>
           <div class="custom-form">
-
-          catatan: <br>
-          <ol style="margin-left:10px">
-            <li>username disarankan untuk diisi sesuai dengan SSO</li>
-            <li>password secara default akan ditambah karakter "fiktelu" pada awal string</li>
-            <li>email disarankan untuk menggunakan SSO</li>
-            <li>tulis 'mahasiswa' jika ingin membuat akun mahasiswa dan tulis 'dosen' jika ingin membuat akun dosen</li>
-            <li>diharapkan untuk tidak mengulang import atau memasukan username yang sudah ada pada database</li>
-            <li>
-              role dapat diisi dengan 
-              <ul style="margin-left:30px">
-                <li>admin</li>
-                <li>kepala urusan</li>
-                <li>dosen</li>
-                <li>mahasiswa</li>
-                <li>admin laa</li>
-                <li>koordinator ta</li>
-              </ul>
-            </li>
-            <li>simpan file sebagai CSV</li>
-          </ol>
-          <br><br>
-          
+            catatan: <br>
+            <ol style="margin-left:10px">
+              <li>username disarankan untuk diisi sesuai dengan SSO</li>
+              <li>password secara default akan ditambah karakter "fiktelu" pada awal string</li>
+              <li>email disarankan untuk menggunakan SSO</li>
+              <li>tulis 'mahasiswa' jika ingin membuat akun mahasiswa dan tulis 'dosen' jika ingin membuat akun dosen</li>
+              <li>diharapkan untuk tidak mengulang import atau memasukan username yang sudah ada pada database</li>
+              <li>
+                role dapat diisi dengan 
+                <ul style="margin-left:30px">
+                  <li>admin</li>
+                  <li>kepala urusan</li>
+                  <li>dosen</li>
+                  <li>mahasiswa</li>
+                  <li>admin laa</li>
+                  <li>koordinator ta</li>
+                </ul>
+              </li>
+              <li>simpan file sebagai CSV</li>
+            </ol>
+            <br><br>
             <div class="form-group" style="margin-bottom:12px">
               <input type="file" name="user" id="file" value="" class="form-control" placeholder="" required="required" autocomplete="off" accept="text/csv" enctype="multipart/form-data" style="padding-top: 15px"/>
               <label>Upload File</label>
