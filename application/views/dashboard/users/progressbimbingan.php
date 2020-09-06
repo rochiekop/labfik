@@ -269,9 +269,15 @@
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<input type="text" id="user_id" value="<?= $this->session->userdata('id') ?>" hidden>
+<input type="text" id="dosen_pembimbing1" value="<?= $lecturers->dosen_pembimbing1 ?>" hidden>
+<input type="text" id="dosen_pembimbing2" value="<?= $lecturers->dosen_pembimbing2 ?>" hidden>
+<input type="text" id="dosen_penguji1" value="<?= $lecturers->dosen_penguji1 ?>" hidden>
+<input type="text" id="dosen_penguji2" value="<?= $lecturers->dosen_penguji2 ?>" hidden>
 <script>
   tinymce.init({
-    selector: 'textarea',
+    selector: '#readonly',
     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
     plugins: 'save autosave preview autolink lists media table',
     toolbar: 'save restoredraft',
@@ -281,6 +287,129 @@
     width: '555',
     readonly: 1
   });
+
+  var user_id = document.getElementById("user_id").value;
+  var dosen_pembimbing1 = document.getElementById("dosen_pembimbing1").value;
+  var dosen_pembimbing2 = document.getElementById("dosen_pembimbing2").value;
+  var dosen_penguji1 = document.getElementById("dosen_penguji1").value;
+  var dosen_penguji2 = document.getElementById("dosen_penguji2").value;
+
+  if (user_id == dosen_pembimbing1)
+    {
+        tinymce.init({
+            selector: '#penilaian_pembimbing1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
+        });
+    }
+    else if (user_id != dosen_pembimbing1)
+    {
+        tinymce.init({
+            selector: '#penilaian_pembimbing1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
+        });
+    }
+
+    if (user_id == dosen_pembimbing2)
+    {
+        tinymce.init({
+            selector: '#penilaian_pembimbing2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
+        });
+    }
+    else if (user_id != dosen_pembimbing2)
+    {
+        tinymce.init({
+            selector: '#penilaian_pembimbing2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
+        });
+    }
+
+    if (user_id == dosen_penguji1)
+    {
+        tinymce.init({
+            selector: '#penilaian_penguji1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
+        });
+    }
+    else if (user_id != dosen_penguji1)
+    {
+        tinymce.init({
+            selector: '#penilaian_penguji1',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
+        });
+    }
+
+    if (user_id == dosen_penguji2)
+    {
+        tinymce.init({
+            selector: '#penilaian_penguji2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            // readonly : 1
+        });
+    }
+    else if (user_id != dosen_penguji2)
+    {
+        tinymce.init({
+            selector: '#penilaian_penguji2',
+            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'save autosave preview autolink lists media table',
+            toolbar: 'save restoredraft',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            // height: '460',
+            height: '230',
+            readonly : 1
+        });
+    }
+
 </script>
 
 <!-- Modal for all correction -->
@@ -295,7 +424,7 @@
           <table>
             <td>
               <h6 style="padding-bottom:10px">Pembimbing 1</h6>
-              <textarea name="correction1" id="correction1" class="form-control" cols="30" rows="10">
+              <textarea name="correction1" id="readonly" class="form-control" cols="30" rows="10">
                 <?php foreach ($allcorrection as $a) : ?>
                   <?= $a->correction1 ?>
                 <?php endforeach; ?>
@@ -303,7 +432,7 @@
             </td>
             <td>
               <h6 style="padding-bottom:10px">Pembimbing 2</h6>
-              <textarea name="correction2" id="correction2" class="form-control" cols="30" rows="10">
+              <textarea name="correction2" id="readonly" class="form-control" cols="30" rows="10">
                 <?php foreach ($allcorrection as $a) : ?>
                   <?= $a->correction2 ?>
                 <?php endforeach; ?>
@@ -456,8 +585,8 @@
                 </td>
               </tr>
               <tr>
-                <td><textarea name="penilaian1" id="penilaian1" class="form-control" cols="30" rows="10"></textarea></td>
-                <td><textarea name="penilaian2" id="penilaian2" class="form-control" cols="30" rows="10"></textarea></td>
+                <td><textarea name="penilaian1" id="penilaian_pembimbing1" class="form-control" cols="30" rows="10"></textarea></td>
+                <td><textarea name="penilaian2" id="penilaian_pembimbing2" class="form-control" cols="30" rows="10"></textarea></td>
               </tr>
             </table>
           </div>
