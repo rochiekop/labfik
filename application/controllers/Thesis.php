@@ -52,6 +52,20 @@ class Thesis extends CI_Controller
         redirect('users/progressbimbingan/'.$id_guidance);
     }
 
+    public function savePenilaianPembimbing($id_guidance)
+    {
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->savePenilaianPembimbing($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+    }
+
+    public function savePenilaianPenguji($id_guidance)
+    {
+        $id_guidance = decrypt_url($id_guidance); 
+        $this->thesis_model->savePenilaianPenguji($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+    }
+
     // public function getAllCorrection($guidance_id)
     // {
     //     $data['correction'] = $this->thesis_model->getAllCorrection($guidance_id);

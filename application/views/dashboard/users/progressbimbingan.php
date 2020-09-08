@@ -115,8 +115,8 @@
                     <?php endforeach; ?>
                   </td>
                   <td>
-                    <a href="#" class="btn badge badge-danger">Revisi</a>
                     <a href="#" class="btn badge badge-success">Sesuai</a>
+                    <a href="#" class="btn badge badge-danger">Revisi</a>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -280,7 +280,7 @@
     selector: '.readonly',
     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
     plugins: 'save autosave preview autolink lists media table',
-    toolbar: 'save restoredraft',
+    toolbar: '',
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
     height: '350',
@@ -300,7 +300,7 @@
             selector: '#penilaian_pembimbing1',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -314,7 +314,7 @@
             selector: '#penilaian_pembimbing1',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -329,7 +329,7 @@
             selector: '#penilaian_pembimbing2',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -343,7 +343,7 @@
             selector: '#penilaian_pembimbing2',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -358,7 +358,7 @@
             selector: '#penilaian_penguji1',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -372,7 +372,7 @@
             selector: '#penilaian_penguji1',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -387,7 +387,7 @@
             selector: '#penilaian_penguji2',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -401,7 +401,7 @@
             selector: '#penilaian_penguji2',
             // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
             plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'save restoredraft',
+            toolbar: 'restoredraft',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             // height: '460',
@@ -455,38 +455,44 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
       </div>
-      <form action="" method="POST">
+      <form action="<?= base_url('thesis/savePenilaianPembimbing/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
             <table>
               <tr>
                 <td>
                   <h6 style="padding:10px">Pembimbing 1</h6>
+                  <?php $condition = ''; ?> 
+                  <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) {
+                    $condition = '';  }
+                  ?> 
+                  <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
+                  
                   <table>
                     <td>
                       <div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 1</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 2</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 3</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 4</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 5</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 6</label>
                         </div>
                       </div>
@@ -494,27 +500,27 @@
                     <td>
                       <div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 7</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 8</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[8] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 9</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[9] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 10</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[10] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 11</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai1[]" value="<?= $file[11] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 12</label>
                         </div>
                       </div>
@@ -524,31 +530,37 @@
 
                 <td>
                   <h6 style="padding:10px">Pembimbing 2</h6>
+                  <?php $condition2 = ''; ?>
+                  <?php if ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) {
+                    $condition2 = 'disabled'; }
+                  ?>
+                  <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+                  <!-- </?php var_dump($file2[1]); die; ?> -->
                   <table>
                     <td>
                       <div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[0] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 1</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[1] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 2</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[2] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 3</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 4</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[4] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 5</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[5] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 6</label>
                         </div>
                       </div>
@@ -556,44 +568,45 @@
                     <td>
                       <div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[6] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 7</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[7] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 8</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[8] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 9</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[9] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 10</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[10] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 11</label>
                         </div>
                         <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="name" value="" class="form-control" placeholder="" required="required" autocomplete="off" />
+                          <input type="number" name="nilai2[]" value="<?= $file2[11] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 12</label>
                         </div>
                       </div>
                     </td>
                   </table>
+                  
                 </td>
               </tr>
               <tr>
-                <td style="padding-left:10px"><textarea name="penilaian1" id="penilaian_pembimbing1" class="form-control" cols="30" rows="10"></textarea></td>
-                <td style="padding-left:10px"><textarea name="penilaian2" id="penilaian_pembimbing2" class="form-control" cols="30" rows="10"></textarea></td>
+                <td style="padding-left:10px"><textarea name="penilaian1" id="penilaian_pembimbing1" class="form-control" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing1 ?></textarea></td>
+                <td style="padding-left:10px"><textarea name="penilaian2" id="penilaian_pembimbing2" class="form-control" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing2 ?></textarea></td>
               </tr>
             </table>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
