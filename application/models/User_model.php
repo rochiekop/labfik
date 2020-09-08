@@ -361,12 +361,31 @@ class User_model extends CI_Model
 		return count($this->db->get()->result_array());
 	}
 
-	public function getpermintaanta()
+	public function getpermintaanta($query = null, $filter = null)
 	{
 		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
+		$this->db->group_start();
+		if ($filter == 'Nama') {
+			$this->db->like('user.name', $query);
+		} elseif ($filter == 'NIM') {
+			$this->db->like('user.nim', $query);
+		} elseif ($filter == 'Prodi') {
+			$this->db->like('user.prodi', $query);
+		} elseif ($filter == 'Kosentrasi') {
+			$this->db->like('guidance.peminatan', $query);
+		} elseif ($filter == 'Tahun') {
+			$this->db->like('guidance.tahun', $query);
+		} else {
+			$this->db->like('user.name', $query);
+			$this->db->or_like('guidance.tahun', $query);
+			$this->db->or_like('user.nim', $query);
+			$this->db->or_like('user.prodi', $query);
+			$this->db->or_like('guidance.peminatan', $query);
+		}
+		$this->db->group_end();
 		$this->db->order_by('guidance.id', 'desc');
 		$this->db->group_by('user.id');
 		return $this->db->get()->result_array();
@@ -423,7 +442,6 @@ class User_model extends CI_Model
 		$this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
 		$this->db->group_end();
 		$this->db->group_start();
-
 		if ($filter == 'Nama') {
 			$this->db->like('user.name', $query);
 		} elseif ($filter == 'NIM') {

@@ -40,9 +40,10 @@
               <tr>
                 <th scope="col">#</th>
                 <!-- <th scope="col">Dosen</th> -->
-                <th scope="col" style="width:30%">Keterangan</th>
+                <th scope="col">Keterangan</th>
                 <th scope="col">Tanggal</th>
-                <th scope="col">View Dokumen</th>
+                <th scope="col">Dokumen</th>
+                <th scope="col">Link Project</th>
                 <th scope="col">Status</th>
                 <th scope="col">Aksi</th>
               </tr>
@@ -55,10 +56,13 @@
                 foreach ($allhistory as $t) : ?>
                   <tr>
                     <td scope="row"><?= ++$no ?></td>
-                    <!-- <td><?= $t['dosen_name'] ?></td> -->
                     <td><?= $t['keterangan'] ?></td>
                     <td><?= $t['date'] ?></td>
                     <td>
+                      <!-- File Dokumen hasil revisi dosen -->
+                    </td>
+                    <td>
+                      <!-- Disi dengan link file yang dikirim -->
                     </td>
                     <?php if ($t['status'] == "Dikirim") : ?>
                       <td><b>Dikirim</b></td>
