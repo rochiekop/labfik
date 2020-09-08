@@ -277,14 +277,14 @@
 <input type="text" id="dosen_penguji2" value="<?= $lecturers->dosen_penguji2 ?>" hidden>
 <script>
   tinymce.init({
-    selector: '#readonly',
+    selector: '.readonly',
     // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
     plugins: 'save autosave preview autolink lists media table',
     toolbar: 'save restoredraft',
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
-    height: '460',
-    width: '555',
+    height: '350',
+    width: '370',
     readonly: 1
   });
 
@@ -414,7 +414,7 @@
 
 <!-- Modal for all correction -->
 <div class="modal fade" id="all_correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Semua Koreksi</h5>
@@ -422,17 +422,17 @@
       <div class="modal-body">
         <div class="custom-form">
           <table>
-            <td>
+            <td style="padding-left:10px">
               <h6 style="padding-bottom:10px">Pembimbing 1</h6>
-              <textarea name="correction1" id="readonly" class="form-control" cols="30" rows="10">
+              <textarea name="correction1" id="readonly" class="readonly" cols="30" rows="10">
                 <?php foreach ($allcorrection as $a) : ?>
                   <?= $a->correction1 ?>
                 <?php endforeach; ?>
               </textarea>
             </td>
-            <td>
+            <td style="padding-left:10px">
               <h6 style="padding-bottom:10px">Pembimbing 2</h6>
-              <textarea name="correction2" id="readonly" class="form-control" cols="30" rows="10">
+              <textarea name="correction2" id="readonly" class="readonly" cols="30" rows="10">
                 <?php foreach ($allcorrection as $a) : ?>
                   <?= $a->correction2 ?>
                 <?php endforeach; ?>
@@ -450,7 +450,7 @@
 
 <!-- Modal for grading -->
 <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
@@ -585,8 +585,8 @@
                 </td>
               </tr>
               <tr>
-                <td><textarea name="penilaian1" id="penilaian_pembimbing1" class="form-control" cols="30" rows="10"></textarea></td>
-                <td><textarea name="penilaian2" id="penilaian_pembimbing2" class="form-control" cols="30" rows="10"></textarea></td>
+                <td style="padding-left:10px"><textarea name="penilaian1" id="penilaian_pembimbing1" class="form-control" cols="30" rows="10"></textarea></td>
+                <td style="padding-left:10px"><textarea name="penilaian2" id="penilaian_pembimbing2" class="form-control" cols="30" rows="10"></textarea></td>
               </tr>
             </table>
           </div>
