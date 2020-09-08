@@ -78,33 +78,6 @@ class Thesis_model extends CI_Model
         $data = array(
             "nilai_pembimbing1" => implode(',', $this->input->post('nilai1', true)),
             "nilai_pembimbing2" => implode(',', $this->input->post('nilai2', true)),
-
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_1', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_2', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_3', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_4', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_5', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_6', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_7', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_8', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_9', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_10', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_11', true)),
-            // "nilai_pembimbing1" => implode(', ', $this->input->post('nilai1_12', true)),
-
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_1', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_2', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_3', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_4', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_5', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_6', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_7', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_8', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_9', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_10', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_11', true)),
-            // "nilai_pembimbing2" => implode(', ', $this->input->post('nilai2_12', true)),
-
             "penilaian_pembimbing1" => $this->input->post('penilaian1', true),
             "penilaian_pembimbing2" => $this->input->post('penilaian2', true)
         );
@@ -114,34 +87,10 @@ class Thesis_model extends CI_Model
     public function savePenilaianPenguji($id_guidance)
     {
         $data = array(
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_1', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_2', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_3', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_4', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_5', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_6', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_7', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_8', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_9', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_10', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_11', true)),
-            "nilai_penguji1" => implode(', ', $this->input->post('nilai3_12', true)),
-
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_1', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_2', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_3', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_4', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_5', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_6', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_7', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_8', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_9', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_10', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_11', true)),
-            "nilai_penguji2" => implode(', ', $this->input->post('nilai4_12', true)),
-
-            "penilaian_penguji1" => implode(', ', $this->input->post('penilaian3', true)),
-            "penilaian_penguji2" => implode(', ', $this->input->post('penilaian4', true)),
+            "nilai_penguji1" => implode(',', $this->input->post('nilai3', true)),
+            "nilai_penguji2" => implode(',', $this->input->post('nilai4', true)),
+            "penilaian_penguji1" => implode(',', $this->input->post('penilaian3', true)),
+            "penilaian_penguji2" => implode(',', $this->input->post('penilaian4', true)),
         );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
@@ -154,6 +103,51 @@ class Thesis_model extends CI_Model
         $query = $this->db->get();
         $result = $query->row();
         return $result;
+    }
+
+    public function setSelesai($thesis_id)
+    {
+
+    }
+
+    public function setRevisi($thesis_id)
+    {
+
+    }
+
+    public function setUlangiBimbingan($id_guidance)
+    {
+        $data = array(
+            'date' => date('d-m-Y'),
+            'penilaian_pembimbing1' => '',
+            'nilai_pembimbing1' => '',
+            'penilaian_pembimbing1' => '',
+            'nilai_pembimbing2' => '',
+            'penilaian_pembimbing2' => '',
+            'nilai_penguji1' => '',
+            'penilaian_penguji1' => '',
+            'nilai_penguji2' => '',
+            'penilaian_penguji2' => '',
+            'status_preview' => 'preview1'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+
+        $this->db->delete('thesis_lecturer', array('id_guidance' => $id_guidance));
+    }
+
+    public function setLanjutKePreview2($id_guidance)
+    {
+
+    }
+
+    public function setLanjutKePreview3($id_guidance)
+    {
+
+    }
+
+    public function setLanjutKeSidang($id_guidance)
+    {
+
     }
     
 }
