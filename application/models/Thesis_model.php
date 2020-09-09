@@ -63,6 +63,16 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
+    public function getStepPreview($guidance_id)
+    {
+        $this->db->select('status_preview');
+        $this->db->from('guidance');
+        $this->db->where('id', $guidance_id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result;
+    }
+
     public function saveCorrection($thesis_id)
     {
         $post = $this->input->post();

@@ -65,10 +65,10 @@
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
+      <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <a class="nav-link active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
@@ -79,7 +79,7 @@
   </ul>
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
-    <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+    <div class="tab-pane fade" id="satu" role="tabpanel" aria-labelledby="satu-tab">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -111,7 +111,7 @@
                   <td>
                     <?php $file = explode(",", $f['link_project']); ?>
                     <?php foreach ($file as $t) : ?>
-                      <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
+                      <a href="<?= $t ?>" class="badge badge-secondary" style="margin:5px">Link Proyek</a>
                     <?php endforeach; ?>
                   </td>
                   <td>
@@ -139,7 +139,7 @@
       </div>
     </div>
 
-    <div class="tab-pane fade" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+    <div class="tab-pane fade show active" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
@@ -168,11 +168,15 @@
                 -
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
-              <td><a href="#" class="badge badge-success">Zoom</a></td>
-              <td><a href="#" class="badge badge-secondary">Berikan Nilai</a></td>
+              <td><a href="#" class="badge badge-success" style="padding:5px">Link Ruang Rapat Daring</a></td>
+              <td><a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</a></td>
             </tr>
           </tbody>
         </table>
+        <div>
+          <br>
+          <a class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
+        </div>
       </div>
     </div>
 
@@ -224,6 +228,7 @@
             </tr>
           </tbody>
         </table>
+        
       </div>
     </div>
 
@@ -332,6 +337,31 @@
         <div class="custom-form">
 
           <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
+              
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Lanjut 2 -->
+<div class="modal fade" id="lanjut2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 3</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
+      <div class="modal-body">
+        <div class="custom-form">
+
+          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
               
         </div>
       </div>
@@ -556,7 +586,6 @@
                     $condition = 'readonly';  }
                   ?> 
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
-                  <?php var_dump($file); ?>
                   <table>
                     <td>
                       <div>
