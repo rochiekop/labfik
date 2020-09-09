@@ -107,12 +107,18 @@ class Thesis_model extends CI_Model
 
     public function setSelesai($thesis_id)
     {
-
+        $data = array(
+            'status' => 'Selesai'
+        );
+        $this->db->update('thesis', $data, array('id' => $thesis_id));
     }
 
     public function setRevisi($thesis_id)
     {
-
+        $data = array(
+            'status' => 'Revisi'
+        );
+        $this->db->update('thesis', $data, array('id' => $thesis_id));
     }
 
     public function setUlangiBimbingan($id_guidance)
@@ -137,17 +143,26 @@ class Thesis_model extends CI_Model
 
     public function setLanjutKePreview2($id_guidance)
     {
-
+        $data = array(
+            'status_preview' => 'preview2'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
     public function setLanjutKePreview3($id_guidance)
     {
-
+        $data = array(
+            'status_preview' => 'preview3'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
     public function setLanjutKeSidang($id_guidance)
     {
-
+        $data = array(
+            'status_preview' => 'sidang'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
     
 }

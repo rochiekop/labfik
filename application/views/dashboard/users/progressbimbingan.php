@@ -115,7 +115,7 @@
                     <?php endforeach; ?>
                   </td>
                   <td>
-                    <a href="#" class="btn badge badge-success">Sesuai</a>
+                    <a href="<?= base_url('thesis/setSelesai/'.) ?>" class="btn badge badge-success">Sesuai</a>
                     <a href="#" class="btn badge badge-danger">Revisi</a>
                   </td>
                 </tr>

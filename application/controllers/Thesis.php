@@ -50,6 +50,18 @@ class Thesis extends CI_Controller
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
+    public function setSelesai($thesis_id)
+    {
+        $this->thesis_model->setSelesai($thesis_id);
+        redirect('users/progressbimbingan/'.$thesis_id);
+    }
+
+    public function setRevisi($thesis_id)
+    {
+        $this->thesis_model->setRevisi($thesis_id);
+        redirect('users/progressbimbingan/'.$thesis_id);
+    }
+
     public function setUlangiBimbingan($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
@@ -60,17 +72,23 @@ class Thesis extends CI_Controller
 
     public function setLanjutKePreview2($id_guidance)
     {
-
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->setLanjutKePreview2($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
     public function setLanjutKePreview3($id_guidance)
     {
-
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->setLanjutKePreview3($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
     public function setLanjutKeSidang($id_guidance)
     {
-
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->setLanjutKeSidang($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 }
 
