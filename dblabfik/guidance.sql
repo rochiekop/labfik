@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Sep 2020 pada 18.04
+-- Waktu pembuatan: 09 Sep 2020 pada 07.23
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -40,24 +40,25 @@ CREATE TABLE `guidance` (
   `tahun` varchar(10) NOT NULL,
   `status_file` varchar(255) NOT NULL,
   `date` varchar(64) NOT NULL,
-  `penilan_pembimbing1` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_pembimbing1` int(3) NOT NULL,
+  `penilaian_pembimbing1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_pembimbing1` varchar(255) NOT NULL DEFAULT ',,,,,,,,,,,',
   `penilaian_pembimbing2` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_pembimbing2` int(3) NOT NULL,
-  `penilaian_pengawas1` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_pengawas1` int(3) NOT NULL,
-  `penilaian_pengawas2` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_pengawas2` int(3) NOT NULL
+  `nilai_pembimbing2` varchar(255) NOT NULL DEFAULT ',,,,,,,,,,,',
+  `penilaian_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_penguji1` varchar(255) NOT NULL,
+  `penilaian_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
+  `nilai_penguji2` varchar(255) NOT NULL,
+  `status_preview` enum('','preview1','preview2','preview3','sidang') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `penilan_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_pengawas1`, `nilai_pengawas1`, `penilaian_pengawas2`, `nilai_pengawas2`) VALUES
-('5f3e32ceeb674', '5f3e31113e0d3', 'Judul Tugas Akhir', '', '', '', '', 'Desain Visual', '2020', 'Disetujui Dosen Wali', '10/02/2020', '', 0, '', 0, '', 0, '', 0),
-('5f48af1704a46', '44', 'Judul 1', 'Judul 2', 'Judul 3', '', '', 'Advertising', '2020', 'Disetujui Adminlaa', '28/08/2020', '', 0, '', 0, '', 0, '', 0),
-('5f4bc1aec1e0f', '5f4a4b0ee4b42', 'Judul Satu ', 'Judul 2', 'Judul 3', '', '', 'advertising', '2020', 'Disetujui Adminlaa', '30-08-2020', '', 0, '', 0, '', 0, '', 0);
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `status_preview`) VALUES
+('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '0', '', '0', '', '0', '', '0', ''),
+('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', '<p>uji coba ketiga testing 123</p>', '100,100,,100,,100,100,100,,100,,', '', '100,100,,100,,100,100,100,,100,,', '', '0', '', '0', ''),
+('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '0', '', '0', '', '0', '', '0', '');
 
 --
 -- Indexes for dumped tables
