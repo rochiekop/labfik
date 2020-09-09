@@ -54,7 +54,7 @@
                             <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0" and $t['updated'] != "5") : ?>
                                 <td><?= $t['diterima'] ?>&nbsp; Disetujui wali, <?= $t['ditolak'] ?> Ditolak, <?= $t['dikirim'] ?> Menunggu</td>
                             <?php elseif ($t['updated'] != "0") : ?>
-                                <td><?= $t['updated'] ?>&nbsp; File baru</td>
+                                <td><b><?= $t['updated'] ?>&nbsp; File baru</b></td>
                             <?php else : ?>
                                 <td><b>Disetujui</b></td>
                             <?php endif; ?>
