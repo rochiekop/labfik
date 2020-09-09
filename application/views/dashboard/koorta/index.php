@@ -83,7 +83,7 @@
           <form action="<?= base_url('koordinator_ta/adddosenpembimbing') ?>" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group">
-                <input type="hidden" name="id_guidance" id="id_guidance" value="<?= $m['id'] ?>" placeholder="">
+                <input type="hidden" name="id_guidance" id="id_guidance" value="<?= $m['id_guidance'] ?>" placeholder="">
               </div>
               <div class="form-group">
                 <label for="dospeng">Masukkan Dosen Pembimbing 1</label>

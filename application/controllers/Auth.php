@@ -11,6 +11,7 @@ class Auth extends CI_Controller
     $this->load->model('auth_model');
     $this->load->model('user_model');
     $this->load->model('kategori_model');
+    $this->load->helper('security');
     // is_logged_in();
   }
 
@@ -51,7 +52,7 @@ class Auth extends CI_Controller
         'rules' => 'required|valid_email|callback_validate_email'
       )
     );
-
+    $validate_data=$this->security->xss_clean($validate_data);
     $this->form_validation->set_rules($validate_data);
     // Set error text
     $this->form_validation->set_message('is_unique', 'Username ' . $this->input->post('username') . ' already exists');
@@ -177,7 +178,7 @@ class Auth extends CI_Controller
         'rules' => 'required|trim'
       )
     );
-
+    
     $this->form_validation->set_rules($validate_data);
     // $this->form_validation->set_message('callback_username_exists', 'The {field} is not Exist');
     $this->form_validation->set_error_delimiters('<p class="text-danger" style="text-align:left;margin-left:0px;color:#FB8C00;font-size:12px">', '</p>');

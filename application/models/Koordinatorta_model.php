@@ -30,7 +30,7 @@ class Koordinatorta_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
-  public function getDosen($query = null, $filter = null)
+  public function getDosen($query = null, $filter = null, $limit = null, $start = null)
   {
     $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi');
     $this->db->from('user');
@@ -43,6 +43,7 @@ class Koordinatorta_model extends CI_Model
       $this->db->like('user.name', $query);
     }
     $this->db->group_end();
+    $this->db->limit($limit);
     return $this->db->get()->result_array();
   }
 
