@@ -73,7 +73,7 @@
                     </td>
                     <?php if ($t['status'] == "Dikirim") : ?>
                       <td><b>Dikirim</b></td>
-                    <?php elseif ($t['status'] == "Selesai" or $t['status'] == "Preview 1" or $t['status'] == "Preview 2" or $t['status'] == "Preview 3" or $t['status'] == "Preview 4") : ?>
+                    <?php elseif ($t['status'] == "Sesuai" or $t['status'] == "Preview 1" or $t['status'] == "Preview 2" or $t['status'] == "Preview 3" or $t['status'] == "Preview 4") : ?>
                       <td><span class="badge badge-success"><?= $t['status'] ?></span></td>
                     <?php elseif ($t['status'] == "Revisi") : ?>
                       <td><span class="badge badge-danger">Revisi</span></td>

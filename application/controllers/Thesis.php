@@ -50,16 +50,16 @@ class Thesis extends CI_Controller
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
-    public function setSelesai($thesis_id)
+    public function setSesuai($thesis_id, $id_guidance)
     {
-        $this->thesis_model->setSelesai($thesis_id);
-        redirect('users/progressbimbingan/'.$thesis_id);
+        $this->thesis_model->setSesuai($thesis_id);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
-    public function setRevisi($thesis_id)
+    public function setRevisi($thesis_id, $id_guidance)
     {
         $this->thesis_model->setRevisi($thesis_id);
-        redirect('users/progressbimbingan/'.$thesis_id);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
     public function setUlangiBimbingan($id_guidance)

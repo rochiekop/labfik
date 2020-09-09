@@ -115,8 +115,14 @@
                     <?php endforeach; ?>
                   </td>
                   <td>
-                    <a href="<?= base_url('thesis/setSelesai/') ?>" class="btn badge badge-success">Sesuai</a>
-                    <a href="#" class="btn badge badge-danger">Revisi</a>
+                    <?php if ($f['status'] == 'Dikirim') : ?>
+                      <a href="<?= base_url('thesis/setSesuai/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
+                    <?php elseif ($f['status'] == 'Sesuai') : ?>
+                      <p>Sesuai</p>
+                    <?php elseif ($f['status'] == 'Revisi') : ?>
+                      <p>Revisi</p>
+                    <?php endif; ?>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -126,7 +132,7 @@
         <div>
           <br>
           <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:10px; margin:2px"><span class="fas fa-star-half-alt"></span> Isi Penilaian</a>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:10px; margin:2px"><span class="fas fa-star-half-alt"></span> Isi Kelayakan</a>
           <a class="btn btn-success" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
           <a class="btn btn-danger" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
         </div>
@@ -435,6 +441,10 @@
   </div>
 </div>
 
+<!-- Modal for validation -->
+
+
+
 <!-- Modal for grading -->
 <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -449,11 +459,10 @@
               <tr>
                 <td>
                   <h6 style="padding:10px">Pembimbing 1</h6>
-                  <?php $condition = ''; ?>
-                  <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) {
-                    $condition = '';
-                  }
-                  ?>
+                  <?php $condition = ''; ?> 
+                  <?php if ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) {
+                    $condition = 'readonly';  }
+                  ?> 
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
                   <?php var_dump($file); ?>
                   <table>
@@ -475,6 +484,11 @@
                           <input type="number" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 4</label>
                         </div>
+                        
+                      </div>
+                    </td>
+                    <td>
+                      <div>
                         <div class="form-group" style="padding-left:10px">
                           <input type="number" name="nilai1[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 5</label>
@@ -483,10 +497,6 @@
                           <input type="number" name="nilai1[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 6</label>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div>
                         <div class="form-group" style="padding-left:10px">
                           <input type="number" name="nilai1[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 7</label>
@@ -494,22 +504,6 @@
                         <div class="form-group" style="padding-left:10px">
                           <input type="number" name="nilai1[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 8</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai1[]" value="<?= $file[8] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
-                          <label>Penilaian 9</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai1[]" value="<?= $file[9] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
-                          <label>Penilaian 10</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai1[]" value="<?= $file[10] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
-                          <label>Penilaian 11</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai1[]" value="<?= $file[11] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
-                          <label>Penilaian 12</label>
                         </div>
                       </div>
                     </td>
@@ -520,11 +514,12 @@
                   <h6 style="padding:10px">Pembimbing 2</h6>
                   <?php $condition2 = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) {
-                    $condition2 = 'disabled';
-                  }
+                    $condition2 = 'readonly'; }
                   ?>
+                  <!-- </?php var_dump($penilaian->nilai_pembimbing1); die; ?> -->
                   <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
-                  <!-- </?php var_dump($file2[1]); die; ?> -->
+                  <!-- </?php var_dump($file); die; ?> -->
+                  
                   <table>
                     <td>
                       <div>
@@ -544,6 +539,10 @@
                           <input type="number" name="nilai2[]" value="<?= $file2[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 4</label>
                         </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
                         <div class="form-group" style="padding-left:10px">
                           <input type="number" name="nilai2[]" value="<?= $file2[4] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 5</label>
@@ -552,10 +551,6 @@
                           <input type="number" name="nilai2[]" value="<?= $file2[5] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 6</label>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div>
                         <div class="form-group" style="padding-left:10px">
                           <input type="number" name="nilai2[]" value="<?= $file2[6] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 7</label>
@@ -564,26 +559,9 @@
                           <input type="number" name="nilai2[]" value="<?= $file2[7] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
                           <label>Penilaian 8</label>
                         </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai2[]" value="<?= $file2[8] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
-                          <label>Penilaian 9</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai2[]" value="<?= $file2[9] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
-                          <label>Penilaian 10</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai2[]" value="<?= $file2[10] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
-                          <label>Penilaian 11</label>
-                        </div>
-                        <div class="form-group" style="padding-left:10px">
-                          <input type="number" name="nilai2[]" value="<?= $file2[11] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition2 ?> />
-                          <label>Penilaian 12</label>
-                        </div>
                       </div>
                     </td>
                   </table>
-
                 </td>
               </tr>
               <tr>
