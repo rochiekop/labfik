@@ -454,6 +454,10 @@
   </div>
 </div>
 
+<!-- Modal for validation -->
+
+
+
 <!-- Modal for grading -->
 <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">

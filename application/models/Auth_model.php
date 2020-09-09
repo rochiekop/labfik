@@ -10,9 +10,9 @@ class Auth_model extends CI_Model
 
     $data = array(
       'id' => uniqid(),
-      'username' => $this->input->post('username', true),
-      'name' => $this->input->post('fullname', true),
-      'email' => $this->input->post('email', true),
+      'username' => $this->input->post('username'),
+      'name' => $this->input->post('fullname'),
+      'email' => $this->input->post('email'),
       'images' => 'default.jpg',
       'password' => $password,
       'salt' => $salt,
@@ -61,8 +61,8 @@ class Auth_model extends CI_Model
   // LOGIN
   public function login()
   {
-    $username = $this->input->post('username');
-    $password = $this->input->post('password');
+    $username = $this->input->post('username', true);
+    $password = $this->input->post('password', true);
 
     $user = $this->fetchDataByUsername($username);
 
