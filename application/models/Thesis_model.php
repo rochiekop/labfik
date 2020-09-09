@@ -73,6 +73,14 @@ class Thesis_model extends CI_Model
 		$this->db->update('thesis', $data, array('id' => $thesis_id));
     }
 
+    public function saveKelayakan($id_guidance)
+    {
+        $data = array(
+            'kelayakan' => implode(',', $this->input->post('kelayakan', true))
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
     public function savePenilaianPembimbing($id_guidance)
     {
         $data = array(
@@ -98,6 +106,16 @@ class Thesis_model extends CI_Model
     public function getPenilaian($id_guidance)
     {
         $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, nilai_penguji2');
+        $this->db->from('guidance');
+        $this->db->where('id', $id_guidance);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result;
+    }
+
+    public function getKelayakan($id_guidance)
+    {
+        $this->db->select('kelayakan');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();

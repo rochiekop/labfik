@@ -10,9 +10,9 @@ class Auth_model extends CI_Model
 
     $data = array(
       'id' => uniqid(),
-      'username' => $this->input->post('username'),
-      'name' => $this->input->post('fullname'),
-      'email' => $this->input->post('email'),
+      'username' => $this->input->post('username', true),
+      'name' => $this->input->post('fullname', true),
+      'email' => $this->input->post('email', true),
       'images' => 'default.jpg',
       'password' => $password,
       'salt' => $salt,
@@ -105,7 +105,10 @@ class Auth_model extends CI_Model
   public function validate_email()
   {
     $email = $this->input->post('email');
-    $sql = "SELECT * FROM user WHERE email = ?";
+    // $sql = "SELECT * FROM user WHERE email = ?";
+    $this->db->select('*');
+    $this->db->from('user');
+    $this->db->where('email', $email);
     $query = $this->db->query($sql, array($email));
     return ($query->num_rows() == 0) ? true : false;
   }

@@ -79,11 +79,11 @@
           </div>
         </div>
         <div class="form-check text-left" style="margin-bottom:28px;">
-          <input type="checkbox" class="form-check-input" id="sayasetuju" checked=false;>
-          <label class="form-check-label" for="sayasetuju">I'm agree with LAB FIK EULA</label>
+          <input type="checkbox" class="form-check-input" id="sayasetuju">
+          <label class="form-check-label" for="sayasetuju">I agree with LAB FIK EULA</label>
         </div>
         <div class="login-actions">
-          <button class="login-action btn btn-primary btn-lg btn-block btn-pill fs18px mobile-fs14px" id="regisText" type="submit" value="register">
+          <button class="login-action btn btn-primary btn-lg btn-block btn-pill fs18px mobile-fs14px" id="regisText" type="submit" value="register" disabled>
           </button>
         </div>
       </form>
