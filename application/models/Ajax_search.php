@@ -323,6 +323,7 @@ class Ajax_search extends CI_Model
       $this->db->or_like('guidance.peminatan', $query);
     }
     $this->db->group_end();
+    $this->db->order_by('guidance.id', 'desc');
     $this->db->group_by('file_pendaftaran.id_mhs');
     return $this->db->get()->result_array();
   }

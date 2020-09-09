@@ -31,11 +31,11 @@
           <a class="dropdown-item item">Tahun</a>
         </div>
       </div>
-      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" onkeyup="searchpengajuantaadminlaa()" aria-label="Text input with dropdown button" placeholder="Pencarian">
     </div>
     <div class="table-responsive admin-list">
       <table class="table">
-        <table class="table">
+        <table class="table" id="myTable">
           <thead>
             <tr>
               <th scope="col" style="width:48px">No</th>
@@ -81,9 +81,41 @@
       </table>
     </div>
   </main>
+  <script type="text/javascript" src="<?= base_url('assets/js/search.js') ?>"></script>
   <!-- End Main Container -->
-
   <script>
+    // $("#keyword").keyup(function() {
+    //   // Declare variables
+    //   var input, filter, table, tr, td, i, txtValue;
+    //   input = document.getElementById("keyword");
+    //   filter = input.value.toUpperCase();
+    //   table = document.getElementById("myTable");
+    //   tr = table.getElementsByTagName("tr");
+
+    //   // Loop through all table rows, and hide those who don't match the search query
+    //   for (i = 0; i < tr.length; i++) {
+    //     td = tr[i].getElementsByTagName("td")[0];
+    //     if (td) {
+    //       txtValue = td.textContent || td.innerText;
+    //       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //         tr[i].style.display = "";
+    //       } else {
+    //         tr[i].style.display = "none";
+    //       }
+    //     }
+    //   }
+    //   var value = this.value.toLowerCase().trim();
+
+    //   $("table tr").each(function(index) {
+    //     if (!index) return;
+    //     $(this).find("td").each(function() {
+    //       var id = $(this).text().toLowerCase().trim();
+    //       var not_found = (id.indexOf(value) == -1);
+    //       $(this).closest('tr').toggle(!not_found);
+    //       return not_found;
+    //     });
+    //   });
+    // });
     $(document).ready(function() {
       var keyword = document.getElementById('keyword');
       var container = document.getElementById('container');
