@@ -49,5 +49,28 @@ class Thesis extends CI_Controller
         $this->thesis_model->savePenilaianPenguji($id_guidance);
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
+
+    public function setUlangiBimbingan($id_guidance)
+    {
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->savePenilaianPenguji($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+    }
+
+
+    public function setLanjutKePreview2($id_guidance)
+    {
+
+    }
+
+    public function setLanjutKePreview3($id_guidance)
+    {
+
+    }
+
+    public function setLanjutKeSidang($id_guidance)
+    {
+
+    }
 }
 
