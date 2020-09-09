@@ -491,10 +491,10 @@ class User_model extends CI_Model
 		$this->db->join('thesis', 'guidance.id = thesis.id_guidance');
 		$this->db->where('id_mhs', $this->session->userdata('id'));
 		$this->db->where('thesis.status', 'Selesai');
-		$this->db->or_where('thesis.status', 'Preview 1');
-		$this->db->or_where('thesis.status', 'Preview 2');
-		$this->db->or_where('thesis.status', 'Preview 3');
-		$this->db->or_where('thesis.status', 'Preview 4');
+		$this->db->or_where('thesis.status', 'Revisi');
+		// $this->db->or_where('thesis.status', 'Preview 2');
+		// $this->db->or_where('thesis.status', 'Preview 3');
+		// $this->db->or_where('thesis.status', 'Preview 4');
 		return $this->db->get()->result_array();
 	}
 
@@ -524,6 +524,21 @@ class User_model extends CI_Model
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
 		$this->db->where('thesis.id_guidance', $id);
+		return $this->db->get()->result_array();
+	}
+
+	public function getfilebimbinganbyuserid($id)
+	{
+		$this->db->select('id');
+		$this->db->from('guidance');
+		$this->db->where('id_mhs', $id);
+		$guidance_id = $this->db->get()->row();
+
+		$this->db->select('guidance.*,thesis.id_guidance,thesis.id,thesis.pdf_file,thesis.status,thesis.keterangan,thesis.link_project');
+		$this->db->from('thesis');
+		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
+		$this->db->where('thesis.id_guidance', $guidance_id->id);
 		return $this->db->get()->result_array();
 	}
 
