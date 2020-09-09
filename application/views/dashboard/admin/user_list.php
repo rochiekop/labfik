@@ -48,12 +48,12 @@
                       <img src="<?= base_url('assets/img/profile/'.$t['images']) ?>"/>
                     </div>
                 </td>
-                <td><?= $t['role_id'] ?></td>
-                <td><?= $t['username'] ?></td>
-                <td><?= $t['name'] ?></td>
-                <td><?= $t['email'] ?></td>
-                <td><?= $t['is_active'] ?></td>
-                <td><?= $t['status'] ?></td>
+                <td><?= htmlspecialchars($t['role_id'], ENT_QUOTES) ?></td>
+                <td><?= htmlspecialchars($t['username'], ENT_QUOTES) ?></td>
+                <td><?= htmlspecialchars($t['name'], ENT_QUOTES) ?></td>
+                <td><?= htmlspecialchars($t['email'], ENT_QUOTES) ?></td>
+                <td><?= htmlspecialchars($t['is_active'],ENT_QUOTES) ?></td>
+                <td><?= htmlspecialchars($t['status'], ENT_QUOTES) ?></td>
                 <!-- <td class="action">
                   <a data-toggle="modal" data-target="#deletemodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-times"></span></a>
                   <a data-toggle="modal" data-target="#sendtokenmodal<?= encrypt_url($t['id']); ?>"><span class="fas fa-check"></span></a>
