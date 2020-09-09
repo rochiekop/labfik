@@ -116,7 +116,8 @@ class Users extends CI_Controller
         'peminatan' => $this->input->post('peminatan'),
         'tahun' => date('Y'),
         'status_file' => "Dikirim",
-        'date' => date("d-m-Y")
+        'date' => date("d-m-Y"),
+        'status_preview' => 'preview1'
       ];
       $this->db->insert('guidance', $data);
 
@@ -216,7 +217,8 @@ class Users extends CI_Controller
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['guide'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    $data['allhistory'] = $this->user_model->getallbimbingan();
+    // $data['allhistory'] = $this->user_model->getallbimbingan();
+    $data['allhistory'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'));
     $data['buttonaddbimbingan'] = $this->user_model->checkaddbimbingan();
     $data['buttonaddbimbingan2'] = $this->user_model->checkaddbimbingan2();
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
@@ -481,6 +483,9 @@ class Users extends CI_Controller
     $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($id);
     $data['allcorrection'] = $this->thesis_model->getAllCorrection($id);
     $data['lecturers'] = $this->thesis_model->getLecturersByGuidance($id);
+    // var_dump($id);
+    $data['guidance_id'] = $id;
+    $data['penilaian'] = $this->thesis_model->getPenilaian($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/progressbimbingan', $data);

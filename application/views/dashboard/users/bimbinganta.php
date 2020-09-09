@@ -59,10 +59,17 @@
                     <td><?= $t['keterangan'] ?></td>
                     <td><?= $t['date'] ?></td>
                     <td>
-                      <!-- File Dokumen hasil revisi dosen -->
+                      
+                      <?php $file = explode(",", $t['pdf_file']); ?>
+                      <?php foreach ($file as $f) : ?>
+                        <a href="<?= base_url('thesis/openFile/' . $t['id'] . '/' . $f) ?>"><?= $f ?></a><br>
+                      <?php endforeach; ?>
                     </td>
                     <td>
-                      <!-- Disi dengan link file yang dikirim -->
+                      <?php $file = explode(",", $t['link_project']); ?>
+                      <?php foreach ($file as $f) : ?>
+                        <a href="<?= $f ?>" target="_blank"><?= $f ?></a><br>
+                      <?php endforeach; ?>
                     </td>
                     <?php if ($t['status'] == "Dikirim") : ?>
                       <td><b>Dikirim</b></td>
