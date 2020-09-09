@@ -80,22 +80,26 @@ class Adminlaa_model extends CI_Model
 
   public function countInfo($status)
   {
-    $this->db->select('id_mhs');
+    $this->db->select('file_pendaftaran.id_mhs');
     $this->db->from('file_pendaftaran');
-    $this->db->where('status_adminlaa', $status); // Disetujui, Ditolak
-    $this->db->where('status_doswal !=', $status); // Disetujui, Ditolak
+    $this->db->join('guidance', 'file_pendaftaran.id_mhs = guidance.id_mhs');
+    $this->db->where('status_file !=', 'Dikirim');
+    $this->db->where('status_adminlaa', $status);
+    $this->db->where('status_doswal !=', $status);
     $this->db->group_by('id_mhs');
     return count($this->db->get()->result_array());
   }
 
   public function countAllInfo()
   {
-    $this->db->select('id_mhs');
+    $this->db->select('file_pendaftaran.id_mhs');
     $this->db->from('file_pendaftaran');
-    $this->db->where('status_adminlaa', 'Dikirim'); // Disetujui, Ditolak
-    $this->db->where('status_doswal !=', 'Dikirim'); // Disetujui, Ditolak
-    $this->db->or_where('status_adminlaa', 'Disetujui'); // Disetujui, Ditolak
-    $this->db->or_where('status_adminlaa', 'Ditolak'); // Disetujui, Ditolak
+    $this->db->join('guidance', 'file_pendaftaran.id_mhs = guidance.id_mhs');
+    $this->db->where('status_adminlaa', 'Dikirim');
+    $this->db->where('status_doswal !=', 'Dikirim');
+    $this->db->where('status_file !=', 'Dikirim');
+    $this->db->or_where('status_adminlaa', 'Disetujui');
+    $this->db->or_where('status_adminlaa', 'Ditolak');
     $this->db->group_by('id_mhs');
     return count($this->db->get()->result_array());
   }
