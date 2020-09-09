@@ -117,7 +117,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    Tolak Permintan Bimbingan ?
+                    Tolak <?= $t['nama'] ?> ?
                 </div>
                 <form action="<?= base_url('users/tolakpermintaanta/') . encrypt_url($t['id']); ?>" method="post" enctype="multipart/form-data">
                     <div class="modal-footer">

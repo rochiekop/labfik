@@ -131,7 +131,7 @@ class Users extends CI_Controller
           $_FILES['file']['size'] = $_FILES['filependaftaran']['size'][$i];
           $config['upload_path'] = $path;
           $config['allowed_types'] = 'pdf';
-          $config['max_size'] = '20024';  //20MB max
+          $config['max_size'] = '2024';  //2MB max
           $this->load->library('upload', $config);
           $this->upload->initialize($config);
           if ($this->upload->do_upload('file')) {
@@ -407,7 +407,7 @@ class Users extends CI_Controller
           $_FILES['file']['size'] = $_FILES['fileta']['size'][$i];
           $config['upload_path'] = $path;
           $config['allowed_types'] = '*';
-          $config['max_size'] = '200024';  //200MB max
+          $config['max_size'] = '2024';  //2MB max
           $this->load->library('upload', $config);
 
           // var_dump($allfile);
@@ -546,7 +546,7 @@ class Users extends CI_Controller
     if (!empty($_FILES['files']['name'])) {
       $config['upload_path'] = $path;
       $config['allowed_types'] = 'pdf';
-      $config['max_size'] = '20024';  //20MB max
+      $config['max_size'] = '2024';  //20MB max
       $config['file_name'] = $_FILES['files']['name'];
       $this->upload->initialize($config);
       $this->load->library('upload', $config);
@@ -702,5 +702,14 @@ class Users extends CI_Controller
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('users/viewdetail' . $data1);
     }
+  }
+
+  public function updateviewdoswal()
+  {
+    $id = $this->input->post('id');
+    $data = [
+      'view_doswal' => 'Dilihat'
+    ];
+    $this->db->update('file_pendaftaran', $data, ['id' => $id]);
   }
 }
