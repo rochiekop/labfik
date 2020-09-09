@@ -42,6 +42,7 @@ class Koordinator_ta extends CI_Controller
       $userslist[] =
         [
           'id' => $u['id'],
+          'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
