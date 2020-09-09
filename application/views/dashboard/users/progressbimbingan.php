@@ -115,7 +115,7 @@
                     <?php endforeach; ?>
                   </td>
                   <td>
-                    <a href="<?= base_url('thesis/setSelesai/'.) ?>" class="btn badge badge-success">Sesuai</a>
+                    <a href="<?= base_url('thesis/setSelesai/') ?>" class="btn badge badge-success">Sesuai</a>
                     <a href="#" class="btn badge badge-danger">Revisi</a>
                   </td>
                 </tr>
@@ -294,122 +294,109 @@
   var dosen_penguji1 = document.getElementById("dosen_penguji1").value;
   var dosen_penguji2 = document.getElementById("dosen_penguji2").value;
 
-  if (user_id == dosen_pembimbing1)
-    {
-        tinymce.init({
-            selector: '#penilaian_pembimbing1',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            // readonly : 1
-        });
-    }
-    else if (user_id != dosen_pembimbing1)
-    {
-        tinymce.init({
-            selector: '#penilaian_pembimbing1',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            readonly : 1
-        });
-    }
+  if (user_id == dosen_pembimbing1) {
+    tinymce.init({
+      selector: '#penilaian_pembimbing1',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      // readonly : 1
+    });
+  } else if (user_id != dosen_pembimbing1) {
+    tinymce.init({
+      selector: '#penilaian_pembimbing1',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      readonly: 1
+    });
+  }
 
-    if (user_id == dosen_pembimbing2)
-    {
-        tinymce.init({
-            selector: '#penilaian_pembimbing2',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            // readonly : 1
-        });
-    }
-    else if (user_id != dosen_pembimbing2)
-    {
-        tinymce.init({
-            selector: '#penilaian_pembimbing2',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            readonly : 1
-        });
-    }
+  if (user_id == dosen_pembimbing2) {
+    tinymce.init({
+      selector: '#penilaian_pembimbing2',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      // readonly : 1
+    });
+  } else if (user_id != dosen_pembimbing2) {
+    tinymce.init({
+      selector: '#penilaian_pembimbing2',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      readonly: 1
+    });
+  }
 
-    if (user_id == dosen_penguji1)
-    {
-        tinymce.init({
-            selector: '#penilaian_penguji1',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            // readonly : 1
-        });
-    }
-    else if (user_id != dosen_penguji1)
-    {
-        tinymce.init({
-            selector: '#penilaian_penguji1',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            readonly : 1
-        });
-    }
+  if (user_id == dosen_penguji1) {
+    tinymce.init({
+      selector: '#penilaian_penguji1',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      // readonly : 1
+    });
+  } else if (user_id != dosen_penguji1) {
+    tinymce.init({
+      selector: '#penilaian_penguji1',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      readonly: 1
+    });
+  }
 
-    if (user_id == dosen_penguji2)
-    {
-        tinymce.init({
-            selector: '#penilaian_penguji2',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            // readonly : 1
-        });
-    }
-    else if (user_id != dosen_penguji2)
-    {
-        tinymce.init({
-            selector: '#penilaian_penguji2',
-            // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            plugins: 'save autosave preview autolink lists media table',
-            toolbar: 'restoredraft',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            // height: '460',
-            height: '230',
-            readonly : 1
-        });
-    }
-
+  if (user_id == dosen_penguji2) {
+    tinymce.init({
+      selector: '#penilaian_penguji2',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      // readonly : 1
+    });
+  } else if (user_id != dosen_penguji2) {
+    tinymce.init({
+      selector: '#penilaian_penguji2',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: 'restoredraft',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      // height: '460',
+      height: '230',
+      readonly: 1
+    });
+  }
 </script>
 
 <!-- Modal for all correction -->
@@ -462,12 +449,13 @@
               <tr>
                 <td>
                   <h6 style="padding:10px">Pembimbing 1</h6>
-                  <?php $condition = ''; ?> 
+                  <?php $condition = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) {
-                    $condition = '';  }
-                  ?> 
+                    $condition = '';
+                  }
+                  ?>
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
-                  
+                  <?php var_dump($file); ?>
                   <table>
                     <td>
                       <div>
@@ -532,7 +520,8 @@
                   <h6 style="padding:10px">Pembimbing 2</h6>
                   <?php $condition2 = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) {
-                    $condition2 = 'disabled'; }
+                    $condition2 = 'disabled';
+                  }
                   ?>
                   <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
                   <!-- </?php var_dump($file2[1]); die; ?> -->
@@ -594,7 +583,7 @@
                       </div>
                     </td>
                   </table>
-                  
+
                 </td>
               </tr>
               <tr>

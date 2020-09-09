@@ -20,7 +20,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
     <div class="card">
       <a href="<?= base_url('users') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
     </div>
-        <div class="divider"></div>
+    <div class="divider"></div>
     <?php if ($this->session->userdata('role_id') == 4) : ?>
       <div class="card">
         <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>

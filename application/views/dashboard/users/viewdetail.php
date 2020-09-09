@@ -35,18 +35,25 @@
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
+                        <input type="hidden" id="id" value="<?= $t['id'] ?>">
                         <tr>
                             <th scope="row"><?= ++$no ?></th>
                             <td></td>
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
-                            <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                            <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" class="btn badge badge-secondary" id="view" style="color: white;">Lihat</a></td>
                             <?php if ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update") : ?>
-                                <td> <a href="<?= base_url('users/acckoorta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Acc</a>
-                                    <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
-                                </td>
-                                <td></td>
-                                <td></td>
+                                <?php if ($t['view_doswal'] != "Belum Dilihat") : ?>
+                                    <td id="action"> <a href="<?= base_url('users/acckoorta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Acc</a>
+                                        <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+                                    </td>
+                                    <td><b>Dilihat</b></td>
+                                    <td></td>
+                                <?php else : ?>
+                                    <td></td>
+                                    <td><b>Belum Dilihat</b></td>
+                                    <td></td>
+                                <?php endif; ?>
                             <?php elseif ($t['status_doswal'] == "Disetujui koor" or $t['status_doswal'] == "Ditolak wali" or $t['status_doswal'] == "Disetujui wali") :  ?>
                                 <td></td>
                                 <td><b>Acc</b></td>
@@ -64,16 +71,36 @@
     </div>
 </main>
 <!-- End Main Container -->
-
+<script>
+    $("#view").click(function() {
+        var id = $('#id').val()
+        if (id != "") {
+            $.ajax({
+                url: '<?= base_url('users/updateviewdoswal') ?>',
+                method: "POST",
+                data: {
+                    id: id,
+                },
+                success: function(data) {}
+            });
+        } else {
+            alert('Data Tidak Ada')
+        }
+    });
+    onclick = "javascript:window.location.reload()"
+    // $('.testing').on('hidden.bs.modal', function() {
+    //     location.reload();
+    // })
+</script>
 <!-- Modal Tolak Permintaan -->
 <?php foreach ($pta as $t) : ?>
 
-    <div class="modal fade" id="pdf<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="pdf<?= encrypt_url($t['id']); ?>" class="testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><?= $t['nama'] ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -100,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
                 </form>
             </div>
@@ -110,7 +137,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    Tolak Permintan Bimbingan ?
+                    Tolak Surat Pernyataan TA ?
                 </div>
                 <form action="<?= base_url('users/tolakpermintaankoor/') . encrypt_url($t['id']); ?>" method="post" enctype="multipart/form-data">
                     <div class="modal-footer">
@@ -128,8 +155,6 @@
 <script>
     tinymce.init({
         selector: 'textarea',
-        // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        plugins: 'save autosave preview autolink lists media table',
         toolbar: 'save restoredraft',
         toolbar_mode: 'floating',
         tinycomments_mode: 'embedded',

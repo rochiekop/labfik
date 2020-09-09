@@ -408,7 +408,7 @@ class User_model extends CI_Model
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
 		$this->db->where('id_mhs', $id);
 		$this->db->where('file_pendaftaran.nama', 'Surat Pernyataan TA');
-		return $this->db->get()->result_array();
+		return $this->db->get()->result_array();	
 	}
 	public function getMhsbyId($id)
 	{
