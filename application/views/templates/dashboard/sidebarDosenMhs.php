@@ -20,6 +20,39 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
     <div class="card">
       <a href="<?= base_url('users') ?>" class="btn"><span class="fas fa-th-large"></span> Dashboard</a>
     </div>
+        <div class="divider"></div>
+    <?php if ($this->session->userdata('role_id') == 4) : ?>
+      <div class="card">
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
+        <div id="collapse4" class="collapse" data-parent="#accordion">
+          <ul>
+            <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
+            <?php if (!empty($bimbingan)) : ?>
+              <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
+              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
+            <?php endif ?>
+          </ul>
+        </div>
+      </div>
+    <?php else : ?>
+      <div class="card">
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
+        <div id="collapse4" class="collapse" data-parent="#accordion">
+          <ul>
+            <?php if ($this->session->userdata('dosen_wali') == 1) : ?>
+              <li><a href="<?= base_url('users/permintaanTA') ?>">Pendaftaran</a></li>
+            <?php endif; ?>
+            <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
+            <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
+          </ul>
+        </div>
+      </div>
+      <?php if ($this->session->userdata('koordinator') == 1) : ?>
+        <div class="card">
+          <a href="<?= base_url('users/takoor') ?>" class="btn"><span class="fas fa-users"></span> Pengajuan TA</a>
+        </div>
+      <?php endif; ?>
+    <?php endif; ?>
     <div class="divider"></div>
     <div class="card">
       <a href="#" class="btn" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"><span class="fas fa-door-open"></span> Peminjaman Tempat</a>
@@ -63,39 +96,6 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
         </ul>
       </div>
     </div>
-    <div class="divider"></div>
-    <?php if ($this->session->userdata('role_id') == 4) : ?>
-      <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
-        <div id="collapse4" class="collapse" data-parent="#accordion">
-          <ul>
-            <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
-            <?php if (!empty($bimbingan)) : ?>
-              <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
-              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
-            <?php endif ?>
-          </ul>
-        </div>
-      </div>
-    <?php else : ?>
-      <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse3"><span class="fas fa-align-left"></span> TA Online</a>
-        <div id="collapse4" class="collapse" data-parent="#accordion">
-          <ul>
-            <?php if ($this->session->userdata('dosen_wali') == 1) : ?>
-              <li><a href="<?= base_url('users/permintaanTA') ?>">Pendaftaran</a></li>
-            <?php endif; ?>
-            <li><a href="<?= base_url('users/bimbingandsn') ?>">Bimbingan</a></li>
-            <li><a href="<?= base_url('users/penguji') ?>">Penguji</a></li>
-          </ul>
-        </div>
-      </div>
-      <?php if ($this->session->userdata('koordinator') == 1) : ?>
-        <div class="card">
-          <a href="<?= base_url('users/takoor') ?>" class="btn"><span class="fas fa-users"></span> Pengajuan TA</a>
-        </div>
-      <?php endif; ?>
-    <?php endif; ?>
     <div class="card logout">
       <button class="btn" data-toggle="modal" data-target="#logout"><span class="fas fa-sign-out-alt"></span> Logout</button>
     </div>
