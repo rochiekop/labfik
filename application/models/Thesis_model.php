@@ -105,10 +105,10 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
-    public function setSelesai($thesis_id)
+    public function setSesuai($thesis_id)
     {
         $data = array(
-            'status' => 'Selesai'
+            'status' => 'Sesuai'
         );
         $this->db->update('thesis', $data, array('id' => $thesis_id));
     }

@@ -483,8 +483,8 @@ class Users extends CI_Controller
     $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($id);
     $data['allcorrection'] = $this->thesis_model->getAllCorrection($id);
     $data['lecturers'] = $this->thesis_model->getLecturersByGuidance($id);
-    // var_dump($id);
     $data['guidance_id'] = $id;
+    // var_dump($data['guidance_id']);
     $data['penilaian'] = $this->thesis_model->getPenilaian($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
