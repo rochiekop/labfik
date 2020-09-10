@@ -17,6 +17,7 @@
                 <a class="dropdown-item item">Prodi</a>
                 <a class="dropdown-item item">Kosentrasi</a>
                 <a class="dropdown-item item">Tahun</a>
+                <a class="dropdown-item item">Status</a>
             </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -41,7 +42,11 @@
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
-                        <tr>
+                        <?php if ($t['status_file'] != "Disetujui wali") : ?>
+                            <tr style="background-color: #ebecf1;color:black">
+                            <?php else : ?>
+                            <tr>
+                            <?php endif; ?>
                             <th scope="row"><?= ++$no ?></th>
                             <td><a href="<?= base_url('users/daftarfile/') . $t['id']; ?>" class="btn badge badge-secondary">Detail</a></td>
                             <td><?= $t['name'] ?></td>
@@ -50,7 +55,7 @@
                             <td><?= $t['peminatan'] ?></td>
                             <td><?= $t['tahun'] ?></td>
                             <?php if ($t['status_file'] == "Disetujui koor" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
-                                <td>Menunggu Persetujuan</td>
+                                <td><b>Menunggu Persetujuan</b></td>
                             <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0" and $t['updated'] != "5") : ?>
                                 <td><?= $t['diterima'] ?>&nbsp; Disetujui wali, <?= $t['ditolak'] ?> Ditolak, <?= $t['dikirim'] ?> Menunggu</td>
                             <?php elseif ($t['updated'] != "0") : ?>
@@ -58,9 +63,9 @@
                             <?php else : ?>
                                 <td><b>Disetujui</b></td>
                             <?php endif; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
             </tbody>
         </table>
     </div>

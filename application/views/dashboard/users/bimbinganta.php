@@ -7,15 +7,15 @@
     <p>Pembimbing 1 : <?= $dosbing1['name'] ?></p>
     <p>Pembimbing 2 : <?= $dosbing2['name'] ?></p>
     <br>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-pills" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
+        <a class="nav-link btn-success active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
+        <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+        <a class="nav-link disabled" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
@@ -59,7 +59,7 @@
                     <td><?= $t['keterangan'] ?></td>
                     <td><?= $t['date'] ?></td>
                     <td>
-                      
+
                       <?php $file = explode(",", $t['pdf_file']); ?>
                       <?php foreach ($file as $f) : ?>
                         <a href="<?= base_url('thesis/openFile/' . $t['id'] . '/' . $f) ?>"><?= $f ?></a><br>

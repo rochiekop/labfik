@@ -774,8 +774,12 @@ class Search extends CI_Controller
     if (!empty($data)) {
       $no = 0;
       foreach ($data as $i) {
-        $output .= '<tr>
-                    <td><b>' . ++$no . '</b></td>
+        if ($i['aksi'] == 0) {
+          $output .= '<tr style="background-color: #ebecf1;color:black">';
+        } else {
+          $output .= '<tr>';
+        };
+        $output .= '<td><b>' . ++$no . '</b></td>
                     <td>' . $i['name'] . '</td>
                     <td>' . $i['nim'] . '</td>
                     <td>' . $i['prodi'] . '</td>
@@ -1052,41 +1056,48 @@ class Search extends CI_Controller
     foreach ($data as $u) {
       $userslist[] =
         [
-          'id_guidance' => $u['id_guidance'],
+          'id' => $u['id'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
+          'no_telp' => $u['no_telp'],
+          'dosen_wali' => $this->user_model->getdosenwalita($u['dosen_wali'])->name,
+          'status_file' => $u['status_file'],
           'tahun' => $u['tahun'],
-          'dosen_pemb1' => $u['dosen_pembimbing1'],
-          'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
+          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui koor'),
+          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak koor'),
+          'updated' => $this->user_model->countStatus($u['id'], 'Update'),
         ];
     }
     $data = $userslist;
-    // var_dump($data);
-    // die;
     if (!empty($data)) {
       $no = 0;
       foreach ($data as $i) {
-        $output .= '<tr>
-                    <th scope="row" style="width:60px">' . ++$no . '</th>';
-        if ($i['file_bimbingan'] != 0) {
-          $output .= '<td>
-          <a href="' . base_url('users/progressbimbingan/') . encrypt_url($i['id_guidance']) . '" class="btn badge badge-primary">Lihat Progres</a>
-          </td>';
+        if ($i['status_file'] == "Dikirim") {
+          $output .= '<tr style="background-color: #ebecf1;color:black">';
         } else {
-          $output .= '<td><b>Belum Melakukan Bimbingan</b></td>';
-        };
-        $output .= '<td>' . $i['name'] . '</td>
+          $output .= '<tr>';
+        }
+        $output .= '<th scope="row" style="width:60px">' . ++$no . '</th>
+        <td>
+          <a href="' . base_url('users/viewdetail/') . $i['id'] . '" class="btn badge badge-secondary">Detail</a>
+          </td>
+        <td>' . $i['name'] . '</td>
         <td>' . $i['nim'] . '</td>
         <td>' . $i['prodi'] . '</td>
         <td>' . $i['peminatan'] . '</td>
+        <td>' . $i['dosen_wali'] . '</td>
         <td>' . $i['tahun'] . '</td>';
-        if ($this->session->userdata('id') == $i['dosen_pemb1']) {
-          $output .= '<td><b>Pembimbing 1</b></td>';
+        if ($i['status_file'] == "Dikirim" and $i['diterima'] == "0" and $i['ditolak'] == "0" and $i['updated'] == "0") {
+          $output .= '<td><b>Menunggu Persetujuan</b></td>';
+        } else if ($i['ditolak'] != "0") {
+          $output .= '<td><b>Ditolak</b></td>';
+        } else if ($i['updated'] != "0") {
+          $output .= '<td><b>' . $i['updated'] . '&nbsp; File baru</b></td>';
         } else {
-          $output .= '<td><b>Pembimbing 2</b></td>';
-        };
+          $output .= '<td><b>Disetujui</b></td>';
+        }
       };
     } else {
       $output .= '<tr>

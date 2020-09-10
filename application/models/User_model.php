@@ -296,7 +296,7 @@ class User_model extends CI_Model
 
 	public function getpermintaan($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.status_file,');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.status_file');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -363,7 +363,7 @@ class User_model extends CI_Model
 
 	public function getpermintaanta($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali,guidance.id as id_guidance');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -408,11 +408,11 @@ class User_model extends CI_Model
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
 		$this->db->where('id_mhs', $id);
 		$this->db->where('file_pendaftaran.nama', 'Surat Pernyataan TA');
-		return $this->db->get()->result_array();	
+		return $this->db->get()->result_array();
 	}
 	public function getMhsbyId($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun,guidance.judul_1,guidance.judul_2,guidance.judul_3');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->where('id_mhs', $id);

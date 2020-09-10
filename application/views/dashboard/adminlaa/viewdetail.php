@@ -4,13 +4,59 @@
     <div class="fik-section-title2">
       <h4>File Pendaftaran</h4>
     </div>
-    <br>
-    Nama &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['name'] ?> <br>
-    NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['nim'] ?> <br>
-    Prodi &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['prodi'] ?><br>
-    Kosentrasi &nbsp&nbsp: <?= $mhs['peminatan'] ?> <br>
-    Tahun &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['tahun'] ?>
-    <br>
+    <table>
+      <thead>
+        <th style="width: 60px;"></th>
+        <th style="width: 10px;"></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width: 20px;">Judul 1</td>
+          <td>:</td>
+          <td><?= $mhs['judul_1'] ?></td>
+        </tr>
+        <?php if ($mhs['judul_2'] != '') : ?>
+          <tr>
+            <td style="width: 20px;">Judul 2</td>
+            <td>:</td>
+            <td><?= $mhs['judul_2'] ?></td>
+          </tr>
+        <?php elseif ($mhs['judul_3'] != '') : ?>
+          <tr>
+            <td style="width: 20px;">Judul 3</td>
+            <td>:</td>
+            <td><?= $mhs['judul_3'] ?></td>
+          </tr>
+        <?php endif; ?>
+        <tr>
+          <td style="width: 20px;">Nama</td>
+          <td>:</td>
+          <td><?= $mhs['name'] ?></td>
+        </tr>
+        <tr>
+          <td>NIM</td>
+          <td>:</td>
+          <td><?= $mhs['nim'] ?></td>
+        </tr>
+        <tr>
+          <td>Prodi</td>
+          <td>:</td>
+          <td><?= $mhs['prodi'] ?></td>
+        </tr>
+        <tr>
+          <td>Kosentrasi</td>
+          <td>:</td>
+          <td><?= $mhs['peminatan'] ?></td>
+        </tr>
+        <tr>
+          <td>No.Telp</td>
+          <td>:</td>
+          <td><?= $mhs['no_telp'] ?></td>
+        </tr>
+      </tbody>
+    </table>
+
     <br>
     <div id="container">
       <div class="table-responsive">
@@ -27,25 +73,26 @@
               <th scope="col">Alasan</th>
             </tr>
           </thead>
-          <tbody id="bimbingan">
+          <tbody id="showaction">
             <?php if (empty($file)) : ?>
               <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
             <?php else : ?>
               <?php $no = 0;
               foreach ($file as $f) : ?>
+                <input type="hidden" id="id_mhs" value="<?= $f['id_mhs'] ?>">
                 <tr>
                   <td><?= ++$no ?></td>
-                  <td></td>
+                  <td> <input type="hidden" id="id" value="<?= $f['id'] ?>"></td>
                   <td><?= $f['nama'] ?></td>
                   <td> <a href="<?= base_url('assets/upload/thesis/') . $f['username'] . '/' . $f['file'] ?>" download title="Download File"><?= $f['file'] ?></a></td>
-                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
                   <!-- Action -->
                   <?php if ($f['status_adminlaa'] == "Dikirim" or $f['status_adminlaa'] == "Update") : ?>
                     <td> <a href="<?= base_url('adminlaa/accfilependaftaran/') . encrypt_url($f['id']); ?>" class="btn badge badge-success">Acc</a>
                       <a data-toggle="modal" data-target="#tolak<?= $f['id'] ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                     </td>
                     <td></td>
-                    <td><?= $f['komentar'] ?></td>
+                    <td></td>
                   <?php elseif ($f['status_adminlaa'] == "Disetujui") : ?>
                     <td></td>
                     <td><b><?= $f['status_adminlaa'] ?></b></td>

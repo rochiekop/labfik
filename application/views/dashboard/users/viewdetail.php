@@ -8,12 +8,58 @@
     </div>
     <?= $this->session->flashdata('message'); ?>
     <br>
-    Nama &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['name'] ?> <br>
-    NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['nim'] ?> <br>
-    Prodi &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['prodi'] ?><br>
-    Kosentrasi &nbsp&nbsp: <?= $mhs['peminatan'] ?> <br>
-    Tahun &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['tahun'] ?>
-    <br>
+    <table>
+        <thead>
+            <th style="width: 60px;"></th>
+            <th style="width: 10px;"></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 20px;">Judul 1</td>
+                <td>:</td>
+                <td><?= $mhs['judul_1'] ?></td>
+            </tr>
+            <?php if ($mhs['judul_2'] != '') : ?>
+                <tr>
+                    <td style="width: 20px;">Judul 2</td>
+                    <td>:</td>
+                    <td><?= $mhs['judul_2'] ?></td>
+                </tr>
+            <?php elseif ($mhs['judul_3'] != '') : ?>
+                <tr>
+                    <td style="width: 20px;">Judul 3</td>
+                    <td>:</td>
+                    <td><?= $mhs['judul_3'] ?></td>
+                </tr>
+            <?php endif; ?>
+            <tr>
+                <td style="width: 20px;">Nama</td>
+                <td>:</td>
+                <td><?= $mhs['name'] ?></td>
+            </tr>
+            <tr>
+                <td>NIM</td>
+                <td>:</td>
+                <td><?= $mhs['nim'] ?></td>
+            </tr>
+            <tr>
+                <td>Prodi</td>
+                <td>:</td>
+                <td><?= $mhs['prodi'] ?></td>
+            </tr>
+            <tr>
+                <td>Kosentrasi</td>
+                <td>:</td>
+                <td><?= $mhs['peminatan'] ?></td>
+            </tr>
+            <tr>
+                <td>No.Telp</td>
+                <td>:</td>
+                <td><?= $mhs['no_telp'] ?></td>
+            </tr>
+        </tbody>
+    </table>
     <br>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -29,13 +75,14 @@
                     <th scope="col">Alasan</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="showaction">
                 <?php if (empty($pta)) : ?>
                     <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
                         <input type="hidden" id="id" value="<?= $t['id'] ?>">
+                        <input type="hidden" id="id_mhs" value="<?= $t['id_mhs'] ?>">
                         <tr>
                             <th scope="row"><?= ++$no ?></th>
                             <td></td>
@@ -74,23 +121,23 @@
 <script>
     $("#view").click(function() {
         var id = $('#id').val()
+        var id_mhs = $('#id_mhs').val()
         if (id != "") {
             $.ajax({
-                url: '<?= base_url('users/updateviewdoswal') ?>',
+                url: '<?= base_url('users/updateviewkoorkk') ?>',
                 method: "POST",
                 data: {
                     id: id,
+                    id_mhs: id_mhs,
                 },
-                success: function(data) {}
+                success: function(data) {
+                    $('#showaction').html(data);
+                }
             });
         } else {
             alert('Data Tidak Ada')
         }
     });
-    onclick = "javascript:window.location.reload()"
-    // $('.testing').on('hidden.bs.modal', function() {
-    //     location.reload();
-    // })
 </script>
 <!-- Modal Tolak Permintaan -->
 <?php foreach ($pta as $t) : ?>
@@ -100,7 +147,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><?= $t['nama'] ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

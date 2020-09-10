@@ -160,7 +160,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="exampleFormControlFile1">Sertifikat EPRT</label>
+              <label for="exampleFormControlFile1">Bukti Pendaftaran Test EPRT</label>
               <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
               <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
             </div>
@@ -168,16 +168,9 @@
               <label for="exampleFormControlFile1">Sertifikat TAK</label>
               <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
             </div>
-            <div class="row">
-              <div class="col-lg-11" id="dynamic">
-                <div class="form-group">
-                  <label for="exampleFormControlFile1">Persetujuan Daftar TA</label>
-                  <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
-                </div>
-              </div>
-              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
-                <a href="<?= base_url('assets/formtemplateta/FORMULIR PENDAFTARAN TA UPDATE.doc') ?>"> <span class="fas fa-download" title="Download Template"></span></a>
-              </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Proposal TA</label>
+              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
             </div>
           </div>
           <div class="modal-footer">

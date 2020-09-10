@@ -63,7 +63,7 @@
         }
         ?> -->
 
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
     </li>
@@ -117,8 +117,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -232,7 +232,7 @@
             </tr>
           </tbody>
         </table>
-        
+
       </div>
     </div>
 
@@ -304,11 +304,6 @@
               <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
               
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        <button type="submit" class="btn btn-primary">Sampaikan</button>
-      </div>
       </form>
     </div>
   </div>
@@ -322,18 +317,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 2</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
-              
+            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -347,18 +342,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 3</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
-              
+            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -372,18 +367,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Ulangi Bimbingan</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setUlangiBimbingan/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setUlangiBimbingan/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
-              
+            <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -571,10 +566,11 @@
               <tr>
                 <td>
                   <h6 style="padding:10px">Pembimbing 1</h6>
-                  <?php $condition = ''; ?> 
+                  <?php $condition = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) {
-                    $condition = 'readonly';  }
-                  ?> 
+                    $condition = 'readonly';
+                  }
+                  ?>
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
                   <table>
                     <td>
@@ -595,7 +591,7 @@
                           <input type="number" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 4</label>
                         </div>
-                        
+
                       </div>
                     </td>
                     <td>
@@ -625,12 +621,13 @@
                   <h6 style="padding:10px">Pembimbing 2</h6>
                   <?php $condition2 = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) {
-                    $condition2 = 'readonly'; }
+                    $condition2 = 'readonly';
+                  }
                   ?>
                   <!-- </?php var_dump($penilaian->nilai_pembimbing1); die; ?> -->
                   <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
                   <!-- </?php var_dump($file); die; ?> -->
-                  
+
                   <table>
                     <td>
                       <div>
