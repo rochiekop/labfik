@@ -65,10 +65,10 @@
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="true">Preview 1</a>
+      <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <a class="nav-link active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
@@ -79,7 +79,7 @@
   </ul>
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
-    <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+    <div class="tab-pane fade" id="satu" role="tabpanel" aria-labelledby="satu-tab">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -111,7 +111,7 @@
                   <td>
                     <?php $file = explode(",", $f['link_project']); ?>
                     <?php foreach ($file as $t) : ?>
-                      <a href="<?= $t ?>" target="_blank"><?= $t ?></a><br>
+                      <a href="<?= $t ?>" class="badge badge-secondary" style="margin:5px">Link Proyek</a>
                     <?php endforeach; ?>
                   </td>
                   <td>
@@ -132,14 +132,14 @@
         <div>
           <br>
           <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:10px; margin:2px"><span class="fas fa-star-half-alt"></span> Isi Kelayakan</a>
-          <a class="btn btn-success" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
-          <a class="btn btn-danger" data-toggle="modal" data-target="#all_correction" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</a>
+          <a class="btn btn-success" data-toggle="modal" data-target="#lanjut" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
+          <a class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
         </div>
       </div>
     </div>
 
-    <div class="tab-pane fade" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+    <div class="tab-pane fade show active" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
@@ -168,11 +168,15 @@
                 -
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
-              <td><a href="#" class="badge badge-success">Zoom</a></td>
-              <td><a href="#" class="badge badge-secondary">Berikan Nilai</a></td>
+              <td><a href="#" class="badge badge-success" style="padding:5px">Link Ruang Rapat Daring</a></td>
+              <td><a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</a></td>
             </tr>
           </tbody>
         </table>
+        <div>
+          <br>
+          <a class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
+        </div>
       </div>
     </div>
 
@@ -224,6 +228,7 @@
             </tr>
           </tbody>
         </table>
+        
       </div>
     </div>
 
@@ -264,7 +269,7 @@
           <div class="modal-footer">
             <!-- <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>"> -->
             <!-- <input type="hidden" id="image" name="image" value="<?= $t['images']; ?>"> -->
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
             <button type="submit" name="preview" class="btn btn-primary btn-sm">Kirim</button>
           </div>
         </form>
@@ -272,6 +277,127 @@
     </div>
   </div>
 <?php endforeach; ?>
+
+<!-- Modal for checklist -->
+<div class="modal fade" id="checklist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Checklist Kelayakan untuk Lanjut</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/saveKelayakan/'.encrypt_url($guidance_id)) ?>" method="POST">
+      <div class="modal-body">
+        <div class="custom-form">
+          
+          
+              <!-- <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialUnchecked">
+                <label class="form-check-label" for="kesesuaian">Kesesuaian fenomeda dan permasalahan yang diangkat</label>
+              </div><br>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialUnchecked">
+                <label class="form-check-label" for="ketepatan">Ketepatan penyusunan hipotesa</label>
+              </div><br>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialUnchecked">
+                <label class="form-check-label" for="kaidah">kaidah tata tulis karya ilmiah</label>
+              </div><br> -->
+
+              <?php $check = explode(",", $layak->kelayakan); ?>
+            
+              <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="1" <?php echo ($check[0] == '1') ? 'checked' : ''; ?>>
+              <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
+              <input type="checkbox" id="ketepatan" name="kelayakan[]" value="1" <?php echo ($check[1] == '1') ? 'checked' : ''; ?>>
+              <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
+              <input type="checkbox" id="kaidah" name="kelayakan[]" value="1" <?php echo ($check[2] == '1') ? 'checked' : ''; ?>>
+              <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+              
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-primary">Sampaikan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Lanjut -->
+<div class="modal fade" id="lanjut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 2</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
+      <div class="modal-body">
+        <div class="custom-form">
+
+          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
+              
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Lanjut 2 -->
+<div class="modal fade" id="lanjut2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 3</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
+      <div class="modal-body">
+        <div class="custom-form">
+
+          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
+              
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Ulangi -->
+<div class="modal fade" id="ulangi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ulangi Bimbingan</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setUlangiBimbingan/'.encrypt_url($guidance_id)) ?>" method="POST">
+      <div class="modal-body">
+        <div class="custom-form">
+
+          <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
+              
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- TinyMCE -->
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -435,15 +561,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal for validation -->
-
-
 
 <!-- Modal for grading -->
 <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -464,7 +586,6 @@
                     $condition = 'readonly';  }
                   ?> 
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
-                  <?php var_dump($file); ?>
                   <table>
                     <td>
                       <div>
@@ -572,8 +693,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Sampaikan</button>
         </div>
       </form>
     </div>
