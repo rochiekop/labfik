@@ -302,9 +302,9 @@ class Ajax_search extends CI_Model
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
+    $this->db->group_start();
     $this->db->where('guidance.status_file', 'Disetujui wali');
     $this->db->or_where('guidance.status_file', 'Disetujui Adminlaa');
-    $this->db->group_start();
     if ($filter == 'Nama') {
       $this->db->like('user.name', $query);
     } elseif ($filter == 'NIM') {

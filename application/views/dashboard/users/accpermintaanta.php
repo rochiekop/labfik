@@ -43,7 +43,10 @@
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
-                        <tr>
+                        <?php if ($t['status_file'] == "Dikirim") : ?>
+                            <tr style="background-color: #ebecf1;color:black">
+                            <?php else : ?>
+                            <tr> <?php endif; ?>
                             <th scope="row"><?= ++$no ?></th>
                             <td><a href="<?= base_url('users/viewdetail/') . $t['id']; ?>" class="btn badge badge-secondary">Detail</a></td>
                             <td><?= $t['name'] ?></td>
@@ -61,9 +64,9 @@
                             <?php else : ?>
                                 <td><b>Disetujui</b></td>
                             <?php endif; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
             </tbody>
         </table>
     </div>
@@ -77,11 +80,11 @@
         $(".item").click(function() {
             var text = $(this).text();
             $("#filter").text(text)
-            // if (text != '') {
-            //     load_data(keyword = null, text);
-            // } else {
-            //     load_data();
-            // }
+            if (text != '') {
+                load_data(keyword = null, text);
+            } else {
+                load_data();
+            }
         });
 
         function load_data(keyword, filter) {
@@ -101,11 +104,11 @@
         keyword.addEventListener('keyup', function() {
             var keyword = $(this).val();
             var filter = $('#filter').text()
-            // if (keyword != '') {
-            //     load_data(keyword, filter);
-            // } else {
-            //     load_data();
-            // }
+            if (keyword != '') {
+                load_data(keyword, filter);
+            } else {
+                load_data();
+            }
         })
     });
 </script>

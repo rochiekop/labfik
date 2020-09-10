@@ -7,13 +7,58 @@
         </h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
-    <br>
-    Nama &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['name'] ?> <br>
-    NIM &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['nim'] ?> <br>
-    Prodi &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['prodi'] ?><br>
-    Kosentrasi &nbsp&nbsp: <?= $mhs['peminatan'] ?> <br>
-    Tahun &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: <?= $mhs['tahun'] ?>
-    <br>
+    <table>
+        <thead>
+            <th style="width: 60px;"></th>
+            <th style="width: 10px;"></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 20px;">Judul 1</td>
+                <td>:</td>
+                <td><?= $mhs['judul_1'] ?></td>
+            </tr>
+            <?php if ($mhs['judul_2'] != '') : ?>
+                <tr>
+                    <td style="width: 20px;">Judul 2</td>
+                    <td>:</td>
+                    <td><?= $mhs['judul_2'] ?></td>
+                </tr>
+            <?php elseif ($mhs['judul_3'] != '') : ?>
+                <tr>
+                    <td style="width: 20px;">Judul 3</td>
+                    <td>:</td>
+                    <td><?= $mhs['judul_3'] ?></td>
+                </tr>
+            <?php endif; ?>
+            <tr>
+                <td style="width: 20px;">Nama</td>
+                <td>:</td>
+                <td><?= $mhs['name'] ?></td>
+            </tr>
+            <tr>
+                <td>NIM</td>
+                <td>:</td>
+                <td><?= $mhs['nim'] ?></td>
+            </tr>
+            <tr>
+                <td>Prodi</td>
+                <td>:</td>
+                <td><?= $mhs['prodi'] ?></td>
+            </tr>
+            <tr>
+                <td>Kosentrasi</td>
+                <td>:</td>
+                <td><?= $mhs['peminatan'] ?></td>
+            </tr>
+            <tr>
+                <td>No.Telp</td>
+                <td>:</td>
+                <td><?= $mhs['no_telp'] ?></td>
+            </tr>
+        </tbody>
+    </table>
     <br>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -41,6 +86,17 @@
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
                             <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                            <?php if ($t['view_doswal'] != "Belum Dilihat") : ?>
+                                <td id="action"> <a href="<?= base_url('users/acckoorta/') . encrypt_url($t['id']) ?>" class="btn badge badge-success">Acc</a>
+                                    <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+                                </td>
+                                <td><b>Dilihat</b></td>
+                                <td></td>
+                            <?php else : ?>
+                                <td></td>
+                                <td><b>Belum Dilihat</b></td>
+                                <td></td>
+                            <?php endif; ?>
                             <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim" or ($t['status_doswal'] == "Ditolak koor") or ($t['status_doswal'] == "Update")) : ?>
                                 <td></td>
                                 <td><b>Menunggu Persetujuan</b></td>

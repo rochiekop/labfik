@@ -141,11 +141,11 @@ class Users extends CI_Controller
             } elseif ($i == 1) {
               $namafile = 'Surat Pernyataan TA';
             } elseif ($i == 2) {
-              $namafile = 'Sertifikat EPRT';
+              $namafile = 'Bukti Pendaftaran Test EPRT';
             } elseif ($i == 3) {
               $namafile = 'Sertifikat TAK';
             } else {
-              $namafile = 'Persetujuan Daftar TA';
+              $namafile = 'Proposal TA';
             }
             // $id_guidance = $this->db->get_where('guidance', ['id_mhs' => $this->input->post('id_mhs')])->row()->id;
             $data = array(
@@ -820,5 +820,4 @@ class Users extends CI_Controller
     }
     echo $output;
   }
-
 }

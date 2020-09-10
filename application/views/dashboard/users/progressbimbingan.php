@@ -63,23 +63,23 @@
         }
         ?> -->
 
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <a class="nav-link active btn-warning" style="color: white;" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
+      <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <a class="nav-link disabled" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <a class="nav-link disabled" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
-    <div class="tab-pane fade" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+    <div class="tab-pane fade show active" id="satu" role="tabpanel" aria-labelledby="satu-tab">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -116,8 +116,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/'.$f['id'].'/'.$guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -131,15 +131,15 @@
         </table>
         <div>
           <br>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</a>
-          <a class="btn btn-success" data-toggle="modal" data-target="#lanjut" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
-          <a class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
+          <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a>
+          <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</a> -->
+          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#lanjut" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
+          <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
         </div>
       </div>
     </div>
 
-    <div class="tab-pane fade show active" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+    <div class="tab-pane fade" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
@@ -228,7 +228,7 @@
             </tr>
           </tbody>
         </table>
-        
+
       </div>
     </div>
 
@@ -286,12 +286,12 @@
         <h5 class="modal-title" id="exampleModalLabel">Checklist Kelayakan untuk Lanjut</h5>
       </div>
 
-      <form action="<?= base_url('thesis/saveKelayakan/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
-          
-          
-              <!-- <div class="form-check">
+      <form action="<?= base_url('thesis/saveKelayakan/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+
+
+            <!-- <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="materialUnchecked">
                 <label class="form-check-label" for="kesesuaian">Kesesuaian fenomeda dan permasalahan yang diangkat</label>
               </div><br>
@@ -304,21 +304,21 @@
                 <label class="form-check-label" for="kaidah">kaidah tata tulis karya ilmiah</label>
               </div><br> -->
 
-              <?php $check = explode(",", $layak->kelayakan); ?>
-            
-              <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="1" <?php echo ($check[0] == '1') ? 'checked' : ''; ?>>
-              <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
-              <input type="checkbox" id="ketepatan" name="kelayakan[]" value="1" <?php echo ($check[1] == '1') ? 'checked' : ''; ?>>
-              <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
-              <input type="checkbox" id="kaidah" name="kelayakan[]" value="1" <?php echo ($check[2] == '1') ? 'checked' : ''; ?>>
-              <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
-              
+            <?php $check = explode(",", $layak->kelayakan); ?>
+
+            <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="1" <?php echo ($check[0] == '1') ? 'checked' : ''; ?>>
+            <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
+            <input type="checkbox" id="ketepatan" name="kelayakan[]" value="1" <?php echo ($check[1] == '1') ? 'checked' : ''; ?>>
+            <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
+            <input type="checkbox" id="kaidah" name="kelayakan[]" value="1" <?php echo ($check[2] == '1') ? 'checked' : ''; ?>>
+            <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        <button type="submit" class="btn btn-primary">Sampaikan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Sampaikan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -332,18 +332,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 2</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
-              
+            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -357,18 +357,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Lanjut ke Preview 3</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setLanjutKePreview2/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
-              
+            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Lanjutkan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -382,18 +382,18 @@
         <h5 class="modal-title" id="exampleModalLabel">Ulangi Bimbingan</h5>
       </div>
 
-      <form action="<?= base_url('thesis/setUlangiBimbingan/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/setUlangiBimbingan/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-          <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
-              
+            <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
+        </div>
       </form>
     </div>
   </div>
@@ -581,10 +581,11 @@
               <tr>
                 <td>
                   <h6 style="padding:10px">Pembimbing 1</h6>
-                  <?php $condition = ''; ?> 
+                  <?php $condition = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) {
-                    $condition = 'readonly';  }
-                  ?> 
+                    $condition = 'readonly';
+                  }
+                  ?>
                   <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
                   <table>
                     <td>
@@ -605,7 +606,7 @@
                           <input type="number" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?= $condition ?> />
                           <label>Penilaian 4</label>
                         </div>
-                        
+
                       </div>
                     </td>
                     <td>
@@ -635,12 +636,13 @@
                   <h6 style="padding:10px">Pembimbing 2</h6>
                   <?php $condition2 = ''; ?>
                   <?php if ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) {
-                    $condition2 = 'readonly'; }
+                    $condition2 = 'readonly';
+                  }
                   ?>
                   <!-- </?php var_dump($penilaian->nilai_pembimbing1); die; ?> -->
                   <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
                   <!-- </?php var_dump($file); die; ?> -->
-                  
+
                   <table>
                     <td>
                       <div>

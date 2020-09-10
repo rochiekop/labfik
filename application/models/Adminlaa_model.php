@@ -62,7 +62,7 @@ class Adminlaa_model extends CI_Model
 
   public function getMhsbyId($id)
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun, guidance.judul_1, guidance.judul_2, guidance.judul_3');
     $this->db->from('guidance');
     $this->db->join('user', 'user.id = guidance.id_mhs');
     $this->db->where('id_mhs', $id);

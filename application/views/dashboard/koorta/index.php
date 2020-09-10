@@ -44,7 +44,11 @@
             <?php else : ?>
               <?php $no = 0;
               foreach ($mahasiswa as $t) : ?>
-                <tr>
+                <?php if ($t['aksi'] == 0) : ?>
+                  <tr style="background-color: #ebecf1;color:black">
+                  <?php else : ?>
+                  <tr>
+                  <?php endif; ?>
                   <td><b><?= ++$no ?></b></td>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
@@ -60,9 +64,9 @@
                       <a data-toggle="modal" data-target="#exampleModal<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a>
                     </td>
                   <?php endif; ?>
-                </tr>
-              <?php endforeach; ?>
-            <?php endif; ?>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
           </tbody>
         </table>
       </table>
@@ -90,9 +94,7 @@
                 <select class="form-control" required name="dosbing1">
                   <option value="">Dosen Pembimbing 1</option>
                   <?php foreach ($dosen as $q) : ?>
-                    <?php if ($m['prodi'] == $q['prodi'] and $q['kuota_bimbingan'] > $q['count_bimbingan']) : ?>
-                      <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
-                    <?php endif; ?>
+                    <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -101,9 +103,7 @@
                 <select class="form-control" required name="dosbing2">
                   <option value="">Dosen Pembimbing 2</option>
                   <?php foreach ($dosen as $q) : ?>
-                    <?php if ($m['prodi'] == $q['prodi'] and $q['kuota_bimbingan'] > $q['count_bimbingan']) : ?>
-                      <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
-                    <?php endif; ?>
+                    <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
