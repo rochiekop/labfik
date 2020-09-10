@@ -53,7 +53,7 @@ class Adminlaa_model extends CI_Model
 
   public function getFiles($id)
   {
-    $this->db->select('file_pendaftaran.id,file_pendaftaran.id_mhs,file_pendaftaran.nama,file_pendaftaran.file,file_pendaftaran.status_doswal,user.username,file_pendaftaran.status_adminlaa,file_pendaftaran.komentar');
+    $this->db->select('file_pendaftaran.id,file_pendaftaran.id_mhs,file_pendaftaran.nama,file_pendaftaran.file,file_pendaftaran.status_doswal,user.username,file_pendaftaran.status_adminlaa,file_pendaftaran.komentar, file_pendaftaran.view_adminlaa');
     $this->db->from('file_pendaftaran');
     $this->db->join('user', 'user.id = file_pendaftaran.id_mhs');
     $this->db->where('id_mhs', $id);

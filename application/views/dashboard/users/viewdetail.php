@@ -29,13 +29,14 @@
                     <th scope="col">Alasan</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="showaction">
                 <?php if (empty($pta)) : ?>
                     <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
                     <?php $no = 0;
                     foreach ($pta as $t) : ?>
                         <input type="hidden" id="id" value="<?= $t['id'] ?>">
+                        <input type="hidden" id="id_mhs" value="<?= $t['id_mhs'] ?>">
                         <tr>
                             <th scope="row"><?= ++$no ?></th>
                             <td></td>
@@ -74,23 +75,23 @@
 <script>
     $("#view").click(function() {
         var id = $('#id').val()
+        var id_mhs = $('#id_mhs').val()
         if (id != "") {
             $.ajax({
-                url: '<?= base_url('users/updateviewdoswal') ?>',
+                url: '<?= base_url('users/updateviewkoorkk') ?>',
                 method: "POST",
                 data: {
                     id: id,
+                    id_mhs: id_mhs,
                 },
-                success: function(data) {}
+                success: function(data) {
+                    $('#showaction').html(data);
+                }
             });
         } else {
             alert('Data Tidak Ada')
         }
     });
-    onclick = "javascript:window.location.reload()"
-    // $('.testing').on('hidden.bs.modal', function() {
-    //     location.reload();
-    // })
 </script>
 <!-- Modal Tolak Permintaan -->
 <?php foreach ($pta as $t) : ?>
@@ -100,7 +101,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><?= $t['nama'] ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

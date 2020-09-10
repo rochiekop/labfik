@@ -29,7 +29,7 @@
                     <th scope="col">Alasan</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="showaction">
                 <?php if (empty($pta)) : ?>
                     <td colspan="7" style="background-color: whitesmoke;text-align:center">Daftar permintaan TA</td>
                 <?php else : ?>
@@ -40,7 +40,7 @@
                             <td></td>
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
-                            <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                            <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
                             <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim" or ($t['status_doswal'] == "Ditolak koor") or ($t['status_doswal'] == "Update")) : ?>
                                 <td></td>
                                 <td><b>Menunggu Persetujuan</b></td>
@@ -72,7 +72,27 @@
     </div>
 </main>
 <!-- End Main Container -->
-
+<script>
+    $("#view").click(function() {
+        var id = $('#id').val()
+        var id_mhs = $('#id_mhs').val()
+        if (id != "") {
+            $.ajax({
+                url: '<?= base_url('users/updateviewdoswal') ?>',
+                method: "POST",
+                data: {
+                    id: id,
+                    id_mhs: id_mhs,
+                },
+                success: function(data) {
+                    $('#showaction').html(data);
+                }
+            });
+        } else {
+            alert('Data Tidak Ada')
+        }
+    });
+</script>
 <!-- Modal Tolak Permintaan -->
 <?php foreach ($pta as $t) : ?>
     <div class="modal fade" id="pdf<?= encrypt_url($t['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -130,6 +150,24 @@
         </div>
     </div>
 <?php endforeach; ?>
+<script>
+    $("#view").click(function() {
+        var id = $('#id').val()
+        if (id != "") {
+            $.ajax({
+                url: '<?= base_url('users/updateviewdoswal') ?>',
+                method: "POST",
+                data: {
+                    id: id,
+                },
+                success: function(data) {}
+            });
+        } else {
+            alert('Data Tidak Ada')
+        }
+    });
+    onclick = "javascript:window.location.reload()"
+</script>
 
 <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>

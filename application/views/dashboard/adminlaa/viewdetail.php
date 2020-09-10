@@ -27,25 +27,32 @@
               <th scope="col">Alasan</th>
             </tr>
           </thead>
-          <tbody id="bimbingan">
+          <tbody id="showaction">
             <?php if (empty($file)) : ?>
               <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
             <?php else : ?>
               <?php $no = 0;
               foreach ($file as $f) : ?>
+                <input type="hidden" id="id_mhs" value="<?= $f['id_mhs'] ?>">
                 <tr>
                   <td><?= ++$no ?></td>
-                  <td></td>
+                  <td> <input type="text" id="id" value="<?= $f['id'] ?>"></td>
                   <td><?= $f['nama'] ?></td>
                   <td> <a href="<?= base_url('assets/upload/thesis/') . $f['username'] . '/' . $f['file'] ?>" download title="Download File"><?= $f['file'] ?></a></td>
-                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $f['id'] ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
                   <!-- Action -->
                   <?php if ($f['status_adminlaa'] == "Dikirim" or $f['status_adminlaa'] == "Update") : ?>
-                    <td> <a href="<?= base_url('adminlaa/accfilependaftaran/') . encrypt_url($f['id']); ?>" class="btn badge badge-success">Acc</a>
-                      <a data-toggle="modal" data-target="#tolak<?= $f['id'] ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
-                    </td>
-                    <td></td>
-                    <td><?= $f['komentar'] ?></td>
+                    <?php if ($f['view_adminlaa'] != "Belum Dilihat") : ?>
+                      <td> <a href="<?= base_url('adminlaa/accfilependaftaran/') . encrypt_url($f['id']); ?>" class="btn badge badge-success">Acc</a>
+                        <a data-toggle="modal" data-target="#tolak<?= $f['id'] ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
+                      </td>
+                      <td><b>Dilihat</b></td>
+                      <td></td>
+                    <?php else : ?>
+                      <td></td>
+                      <td><b>Belum Dilihat</b></td>
+                      <td></td>
+                    <?php endif; ?>
                   <?php elseif ($f['status_adminlaa'] == "Disetujui") : ?>
                     <td></td>
                     <td><b><?= $f['status_adminlaa'] ?></b></td>
@@ -63,6 +70,59 @@
       </div>
     </div>
   </main>
+
+  <script>
+    $(document).ready(function() {
+      tampil_data_barang(); //pemanggilan fungsi tampil barang.
+      //fungsi tampil barang
+      function tampil_data_barang() {
+        $.ajax({
+          type: 'GET',
+          url: '<?php echo base_url() ?>index.php/barang/data_barang',
+          async: true,
+          dataType: 'json',
+          success: function(data) {
+            var html = '';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<tr>' +
+                '<td>' + data[i].barang_kode + '</td>' +
+                '<td>' + data[i].barang_nama + '</td>' +
+                '<td>' + data[i].barang_harga + '</td>' +
+                '<td style="text-align:right;">' +
+                '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="' + data[i].barang_kode + '">Edit</a>' + ' ' +
+                '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="' + data[i].barang_kode + '">Hapus</a>' +
+                '</td>' +
+                '</tr>';
+            }
+            $('#show_data').html(html);
+          }
+
+        });
+      };
+
+      $("#view").click(function() {
+        var id = $('#id').val()
+        alert(id)
+        var id_mhs = $('#id_mhs').val()
+        if (id != "") {
+          $.ajax({
+            url: '<?= base_url('adminlaa/updateviewadminlaa') ?>',
+            method: "POST",
+            data: {
+              id: id,
+              id_mhs: id_mhs,
+            },
+            success: function(data) {
+              $('#showaction').html(data);
+            }
+          });
+        } else {
+          alert('Data Tidak Ada')
+        }
+      });
+    });
+  </script>
   <!-- End Main Container -->
 
   <?php foreach ($file as $m) : ?>
