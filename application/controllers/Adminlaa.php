@@ -211,4 +211,16 @@ class Adminlaa extends CI_Controller
     }
     echo $output;
   }
+  public function displayactionadminlaa($id)
+  {
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->view_adminlaa;
+    if ($data == "Belum Dilihat") {
+      $data = [
+        'view_adminlaa' => 'Dilihat'
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('adminlaa/viewdetail/' . encrypt_url($data1));
+    }
+  }
 }
