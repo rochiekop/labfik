@@ -65,21 +65,22 @@
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="true">Preview 2</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'active' : ''; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'active' : ''; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'active' : ''; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a>
     </li>
   </ul>
+
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
-    <div class="tab-pane fade" id="satu" role="tabpanel" aria-labelledby="satu-tab">
+    <div class="tab-pane fade <?php echo ($step->status_preview == 'preview1') ? 'show active' : ''; ?>" id="satu" role="tabpanel" aria-labelledby="satu-tab">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -131,15 +132,18 @@
         </table>
         <div>
           <br>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</a>
-          <a class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</a>
-          <a class="btn btn-success" data-toggle="modal" data-target="#lanjut" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</a>
-          <a class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</a>
+          
+          <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <?php $kelayakan = explode(",", $layak->kelayakan); ?>
+          <!-- </?php echo var_dump(count($kelayakan)); die; ?> -->
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
     </div>
-
-    <div class="tab-pane fade show active" id="dua" role="tabpanel" aria-labelledby="dua-tab">
+    
+    <div class="tab-pane fade <?php echo ($step->status_preview == 'preview2') ? 'show active' : ''; ?>" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
@@ -180,14 +184,14 @@
       </div>
     </div>
 
-    <div class="tab-pane fade" id="tiga" role="tabpanel" aria-labelledby="tiga-tab">
+    <div class="tab-pane fade <?php echo ($step->status_preview == 'preview3') ? 'show active' : ''; ?>" id="tiga" role="tabpanel" aria-labelledby="tiga-tab">
       <div class="alert alert-warning">
         Preview 3. Tahap Persetujuan
       </div>
       <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a>
     </div>
 
-    <div class="tab-pane fade" id="pat" role="tabpanel" aria-labelledby="pat-tab">
+    <div class="tab-pane fade <?php echo ($step->status_preview == 'sidang') ? 'show active' : ''; ?>" id="pat" role="tabpanel" aria-labelledby="pat-tab">
       <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a>
       <div class="table-responsive">
         <table class="table table-hover">
@@ -289,28 +293,14 @@
       <form action="<?= base_url('thesis/saveKelayakan/'.encrypt_url($guidance_id)) ?>" method="POST">
       <div class="modal-body">
         <div class="custom-form">
-          
-          
-              <!-- <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                <label class="form-check-label" for="kesesuaian">Kesesuaian fenomeda dan permasalahan yang diangkat</label>
-              </div><br>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                <label class="form-check-label" for="ketepatan">Ketepatan penyusunan hipotesa</label>
-              </div><br>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                <label class="form-check-label" for="kaidah">kaidah tata tulis karya ilmiah</label>
-              </div><br> -->
 
               <?php $check = explode(",", $layak->kelayakan); ?>
-            
-              <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="1" <?php echo ($check[0] == '1') ? 'checked' : ''; ?>>
+              
+              <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="kesesuaian" <?php echo (in_array('kesesuaian', $check)) ? 'checked' : ''; ?>> 
               <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
-              <input type="checkbox" id="ketepatan" name="kelayakan[]" value="1" <?php echo ($check[1] == '1') ? 'checked' : ''; ?>>
+              <input type="checkbox" id="ketepatan" name="kelayakan[]" value="ketepatan" <?php echo (in_array('ketepatan', $check)) ? 'checked' : ''; ?>> 
               <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
-              <input type="checkbox" id="kaidah" name="kelayakan[]" value="1" <?php echo ($check[2] == '1') ? 'checked' : ''; ?>>
+              <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?>> 
               <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
               
         </div>
