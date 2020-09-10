@@ -162,7 +162,7 @@ class Thesis_model extends CI_Model
             'penilaian_penguji1' => '',
             'nilai_penguji2' => '',
             'penilaian_penguji2' => '',
-            'status_preview' => 'preview1'
+            'status_preview' => ''
         );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
 
