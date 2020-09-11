@@ -32,7 +32,7 @@
               <th scope="col">NIM</th>
               <th scope="col">Prodi</th>
               <th scope="col">Kosentrasi</th>
-              <th scope="col">No. Hp</th>
+              <th scope="col">Kel. Keahlian</th>
               <th scope="col">Dosen Wali</th>
               <th scope="col">Tahun</th>
               <th scope="col">Aksi</th>
@@ -54,7 +54,11 @@
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['prodi'] ?></td>
                   <td><?= $t['peminatan'] ?></td>
-                  <td><?= $t['no_telp'] ?></td>
+                  <?php if (substr($t['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
+                    <td><?= substr($t['kelompok_keahlian'], 6) ?></td>
+                  <?php else : ?>
+                    <td><?= $t['kelompok_keahlian'] ?></td>
+                  <?php endif; ?>
                   <td><?= $t['dosen_wali'] ?></td>
                   <td><?= $t['tahun'] ?></td>
                   <?php if ($t['aksi'] != 0) : ?>

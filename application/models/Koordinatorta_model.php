@@ -5,7 +5,7 @@ class Koordinatorta_model extends CI_Model
 {
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,user.no_telp,guidance.tahun,guidance.status_file,user.dosen_wali');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,guidance.tahun,guidance.status_file,user.dosen_wali');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
@@ -63,5 +63,13 @@ class Koordinatorta_model extends CI_Model
     $this->db->where('dosen_penguji1', $id);
     $this->db->or_where('dosen_penguji2', $id);
     return count($this->db->get()->result_array());
+  }
+
+  public function getKK($id)
+  {
+    $this->db->select('koordinator');
+    $this->db->from('user');
+    $this->db->where('id', $id);
+    return $this->db->get()->row()->koordinator;
   }
 }

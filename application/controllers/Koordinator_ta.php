@@ -48,7 +48,7 @@ class Koordinator_ta extends CI_Controller
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
-          'no_telp' => $u['no_telp'],
+          'kelompok_keahlian' => $this->koordinatorta_model->getKK('5f3b9ad4037a3'),
           'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];

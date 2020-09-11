@@ -132,7 +132,7 @@
         </table>
         <div>
           <br>
-          
+
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
           <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="tab-pane fade <?php echo ($step->status_preview == 'preview2') ? 'show active' : ''; ?>" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
@@ -289,24 +289,24 @@
         <h5 class="modal-title" id="exampleModalLabel">Checklist Kelayakan untuk Lanjut</h5>
       </div>
 
-      <form action="<?= base_url('thesis/saveKelayakan/'.encrypt_url($guidance_id)) ?>" method="POST">
-      <div class="modal-body">
-        <div class="custom-form">
+      <form action="<?= base_url('thesis/saveKelayakan/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
 
-              <?php $check = explode(",", $layak->kelayakan); ?>
-              
-              <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="kesesuaian" <?php echo (in_array('kesesuaian', $check)) ? 'checked' : ''; ?>> 
-              <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
-              <input type="checkbox" id="ketepatan" name="kelayakan[]" value="ketepatan" <?php echo (in_array('ketepatan', $check)) ? 'checked' : ''; ?>> 
-              <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
-              <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?>> 
-              <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
-        </div>
+            <?php $check = explode(",", $layak->kelayakan); ?>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Sampaikan</button>
-      </div>
+            <input type="checkbox" id="kesesuaian" name="kelayakan[]" value="kesesuaian" <?php echo (in_array('kesesuaian', $check)) ? 'checked' : ''; ?>>
+            <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
+            <input type="checkbox" id="ketepatan" name="kelayakan[]" value="ketepatan" <?php echo (in_array('ketepatan', $check)) ? 'checked' : ''; ?>>
+            <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
+            <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?>>
+            <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Sampaikan</button>
+          </div>
       </form>
     </div>
   </div>
