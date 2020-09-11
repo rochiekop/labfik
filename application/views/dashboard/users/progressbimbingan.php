@@ -136,7 +136,6 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
           <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
-          <!-- </?php echo var_dump(count($kelayakan)); die; ?> -->
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
           <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
         </div>
@@ -302,8 +301,12 @@
               <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
               <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?>> 
               <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
-              
         </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Sampaikan</button>
+      </div>
       </form>
     </div>
   </div>
