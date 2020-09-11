@@ -146,7 +146,6 @@
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
-      <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a> -->
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -185,11 +184,11 @@
       <div class="alert alert-warning">
         Preview 3. Tahap Persetujuan
       </div>
-      <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a>
+      <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang Preview 2</a> -->
     </div>
 
     <div class="tab-pane fade <?php echo ($step->status_preview == 'sidang') ? 'show active' : ''; ?>" id="pat" role="tabpanel" aria-labelledby="pat-tab">
-      <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a>
+      <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a> -->
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -255,9 +254,6 @@
   </div>
 </div>
 
-</main>
-<!-- End Main Container -->
-
 <!-- Modal Preview-->
 <?php foreach ($preview as $t) : ?>
   <div class="modal fade bd-example-modal-sm" id="previewmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -305,6 +301,7 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary">Sampaikan</button>
           </div>
+        </div>
       </form>
     </div>
   </div>
@@ -669,5 +666,4 @@
       </form>
     </div>
   </div>
-</div>
 </div>

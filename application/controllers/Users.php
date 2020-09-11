@@ -531,15 +531,10 @@ class Users extends CI_Controller
     $data['allcorrection'] = $this->thesis_model->getAllCorrection($id);
 
     $data['lecturers'] = $this->thesis_model->getLecturersByGuidance($id);
-    
-    $data['nama_pembimbing1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing1))->row()->name;
-    $data['nama_pembimbing2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing2))->row()->name;
-    
+    ($data['lecturers']->dosen_pembimbing1 == null) ? $data['nama_pembimbing1'] = '' : $data['nama_pembimbing1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing1))->row()->name ;
+    ($data['lecturers']->dosen_pembimbing2 == null) ? $data['nama_pembimbing2'] = '' : $data['nama_pembimbing2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing2))->row()->name ;
     ($data['lecturers']->dosen_penguji1 == null) ? $data['nama_penguji1'] = '' : $data['nama_penguji1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji1))->row()->name ;
     ($data['lecturers']->dosen_penguji2 == null) ? $data['nama_penguji2'] = '' : $data['nama_penguji2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji2))->row()->name ;
-
-    // $data['nama_penguji1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji1))->row();
-    // $data['nama_penguji2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji2))->row();
 
     $data['guidance_id'] = $id;
     $data['penilaian'] = $this->thesis_model->getPenilaian($id);
