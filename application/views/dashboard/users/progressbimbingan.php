@@ -88,7 +88,7 @@
               <th scope="col">#</th>
               <th scope="col" style="width:30%;">Keterangan</th>
               <th scope="col" style="width:30%;">Dokumen</th>
-              <th scope="col">Project</th>
+              <th scope="col">Proyek</th>
               <th scope="col" style="width:30%;">Status</th>
             </tr>
           </thead>
@@ -112,7 +112,7 @@
                   <td>
                     <?php $file = explode(",", $f['link_project']); ?>
                     <?php foreach ($file as $t) : ?>
-                      <a href="<?= $t ?>" class="badge badge-secondary" style="margin:5px">Link Proyek</a>
+                      <a href="<?= $t ?>" class="badge badge-info" style="margin:5px" target="_blank">Link Proyek</a>
                     <?php endforeach; ?>
                   </td>
                   <td>
@@ -171,7 +171,7 @@
                 -
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
-              <td><a href="#" class="badge badge-success" style="padding:5px">Link Ruang Rapat Daring</a></td>
+              <td><a href="#" class="badge badge-info" style="padding:5px">Link Ruang Rapat Daring</a></td>
               <td><a class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</a></td>
             </tr>
           </tbody>
@@ -323,9 +323,7 @@
       <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-
-            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</strong>
-
+            <p>Lanjutkan mahasiswa/mahasiswi ini ke preview 2?</p>
           </div>
         </div>
         <div class="modal-footer">
@@ -348,9 +346,7 @@
       <form action="<?= base_url('thesis/setLanjutKePreview2/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-
-            <strong>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</strong>
-
+            <p>Lanjutkan mahasiswa/mahasiswi ini ke preview 3?</p>
           </div>
         </div>
         <div class="modal-footer">
@@ -373,9 +369,7 @@
       <form action="<?= base_url('thesis/setUlangiBimbingan/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-
-            <strong>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</strong>
-
+            <p>Ulangi bimbingan untuk mahasiswa/mahasiswi ini?</p>
           </div>
         </div>
         <div class="modal-footer">

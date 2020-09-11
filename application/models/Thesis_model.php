@@ -37,6 +37,23 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
+    public function getAllCorrectionByUserId($user_id)
+    {
+        $this->db->select('id');
+        $this->db->from('guidance');
+        $this->db->where('id_mhs', $user_id);
+        $query = $this->db->get();
+        $guidance_id = $query->row()->id;
+
+        $this->db->select('correction1, correction2');
+        $this->db->from('thesis');
+        $this->db->where('id_guidance', $guidance_id);
+        $this->db->order_by('date', 'ASC');
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
     public function getLecturers($thesis_id)
     {
         $this->db->select('id_guidance');
@@ -68,6 +85,16 @@ class Thesis_model extends CI_Model
         $this->db->select('status_preview');
         $this->db->from('guidance');
         $this->db->where('id', $guidance_id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result;
+    }
+
+    public function getStepPreviewByUserId($user_id)
+    {
+        $this->db->select('status_preview');
+        $this->db->from('guidance');
+        $this->db->where('id_mhs', $user_id);
         $query = $this->db->get();
         $result = $query->row();
         return $result;
