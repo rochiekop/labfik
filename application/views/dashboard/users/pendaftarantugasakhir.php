@@ -4,18 +4,19 @@
       <h4>Pendaftaran Tugas Akhir</h4>
     </div>
     <?= $this->session->flashdata('message'); ?>
-    <?php if ($statusfile == '') : ?>
+    <!-- <?php if ($statusfile == '') : ?>
     <?php elseif ($statusfile == "Disetujui Adminlaa" and empty($thesis_lecturers)) : ?>
       <div class="alert alert-warning">Selamat! pengajuan TA anda sudah disetujui oleh semua pihak, silakan tunggu <b>2x24 jam</b> untuk Koordinator TA memberikan dosen pembimbing anda, Terima kasih. <br> <a href="<?= base_url('Chat/getAllKoordinatorTA') ?>" class="btn btn-primary btn-sm" style="margin-top:6px;">Hubungi Koordinator TA</a> </div>
     <?php elseif (!empty($thesis_lecturers)) : ?>
       <div class="alert alert-success">Koordinator TA telah menambahkan <?= $dosbing1['name'] ?> dan <?= $dosbing2['name'] ?> sebagai dosen pembimbing tugas akhir anda,<br> <a href="<?= base_url('users/bimbingantugasakhir') ?>" class="btn btn-success btn-sm" style="margin-top:6px;">Mulai Bimbingan</a> </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
     <?php if (empty($file)) : ?>
       <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
     <?php else : ?>
       <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
     <?php endif; ?>
     <br><br>
+    <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
     <?php if (empty($file)) : ?>
       <div class="alert alert-warning" role="alert">
         <center>
@@ -175,7 +176,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
-            <button type="submit" class="btn btn-sm btn-primary" name="daftar" value="Daftar">Daftar</button>
+            <button type="submit" class="btn btn-sm btn-primary" name="daftar" id="btn_daftar" value="Daftar">Daftar</button>
           </div>
         </form>
       </div>
@@ -251,4 +252,22 @@
         alert(no)
       });
     });
+
+    $('#btn_daftar').click(function() {
+      // alert("sdfs")
+      // var form = $(this);
+      // $.ajax({
+      //   url: form.attr('action'),
+      //   type: form.attr('method'),
+      //   data: form.serialize(),
+      //   dataType: 'json',
+      //   success: function(response) {
+      //     if (response.success == true) {
+
+      //     } else {
+
+      //     }
+      //   } //Succes
+      // }); //Ajax
+    })
   </script>

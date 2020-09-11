@@ -107,6 +107,8 @@ class Users extends CI_Controller
           return;
       }
 
+      $this->form_validation->set_rules('file', '', 'callback_file_check');
+      // if ($this->form_validation->run() == true) {
       $data = [
         'id' => uniqid(),
         'id_mhs' => $this->input->post('id_mhs'),
@@ -120,7 +122,6 @@ class Users extends CI_Controller
         'status_preview' => 'preview1'
       ];
       $this->db->insert('guidance', $data);
-
       $allfile = count($_FILES['filependaftaran']['name']);
       for ($i = 0; $i < $allfile; $i++) {
         if (!empty($_FILES['filependaftaran']['name'][$i])) {
@@ -167,9 +168,52 @@ class Users extends CI_Controller
       }
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
       redirect('users/pendaftarantugasakhir');
+      // } else {
+      //   $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
+      //   redirect('users/pendaftarantugasakhir');
+      // }
     }
   }
 
+  // public function file_check($str)
+  // {
+  //   $allowed_mime_type_arr = array('application/pdf');
+  //   $mime = get_mime_by_extension($_FILES['filependaftaran']['name']);
+  //   if (isset($_FILES['filependaftaran']['name']) && $_FILES['filependaftaran']['name'] != "") {
+  //     if (in_array($mime, $allowed_mime_type_arr)) {
+  //       return true;
+  //     } else {
+  //       $this->form_validation->set_message('file_check', 'Please select only pdf file.');
+  //       return false;
+  //     }
+  //   } else {
+  //     $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
+  //     return false;
+  //   }
+  // }
+  // public function inputformpendaftaranta()
+  // {
+  //   if (isset($_POST['submit'])) {
+  //     $path = "./assets/upload/thesis/" . $this->session->userdata('username');
+  //     if (!is_dir($path)) {
+  //       $create = mkdir($path, 0777, TRUE);
+  //       if (!$create)
+  //         return;
+  //     }
+  //     $this->form_validation->set_rules('file', '', 'callback_file_check');
+  //     if ($this->form_validation->run() == true) {
+  //       $config['upload_path'] = $path;
+  //       $config['allowed_types'] = 'pdf';
+  //       $config['max_size'] = '20024';  //20MB max
+  //       $this->load->library('upload', $config);
+  //       if (!empty($_FILES['filependaftaran']['name'])) {
+  //         $this->upload->do_upload('filependaftaran');
+  //         $file1 = $this->upload->data();
+  //       }
+  //     } else {
+  //     }
+  //   }
+  // }
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
