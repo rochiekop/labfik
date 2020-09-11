@@ -363,10 +363,13 @@ class User_model extends CI_Model
 
 	public function getpermintaanta($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali,guidance.id as id_guidance');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali,guidance.id as id_guidance, thesis_lecturers.kelompok_keahlian,thesis_lecturers.id as id_tr');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
+		$this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance ');
+		$this->db->where('kelompok_keahlian', $this->session->userdata('koordinator'));
+		$this->db->or_where('kelompok_keahlian', substr($this->session->userdata('koordinator'), 6));
 		$this->db->group_start();
 		if ($filter == 'Nama') {
 			$this->db->like('user.name', $query);

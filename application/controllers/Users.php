@@ -12,6 +12,7 @@ class Users extends CI_Controller
     $this->load->model('admin_model');
     $this->load->model('adminlaa_model');
     $this->load->model('booking_model');
+    $this->load->model('koordinatorta_model');
     $this->load->model('thesis_model');
     $this->load->library('encryption');
     is_logged_in();
@@ -654,17 +655,16 @@ class Users extends CI_Controller
       $userslist[] =
         [
           'id' => $u['id'],
+          'id_tr' => $u['id_tr'],
+          'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
-          'no_telp' => $u['no_telp'],
           'dosen_wali' => $this->user_model->getdosenwalita($u['dosen_wali'])->name,
           'status_file' => $u['status_file'],
           'tahun' => $u['tahun'],
-          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui koor'),
-          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak koor'),
-          'updated' => $this->user_model->countStatus($u['id'], 'Update'),
+          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
         ];
     }
     $data['pta'] = $userslist;
@@ -756,6 +756,19 @@ class Users extends CI_Controller
     }
   }
 
+
+  public function tolakkoordinatorkk()
+  {
+    $file = $this->db->get_where('thesis_lecturers', ['id' => $this->input->post('id')])->row_array();
+    if ($file) {
+      $this->db->delete('thesis_lecturers', ['id' => $this->input->post('id')]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditolak</div>');
+      redirect('users/takoor');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data tidak tersedia</div>');
+      redirect('users/takoor');
+    }
+  }
   public function updateviewkoorkk()
   {
     $id = $this->input->post('id');

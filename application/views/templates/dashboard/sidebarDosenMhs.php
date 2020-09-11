@@ -47,7 +47,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
           </ul>
         </div>
       </div>
-      <?php if ($this->session->userdata('koordinator') == 1) : ?>
+      <?php if ($this->session->userdata('koordinator') == 'Ketua Acties' or $this->session->userdata('koordinator') == 'Ketua Medcraft' or $this->session->userdata('koordinator') == 'Ketua Deconstra' or $this->session->userdata('koordinator') == 'Ketua Inlive') : ?>
         <div class="card">
           <a href="<?= base_url('users/takoor') ?>" class="btn"><span class="fas fa-users"></span> Pengajuan TA</a>
         </div>

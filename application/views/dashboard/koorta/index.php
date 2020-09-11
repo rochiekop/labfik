@@ -54,10 +54,10 @@
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['prodi'] ?></td>
                   <td><?= $t['peminatan'] ?></td>
-                  <?php if (substr($t['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
-                    <td><?= substr($t['kelompok_keahlian'], 6) ?></td>
+                  <?php if (substr($t['data']['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
+                    <td><?= substr($t['data']['kelompok_keahlian'], 6) ?></td>
                   <?php else : ?>
-                    <td><?= $t['kelompok_keahlian'] ?></td>
+                    <td><?= $t['data']['kelompok_keahlian'] ?></td>
                   <?php endif; ?>
                   <td><?= $t['dosen_wali'] ?></td>
                   <td><?= $t['tahun'] ?></td>
@@ -77,7 +77,6 @@
     </div>
   </main>
   <!-- End Main Container -->
-
   <?php foreach ($mahasiswa as $m) : ?>
     <div class="modal fade" id="exampleModal<?= $m['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -98,7 +97,8 @@
                 <select class="form-control" required name="dosbing1">
                   <option value="">Dosen Pembimbing 1</option>
                   <?php foreach ($dosen as $q) : ?>
-                    <option value="<?= $q['id'] ?>"><?= $q['name'] ?></option>
+                    <option value="<?= $q['id'] ?>,<?= $q['koordinator'] ?>"><?= $q['name'] ?>
+                    </option>
                   <?php endforeach; ?>
                 </select>
               </div>
