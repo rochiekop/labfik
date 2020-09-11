@@ -161,10 +161,10 @@
           <tbody>
             <tr>
               <td>
-                <p style="padding:10px;"><?= $nama_pembimbing1->name ?></p> <p style="padding:10px"><?= $nama_pembimbing2->name ?></p>
+                <p style="padding:10px;"><?= $nama_pembimbing1 ?></p> <p style="padding:10px"><?= $nama_pembimbing2 ?></p>
               </td>
               <td>
-                <p style="padding:10px;"><?= $nama_penguji1->name ?></p> <p style="padding:10px"><?= $nama_penguji2->name ?></p>
+                <p style="padding:10px;"><?= $nama_penguji1 ?></p> <p style="padding:10px"><?= $nama_penguji2 ?></p>
               </td>
               <td>Selasa, 12 April 2020 <br> 13:30</td>
               <td><a href="#" class="badge badge-info" style="padding:5px">Link Ruang Rapat Daring</a></td>
@@ -454,7 +454,7 @@
           <div class="custom-form">
             <table>
               <tr>
-                <h5 style="padding:10px">Pembimbing 1: <?= $nama_pembimbing1 ?></h5>
+                <h5 style="padding:10px">Pembimbing 1: <?= $nama_pembimbing1->name ?></h5>
                 <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
                 <center><h6>Bab 1</h6></center>
                 <div>
@@ -506,7 +506,7 @@
               </tr>
 
               <tr>
-                <h5 style="padding:10px">Pembimbing 2: <?= $nama_pembimbing2 ?></h5>
+                <h5 style="padding:10px">Pembimbing 2: <?= $nama_pembimbing2->name ?></h5>
                 <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
                 <center><h6>Bab 1</h6></center>
                 <div>
@@ -558,7 +558,7 @@
               </tr>
 
               <tr>
-                <h5 style="padding:10px">Penguji 1: <?= $nama_penguji1 ?></h5>
+                <h5 style="padding:10px">Penguji 1: <?= $nama_penguji1->name ?></h5>
                 <?php $file3 = explode(",", $penilaian->nilai_penguji1); ?>
                 <center><h6>Bab 1</h6></center>
                 <div>
@@ -609,7 +609,7 @@
                 </div>
               </tr>
               <tr>
-                <h5 style="padding:10px">Penguji 2: <?= $nama_penguji2 ?></h5>
+                <h5 style="padding:10px">Penguji 2: <?= $nama_penguji2->name ?></h5>
                 <?php $file4 = explode(",", $penilaian->nilai_penguji2); ?>
                 <center><h6>Bab 1</h6></center>
                 <div>
