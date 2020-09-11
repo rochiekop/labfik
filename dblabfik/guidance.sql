@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Sep 2020 pada 18.33
+-- Waktu pembuatan: 11 Sep 2020 pada 17.02
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -46,9 +46,9 @@ CREATE TABLE `guidance` (
   `penilaian_pembimbing2` text CHARACTER SET utf8mb4 NOT NULL,
   `nilai_pembimbing2` varchar(255) NOT NULL DEFAULT ',,,,,,,',
   `penilaian_penguji1` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_penguji1` varchar(255) NOT NULL,
+  `nilai_penguji1` varchar(255) NOT NULL DEFAULT ',,,,,,,',
   `penilaian_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
-  `nilai_penguji2` varchar(255) NOT NULL,
+  `nilai_penguji2` varchar(255) NOT NULL DEFAULT ',,,,,,,',
   `status_preview` enum('','preview1','preview2','preview3','sidang') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,7 +58,7 @@ CREATE TABLE `guidance` (
 
 INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `kelayakan`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `status_preview`) VALUES
 ('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '', '0', '', '0', '', '0', '', '0', ''),
-('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', 'kesesuaian,ketepatan,kaidah', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '', '0', '', '0', 'preview2'),
+('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', 'kesesuaian,ketepatan,kaidah', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '', '0', '', '0', 'preview1'),
 ('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '', '0', '', '0', '', '0', '', '0', '');
 
 --

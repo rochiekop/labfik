@@ -150,159 +150,159 @@
   </main>
   <!-- End Main Container -->
 
-  <!-- Modal tambah bimbingan -->
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">Tambah Bimbingan</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="<?= base_url('users/addbimbingan') ?>" method="post" enctype="multipart/form-data">
-          <div class="modal-body">
-            <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
-            <div class="form-group">
-              <input type="hidden" class="form-control" value="Semua" id="exampleFormControlFile1" name="fordosen" style="padding:13px 16px">
-            </div>
-            <div class="row">
-              <div class="col-lg-11" id="dynamic">
-                <div class="form-group">
-                  <label for="exampleFormControlFile1">Kirim Dokumen</label>
-                  <input type="file" class="form-control" name="fileta[]" required style="padding:13px 16px">
-                </div>
-              </div>
-              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
-                <a id="tambah"> <span class="fas fa-plus"></span></a>
+<!-- Modal tambah bimbingan -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">Tambah Bimbingan</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('users/addbimbingan') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="Semua" id="exampleFormControlFile1" name="fordosen" style="padding:13px 16px">
+          </div>
+          <div class="row">
+            <div class="col-lg-11" id="dynamic">
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Kirim Dokumen</label>
+                <input type="file" class="form-control" name="fileta[]" required style="padding:13px 16px">
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-11" id="dynamic2">
-                <div class="form-group">
-                  <label for="exampleFormControlFile1">Link Project</label>
-                  <input type="text" class="form-control" name="link_project[]" style="padding:13px 16px">
-                </div>
-              </div>
-              <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon2">
-                <a id="tambah2"> <span class="fas fa-plus"></span></a>
-              </div>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="ketbim">Keterangan</label>
-              <textarea class="form-control" style="padding:12px" rows="5" required id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
-              <div class="invalid-feedback">
-                Please provide a valid city.
-              </div>
+            <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
+              <a id="tambah"> <span class="fas fa-plus"></span></a>
             </div>
           </div>
+          <div class="row">
+            <div class="col-lg-11" id="dynamic2">
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Link Project</label>
+                <input type="text" class="form-control" name="link_project[]" style="padding:13px 16px">
+              </div>
+            </div>
+            <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon2">
+              <a id="tambah2"> <span class="fas fa-plus"></span></a>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="ketbim">Keterangan</label>
+            <textarea class="form-control" style="padding:12px" rows="5" required id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  tinymce.init({
+    selector: '.readonly',
+    // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+    plugins: 'save autosave preview autolink lists media table',
+    toolbar: '',
+    toolbar_mode: 'floating',
+    tinycomments_mode: 'embedded',
+    height: '350',
+    width: '370',
+    readonly: 1
+  });
+</script>
+
+<!-- Modal for all correction -->
+<div class="modal fade" id="all_correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Semua Koreksi</h5>
+      </div>
+      <div class="modal-body">
+        <div class="custom-form">
+          <table>
+            <td style="padding-left:10px">
+              <h6 style="padding-bottom:10px">Pembimbing 1</h6>
+              <textarea name="correction1" id="readonly" class="readonly" cols="30" rows="10">
+                <?php foreach ($allcorrection as $a) : ?>
+                  <?= $a->correction1 ?>
+                <?php endforeach; ?>
+              </textarea>
+            </td>
+            <td style="padding-left:10px">
+              <h6 style="padding-bottom:10px">Pembimbing 2</h6>
+              <textarea name="correction2" id="readonly" class="readonly" cols="30" rows="10">
+                <?php foreach ($allcorrection as $a) : ?>
+                  <?= $a->correction2 ?>
+                <?php endforeach; ?>
+              </textarea>
+            </td>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete Pengajuan -->
+<?php foreach ($allhistory as $t) : ?>
+  <div class="modal fade bd-example-modal-sm" id="Jkdbs<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          Batalkan pengiriman?
+        </div>
+        <form action="deletefileta" method="post" enctype="multipart/form-data">
           <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
+            <input type="hidden" id="file" name="fileta" value="<?= $t['pdf_file']; ?>">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Batalkan</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+<?php endforeach; ?>
 
-  <script>
-    tinymce.init({
-      selector: '.readonly',
-      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-      plugins: 'save autosave preview autolink lists media table',
-      toolbar: '',
-      toolbar_mode: 'floating',
-      tinycomments_mode: 'embedded',
-      height: '350',
-      width: '370',
-      readonly: 1
+<script>
+  $(document).ready(function() {
+    var no = 1;
+    $('#tambah').click(function() {
+      no++;
+      $('#dynamic').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="file" name="fileta[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
+      $('#icon').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
     });
-  </script>
-
-  <!-- Modal for all correction -->
-  <div class="modal fade" id="all_correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Semua Koreksi</h5>
-        </div>
-        <div class="modal-body">
-          <div class="custom-form">
-            <table>
-              <td style="padding-left:10px">
-                <h6 style="padding-bottom:10px">Pembimbing 1</h6>
-                <textarea name="correction1" id="readonly" class="readonly" cols="30" rows="10">
-                  <?php foreach ($allcorrection as $a) : ?>
-                    <?= $a->correction1 ?>
-                  <?php endforeach; ?>
-                </textarea>
-              </td>
-              <td style="padding-left:10px">
-                <h6 style="padding-bottom:10px">Pembimbing 2</h6>
-                <textarea name="correction2" id="readonly" class="readonly" cols="30" rows="10">
-                  <?php foreach ($allcorrection as $a) : ?>
-                    <?= $a->correction2 ?>
-                  <?php endforeach; ?>
-                </textarea>
-              </td>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Delete Pengajuan -->
-  <?php foreach ($allhistory as $t) : ?>
-    <div class="modal fade bd-example-modal-sm" id="Jkdbs<?= encrypt_url($t['id']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-body">
-            Batalkan pengiriman?
-          </div>
-          <form action="deletefileta" method="post" enctype="multipart/form-data">
-            <div class="modal-footer">
-              <input type="hidden" id="id" name="id" value="<?= $t['id']; ?>">
-              <input type="hidden" id="file" name="fileta" value="<?= $t['pdf_file']; ?>">
-              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-              <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Batalkan</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  <?php endforeach; ?>
-
-  <script>
-    $(document).ready(function() {
-      var no = 1;
-      $('#tambah').click(function() {
-        no++;
-        $('#dynamic').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="file" name="fileta[]"  required style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
-        $('#icon').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
-      });
-      $(document).on('click', '.btn_remove', function() {
-        var button_id = $(this).attr("id");
-        $('#row' + button_id + '').remove();
-        $('#row' + button_id + '').remove();
-      });
+    $(document).on('click', '.btn_remove', function() {
+      var button_id = $(this).attr("id");
+      $('#row' + button_id + '').remove();
+      $('#row' + button_id + '').remove();
     });
-  </script>
-  <script>
-    $(document).ready(function() {
-      var no = 1;
-      $('#tambah2').click(function() {
-        no++;
-        $('#dynamic2').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="text" name="link_project[]" style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
-        $('#icon2').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
-      });
-      $(document).on('click', '.btn_remove', function() {
-        var button_id = $(this).attr("id");
-        $('#row' + button_id + '').remove();
-        $('#row' + button_id + '').remove();
-      });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    var no = 1;
+    $('#tambah2').click(function() {
+      no++;
+      $('#dynamic2').append('<div id="row' + no + '"><div style="margin-top:30px;margin-bottom:10px;"><input type="text" name="link_project[]" style="margin-top:-13px;padding:13px 16px" class="form-control" /></div></div>');
+      $('#icon2').append('<div id="row' + no + '" style="margin-top:42px"><a id="' + no + '" class="btn_remove"> <span class="fas fa-minus"></span></a><div>')
     });
-  </script>
+    $(document).on('click', '.btn_remove', function() {
+      var button_id = $(this).attr("id");
+      $('#row' + button_id + '').remove();
+      $('#row' + button_id + '').remove();
+    });
+  });
+</script>

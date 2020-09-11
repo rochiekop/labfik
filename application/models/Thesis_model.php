@@ -70,6 +70,29 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
+    // public function getLecturersName($guidance_id, $dosen_pembimbing1, $dosen_pembimbing2, $dosen_penguji1, $dosen_penguji2)
+    // {
+    //     $this->db->select('name as nama_pembimbing1');
+    //     $this->db->from('user');
+    //     $this->db->where('id', $dosen_pembimbing1);
+
+    //     $this->db->select('name as nama_pembimbing2');
+    //     $this->db->from('user');
+    //     $this->db->where('id', $dosen_pembimbing2);
+
+    //     $this->db->select('name as nama_penguji1');
+    //     $this->db->from('user');
+    //     $this->db->where('id', $dosen_penguji1);
+
+    //     $this->db->select('name as nama_penguji2');
+    //     $this->db->from('user');
+    //     $this->db->where('id', $dosen_penguji2);
+
+    //     $query = $this->db->get();
+    //     $result = $query->row();
+    //     return $result;
+    // }
+
     public function getLecturersByGuidance($guidance_id)
     {
         $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2');
