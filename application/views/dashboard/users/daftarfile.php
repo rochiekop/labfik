@@ -86,11 +86,7 @@
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
                             <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
-                            <?php if ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim" or ($t['status_doswal'] == "Ditolak koor") or ($t['status_doswal'] == "Update")) : ?>
-                                <td></td>
-                                <td><b>Menunggu Persetujuan</b></td>
-                                <td></td>
-                            <?php elseif ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update file" or $t['status_doswal'] == "Disetujui koor") : ?>
+                            <?php if ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update file") : ?>
                                 <?php if ($t['view_doswal'] == "Belum Dilihat" or $t['view_doswal'] == "Dilihat Koorkk") :  ?>
                                     <td></td>
                                 <?php else : ?>
@@ -103,10 +99,6 @@
                                 <?php else : ?>
                                     <td></td>
                                 <?php endif; ?>
-                                <td></td>
-                            <?php elseif ($t['nama'] == "Surat Pernyataan TA" and $t['status_doswal'] == "Dikirim") : ?>
-                                <td></td>
-                                <td><b>Menunggu Persetujuan</b></td>
                                 <td></td>
                             <?php elseif ($t['status_doswal'] == "Disetujui wali") : ?>
                                 <td></td>
