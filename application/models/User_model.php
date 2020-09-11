@@ -490,7 +490,7 @@ class User_model extends CI_Model
 		$this->db->from('guidance');
 		$this->db->join('thesis', 'guidance.id = thesis.id_guidance');
 		$this->db->where('id_mhs', $this->session->userdata('id'));
-		$this->db->where('thesis.status', 'Selesai');
+		$this->db->where('thesis.status', 'Sesuai');
 		$this->db->or_where('thesis.status', 'Revisi');
 		return $this->db->get()->result_array();
 	}

@@ -263,12 +263,13 @@ class Users extends CI_Controller
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['guide'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    // $data['allhistory'] = $this->user_model->getallbimbingan();
     $data['allhistory'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'));
     $data['buttonaddbimbingan'] = $this->user_model->checkaddbimbingan();
     $data['buttonaddbimbingan2'] = $this->user_model->checkaddbimbingan2();
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
+    $data['allcorrection'] = $this->thesis_model->getAllCorrectionByUserId($this->session->userdata('id'));
+    $data['step'] = $this->thesis_model->getStepPreviewByUserId($this->session->userdata('id'));
     if (!empty($thesis_lecturers)) {
       $data['dosbing1'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
       $data['dosbing2'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing2']);
