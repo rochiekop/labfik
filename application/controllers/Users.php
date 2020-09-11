@@ -820,4 +820,17 @@ class Users extends CI_Controller
     }
     echo $output;
   }
+
+  public function displayaction($id)
+  {
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->view_doswal;
+    if ($data == "Belum Dilihat") {
+      $data = [
+        'view_doswal' => 'Dilihat'
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
+    }
+  }
 }
