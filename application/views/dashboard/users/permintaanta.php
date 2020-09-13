@@ -48,7 +48,7 @@
                             <tr>
                             <?php endif; ?>
                             <th scope="row"><?= ++$no ?></th>
-                            <td><a href="<?= base_url('users/daftarfile/') . $t['id']; ?>" class="btn badge badge-secondary">Detail</a></td>
+                            <td><a href="<?= base_url('users/daftarfile/') . $t['id']; ?>" class="btn badge badge-secondary">Details</a></td>
                             <td><?= $t['name'] ?></td>
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>

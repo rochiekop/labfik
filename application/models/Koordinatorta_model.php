@@ -9,6 +9,7 @@ class Koordinatorta_model extends CI_Model
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
+    $this->db->or_where('guidance.status_file', 'Disetujui Ketua KK');
     $this->db->order_by('guidance.id', 'desc');
     return $this->db->get()->result_array();
   }

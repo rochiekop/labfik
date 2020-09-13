@@ -31,7 +31,6 @@
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
-                    <th scope="col">Konsentrasi</th>
                     <th scope="col">Kel. Keahlian</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Status</th>
@@ -48,19 +47,24 @@
                             <?php else : ?>
                             <tr> <?php endif; ?>
                             <th scope="row"><?= ++$no ?></th>
-                            <td></td>
+                            <td> <a href="<?= base_url('users/viewdetail/') . encrypt_url($t['id']); ?>" class="btn badge badge-secondary">Details</a></td>
                             <td><?= $t['name'] ?></td>
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>
-                            <td><?= $t['peminatan'] ?></td>
                             <td><?= substr($this->session->userdata('koordinator'), 6) ?></td>
                             <td><?= $t['tahun'] ?></td>
-                            <td> <a data-toggle="modal" data-target="#<?= encrypt_url($t['id_tr']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a></td>
+                            <?php if ($t['status_file'] == "Disetujui Ketua KK") : ?>
+                                <td><b>Disetujui</b></td>
+                            <?php else : ?>
+                                <td id="action"> <a href="<?= base_url('users/accketuakk/') . encrypt_url($t['id_guidance']) ?>" class="btn badge badge-success">Acc</a>
+                                    <a data-toggle="modal" data-target="#<?= encrypt_url($t['id_tr']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a></td>
+                            <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
             </tbody>
         </table>
+        <!-- <?php var_dump($pta) ?> -->
     </div>
 </main>
 <!-- End Main Container -->

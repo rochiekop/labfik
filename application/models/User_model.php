@@ -363,7 +363,7 @@ class User_model extends CI_Model
 
 	public function getpermintaanta($query = null, $filter = null)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali,guidance.id as id_guidance, thesis_lecturers.kelompok_keahlian,thesis_lecturers.id as id_tr');
+		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.judul_1,user.no_telp,user.dosen_wali,guidance.tahun,guidance.date,guidance.status_file,dosen_wali,guidance.id as id_guidance, thesis_lecturers.kelompok_keahlian,thesis_lecturers.id as id_tr');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
@@ -415,13 +415,22 @@ class User_model extends CI_Model
 	}
 	public function getMhsbyId($id)
 	{
+		$this->db->select('guidance.judul_1,guidance.judul_2,guidance.judul_3,thesis_lecturers.dosen_pembimbing1,thesis_lecturers.dosen_pembimbing2');
+		$this->db->from('guidance');
+		$this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
+		$this->db->where('guidance.id_mhs', $id);
+		return $this->db->get()->row_array();
+	}
+
+	public function getDataMhsbyId($id)
+	{
 		$this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,user.no_telp,guidance.tahun,guidance.judul_1,guidance.judul_2,guidance.judul_3');
 		$this->db->from('guidance');
 		$this->db->join('user', 'user.id = guidance.id_mhs');
 		$this->db->where('id_mhs', $id);
+		$this->db->where('guidance.id_mhs', $id);
 		return $this->db->get()->row_array();
 	}
-
 	public function checkDosen()
 	{
 		$this->db->select('dosbing.*, guidance.id as id_guidance,guidance.id_mhs');

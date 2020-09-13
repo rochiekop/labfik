@@ -22,7 +22,7 @@
         <ul>
           <li><a <?= (!empty($blast)) ? 'href="' . base_url('users/riwayat') . '".' : ""; ?>><span class="fas fa-door-open"></span> <?= (!empty($blast)) ? $blast['ruangan'] . ' | ' . substr($blast['time'], 0, 8) . substr($blast['time'], -5) . '<i>' . tanggal($blast['date'], date('d-m-Y')) . '</i>' : "Peminjaman Kosong" ?></a></li>
           <li><a href="#"><span class="fas fa-box-open"></span> Canon EOS 5D Mark II <i>Jumat, 18 Oktober 2019</i></a></li>
-        </ul>
+        </ul> 
       </div>
     </div>
     <div class="col-md-4">

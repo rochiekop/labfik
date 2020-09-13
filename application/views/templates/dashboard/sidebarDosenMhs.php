@@ -3,8 +3,8 @@ $query = "SELECT *
   FROM `kategoriruangan`
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
-$thesis_lecturer = "SELECT thesis_lecturers.id FROM guidance JOIN thesis_lecturers ON thesis_lecturers.id_guidance = guidance.id WHERE guidance.id_mhs = ?";
-$bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('id')))->result_array();
+$guidance = "SELECT status_file FROM guidance WHERE id_mhs = ? and status_file = ?";
+$bimbingan = $this->db->query($guidance, array($this->session->userdata('id'), 'Disetujui Ketua KK'))->result_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">

@@ -28,6 +28,7 @@ class Adminlaa_model extends CI_Model
     $this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
     $this->db->where('guidance.status_file', 'Disetujui wali');
     $this->db->or_where('guidance.status_file', 'Disetujui Adminlaa');
+    $this->db->or_where('guidance.status_file', 'Disetujui Ketua KK');
     $this->db->group_by('file_pendaftaran.id_mhs');
     $this->db->order_by('guidance.id', 'desc');
     return $this->db->get()->result_array();
@@ -67,6 +68,16 @@ class Adminlaa_model extends CI_Model
     $this->db->join('user', 'user.id = guidance.id_mhs');
     $this->db->where('id_mhs', $id);
     return $this->db->get()->row_array();
+  }
+
+  public function getDosbing($id)
+  {
+    $this->db->select('dosen_pembimbing1,dosen_pembimbing2');
+    $this->db->from('guidance');
+    $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
+    $this->db->where('id_mhs', $id);
+    $array =  $this->db->get()->row_array();
+    return (!empty($array) ? $array : "");
   }
 
   public function cekstatus($id)

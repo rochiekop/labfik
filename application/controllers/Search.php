@@ -765,7 +765,7 @@ class Search extends CI_Controller
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
-          'no_telp' => $u['no_telp'],
+          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
           'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];
@@ -783,11 +783,15 @@ class Search extends CI_Controller
                     <td>' . $i['name'] . '</td>
                     <td>' . $i['nim'] . '</td>
                     <td>' . $i['prodi'] . '</td>
-                    <td>' . $i['peminatan'] . '</td>
-                    <td>' . $i['no_telp'] . '</td>
-                    <td>' . $i['dosen_wali'] . '</td>
+                    <td>' . $i['peminatan'] . '</td>';
+        if (substr($i['data']['kelompok_keahlian'], 0, 5) == "Ketua") {
+          $output .= '<td>' . substr($i['data']['kelompok_keahlian'], 6) . '</td>';
+        } else {
+          $output .= '<td>' . $i['data']['kelompok_keahlian'] . '</td>';
+        }
+        $output .= '<td>' . $i['dosen_wali'] . '</td>
                     <td>' . $i['tahun'] . '</td>
-                    ';
+                              ';
         if ($i['aksi'] != 0) {
           $output .= '<td><b>Ditambahkan</b></td>';
         } else {
@@ -1057,17 +1061,16 @@ class Search extends CI_Controller
       $userslist[] =
         [
           'id' => $u['id'],
+          'id_tr' => $u['id_tr'],
+          'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
-          'no_telp' => $u['no_telp'],
           'dosen_wali' => $this->user_model->getdosenwalita($u['dosen_wali'])->name,
           'status_file' => $u['status_file'],
           'tahun' => $u['tahun'],
-          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui koor'),
-          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak koor'),
-          'updated' => $this->user_model->countStatus($u['id'], 'Update'),
+          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
         ];
     }
     $data = $userslist;
@@ -1079,25 +1082,16 @@ class Search extends CI_Controller
         } else {
           $output .= '<tr>';
         }
-        $output .= '<th scope="row" style="width:60px">' . ++$no . '</th>
-        <td>
-          <a href="' . base_url('users/viewdetail/') . $i['id'] . '" class="btn badge badge-secondary">Detail</a>
-          </td>
+        $output .= '
+        <td><b>' . ++$no . '</b><td>
         <td>' . $i['name'] . '</td>
         <td>' . $i['nim'] . '</td>
         <td>' . $i['prodi'] . '</td>
         <td>' . $i['peminatan'] . '</td>
-        <td>' . $i['dosen_wali'] . '</td>
-        <td>' . $i['tahun'] . '</td>';
-        if ($i['status_file'] == "Dikirim" and $i['diterima'] == "0" and $i['ditolak'] == "0" and $i['updated'] == "0") {
-          $output .= '<td><b>Menunggu Persetujuan</b></td>';
-        } else if ($i['ditolak'] != "0") {
-          $output .= '<td><b>Ditolak</b></td>';
-        } else if ($i['updated'] != "0") {
-          $output .= '<td><b>' . $i['updated'] . '&nbsp; File baru</b></td>';
-        } else {
-          $output .= '<td><b>Disetujui</b></td>';
-        }
+        <td>' . substr($this->session->userdata('koordinator'), 6) . '</td>
+        <td>' . $i['tahun'] . '</td>
+        <td> <a data-toggle="modal" data-target="#' . encrypt_url($i['id_tr']) . '" class="btn badge badge-danger" style="color: white;">Tolak</a></td>
+        ';
       };
     } else {
       $output .= '<tr>

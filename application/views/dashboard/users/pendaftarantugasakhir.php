@@ -73,14 +73,14 @@
                       <td></td>
                     <?php endif; ?>
                     <!-- For Adminlaa -->
-                  <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui Adminlaa") : ?>
+                  <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui Adminlaa" or $statusfile == "Disetujui Ketua KK") : ?>
                     <?php if ($k['status_adminlaa'] == 'Ditolak') :  ?>
                       <td>Ditolak Admin Laa</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
                     <?php elseif ($k['status_adminlaa'] == 'Disetujui' or $k['status_adminlaa'] == 'Dikirim') : ?>
                       <td><?= $k['status_adminlaa'] ?></td>
-                      <?php if ($statusfile == "Disetujui Adminlaa") : ?>
+                      <?php if ($statusfile == "Disetujui Adminlaa" or $statusfile == "Disetujui Ketua KK") : ?>
                         <td><a data-toggle="modal" data-target="#view<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Lihat</a></td>
                       <?php endif; ?>
                       <td></td>
@@ -111,13 +111,16 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url('users/inputformpendaftaran') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('users/inputformpendaftaran') ?>" id="upload_form" method="post" enctype="multipart/form-data">
           <div class="modal-body">
             <input type="hidden" id="id_mhs" name="id_mhs" value="<?= $mhs['id'] ?>">
             <div class="form-group">
               <label for="exampleFormControlFile1" id="judul">Judul 1</label>
-              <input name="judul1" class="form-control" required value="<?= set_value('judul'); ?>">
+              <input name="judul1" type="text" class="form-control" required value="<?= set_value('judul'); ?>">
               <?php echo form_error('judul', '<small class="text-danger">', '</small>'); ?>
+              <!-- <div class="invalid-feedback">
+                Please choose a username.
+              </div> -->
             </div>
             <div class="form-group">
               <label for="exampleFormControlFile1" id="judul">Judul 2</label>
@@ -146,14 +149,15 @@
             <?php endif; ?>
             <div class="form-group">
               <label for="exampleFormControlFile1">Kartu Studi Mahasiswa (KSM)</label>
-              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+              <input type="file" class="form-control" name="filependaftaran[]" id="files1" required style="padding:13px 16px">
+              <span id="chk-error1"></span>
             </div>
             <div class="row">
               <div class="col-lg-11" id="dynamic">
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Surat Pernyataan Tugas Akhir</label>
-                  <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
-                  <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
+                  <input type="file" class="form-control" name="filependaftaran[]" id="files2" required style="padding:13px 16px">
+                  <span id="chk-error2"></span>
                 </div>
               </div>
               <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
@@ -161,17 +165,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="exampleFormControlFile1">Bukti Pendaftaran Test EPRT</label>
-              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
-              <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
+              <label for="exampleFormControlFile1">Pendaftaran Test EPRT</label>
+              <input type="file" class="form-control" name="filependaftaran[]" id="files3" required style="padding:13px 16px">
+              <span id="chk-error3"></span>
             </div>
             <div class="form-group">
               <label for="exampleFormControlFile1">Sertifikat TAK</label>
-              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+              <input type="file" class="form-control" name="filependaftaran[]" id="files4" required style="padding:13px 16px">
+              <span id="chk-error4"></span>
             </div>
             <div class="form-group">
               <label for="exampleFormControlFile1">Proposal TA</label>
-              <input type="file" class="form-control" name="filependaftaran[]" required style="padding:13px 16px">
+              <input type="file" class="form-control" name="filependaftaran[]" id="files5" required style="padding:13px 16px">
+              <span id="chk-error5"></span>
             </div>
           </div>
           <div class="modal-footer">
@@ -253,21 +259,108 @@
       });
     });
 
-    $('#btn_daftar').click(function() {
-      // alert("sdfs")
-      // var form = $(this);
-      // $.ajax({
-      //   url: form.attr('action'),
-      //   type: form.attr('method'),
-      //   data: form.serialize(),
-      //   dataType: 'json',
-      //   success: function(response) {
-      //     if (response.success == true) {
-
-      //     } else {
-
-      //     }
-      //   } //Succes
-      // }); //Ajax
-    })
+    $("#files1").change(function() {
+      var allowedTypes = ['application/pdf'];
+      var maxsize = 6000000;
+      var size = this.files[0].size;
+      var fileType = this.files[0].type;
+      if (!allowedTypes.includes(fileType)) {
+        jQuery("#chk-error1").html('<small class="text-danger">Masukkan file dengan format *pdf</small>');
+        $("#files1").val('');
+        return false;
+      } else {
+        jQuery("#chk-error1").html('');
+        if (size > maxsize) {
+          jQuery("#chk-error1").html('<small class="text-danger">Ukuran file melebihi batas maksimal upload (*6 Mb)</small>');
+          $("#files1").val('');
+          return false;
+        } else {
+          jQuery("#chk-error1").html('');
+        }
+      }
+    });
+    $("#files2").change(function() {
+      var allowedTypes = ['application/pdf'];
+      var maxsize = 6000000;
+      var size = this.files[0].size;
+      var fileType = this.files[0].type;
+      if (!allowedTypes.includes(fileType)) {
+        jQuery("#chk-error2").html('<small class="text-danger">Masukkan file dengan format *pdf</small>');
+        $("#files2").val('');
+        return false;
+      } else {
+        jQuery("#chk-error2").html('');
+        if (size > maxsize) {
+          jQuery("#chk-error2").html('<small class="text-danger">Ukuran file melebihi batas maksimal upload (*6 Mb)</small>');
+          $("#files2").val('');
+          return false;
+        } else {
+          jQuery("#chk-error2").html('');
+        }
+      }
+    });
+    $("#files3").change(function() {
+      var allowedTypes = ['application/pdf'];
+      var maxsize = 6000000;
+      var size = this.files[0].size;
+      var fileType = this.files[0].type;
+      if (!allowedTypes.includes(fileType)) {
+        jQuery("#chk-error3").html('<small class="text-danger">Masukkan file dengan format *pdf</small>');
+        $("#files3").val('');
+        return false;
+      } else {
+        jQuery("#chk-error3").html('');
+        if (size > maxsize) {
+          jQuery("#chk-error3").html('<small class="text-danger">Ukuran file melebihi batas maksimal upload (*6 Mb)</small>');
+          $("#files3").val('');
+          return false;
+        } else {
+          jQuery("#chk-error3").html('');
+        }
+      }
+    });
+    $("#files4").change(function() {
+      var allowedTypes = ['application/pdf'];
+      var maxsize = 6000000;
+      var size = this.files[0].size;
+      var fileType = this.files[0].type;
+      if (!allowedTypes.includes(fileType)) {
+        jQuery("#chk-error4").html('<small class="text-danger">Masukkan file dengan format *pdf</small>');
+        $("#files4").val('');
+        return false;
+      } else {
+        jQuery("#chk-error4").html('');
+        if (size > maxsize) {
+          jQuery("#chk-error4").html('<small class="text-danger">Ukuran file melebihi batas maksimal upload (*6 Mb)</small>');
+          $("#files4").val('');
+          return false;
+        } else {
+          jQuery("#chk-error4").html('');
+        }
+      }
+    });
+    $("#files5").change(function() {
+      var allowedTypes = ['application/pdf'];
+      var maxsize = 6000000;
+      var size = this.files[0].size;
+      var fileType = this.files[0].type;
+      if (!allowedTypes.includes(fileType)) {
+        jQuery("#chk-error5").html('<small class="text-danger">Masukkan file dengan format *pdf</small>');
+        $("#files5").val('');
+        return false;
+      } else {
+        jQuery("#chk-error5").html('');
+        if (size > maxsize) {
+          jQuery("#chk-error5").html('<small class="text-danger">Ukuran file melebihi batas maksimal upload (*6 Mb)</small>');
+          $("#files5").val('');
+          return false;
+        } else {
+          jQuery("#chk-error5").html('');
+        }
+      }
+    });
+    $('#upload_form').submit(function(event) {
+      var sendbtn = document.getElementById('btn_daftar');
+      sendbtn.disabled = true;
+    });
   </script>
