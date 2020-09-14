@@ -328,11 +328,12 @@ class Ajax_search extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  public function fetchdatapendaftarankoorta($query = null, $filter = null)
+  public function fetchdatapendaftarankoortap($query = null, $filter = null)
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,user.no_telp,guidance.tahun,guidance.status_file,user.dosen_wali');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,guidance.status_file, dosen_pembimbing1,dosen_pembimbing2');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
+    $this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
     $this->db->order_by('guidance.id', 'desc');
     $this->db->group_start();
@@ -342,18 +343,20 @@ class Ajax_search extends CI_Model
       $this->db->like('user.nim', $query);
     } elseif ($filter == 'Prodi') {
       $this->db->like('user.prodi', $query);
-    } elseif ($filter == 'Kosentrasi') {
+    } elseif ($filter == 'Keahlian') {
+      $this->db->like('thesis_lecturers.kelompok_keahlian', $query);
+    } elseif ($filter == 'Peminatan') {
       $this->db->like('guidance.peminatan', $query);
-    } elseif ($filter == 'Tahun') {
-      $this->db->like('guidance.tahun', $query);
     } else {
       $this->db->like('user.name', $query);
       $this->db->or_like('guidance.tahun', $query);
       $this->db->or_like('user.nim', $query);
       $this->db->or_like('user.prodi', $query);
+      $this->db->or_like('thesis_lecturers.kelompok_keahlian', $query);
       $this->db->or_like('guidance.peminatan', $query);
     }
     $this->db->group_end();
+    $this->db->order_by('guidance.id', 'desc');
     return $this->db->get()->result_array();
   }
 }

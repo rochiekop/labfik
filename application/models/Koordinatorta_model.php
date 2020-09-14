@@ -5,9 +5,10 @@ class Koordinatorta_model extends CI_Model
 {
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.peminatan,guidance.tahun,guidance.status_file,user.dosen_wali');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.status_file,guidance.peminatan, dosen_pembimbing1,dosen_pembimbing2, guidance.judul_1,guidance.judul_2,guidance.judul_3');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
+    $this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
     $this->db->or_where('guidance.status_file', 'Disetujui Ketua KK');
     $this->db->order_by('guidance.id', 'desc');
@@ -73,5 +74,14 @@ class Koordinatorta_model extends CI_Model
     $this->db->where('id_guidance', $id_guidance);
     $data =  $this->db->get()->row();
     return  json_decode(json_encode($data), true);
+  }
+
+  public function getMhsById($id)
+  {
+    $this->db->select('guidance.peminatan,guidance.tahun, guidance.judul_1,guidance.judul_2,guidance.judul_3,user.dosen_wali');
+    $this->db->from('guidance');
+    $this->db->join('user', 'user.id = guidance.id_mhs');
+    $this->db->where('id_mhs', $id);
+    return $this->db->get()->row_array();
   }
 }

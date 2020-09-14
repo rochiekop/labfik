@@ -13,9 +13,8 @@
             <a class="dropdown-item item">Nama</a>
             <a class="dropdown-item item">NIM</a>
             <a class="dropdown-item item">Prodi</a>
-            <a class="dropdown-item item">Kosentrasi</a>
-            <a class="dropdown-item item">Dosen Wali</a>
-            <a class="dropdown-item item">Tahun</a>
+            <a class="dropdown-item item">Peminatan</a>
+            <a class="dropdown-item item">Keahlian</a>
           </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -27,14 +26,15 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col" style="width:48px">No</th>
+              <th scope="col" style="width:40px">No</th>
+              <th scope="col"></th>
               <th scope="col">Nama</th>
               <th scope="col">NIM</th>
               <th scope="col">Prodi</th>
-              <th scope="col">Kosentrasi</th>
-              <th scope="col">Kel. Keahlian</th>
-              <th scope="col">Dosen Wali</th>
-              <th scope="col">Tahun</th>
+              <th scope="col">Peminatan</th>
+              <th scope="col">Keahlian</th>
+              <th scope="col">Pembimbing 1</th>
+              <th scope="col">Pembimbing 2</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -50,6 +50,11 @@
                   <tr>
                   <?php endif; ?>
                   <td><b><?= ++$no ?></b></td>
+                  <?php if ($t['aksi'] != 0) : ?>
+                    <td> <a href="<?= base_url('koordinator_ta/viewdetail/') . encrypt_url($t['id']); ?>" class="btn badge badge-secondary">Details</a></td>
+                  <?php else : ?>
+                    <td></td>
+                  <?php endif; ?>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['prodi'] ?></td>
@@ -59,11 +64,13 @@
                   <?php else : ?>
                     <td><?= $t['data']['kelompok_keahlian'] ?></td>
                   <?php endif; ?>
-                  <td><?= $t['dosen_wali'] ?></td>
-                  <td><?= $t['tahun'] ?></td>
-                  <?php if ($t['aksi'] != 0) : ?>
+                  <?php if ($t['dosbing1'] != "") : ?>
+                    <td><?= $t['dosbing1'] ?></td>
+                    <td><?= $t['dosbing2'] ?></td>
                     <td><b>Ditambahkan</b></td>
                   <?php else : ?>
+                    <td></td>
+                    <td></td>
                     <td>
                       <a data-toggle="modal" data-target="#exampleModal<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a>
                     </td>
@@ -74,6 +81,7 @@
           </tbody>
         </table>
       </table>
+
     </div>
   </main>
   <!-- End Main Container -->
