@@ -26,11 +26,12 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
-    public function getAllCorrection($guidance_id)
+    public function getAllCorrection($guidance_id, $preview)
     {
         $this->db->select('correction1, correction2');
         $this->db->from('thesis');
         $this->db->where('thesis.id_guidance', $guidance_id);
+        $this->db->where('tahapan_preview', $preview);
         $this->db->order_by('date', 'ASC');
         $query = $this->db->get();
         $result = $query->result();
@@ -128,6 +129,13 @@ class Thesis_model extends CI_Model
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
+    public function saveKelayakan2($id_guidance)
+    {
+        $data = array(
+            'kelayakan2' => implode(',', $this->input->post('kelayakan2', true))
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
 
     public function savePenilaian($id_guidance)
     {
@@ -167,7 +175,7 @@ class Thesis_model extends CI_Model
 
     public function getKelayakan($id_guidance)
     {
-        $this->db->select('kelayakan');
+        $this->db->select('kelayakan, kelayakan2');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();

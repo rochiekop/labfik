@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Sep 2020 pada 17.02
+-- Waktu pembuatan: 14 Sep 2020 pada 20.55
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -41,6 +41,7 @@ CREATE TABLE `guidance` (
   `status_file` varchar(255) NOT NULL,
   `date` varchar(64) NOT NULL,
   `kelayakan` varchar(255) NOT NULL,
+  `kelayakan2` varchar(255) NOT NULL,
   `penilaian_pembimbing1` text CHARACTER SET utf8mb4 NOT NULL,
   `nilai_pembimbing1` varchar(255) NOT NULL DEFAULT ',,,,,,,',
   `penilaian_pembimbing2` text CHARACTER SET utf8mb4 NOT NULL,
@@ -49,6 +50,9 @@ CREATE TABLE `guidance` (
   `nilai_penguji1` varchar(255) NOT NULL DEFAULT ',,,,,,,',
   `penilaian_penguji2` text CHARACTER SET utf8mb4 NOT NULL,
   `nilai_penguji2` varchar(255) NOT NULL DEFAULT ',,,,,,,',
+  `tanggal_presentasi` date NOT NULL,
+  `waktu_presentasi` time NOT NULL,
+  `link_presentasi` varchar(255) NOT NULL,
   `status_preview` enum('','preview1','preview2','preview3','sidang') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -56,10 +60,10 @@ CREATE TABLE `guidance` (
 -- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `kelayakan`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `status_preview`) VALUES
-('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '', '0', '', '0', '', '0', '', '0', ''),
-('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', 'kesesuaian,ketepatan,kaidah', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '<p>uji coba ketiga testing 123</p>', '20,,10,,,5,,7', '', '0', '', '0', 'preview1'),
-('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '', '0', '', '0', '', '0', '', '0', '');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `kelayakan`, `kelayakan2`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `tanggal_presentasi`, `waktu_presentasi`, `link_presentasi`, `status_preview`) VALUES
+('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', ''),
+('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', 'kesesuaian,ketepatan,kaidah', '', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '2020-09-15', '01:23:00', 'https://meet.google.com/cap-oewq-gnk?pli=1&authuser=3', 'preview3'),
+('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', '');
 
 --
 -- Indexes for dumped tables

@@ -43,6 +43,13 @@ class Thesis extends CI_Controller
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
+    public function saveKelayakan2($id_guidance)
+    {
+        $id_guidance = decrypt_url($id_guidance);
+        $this->thesis_model->saveKelayakan2($id_guidance);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+    }
+
     public function savePenilaian($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
