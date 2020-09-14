@@ -21,6 +21,8 @@ class Koordinator_ta extends CI_Controller
     $data['title'] = "Laboratotium FIK | Pengajuan Tugas Akhir";
     $data['lecturer'] = $this->koordinatorta_model->getThesisLecturer();
     $mhs = $this->koordinatorta_model->getMhs();
+
+
     $getDosen = $this->koordinatorta_model->getDosen();
 
     $userslist = [];
@@ -48,14 +50,12 @@ class Koordinator_ta extends CI_Controller
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
-          'tahun' => $u['tahun'],
+          'dosbing1' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name : "",
+          'dosbing2' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name : "",
           'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
-          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];
     }
-    // var_dump($userslist);
-    // exit();
     $data['mahasiswa'] = $userslist;
 
     $this->load->view("templates/dashboard/headerKoorTa", $data);
@@ -147,6 +147,7 @@ class Koordinator_ta extends CI_Controller
 
   public function addDosenPembimbing()
   {
+
     $values = explode(',', $this->input->post('dosbing1'));
     $dosbing1 = $values[0];
     $dosbing2 = $this->input->post('dosbing2');
@@ -158,16 +159,27 @@ class Koordinator_ta extends CI_Controller
       redirect('koordinator_ta');
     } else {
       $data = [
-        'id' => uniqid(),
-        'id_guidance' => $idguidance,
         'dosen_pembimbing1' => $values[0],
         'kelompok_keahlian' => $values[1],
         'dosen_pembimbing2' => $dosbing2,
         'date' => date('m-d-Y H:i:s'),
       ];
-      $this->db->insert('thesis_lecturers', $data);
+      $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $pemb1->name . ' dan ' . $pemb2->name . ' berhasil ditambahakan sebagai dosen pembimbing</div>');
       redirect('koordinator_ta');
     }
+  }
+
+  public function viewdetail($id)
+  {
+    $id = decrypt_url($id);
+    $data['title'] = "Detail Pendaftaran TA";
+    $data['details'] = $this->koordinatorta_model->getMhsById($id);
+    $dosenwali = $this->adminlaa_model->getDosenWali($data['details']['dosen_wali']);
+    $data['doswal'] = json_decode(json_encode($dosenwali), true);
+    $this->load->view("templates/dashboard/headerKoorTa", $data);
+    $this->load->view("templates/dashboard/sidebarKoorTa");
+    $this->load->view("dashboard/koorta/details", $data);
+    $this->load->view("templates/dashboard/footer");
   }
 }

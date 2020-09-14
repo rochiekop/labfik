@@ -740,36 +740,37 @@ class Search extends CI_Controller
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
         $filter = $this->input->post('filter');
-        $data = $this->ajax_search->fetchdatapendaftarankoorta($query, $filter);
+        $data = $this->ajax_search->fetchdatapendaftarankoortap($query, $filter);
       } else {
-        $data = $this->ajax_search->fetchdatapendaftarankoorta();
+        $data = $this->ajax_search->fetchdatapendaftarankoortap();
       }
     } else {
       if ($this->input->post('keyword')) {
         $query = $this->input->post('keyword');
         $filter = $this->input->post('filter');
-        $data = $this->ajax_search->fetchdatapendaftarankoorta($query, $filter);
+        $data = $this->ajax_search->fetchdatapendaftarankoortap($query, $filter);
       } else {
-        $data = $this->ajax_search->fetchdatapendaftarankoorta();
+        $data = $this->ajax_search->fetchdatapendaftarankoortap();
       }
     }
-
-
     $userslist = [];
     foreach ($data as $u) {
       $userslist[] =
         [
           'id' => $u['id'],
+          'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
-          'tahun' => $u['tahun'],
+          'dosbing1' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name : "",
+          'dosbing2' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name : "",
           'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
-          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];
     }
+    $data['mahasiswa'] = $userslist;
+
     $data = $userslist;
     if (!empty($data)) {
       $no = 0;
@@ -779,8 +780,13 @@ class Search extends CI_Controller
         } else {
           $output .= '<tr>';
         };
-        $output .= '<td><b>' . ++$no . '</b></td>
-                    <td>' . $i['name'] . '</td>
+        $output .= '<td><b>' . ++$no . '</b></td>';
+        if ($i['aksi'] != 0) {
+          $output .= '<td> <a href="' . base_url('koordinator_ta/viewdetail/') . encrypt_url($i['id']) . '" class="btn badge badge-secondary">Details</a></td>';
+        } else {
+          $output .= ' <td></td>';
+        }
+        $output .= '<td>' . $i['name'] . '</td>
                     <td>' . $i['nim'] . '</td>
                     <td>' . $i['prodi'] . '</td>
                     <td>' . $i['peminatan'] . '</td>';
@@ -789,13 +795,14 @@ class Search extends CI_Controller
         } else {
           $output .= '<td>' . $i['data']['kelompok_keahlian'] . '</td>';
         }
-        $output .= '<td>' . $i['dosen_wali'] . '</td>
-                    <td>' . $i['tahun'] . '</td>
-                              ';
-        if ($i['aksi'] != 0) {
-          $output .= '<td><b>Ditambahkan</b></td>';
+        if ($i['dosbing1'] != "") {
+          $output .= '<td>' . $i['dosbing1'] . '</td>
+          <td>' . $i['dosbing2'] . '</td>
+          <td><b>Ditambahkan</b></td>';
         } else {
-          $output .= '<td><a data-toggle="modal" data-target="#exampleModal' . $i['id'] . '" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a><td>';
+          $output .= '<td></td>
+          <td></td>
+          <td><a data-toggle="modal" data-target="#exampleModal' . $i['id'] . '" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a><td>';
         }
         '</tr>';
       };

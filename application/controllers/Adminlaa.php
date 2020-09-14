@@ -62,8 +62,8 @@ class Adminlaa extends CI_Controller
     $mhs = $this->adminlaa_model->getMhsbyId($id);
     $dosbing = $this->adminlaa_model->getDosbing($id);
     if ($dosbing != "") {
-      $dosbing1 = $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name;
-      $dosbing2 = $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name;
+      $dosbing1 = !empty($this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name) ? $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name : "";
+      $dosbing2 = !empty($this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name) ? $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name : "";
     } else {
       $dosbing1 = "";
       $dosbing2 = "";

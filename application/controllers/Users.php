@@ -120,6 +120,12 @@ class Users extends CI_Controller
         'status_preview' => 'preview1'
       ];
       $this->db->insert('guidance', $data);
+      $id_guidance = $this->db->get_where('guidance', ['id_mhs' => $this->input->post('id_mhs')])->row()->id;
+      $data2 = [
+        'id' => uniqid(),
+        'id_guidance' => $id_guidance
+      ];
+      $this->db->insert('thesis_lecturers', $data2);
       $allfile = count($_FILES['filependaftaran']['name']);
       for ($i = 0; $i < $allfile; $i++) {
         if (!empty($_FILES['filependaftaran']['name'][$i])) {
