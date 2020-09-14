@@ -32,6 +32,7 @@ class Koordinator_ta extends CI_Controller
           'prodi' => $u['prodi'],
           'kuota_bimbingan' => $u['kuota_bimbingan'],
           'kuota_penguji' => $u['kuota_penguji'],
+          'koordinator' => $u['koordinator'],
           'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
           'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
         ];
@@ -48,11 +49,13 @@ class Koordinator_ta extends CI_Controller
           'prodi' => $u['prodi'],
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
-          'kelompok_keahlian' => $this->koordinatorta_model->getKK($this->db->get_where('user', array('id', $u['id']))->name),
+          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
           'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];
     }
+    // var_dump($userslist);
+    // exit();
     $data['mahasiswa'] = $userslist;
 
     $this->load->view("templates/dashboard/headerKoorTa", $data);
@@ -144,7 +147,8 @@ class Koordinator_ta extends CI_Controller
 
   public function addDosenPembimbing()
   {
-    $dosbing1 = $this->input->post('dosbing1');
+    $values = explode(',', $this->input->post('dosbing1'));
+    $dosbing1 = $values[0];
     $dosbing2 = $this->input->post('dosbing2');
     $idguidance = $this->input->post('id_guidance');
     $pemb1 = $this->adminlaa_model->getDosenWali($dosbing1);
@@ -156,7 +160,8 @@ class Koordinator_ta extends CI_Controller
       $data = [
         'id' => uniqid(),
         'id_guidance' => $idguidance,
-        'dosen_pembimbing1' => $dosbing1,
+        'dosen_pembimbing1' => $values[0],
+        'kelompok_keahlian' => $values[1],
         'dosen_pembimbing2' => $dosbing2,
         'date' => date('m-d-Y H:i:s'),
       ];

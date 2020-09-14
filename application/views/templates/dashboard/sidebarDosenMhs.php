@@ -3,8 +3,8 @@ $query = "SELECT *
   FROM `kategoriruangan`
   ORDER BY `kategori` ASC";
 $kruangan = $this->db->query($query)->result_array();
-$thesis_lecturer = "SELECT thesis_lecturers.id FROM guidance JOIN thesis_lecturers ON thesis_lecturers.id_guidance = guidance.id WHERE guidance.id_mhs = ?";
-$bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('id')))->result_array();
+$guidance = "SELECT status_file FROM guidance WHERE id_mhs = ? and status_file = ?";
+$bimbingan = $this->db->query($guidance, array($this->session->userdata('id'), 'Disetujui Ketua KK'))->result_array();
 ?>
 <!-- Side Menu -->
 <div class="fik-db-side-menu">
@@ -47,7 +47,7 @@ $bimbingan = $this->db->query($thesis_lecturer, array($this->session->userdata('
           </ul>
         </div>
       </div>
-      <?php if ($this->session->userdata('koordinator') == 1) : ?>
+      <?php if ($this->session->userdata('koordinator') == 'Ketua Acties' or $this->session->userdata('koordinator') == 'Ketua Medcraft' or $this->session->userdata('koordinator') == 'Ketua Deconstra' or $this->session->userdata('koordinator') == 'Ketua Inlive') : ?>
         <div class="card">
           <a href="<?= base_url('users/takoor') ?>" class="btn"><span class="fas fa-users"></span> Pengajuan TA</a>
         </div>

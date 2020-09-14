@@ -60,10 +60,21 @@ class Adminlaa extends CI_Controller
     $id = decrypt_url($id);
     $file = $this->adminlaa_model->getFiles($id);
     $mhs = $this->adminlaa_model->getMhsbyId($id);
+    $dosbing = $this->adminlaa_model->getDosbing($id);
+    if ($dosbing != "") {
+      $dosbing1 = $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name;
+      $dosbing2 = $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name;
+    } else {
+      $dosbing1 = "";
+      $dosbing2 = "";
+    }
     $data = array(
       'title'     => 'Details Pendaftar',
       'file'   => $file,
-      'mhs' => $mhs
+      'mhs' => $mhs,
+      'dosbing1' => $dosbing1,
+      'dosbing' => $dosbing,
+      'dosbing2' => $dosbing2,
     );
     if ($file) {
       $this->load->view('templates/dashboard/headerAdminlaa', $data);

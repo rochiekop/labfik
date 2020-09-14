@@ -6,7 +6,7 @@
     </div>
     <table>
       <thead>
-        <th style="width: 60px;"></th>
+        <th style="width: 200px;"></th>
         <th style="width: 10px;"></th>
         <th></th>
       </thead>
@@ -29,6 +29,19 @@
             <td><?= $mhs['judul_3'] ?></td>
           </tr>
         <?php endif; ?>
+        <?php if ($dosbing != '') : ?>
+          <tr>
+            <td style="width: 20px;">Dosen Pembimbing 1</td>
+            <td>:</td>
+            <td><?= $dosbing1 ?></td>
+          </tr>
+          <tr>
+            <td style="width: 20px;">Dosen Pembimbing 2</td>
+            <td>:</td>
+            <td><?= $dosbing2 ?></td>
+          </tr>
+        <?php endif; ?>
+
         <tr>
           <td style="width: 20px;">Nama</td>
           <td>:</td>

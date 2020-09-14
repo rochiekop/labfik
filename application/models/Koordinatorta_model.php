@@ -9,6 +9,7 @@ class Koordinatorta_model extends CI_Model
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
+    $this->db->or_where('guidance.status_file', 'Disetujui Ketua KK');
     $this->db->order_by('guidance.id', 'desc');
     return $this->db->get()->result_array();
   }
@@ -32,7 +33,7 @@ class Koordinatorta_model extends CI_Model
 
   public function getDosen($query = null, $filter = null, $limit = null, $start = null)
   {
-    $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi');
+    $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi,koordinator');
     $this->db->from('user');
     $this->db->where('role_id', 3);
     $this->db->where('is_active', 1);
@@ -65,11 +66,12 @@ class Koordinatorta_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
-  public function getKK($id)
+  public function getKK($id_guidance)
   {
-    $this->db->select('koordinator');
-    $this->db->from('user');
-    $this->db->where('id', $id);
-    return $this->db->get()->row()->koordinator;
+    $this->db->select('kelompok_keahlian');
+    $this->db->from('thesis_lecturers');
+    $this->db->where('id_guidance', $id_guidance);
+    $data =  $this->db->get()->row();
+    return  json_decode(json_encode($data), true);
   }
 }

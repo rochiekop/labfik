@@ -27,12 +27,11 @@
             <thead>
                 <tr>
                     <th scope="col" style="width:48px">No</th>
-                    <th scope="col" style="width:90px">&nbsp;</th>
+                    <th scope="col" style="width:20px">&nbsp;</th>
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
-                    <th scope="col">Konsentrasi</th>
-                    <th scope="col">Dosen Wali</th>
+                    <th scope="col">Kel. Keahlian</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Status</th>
                 </tr>
@@ -48,31 +47,45 @@
                             <?php else : ?>
                             <tr> <?php endif; ?>
                             <th scope="row"><?= ++$no ?></th>
-                            <td><a href="<?= base_url('users/viewdetail/') . $t['id']; ?>" class="btn badge badge-secondary">Detail</a></td>
+                            <td> <a href="<?= base_url('users/viewdetail/') . encrypt_url($t['id']); ?>" class="btn badge badge-secondary">Details</a></td>
                             <td><?= $t['name'] ?></td>
                             <td><?= $t['nim'] ?></td>
                             <td><?= $t['prodi'] ?></td>
-                            <td><?= $t['peminatan'] ?></td>
-                            <td><?= $t['dosen_wali'] ?></td>
+                            <td><?= substr($this->session->userdata('koordinator'), 6) ?></td>
                             <td><?= $t['tahun'] ?></td>
-                            <?php if ($t['status_file'] == "Dikirim" and $t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
-                                <td><b>Menunggu Persetujuan</b></td>
-                            <?php elseif ($t['ditolak'] != "0") : ?>
-                                <td><b>Ditolak</b></td>
-                            <?php elseif ($t['updated'] != "0") : ?>
-                                <td><b><?= $t['updated'] ?>&nbsp; File baru</b></td>
-                            <?php else : ?>
+                            <?php if ($t['status_file'] == "Disetujui Ketua KK") : ?>
                                 <td><b>Disetujui</b></td>
+                            <?php else : ?>
+                                <td id="action"> <a href="<?= base_url('users/accketuakk/') . encrypt_url($t['id_guidance']) ?>" class="btn badge badge-success">Acc</a>
+                                    <a data-toggle="modal" data-target="#<?= encrypt_url($t['id_tr']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a></td>
                             <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
             </tbody>
         </table>
+        <!-- <?php var_dump($pta) ?> -->
     </div>
 </main>
 <!-- End Main Container -->
-
+<?php foreach ($pta as $t) : ?>
+    <div class="modal fade bd-example-modal-sm" id="<?= encrypt_url($t['id_tr']) ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Tolak Pendaftaran TA ?
+                </div>
+                <form action="<?= base_url('users/tolakkoordinatorkk'); ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-footer">
+                        <input type="hidden" id="id" name="id" value="<?= $t['id_tr']; ?>">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button type="submit" name="deletedata" class="btn btn-danger btn-sm">Tolak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 <script>
     $(document).ready(function() {
         var keyword = document.getElementById('keyword');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2020 at 07:19 PM
+-- Generation Time: Sep 11, 2020 at 05:06 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -47,21 +47,21 @@ CREATE TABLE `file_pendaftaran` (
 --
 
 INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `view_adminlaa`, `status_adminlaa`, `view_doswal`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
-('5f520e562c9d1', '5f50f84ac76e6', 'KSM', 'PENGUMUMAN_YUDISIUM_29_JULI_20202.pdf', '', 'Dikirim', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e5649b7b', '5f50f84ac76e6', 'Surat Pernyataan TA', '3_FORM_NILAI_PEMBIMBING_LAPANGAN.pdf', '', 'Dikirim', 'Dilihat', 'Dikirim', '', '04-09-2020', ''),
-('5f520e56560a8', '5f50f84ac76e6', 'Sertifikat EPRT', 'PENGUMUMAN_YUDISIUM_29_JULI_20203.pdf', '', 'Dikirim', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e567cda3', '5f50f84ac76e6', 'Sertifikat TAK', 'PENGUMUMAN_YUDISIUM_29_JULI_20204.pdf', '', 'Dikirim', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e568e1b9', '5f50f84ac76e6', 'Persetujuan Daftar TA', 'PENGUMUMAN_YUDISIUM_29_JULI_20205.pdf', '', 'Dikirim', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe3afe0', '44', 'KSM', 'Usecase.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe3e6cc', '44', 'Surat Pernyataan TA', 'Usecase2.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '04-09-2020', '04-09-2020'),
-('5f5233fe401f3', '44', 'Sertifikat EPRT', 'as_pdf.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe41c06', '44', 'Sertifikat TAK', 'Algo_GP.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe43538', '44', 'Persetujuan Daftar TA', 'Usecase1.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '04-09-2020', ''),
-('5f53020b93b1f', '5f3e31113e0d3', 'KSM', 'PrecipitFX1.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '05-09-2020', '05-09-2020'),
-('5f53020b95764', '5f3e31113e0d3', 'Surat Pernyataan TA', '737Immersion.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '05-09-2020', '05-09-2020'),
-('5f53020b975cf', '5f3e31113e0d3', 'Sertifikat EPRT', 'Form_Penilaian_Rochi4.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '05-09-2020', ''),
-('5f53020b9945d', '5f3e31113e0d3', 'Sertifikat TAK', 'Form_Penilaian_Rochi5.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '05-09-2020', ''),
-('5f53020b9b67c', '5f3e31113e0d3', 'Persetujuan Daftar TA', 'Form_Penilaian_Rochi6.pdf', '', 'Disetujui', '', 'Disetujui wali', '', '05-09-2020', '');
+('5f5a4a6d5e4a1', '5f3e31113e0d3', 'KSM', 'Usecase.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5a4a6d6257c', '5f3e31113e0d3', 'Surat Pernyataan TA', 'Usecase2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020'),
+('5f5a4a6d63df9', '5f3e31113e0d3', 'Bukti Pendaftaran Test EPRT', 'as_pdf.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5a4a6d6566f', '5f3e31113e0d3', 'Sertifikat TAK', 'Algo_GP1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020'),
+('5f5a4a6d670fb', '5f3e31113e0d3', 'Proposal TA', 'Usecase1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5b7d1bf39f4', '44', 'KSM', 'Algo_GP.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b7d1c0125d', '44', 'Surat Pernyataan TA', 'Usecase6.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', ''),
+('5f5b7d1c04336', '44', 'Bukti Pendaftaran Test EPRT', 'PrecipitFX1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', ''),
+('5f5b7d1c05a84', '44', 'Sertifikat TAK', 'as_pdf2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b7d1c071c7', '44', 'Proposal TA', 'Usecase8.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b8feb74b7d', '5f59fbbcba3ff', 'KSM', 'Usecase.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb76678', '5f59fbbcba3ff', 'Surat Pernyataan TA', 'as_pdf.pdf', 'Belum Dilihat', 'Dikirim', 'Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb78042', '5f59fbbcba3ff', 'Bukti Pendaftaran Test EPRT', 'Algo_GP.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb7b465', '5f59fbbcba3ff', 'Sertifikat TAK', 'PrecipitFX.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb7cca8', '5f59fbbcba3ff', 'Proposal TA', 'Algo_GP1.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '');
 
 --
 -- Indexes for dumped tables

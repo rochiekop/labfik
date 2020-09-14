@@ -12,6 +12,7 @@ class Users extends CI_Controller
     $this->load->model('admin_model');
     $this->load->model('adminlaa_model');
     $this->load->model('booking_model');
+    $this->load->model('koordinatorta_model');
     $this->load->model('thesis_model');
     $this->load->library('encryption');
     is_logged_in();
@@ -106,9 +107,6 @@ class Users extends CI_Controller
         if (!$create)
           return;
       }
-
-      $this->form_validation->set_rules('file', '', 'callback_file_check');
-      // if ($this->form_validation->run() == true) {
       $data = [
         'id' => uniqid(),
         'id_mhs' => $this->input->post('id_mhs'),
@@ -148,7 +146,6 @@ class Users extends CI_Controller
             } else {
               $namafile = 'Proposal TA';
             }
-            // $id_guidance = $this->db->get_where('guidance', ['id_mhs' => $this->input->post('id_mhs')])->row()->id;
             $data = array(
               'id' => uniqid(),
               'id_mhs' => $this->input->post('id_mhs'),
@@ -175,45 +172,7 @@ class Users extends CI_Controller
     }
   }
 
-  // public function file_check($str)
-  // {
-  //   $allowed_mime_type_arr = array('application/pdf');
-  //   $mime = get_mime_by_extension($_FILES['filependaftaran']['name']);
-  //   if (isset($_FILES['filependaftaran']['name']) && $_FILES['filependaftaran']['name'] != "") {
-  //     if (in_array($mime, $allowed_mime_type_arr)) {
-  //       return true;
-  //     } else {
-  //       $this->form_validation->set_message('file_check', 'Please select only pdf file.');
-  //       return false;
-  //     }
-  //   } else {
-  //     $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
-  //     return false;
-  //   }
-  // }
-  // public function inputformpendaftaranta()
-  // {
-  //   if (isset($_POST['submit'])) {
-  //     $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-  //     if (!is_dir($path)) {
-  //       $create = mkdir($path, 0777, TRUE);
-  //       if (!$create)
-  //         return;
-  //     }
-  //     $this->form_validation->set_rules('file', '', 'callback_file_check');
-  //     if ($this->form_validation->run() == true) {
-  //       $config['upload_path'] = $path;
-  //       $config['allowed_types'] = 'pdf';
-  //       $config['max_size'] = '20024';  //20MB max
-  //       $this->load->library('upload', $config);
-  //       if (!empty($_FILES['filependaftaran']['name'])) {
-  //         $this->upload->do_upload('filependaftaran');
-  //         $file1 = $this->upload->data();
-  //       }
-  //     } else {
-  //     }
-  //   }
-  // }
+
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -326,7 +285,7 @@ class Users extends CI_Controller
   public function daftarfile($id)
   {
     $pta = $this->user_model->getfile($id);
-    $mhs = $this->user_model->getMhsbyId($id);
+    $mhs = $this->user_model->getDataMhsbyId($id);
     $data = array(
       'title'  =>  'File Pendaftaran: ',
       'pta'    =>  $pta,
@@ -661,17 +620,16 @@ class Users extends CI_Controller
       $userslist[] =
         [
           'id' => $u['id'],
+          'id_tr' => $u['id_tr'],
+          'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
-          'peminatan' => $u['peminatan'],
-          'no_telp' => $u['no_telp'],
+          'judul_1' => $u['judul_1'],
           'dosen_wali' => $this->user_model->getdosenwalita($u['dosen_wali'])->name,
           'status_file' => $u['status_file'],
           'tahun' => $u['tahun'],
-          'diterima' => $this->user_model->countStatus($u['id'], 'Disetujui koor'),
-          'ditolak' => $this->user_model->countStatus($u['id'], 'Ditolak koor'),
-          'updated' => $this->user_model->countStatus($u['id'], 'Update'),
+          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
         ];
     }
     $data['pta'] = $userslist;
@@ -683,12 +641,17 @@ class Users extends CI_Controller
 
   public function viewdetail($id)
   {
-    $pta = $this->user_model->getfilekoor($id);
+
+    $id = decrypt_url($id);
     $mhs = $this->user_model->getMhsbyId($id);
+    $dosbing1 = $this->db->get_where('user', ['id' => $mhs["dosen_pembimbing1"]])->row()->name;
+    $dosbing2 = $this->db->get_where('user', ['id' => $mhs["dosen_pembimbing2"]])->row()->name;
     $data = array(
       'title'  =>  'File Pendaftaran: ',
-      'pta'    =>  $pta,
-      'mhs'    =>  $mhs
+      'mhs' => $mhs,
+      'dosbing1' => $dosbing1,
+      'dosbing2' => $dosbing2,
+
     );
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
@@ -763,6 +726,19 @@ class Users extends CI_Controller
     }
   }
 
+
+  public function tolakkoordinatorkk()
+  {
+    $file = $this->db->get_where('thesis_lecturers', ['id' => $this->input->post('id')])->row_array();
+    if ($file) {
+      $this->db->delete('thesis_lecturers', ['id' => $this->input->post('id')]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditolak</div>');
+      redirect('users/takoor');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data tidak tersedia</div>');
+      redirect('users/takoor');
+    }
+  }
   public function updateviewkoorkk()
   {
     $id = $this->input->post('id');
@@ -883,6 +859,21 @@ class Users extends CI_Controller
       $this->db->update('file_pendaftaran', $data, ['id' => $id]);
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('users/daftarfile/' . $data1);
+    }
+  }
+
+  public function accketuakk($id)
+  {
+    $id_guidance = decrypt_url($id);
+    $file = $this->db->get_where('guidance', ['id' => $id_guidance])->row_array();
+    if ($file) {
+      $data = array('status_file' => 'Disetujui Ketua KK');
+      $this->db->update('guidance', $data, ['id' => $id_guidance]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir disetujui</div>');
+      redirect('users/takoor');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data tidak ada.</div>');
+      redirect('users/takoor');
     }
   }
 }
