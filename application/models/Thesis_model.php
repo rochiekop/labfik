@@ -70,29 +70,6 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
-    // public function getLecturersName($guidance_id, $dosen_pembimbing1, $dosen_pembimbing2, $dosen_penguji1, $dosen_penguji2)
-    // {
-    //     $this->db->select('name as nama_pembimbing1');
-    //     $this->db->from('user');
-    //     $this->db->where('id', $dosen_pembimbing1);
-
-    //     $this->db->select('name as nama_pembimbing2');
-    //     $this->db->from('user');
-    //     $this->db->where('id', $dosen_pembimbing2);
-
-    //     $this->db->select('name as nama_penguji1');
-    //     $this->db->from('user');
-    //     $this->db->where('id', $dosen_penguji1);
-
-    //     $this->db->select('name as nama_penguji2');
-    //     $this->db->from('user');
-    //     $this->db->where('id', $dosen_penguji2);
-
-    //     $query = $this->db->get();
-    //     $result = $query->row();
-    //     return $result;
-    // }
-
     public function getLecturersByGuidance($guidance_id)
     {
         $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2');
@@ -123,6 +100,16 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
+    public function getInformasiPresentasi($guidance_id)
+    {
+        $this->db->select('tanggal_presentasi, waktu_presentasi, link_presentasi');
+        $this->db->from('guidance');
+        $this->db->where('id', $guidance_id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result;
+    }
+
     public function saveCorrection($thesis_id)
     {
         $post = $this->input->post();
@@ -141,20 +128,15 @@ class Thesis_model extends CI_Model
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
-    public function savePenilaianPembimbing($id_guidance)
+
+    public function savePenilaian($id_guidance)
     {
         $data = array(
             "nilai_pembimbing1" => implode(',', $this->input->post('nilai1', true)),
             "nilai_pembimbing2" => implode(',', $this->input->post('nilai2', true)),
             "penilaian_pembimbing1" => $this->input->post('penilaian1', true),
-            "penilaian_pembimbing2" => $this->input->post('penilaian2', true)
-        );
-        $this->db->update('guidance', $data, array('id' => $id_guidance));
-    }
+            "penilaian_pembimbing2" => $this->input->post('penilaian2', true),
 
-    public function savePenilaianPenguji($id_guidance)
-    {
-        $data = array(
             "nilai_penguji1" => implode(',', $this->input->post('nilai3', true)),
             "nilai_penguji2" => implode(',', $this->input->post('nilai4', true)),
             "penilaian_penguji1" => implode(',', $this->input->post('penilaian3', true)),
@@ -163,9 +145,19 @@ class Thesis_model extends CI_Model
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
+    public function saveInformasiPresentasi($id_guidance)
+    {
+        $data = array(
+            "tanggal_presentasi" => $this->input->post('tanggal_presentasi', true),
+            "waktu_presentasi" => $this->input->post('waktu_presentasi', true),
+            "link_presentasi" => $this->input->post('link_presentasi', true)
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
     public function getPenilaian($id_guidance)
     {
-        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, nilai_penguji2');
+        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, penilaian_penguji2, nilai_penguji2');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();

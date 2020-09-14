@@ -47,17 +47,17 @@
         <div class="custom-form">
           <div class="form-group">
             <div class="fas fa-user"></div>
-            <input type="text" name="username" id="username" class="form-control" placeholder="" required="required" autocomplete="off" />
+            <input type="text" pattern="[^()/<>[\]\\,'|\x22]+" title="jangan menggunakan karakter spesial" name="username" id="username" class="form-control" placeholder="" required="required" autocomplete="off" />
             <label>Username</label>
           </div>
           <div class="form-group">
             <div class="fas fa-user-tie"></div>
-            <input type="text" name="fullname" id="fullname" class="form-control" placeholder="" required="required" autocomplete="off" />
+            <input type="text" pattern="[^()/<>[\]\\,'|\x22]+" title="jangan menggunakan karakter spesial" name="fullname" id="fullname" class="form-control" placeholder="" required="required" autocomplete="off" />
             <label>Full Name</label>
           </div>
           <div class="form-group">
             <div class="fas fa-envelope"></div>
-            <input type="text" name="email" id="email" class="form-control" placeholder="" required="required" autocomplete="off" />
+            <input type="text" pattern="[^()/<>[\]\\,'|\x22]+" title="jangan menggunakan karakter spesial" name="email" id="email" class="form-control" placeholder="" required="required" autocomplete="off" />
             <label>Email</label>
           </div>
           <div class="form-group">

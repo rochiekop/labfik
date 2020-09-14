@@ -49,7 +49,7 @@
         <div class="custom-form">
           <div class="form-group">
             <div class="fas fa-user"></div>
-            <input type="text" name="username" id="username" class="form-control" placeholder="" autocomplete="off" required='required' />
+            <input type="text" pattern="[^()/<>[\]\\,'|\x22]+" title="jangan menggunakan karakter spesial" name="username" id="username" class="form-control" placeholder="" autocomplete="off" required='required' />
             <label>Username</label>
           </div>
           <div class="form-group">

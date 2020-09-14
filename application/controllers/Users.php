@@ -540,6 +540,7 @@ class Users extends CI_Controller
     $data['penilaian'] = $this->thesis_model->getPenilaian($id);
     $data['layak'] = $this->thesis_model->getKelayakan($id);
     $data['step'] = $this->thesis_model->getStepPreview($id);
+    $data['informasi_presentasi'] = $this->thesis_model->getInformasiPresentasi($id);
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/progressbimbingan', $data);
