@@ -111,6 +111,16 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
+    public function getInformasiSidang($guidance_id)
+    {
+        $this->db->select('tanggal_sidang, waktu_sidang, link_sidang, ruang_sidang');
+        $this->db->from('guidance');
+        $this->db->where('id', $guidance_id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result;
+    }
+
     public function saveCorrection($thesis_id)
     {
         $post = $this->input->post();
