@@ -241,6 +241,17 @@ class Users extends CI_Controller
     } else {
       redirect('users/pendaftarantugasakhir');
     }
+
+    $data['guidance_id'] = $this->db->get_where('guidance', array('id_mhs' => $this->session->userdata('id')))->row()->id;
+    // var_dump($data['guidance_id']); die;
+    $data['lecturers'] = $this->thesis_model->getLecturersByGuidance($data['guidance_id']);
+    ($data['lecturers']->dosen_pembimbing1 == null) ? $data['nama_pembimbing1'] = '' : $data['nama_pembimbing1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing1))->row()->name;
+    ($data['lecturers']->dosen_pembimbing2 == null) ? $data['nama_pembimbing2'] = '' : $data['nama_pembimbing2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing2))->row()->name;
+    ($data['lecturers']->dosen_penguji1 == null) ? $data['nama_penguji1'] = '' : $data['nama_penguji1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji1))->row()->name;
+    ($data['lecturers']->dosen_penguji2 == null) ? $data['nama_penguji2'] = '' : $data['nama_penguji2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji2))->row()->name;
+
+    $data['informasi_presentasi'] = $this->thesis_model->getInformasiPresentasi($data['guidance_id']);
+
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/bimbinganta', $data);
@@ -475,6 +486,7 @@ class Users extends CI_Controller
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
           'dosen_pemb1' => $u['dosen_pembimbing1'],
+          'status_bimbingan' => $this->thesis_model->getStepPreview($u['id_guidance'])->status_preview,
           'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
         ];
     }
