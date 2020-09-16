@@ -163,6 +163,22 @@ class Thesis_model extends CI_Model
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
+    public function savePoin($id_guidance)
+    {
+        $data = array(
+            "poin_pembimbing1" => implode(',', $this->input->post('poin1', true)),
+            "poin_pembimbing2" => implode(',', $this->input->post('poin2', true)),
+            "evaluasi_pembimbing1" => $this->input->post('evaluasi1', true),
+            "evaluasi_pembimbing2" => $this->input->post('evaluasi2', true),
+
+            "poin_penguji1" => implode(',', $this->input->post('poin3', true)),
+            "poin_penguji2" => implode(',', $this->input->post('poin4', true)),
+            "evaluasi_penguji1" => implode(',', $this->input->post('evaluasi3', true)),
+            "evaluasi_penguji2" => implode(',', $this->input->post('evaluasi4', true)),
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
     public function saveInformasiPresentasi($id_guidance)
     {
         $data = array(
@@ -175,7 +191,7 @@ class Thesis_model extends CI_Model
 
     public function getPenilaian($id_guidance)
     {
-        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, penilaian_penguji2, nilai_penguji2');
+        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, penilaian_penguji2, nilai_penguji2, poin_pembimbing1, poin_pembimbing2, poin_penguji1, poin_penguji2, evaluasi_pembimbing1, evaluasi_pembimbing2, evaluasi_penguji1, evaluasi_penguji2');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();
@@ -207,6 +223,30 @@ class Thesis_model extends CI_Model
             'status' => 'Revisi'
         );
         $this->db->update('thesis', $data, array('id' => $thesis_id));
+    }
+
+    public function setKembali1($id_guidance)
+    {
+        $data = array(
+            'status_preview' => 'preview1'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
+    public function setKembali2($id_guidance)
+    {
+        $data = array(
+            'status_preview' => 'preview2'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
+    public function setKembali3($id_guidance)
+    {
+        $data = array(
+            'status_preview' => 'preview3'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
     public function setUlangiBimbingan($id_guidance)
@@ -249,6 +289,14 @@ class Thesis_model extends CI_Model
     {
         $data = array(
             'status_preview' => 'sidang'
+        );
+        $this->db->update('guidance', $data, array('id' => $id_guidance));
+    }
+
+    public function setLulus($id_guidance)
+    {
+        $data = array(
+            'status_preview' => 'lulus'
         );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }

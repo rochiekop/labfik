@@ -65,16 +65,19 @@
 
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : 'disabled'; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : ''; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : 'disabled'; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : ''; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : 'disabled'; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : ''; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a>
+      <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : 'disabled'; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo ($step->status_preview == 'lulus') ? 'btn-secondary active' : 'disabled'; ?>" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="<?php echo ($step->status_preview == 'lulus') ? 'true' : 'false'; ?>">Lulus</a>
     </li>
   </ul>
 
@@ -152,10 +155,11 @@
         Preview 2. Tahap audiensi/presentasi
       </div>
       
-      
+      <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) : ?>
       <div style="padding-bottom:20px">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"> Informasi Presentasi</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"><span class="fa fa-plus"></span> Input Jadwal Presentasi</button>
       </div>
+      <?php endif; ?>
 
       <div class="table-responsive">
         <table class="table table-hover">
@@ -189,6 +193,7 @@
           <!-- </?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); $nilai2 = explode(",", $penilaian->nilai_pembimbing2); $nilai3 = explode(",", $penilaian->nilai_penguji1); $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
           <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
@@ -255,6 +260,7 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
           <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
@@ -304,8 +310,25 @@
             </tr>
           </tbody>
         </table>
+    
+        <br>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#grading_sidang" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
+        <!-- </?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
+        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" </?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
+        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
+
 
       </div>
+    </div>
+
+    <div class="tab-pane fade <?php echo ($step->status_preview == 'lulus') ? 'show active' : ''; ?>" id="ma" role="tabpanel" aria-labelledby="pat-tab">
+      <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a> -->
+      <div class="alert alert-success">
+        Mahasiswa sudah lulus
+      </div>
+      
     </div>
 
   </div>
@@ -510,6 +533,29 @@
   </div>
 </div>
 
+<!-- Modal for Lulus -->
+<div class="modal fade" id="lulus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Luluskan Sidang</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setLulus/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+            <p>Luluskan sidang mahasiswa/mahasiswi ini?</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Luluskan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- Modal for Ulangi -->
 <div class="modal fade" id="ulangi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -521,12 +567,81 @@
       <form action="<?= base_url('thesis/setUlangiBimbingan/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-            <p>Jika anda melanjutkan aksi ini, maka data bimbingan mahasiswa ini akan dihapus dan mahasiswa ini harus mengulang bimbingan</p>
+            <p>Jika anda melanjutkan aksi ini, maka data bimbingan mahasiswa ini akan dihapus dan mahasiswa ini harus mengulang bimbingan dari awal</p>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
           <button type="submit" class="btn btn-danger">Ya, Ulangi Bimbingan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for kembali 1 -->
+<div class="modal fade" id="kembali1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kembali ke preview 1?</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setKembali1/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+          <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 1</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for kembali 2 -->
+<div class="modal fade" id="kembali2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kembali ke preview 2?</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setKembali2/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+            <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 2</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for kembali 3 -->
+<div class="modal fade" id="kembali3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kembali ke preview 3?</h5>
+      </div>
+
+      <form action="<?= base_url('thesis/setKembali3/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+          <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 3</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Ya, Ulangi Bimbingan</button>
         </div>
       </form>
     </div>
@@ -937,250 +1052,292 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
       </div>
-      <form action="<?= base_url('thesis/savePenilaian/' . encrypt_url($guidance_id)) ?>" method="POST">
+      <form action="<?= base_url('thesis/savePoin/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
             <table style="width:100%">
               <tr style="padding:10px">
                 <td style="padding:10px">
                   <h6 style="padding:10px">Pembimbing 1: <?= $nama_pembimbing1 ?></h6>
-                  <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
+                  <?php $poin1 = explode(",", $penilaian->poin_pembimbing1); ?>
                   <center><strong>Bab 1</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
+                      <input type="number" min="0" max="10" name="poin1[]" value="<?= $poin1[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 2</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
+                      <input type="number" min="0" max="10" name="poin1[]" value="<?= $poin1[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 3</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
+                      <input type="number" min="0" max="10" name="poin1[]" value="<?= $poin1[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Kelengkapan dan kesesuaian data yang diperoleh *10</label>
                     </div>
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
+                      <input type="number" min="0" max="10" name="poin1[]" value="<?= $poin1[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *10</label>
                     </div>
                   </div>
-                  <center><strong>Sistematika Penulisan</strong></center>
+                  <center><strong>Bab 4</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <input type="number" min="0" max="15" name="poin1[]" value="<?= $poin1[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan konsep perancangan *15</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="25" name="poin1[]" value="<?= $poin1[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Penyajian karya visual sesuai kaidah estetik *25</label>
+                    </div>
+                  </div>
+                  <center><strong>Bab 5</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin1[]" value="<?= $poin1[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan kesimpulan dan saran *5</label>
+                    </div>
+                  </div>
+                  <center><strong>Sistematika Penulisan dan Presentasi</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="10" name="poin1[]" value="<?= $poin1[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
                       <label>Kaidah tata tulis ilmiah *10</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin1[]" value="<?= $poin1[8] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Presentasi *5</label>
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+                  <?php  $poin1 = explode(",", $penilaian->poin_pembimbing1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                    <input type="number" name="" value="<?= array_sum($nilai1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
-                      <label>Total nilai penguji 1</label>
+                    <input type="number" name="" value="<?= array_sum($poin1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                      <label>Total nilai pembimbing 1</label>
                     </div>
                   </div>
                   <div style="padding:10px">
-                    <textarea name="penilaian1" class="<?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing1 ?></textarea>
+                    <textarea name="evaluasi1" class="<?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->evaluasi_pembimbing1 ?></textarea>
                   </div>
                 </td>
 
                 <td style="padding:10px">
                   <h6 style="padding:10px">Pembimbing 2: <?= $nama_pembimbing2 ?></h6>
-                  <?php $file2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+                  <?php $poin2 = explode(",", $penilaian->poin_pembimbing2); ?>
                   <center><strong>Bab 1</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
+                      <input type="number" min="0" max="10" name="poin2[]" value="<?= $poin2[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 2</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
+                      <input type="number" min="0" max="10" name="poin2[]" value="<?= $poin2[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 3</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai2[]" value="<?= $file2[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
+                      <input type="number" min="0" max="10" name="poin2[]" value="<?= $poin2[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Kelengkapan dan kesesuaian data yang diperoleh *10</label>
                     </div>
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai2[]" value="<?= $file2[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
+                      <input type="number" min="0" max="10" name="poin2[]" value="<?= $poin2[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *10</label>
                     </div>
                   </div>
-                  <center><strong>Sistematika Penulisan</strong></center>
+                  <center><strong>Bab 4</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai2[]" value="<?= $file2[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <input type="number" min="0" max="15" name="poin2[]" value="<?= $poin2[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan konsep perancangan *15</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="25" name="poin2[]" value="<?= $poin2[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Penyajian karya visual sesuai kaidah estetik *25</label>
+                    </div>
+                  </div>
+                  <center><strong>Bab 5</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin2[]" value="<?= $poin2[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan kesimpulan dan saran *5</label>
+                    </div>
+                  </div>
+                  <center><strong>Sistematika Penulisan dan Presentasi</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="10" name="poin2[]" value="<?= $poin2[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
                       <label>Kaidah tata tulis ilmiah *10</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin2[]" value="<?= $poin2[8] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Presentasi *5</label>
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+                  <?php  $poin2 = explode(",", $penilaian->poin_pembimbing2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                    <input type="number" name="" value="<?= array_sum($nilai2) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                    <input type="number" name="" value="<?= array_sum($poin2) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
                       <label>Total nilai pembimbing 2</label>
                     </div>
                   </div>
                   <div style="padding:10px">
-                    <textarea name="penilaian2" class="<?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing2 ?></textarea>
+                    <textarea name="evaluasi2" class="<?php echo ($lecturers->dosen_pembimbing2 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->evaluasi_pembimbing2 ?></textarea>
                   </div>
                 </td>
               </tr>
 
               <tr style="padding:10px">
-                <td style="padding:10px">
-                  <h6 style="padding:10px">Penguji 1: <?= $nama_penguji1 ?></h6>
-                  <?php $file3 = explode(",", $penilaian->nilai_penguji1); ?>
+              <td style="padding:10px">
+                  <h6 style="padding:10px">Penguji 2: <?= $nama_penguji1 ?></h6>
+                  <?php $poin3 = explode(",", $penilaian->poin_penguji1); ?>
                   <center><strong>Bab 1</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
+                      <input type="number" min="0" max="10" name="poin3[]" value="<?= $poin3[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 2</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
+                      <input type="number" min="0" max="10" name="poin3[]" value="<?= $poin3[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 3</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai3[]" value="<?= $file3[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
+                      <input type="number" min="0" max="10" name="poin3[]" value="<?= $poin3[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Kelengkapan dan kesesuaian data yang diperoleh *10</label>
                     </div>
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai3[]" value="<?= $file3[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
+                      <input type="number" min="0" max="10" name="poin3[]" value="<?= $poin3[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *10</label>
                     </div>
                   </div>
-                  <center><strong>Sistematika Penulisan</strong></center>
+                  <center><strong>Bab 4</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai3[]" value="<?= $file3[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <input type="number" min="0" max="15" name="poin3[]" value="<?= $poin3[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan konsep perancangan *15</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="25" name="poin3[]" value="<?= $poin3[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Penyajian karya visual sesuai kaidah estetik *25</label>
+                    </div>
+                  </div>
+                  <center><strong>Bab 5</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin3[]" value="<?= $poin3[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan kesimpulan dan saran *5</label>
+                    </div>
+                  </div>
+                  <center><strong>Sistematika Penulisan dan Presentasi</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="10" name="poin3[]" value="<?= $poin3[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
                       <label>Kaidah tata tulis ilmiah *10</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin3[]" value="<?= $poin3[8] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Presentasi *5</label>
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
+                  <?php  $poin3 = explode(",", $penilaian->poin_penguji1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                    <input type="number" name="" value="<?= array_sum($nilai3) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                    <input type="number" name="" value="<?= array_sum($poin3) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
                       <label>Total nilai penguji 1</label>
                     </div>
                   </div>
                   <div style="padding:10px">
-                    <textarea name="penilaian3" class="<?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_penguji1 ?></textarea>
+                    <textarea name="evaluasi3" class="<?php echo ($lecturers->dosen_penguji1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->evaluasi_penguji1 ?></textarea>
                   </div>
                 </td>
+
                 <td style="padding:10px">
                   <h6 style="padding:10px">Penguji 2: <?= $nama_penguji2 ?></h6>
-                  <?php $file4 = explode(",", $penilaian->nilai_penguji2); ?>
+                  <?php $poin4 = explode(",", $penilaian->poin_penguji2); ?>
                   <center><strong>Bab 1</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
+                      <input type="number" min="0" max="10" name="poin4[]" value="<?= $poin4[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 2</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
-                    </div>
-                    <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
+                      <input type="number" min="0" max="10" name="poin4[]" value="<?= $poin4[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan *10</label>
                     </div>
                   </div>
                   <center><strong>Bab 3</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai4[]" value="<?= $file4[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
+                      <input type="number" min="0" max="10" name="poin4[]" value="<?= $poin4[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Kelengkapan dan kesesuaian data yang diperoleh *10</label>
                     </div>
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="20" name="nilai4[]" value="<?= $file4[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
-                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
+                      <input type="number" min="0" max="10" name="poin4[]" value="<?= $poin4[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *10</label>
                     </div>
                   </div>
-                  <center><strong>Sistematika Penulisan</strong></center>
+                  <center><strong>Bab 4</strong></center>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                      <input type="number" min="0" max="10" name="nilai4[]" value="<?= $file4[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <input type="number" min="0" max="15" name="poin4[]" value="<?= $poin4[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan konsep perancangan *15</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="25" name="poin4[]" value="<?= $poin4[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Penyajian karya visual sesuai kaidah estetik *25</label>
+                    </div>
+                  </div>
+                  <center><strong>Bab 5</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin4[]" value="<?= $poin4[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Ketepatan dalam merumuskan kesimpulan dan saran *5</label>
+                    </div>
+                  </div>
+                  <center><strong>Sistematika Penulisan dan Presentasi</strong></center>
+                  <div style="padding:10px">
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="10" name="poin4[]" value="<?= $poin4[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
                       <label>Kaidah tata tulis ilmiah *10</label>
+                    </div>
+                    <div class="form-group" style="padding-left:10px">
+                      <input type="number" min="0" max="5" name="poin4[]" value="<?= $poin4[8] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                      <label>Presentasi *5</label>
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
+                  <?php  $poin4 = explode(",", $penilaian->poin_penguji2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
-                    <input type="number" name="" value="<?= array_sum($nilai4) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                    <input type="number" name="" value="<?= array_sum($poin4) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
                       <label>Total nilai penguji 2</label>
                     </div>
                   </div>
                   <div style="padding:10px">
-                    <textarea name="penilaian4" class="<?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_penguji2 ?></textarea>
+                    <textarea name="evaluasi4" class="<?php echo ($lecturers->dosen_penguji2 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->evaluasi_penguji2 ?></textarea>
                   </div>
+                </td>
                 </td>
               </tr>
             </table>
