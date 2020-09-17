@@ -228,12 +228,14 @@ class Users extends CI_Controller
   {
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['guide'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
-    $data['allhistory'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'));
+    $data['allhistory'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview1');
+    $data['allhistory2'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview3');
     $data['buttonaddbimbingan'] = $this->user_model->checkaddbimbingan();
     $data['buttonaddbimbingan2'] = $this->user_model->checkaddbimbingan2();
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
-    $data['allcorrection'] = $this->thesis_model->getAllCorrectionByUserId($this->session->userdata('id'));
+    $data['allcorrection'] = $this->thesis_model->getAllCorrectionByUserId($this->session->userdata('id'), 'preview1');
+    $data['allcorrection2'] = $this->thesis_model->getAllCorrectionByUserId($this->session->userdata('id'), 'preview3');
     $data['step'] = $this->thesis_model->getStepPreviewByUserId($this->session->userdata('id'));
     if (!empty($thesis_lecturers)) {
       $data['dosbing1'] = $this->user_model->getDosenPembimbing($thesis_lecturers['dosen_pembimbing1']);
@@ -251,6 +253,9 @@ class Users extends CI_Controller
     ($data['lecturers']->dosen_penguji2 == null) ? $data['nama_penguji2'] = '' : $data['nama_penguji2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji2))->row()->name;
 
     $data['informasi_presentasi'] = $this->thesis_model->getInformasiPresentasi($data['guidance_id']);
+    $data['penilaian'] = $this->thesis_model->getPenilaian($data['guidance_id']);
+    $data['layak'] = $this->thesis_model->getKelayakan($data['guidance_id']);
+    $data['informasi_sidang'] = $this->thesis_model->getInformasiSidang($data['guidance_id']);
 
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
@@ -415,7 +420,7 @@ class Users extends CI_Controller
   // }
 
 
-  public function addbimbingan()
+  public function addbimbingan($tahapan)
   {
     if (!empty($_FILES['fileta']['name'])) {
       $path = "./assets/upload/thesis/" . $this->session->userdata('username');
@@ -455,6 +460,7 @@ class Users extends CI_Controller
         "date" => date('Y-m-d'),
         "keterangan" => $this->input->post('keterangan', true),
         "status" => "Dikirim",
+        "tahapan_preview" => $tahapan
       ];
       $this->db->insert('thesis', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File berhasil dikirim, tunggu sampai file diperiksa dosen</div>');
@@ -507,7 +513,7 @@ class Users extends CI_Controller
     $data['preview'] = $this->user_model->getfilebimbinganpreview($id);
     $data['mhsbyid'] = $this->user_model->getmhsbimbinganbyid($id);
     $data['allcorrection'] = $this->thesis_model->getAllCorrection($id, 'preview1');
-    $data['allcorrection2'] = $this->thesis_model->getAllCorrection($id, 'preview2');
+    $data['allcorrection2'] = $this->thesis_model->getAllCorrection($id, 'preview3');
 
     $data['lecturers'] = $this->thesis_model->getLecturersByGuidance($id);
     ($data['lecturers']->dosen_pembimbing1 == null) ? $data['nama_pembimbing1'] = '' : $data['nama_pembimbing1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing1))->row()->name;

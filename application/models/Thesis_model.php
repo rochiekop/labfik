@@ -26,19 +26,19 @@ class Thesis_model extends CI_Model
         return $result;
     }
 
-    public function getAllCorrection($guidance_id, $preview)
+    public function getAllCorrection($guidance_id, $tahapan)
     {
         $this->db->select('correction1, correction2');
         $this->db->from('thesis');
         $this->db->where('thesis.id_guidance', $guidance_id);
-        $this->db->where('tahapan_preview', $preview);
+        $this->db->where('tahapan_preview', $tahapan);
         $this->db->order_by('date', 'ASC');
         $query = $this->db->get();
         $result = $query->result();
         return $result;
     }
 
-    public function getAllCorrectionByUserId($user_id)
+    public function getAllCorrectionByUserId($user_id, $tahapan)
     {
         $this->db->select('id');
         $this->db->from('guidance');
@@ -49,6 +49,7 @@ class Thesis_model extends CI_Model
         $this->db->select('correction1, correction2');
         $this->db->from('thesis');
         $this->db->where('id_guidance', $guidance_id);
+        $this->db->where('tahapan_preview', $tahapan);
         $this->db->order_by('date', 'ASC');
         $query = $this->db->get();
         $result = $query->result();
