@@ -204,7 +204,6 @@
       $('#keyword').keyup(function() {
         var filter = $('#filter').text()
         var search = $(this).val();
-        // alert(search)
         if (filter == "Nama") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(2):contains("' + search + '")').length;

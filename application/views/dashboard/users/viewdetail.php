@@ -10,7 +10,7 @@
     <br>
     <table>
         <thead>
-            <th style="width: 120px;"></th>
+            <th style="width: 180px;"></th>
             <th style="width: 10px;"></th>
             <th></th>
         </thead>

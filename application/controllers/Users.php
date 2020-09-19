@@ -576,11 +576,6 @@ class Users extends CI_Controller
 
   public function penguji()
   {
-    // $data['title'] = 'LABFIK | Penguji Tugas Akhir';
-    // $this->load->view('templates/dashboard/headerDosenMhs', $data);
-    // $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    // $this->load->view('dashboard/users/penguji', $data);
-    // $this->load->view('templates/dashboard/footer');
 
     $data['title'] = 'LABFIK | Penguji Tugas Akhir';
     $bimbingan = $this->user_model->getMhsDiuji();
