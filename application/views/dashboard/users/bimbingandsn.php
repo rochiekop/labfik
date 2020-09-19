@@ -1,7 +1,13 @@
 <!-- Main Container -->
 <main class="akun-container">
   <div class="fik-section-title2">
-    <h4>Bimbingan</h4>
+    <?php foreach ($bimbingan as $t) : ?>
+    <?php if ($this->session->userdata('id') == $t['dosen_pemb1'] or $this->session->userdata('id') == $t['dosen_pemb2']) { ?>
+      <h4>Bimbingan</h4>
+    <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1'] or $this->session->userdata('id') == $t['dosen_peng2']) { ?>
+      <h4>Pengujian</h4>
+    <?php } ?>
+    <?php endforeach; ?>
   </div>
   <div class="input-group">
     <div class="input-group-append">
@@ -28,7 +34,8 @@
           <th scope="col">Prodi</th>
           <th scope="col">Kosentrasi</th>
           <th scope="col">Tahun</th>
-          <th scope="col">Status</th>
+          <th scope="col">Status Anda</th>
+          <th scope="col">Status Bimbingan</th>
         </tr>
       </thead>
       <tbody id="bimbingandosen">
@@ -52,10 +59,15 @@
               <td><?= $t['peminatan'] ?></td>
               <td><?= $t['tahun'] ?></td>
               <?php if ($this->session->userdata('id') == $t['dosen_pemb1']) { ?>
-                <td><b>Pembimbing 1</b></td>
-              <?php } else { ?>
-                <td><b>Pembimbing 2</b></td>
+                <td>Pembimbing 1</td>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_pemb2']) { ?>
+                <td>Pembimbing 2</td>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1']) { ?>
+                <td>Penguji 1</td>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_peng2']) { ?>
+                <td>Penguji 2</td>
               <?php } ?>
+              <td><?= $t['status_bimbingan'] ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>

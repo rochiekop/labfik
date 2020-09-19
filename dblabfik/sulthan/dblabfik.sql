@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Sep 2020 pada 20.54
+-- Waktu pembuatan: 19 Sep 2020 pada 16.13
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -183,7 +183,9 @@ CREATE TABLE `file_pendaftaran` (
   `id_mhs` varchar(64) NOT NULL,
   `nama` varchar(64) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `view_adminlaa` varchar(64) NOT NULL,
   `status_adminlaa` varchar(64) NOT NULL,
+  `view_doswal` varchar(64) NOT NULL,
   `status_doswal` varchar(64) NOT NULL,
   `komentar` varchar(255) NOT NULL,
   `date` varchar(64) NOT NULL,
@@ -194,22 +196,22 @@ CREATE TABLE `file_pendaftaran` (
 -- Dumping data untuk tabel `file_pendaftaran`
 --
 
-INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `status_adminlaa`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
-('5f520e562c9d1', '5f50f84ac76e6', 'KSM', 'PENGUMUMAN_YUDISIUM_29_JULI_20202.pdf', 'Dikirim', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e5649b7b', '5f50f84ac76e6', 'Surat Pernyataan TA', '3_FORM_NILAI_PEMBIMBING_LAPANGAN.pdf', 'Dikirim', 'Dikirim', '', '04-09-2020', ''),
-('5f520e56560a8', '5f50f84ac76e6', 'Sertifikat EPRT', 'PENGUMUMAN_YUDISIUM_29_JULI_20203.pdf', 'Dikirim', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e567cda3', '5f50f84ac76e6', 'Sertifikat TAK', 'PENGUMUMAN_YUDISIUM_29_JULI_20204.pdf', 'Dikirim', 'Disetujui wali', '', '04-09-2020', ''),
-('5f520e568e1b9', '5f50f84ac76e6', 'Persetujuan Daftar TA', 'PENGUMUMAN_YUDISIUM_29_JULI_20205.pdf', 'Dikirim', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe3afe0', '44', 'KSM', 'Usecase.pdf', 'Disetujui', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe3e6cc', '44', 'Surat Pernyataan TA', 'Usecase2.pdf', 'Disetujui', 'Disetujui wali', '', '04-09-2020', '04-09-2020'),
-('5f5233fe401f3', '44', 'Sertifikat EPRT', 'as_pdf.pdf', 'Disetujui', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe41c06', '44', 'Sertifikat TAK', 'Algo_GP.pdf', 'Disetujui', 'Disetujui wali', '', '04-09-2020', ''),
-('5f5233fe43538', '44', 'Persetujuan Daftar TA', 'Usecase1.pdf', 'Disetujui', 'Disetujui wali', '', '04-09-2020', ''),
-('5f53020b93b1f', '5f3e31113e0d3', 'KSM', 'PrecipitFX1.pdf', 'Disetujui', 'Disetujui wali', '', '05-09-2020', '05-09-2020'),
-('5f53020b95764', '5f3e31113e0d3', 'Surat Pernyataan TA', '737Immersion.pdf', 'Disetujui', 'Disetujui wali', '', '05-09-2020', '05-09-2020'),
-('5f53020b975cf', '5f3e31113e0d3', 'Sertifikat EPRT', 'Form_Penilaian_Rochi4.pdf', 'Disetujui', 'Disetujui wali', '', '05-09-2020', ''),
-('5f53020b9945d', '5f3e31113e0d3', 'Sertifikat TAK', 'Form_Penilaian_Rochi5.pdf', 'Disetujui', 'Disetujui wali', '', '05-09-2020', ''),
-('5f53020b9b67c', '5f3e31113e0d3', 'Persetujuan Daftar TA', 'Form_Penilaian_Rochi6.pdf', 'Disetujui', 'Disetujui wali', '', '05-09-2020', '');
+INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `view_adminlaa`, `status_adminlaa`, `view_doswal`, `status_doswal`, `komentar`, `date`, `date_edit`) VALUES
+('5f5a4a6d5e4a1', '5f3e31113e0d3', 'KSM', 'Usecase.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5a4a6d6257c', '5f3e31113e0d3', 'Surat Pernyataan TA', 'Usecase2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020'),
+('5f5a4a6d63df9', '5f3e31113e0d3', 'Bukti Pendaftaran Test EPRT', 'as_pdf.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5a4a6d6566f', '5f3e31113e0d3', 'Sertifikat TAK', 'Algo_GP1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020'),
+('5f5a4a6d670fb', '5f3e31113e0d3', 'Proposal TA', 'Usecase1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', ''),
+('5f5b7d1bf39f4', '44', 'KSM', 'Algo_GP.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b7d1c0125d', '44', 'Surat Pernyataan TA', 'Usecase6.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', ''),
+('5f5b7d1c04336', '44', 'Bukti Pendaftaran Test EPRT', 'PrecipitFX1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', ''),
+('5f5b7d1c05a84', '44', 'Sertifikat TAK', 'as_pdf2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b7d1c071c7', '44', 'Proposal TA', 'Usecase8.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020'),
+('5f5b8feb74b7d', '5f59fbbcba3ff', 'KSM', 'Usecase.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb76678', '5f59fbbcba3ff', 'Surat Pernyataan TA', 'as_pdf.pdf', 'Belum Dilihat', 'Dikirim', 'Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb78042', '5f59fbbcba3ff', 'Bukti Pendaftaran Test EPRT', 'Algo_GP.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb7b465', '5f59fbbcba3ff', 'Sertifikat TAK', 'PrecipitFX.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', ''),
+('5f5b8feb7cca8', '5f59fbbcba3ff', 'Proposal TA', 'Algo_GP1.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '');
 
 -- --------------------------------------------------------
 
@@ -242,17 +244,29 @@ CREATE TABLE `guidance` (
   `tanggal_presentasi` date NOT NULL,
   `waktu_presentasi` time NOT NULL,
   `link_presentasi` varchar(255) NOT NULL,
-  `status_preview` enum('','preview1','preview2','preview3','sidang') NOT NULL
+  `tanggal_sidang` date NOT NULL,
+  `waktu_sidang` time NOT NULL,
+  `link_sidang` varchar(255) NOT NULL,
+  `ruang_sidang` varchar(255) NOT NULL,
+  `poin_pembimbing1` varchar(255) NOT NULL DEFAULT ',,,,,,,,',
+  `poin_pembimbing2` varchar(255) NOT NULL DEFAULT ',,,,,,,,',
+  `poin_penguji1` varchar(255) NOT NULL DEFAULT ',,,,,,,,',
+  `poin_penguji2` varchar(255) NOT NULL DEFAULT ',,,,,,,,',
+  `evaluasi_pembimbing1` text NOT NULL,
+  `evaluasi_pembimbing2` text NOT NULL,
+  `evaluasi_penguji1` text NOT NULL,
+  `evaluasi_penguji2` text NOT NULL,
+  `status_preview` enum('','preview1','preview2','preview3','sidang','lulus') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `guidance`
 --
 
-INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `kelayakan`, `kelayakan2`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `tanggal_presentasi`, `waktu_presentasi`, `link_presentasi`, `status_preview`) VALUES
-('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', ''),
-('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Adminlaa', '04-09-2020', 'kesesuaian,ketepatan,kaidah', '', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '2020-09-15', '01:23:00', 'https://meet.google.com/cap-oewq-gnk?pli=1&authuser=3', 'preview3'),
-('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', '');
+INSERT INTO `guidance` (`id`, `id_mhs`, `judul_1`, `judul_2`, `judul_3`, `keterangan`, `komentar`, `peminatan`, `tahun`, `status_file`, `date`, `kelayakan`, `kelayakan2`, `penilaian_pembimbing1`, `nilai_pembimbing1`, `penilaian_pembimbing2`, `nilai_pembimbing2`, `penilaian_penguji1`, `nilai_penguji1`, `penilaian_penguji2`, `nilai_penguji2`, `tanggal_presentasi`, `waktu_presentasi`, `link_presentasi`, `tanggal_sidang`, `waktu_sidang`, `link_sidang`, `ruang_sidang`, `poin_pembimbing1`, `poin_pembimbing2`, `poin_penguji1`, `poin_penguji2`, `evaluasi_pembimbing1`, `evaluasi_pembimbing2`, `evaluasi_penguji1`, `evaluasi_penguji2`, `status_preview`) VALUES
+('5f520e560ea97', '5f50f84ac76e6', 'Recommender sistem menggunakan PHP', '', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Dikirim', '04-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', '0000-00-00', '00:00:00', '', '', '', '', '', '', '', '', '', '', ''),
+('5f5233fe39202', '44', 'Judul Satu ', 'Judul Dua', '', '', '', 'Fotografi Dasar dan Periklanan', '2020', 'Disetujui Ketua KK', '04-09-2020', 'kesesuaian,ketepatan,kaidah', 'fenomena,identifikasi,kerangka,landasan,data,hasil,konsep,karya', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '<p>uji coba ketiga testing 123</p>', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '', '10,10,10,10,10,20,20,10', '2020-09-15', '01:23:00', 'https://meet.google.com/cap-oewq-gnk?pli=1&authuser=3', '0000-00-00', '00:00:00', '', '', ',,,,,,,,', ',,,,,,,,', ',,,,,,,,', ',,,,,,,,', ',,,,,,,,', '', '', '', 'preview1'),
+('5f53020b9177f', '5f3e31113e0d3', 'Judul Satu ', '', '', '', '', '', '2020', 'Disetujui Adminlaa', '05-09-2020', '', '', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '', ',,,,,,,', '0000-00-00', '21:59:18', '', '0000-00-00', '00:00:00', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -566,7 +580,7 @@ CREATE TABLE `thesis` (
   `correction1` text CHARACTER SET utf8mb4 NOT NULL,
   `correction2` text CHARACTER SET utf8mb4 NOT NULL,
   `status` varchar(124) NOT NULL,
-  `tahapan_preview` varchar(255) NOT NULL
+  `tahapan_preview` enum('','preview1','preview3') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -576,7 +590,8 @@ CREATE TABLE `thesis` (
 INSERT INTO `thesis` (`id`, `id_guidance`, `send_to`, `pdf_file`, `link_project`, `keterangan`, `date`, `correction1`, `correction2`, `status`, `tahapan_preview`) VALUES
 ('5f4faf4dadfc8', '5f48af1704a46', 'Semua', 'KHS_Muhammad_Sulthan_Angka_Kurniawan.pdf, SL_Muhammad_Sulthan_Angka_Kurniawan.pdf', 'https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing', 'testing link sending', '2020-09-02', '', '', 'Dikirim', 'preview1'),
 ('5f534d486d143', '5f5233fe39202', 'Semua', 'Form_Penilaian_Pembimbing_Lapangan_Rochi.pdf', 'https://drive.google.com/file/d/1RyojIItrMlGuRIc84Q3sa3YSyLG4NPfa/view', 'lorem', '2020-09-05', '<p>Test Komentar terbaru sekarang baru lagi dan test sekali lagi testing save apa aja</p>', '', 'Sesuai', 'preview1'),
-('5f578ac0cfe35', '5f5233fe39202', 'Semua', 'Business_model_canvas.pdf', 'https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing, https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing', 'testing link', '2020-09-08', '<p>test project 2</p>', '', 'Revisi', 'preview1');
+('5f578ac0cfe35', '5f5233fe39202', 'Semua', 'Business_model_canvas.pdf', 'https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing, https://drive.google.com/drive/folders/1ENw4czEKpJsCaxr7_4UccZgBxAkiHLm6?usp=sharing', 'testing link', '2020-09-08', '<p>test project 2</p>', '', 'Revisi', 'preview1'),
+('5f63a10cefc04', '5f5233fe39202', 'Semua', 'SL_Muhammad_Sulthan_Angka_Kurniawan.pdf', 'https://drive.google.com/file/d/1MwVHqi6sZfS8uE5efGHCxx76ZxMAp5Ka/view?usp=sharing', 'testing', '2020-09-18', '', '', 'Dikirim', 'preview3');
 
 -- --------------------------------------------------------
 
@@ -601,8 +616,8 @@ CREATE TABLE `thesis_lecturers` (
 --
 
 INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `dosen_pembimbing1`, `dosen_pembimbing2`, `dosen_penguji1`, `dosen_penguji2`, `date`, `date_edit`, `kelompok_keahlian`) VALUES
-('5f4cc58d499f5', '5f48af1704a46', '5f1e7dc5ca07e', '5f2128a43c90b', '', '5f3b9697e3aa5', '08-31-2020 16:40:29', '', ''),
-('5f525822a2861', '5f5233fe39202', '5f1e7dc5ca07e', '5f2128a43c90b', '5f2128a43c90b', '', '09-04-2020 22:07:14', '', '');
+('5f4cc58d499f5', '5f48af1704a46', '5f1e7dc5ca07e', '5f2128a43c90b', '5f28dbe13ddf9', '5f3b9697e3aa5', '08-31-2020 16:40:29', '', ''),
+('5f525822a2861', '5f5233fe39202', '5f1e7dc5ca07e', '5f3b9697e3aa5', '5f2128a43c90b', '5f28dbe13ddf9', '09-04-2020 22:07:14', '', '');
 
 -- --------------------------------------------------------
 
@@ -640,8 +655,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordinator`, `dosen_wali`, `kuota_bimbingan`, `kuota_penguji`, `prodi`, `kode_dosen`, `email`, `alamat`, `images`, `password`, `salt`, `role_id`, `is_active`, `date_created`, `status`) VALUES
 ('39', 'kaurlab', 'Kaur Lab ', '', '', '', '', '', 0, 0, '', '', 'kaurlab@gmail.com', '', 'default.jpg', '920c3713e13b091e73d17d35bd608079fc41724eca41b415f200e338dc59c531', '$2y$10$hctmRhwo9qxeJTvtzbn/kObWapiE8JSPX6jO72QAbp1HJfe4QBwEi', 2, 1, 1594554238, 'offline'),
-('44', 'ihdar', 'Rafif ihdar', '0851221132434', '1301130763', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', 'Bengkulu', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'offline'),
-('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '1234567890', '', '1', 5, 4, 'Desain Komunikasi Visual', 'MSAK', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'online'),
+('44', 'ihdar', 'Rafif ihdar', '0851221132434', '1301130763', '', '', '5f1e7dc5ca07e', 0, 0, 'Desain Komunikasi Visual', '', 'snowm60401@gmail.com', 'Bengkulu', '1.jpg', 'e41e13ea4344a5dab62674d6e08a24b75bf0d5bd7921c04c2a13fc80a6eda0e3', '$2y$10$sGYdQGJYGX9nCIDzkWoH3uibGxPC292Bf9nhIgO/TSkLz3Q3Sp1jO', 4, 1, 1594832402, 'online'),
+('5f1e7dc5ca07e', 'sulthanangka', 'Muhammad Sulthan Angka Kurniawan', '0812234545', '', '1234567890', '', '1', 5, 4, 'Desain Komunikasi Visual', 'MSAK', 'sulthan.kurniawan@gmail.com', 'Bandung', 'default.jpg', '7e93fd68a7b5f0860784f35336a488910b3d6f2c088602a4a608e24ebeac3a36', '$2y$10$IXEl6J4l/ORTrf78B14hyewCsBz1Fyf4xM96cQPexqL.KqvJ4A2zC', 3, 1, 1595833797, 'offline'),
 ('5f2128a43c90b', 'akathan', 'akathan', '08100112121', '', '09876543211', '1', '1', 10, 6, 'Desain Komunikasi Visual', 'AKTH', 'sulthan.angka@gmail.com', 'Sukabirus', 'default.jpg', '95b77ac94e00b2039b79d78e01ee5f941da1d074fae0a3a41636797e429bd860', '$2y$10$UdpWt4Uo/v1rlkzJxZqrdu7mlLiJbI3aRrmToglyIduVaYAsL7diG', 3, 1, 1596008612, 'online'),
 ('5f28dbe13ddf9', 'manhattan', 'Manhattan', '08121002931', '', '12345678910', '', '1', 10, 3, 'Desain Interior', 'MHN10', 'manhattan@gmail.com', 'Buah Batu, Bandung', 'default.jpg', '6b1d591c1e0149ac6db6b72993af5699878d3ff96b9a3db1802393bcc8e88608', '$2y$10$oVda9dQDlDUZxn0B4Ll.hOVZc1KrkDulpOpSXWS6qMpFaXUVB5826', 3, 1, 1596513249, 'offline'),
 ('5f3b9697e3aa5', 'akaguh', 'teguh akbar', '', '', '0', '', '', 0, 0, '', '', 'akaguh@telkomuniversity.ac.id', '', 'default.jpg', '09e8d25c6a0ada86dd912381b5f99eb500aed5c18d1924d53ab67007407fae24', '$2y$10$GaTaVEnhPY0JCXFxblq2Per4KEMzG7a28NFbkwbyJJIL8a85P0Omi', 3, 1, 1597740695, 'offline'),
@@ -653,8 +668,6 @@ INSERT INTO `user` (`id`, `username`, `name`, `no_telp`, `nim`, `nip`, `koordina
 ('5f4a2f00c828f', 'koordinatorta', 'Koordinator Tugas Akhir', '', '', '', '', '', 0, 0, '', '', 'koordinatorta@gmail.com', '', 'default.jpg', 'f911697a55fa9d230ac8da335637ad58491d2aaee5f984a1cef8c4fd6312c2ad', '$2y$10$y6DAeeBN.kLq3CjdLuXuY.feFDUIdI51UUfGQB9yKo4ZMohnnuUGy', 6, 1, 1598697216, 'offline'),
 ('5f4a4b0ee4b42', 'testing', 'Testing', '08512312323', '1234567891', '', '', '5f28dbe13ddf9', 0, 0, 'Desain Produk', '', 'testing@gmail.com', 'Bogor', 'Cat.jpg', '701e1ef19005a5ff4815342180233ee1a3ece22187c1e8d028cdafea436a943d', '$2y$10$2aaRJKEVgnmJ1TQzl8wm9e.m1NIkRGaEjYfPX3S35/eUvq9J3DWSW', 4, 1, 1598704398, 'offline'),
 ('5f50f84ac76e6', 'aditiya', 'aditya novianto', '0812345433455', '2087001888', '', '', '5f28dbe13ddf9', 0, 0, 'Desain Komunikasi Visual', '', 'adityanovianto@gmail.com', 'bandung', 'default.jpg', '5f7df180329678b97fc44add4f223a409d5618186f57fb80d8c3844039867ceb', '$2y$10$Adifl.rSd9Q9Uhk8SsCOReqjrs4DdsI8cAIzeTg77DMFa3vOK72Q6', 4, 1, 1599141962, 'offline'),
-('5f58fe59a79d6', '[removed] alert&#40;\'hello world\'&#41; [removed]', 'Muhammad Sulthan Angka Kurniawan', '', '', '', '', '', 0, 0, '', '', 'aushduahsduahdu@gmail.com', '', 'default.jpg', '7b3b64ac44ab6bcc54022da3c9cae1c95351f0bf47f65242ee924040c150b305', '$2y$10$d18dVOJx/ploJYfe6Uwue.6ONBkMIFZoWamhATqPKbNr7QwW2m.SG', 3, 0, 1599667801, 'offline'),
-('5f58fed0019f6', '[removed] alert&#40;\'hello world\'&#41; [removed]', 'Muhammad Sulthan Angka Kurniawan', '', '', '', '', '', 0, 0, '', '', 'asidjasidaijd@gmail.com', '', 'default.jpg', '7e6b12a0d7a9a3ef1868efd247d712bfd55c8e61b0d185b1d10066ad3400ff8e', '$2y$10$7fUdH7s9XlEGm2WOxOovDeVAwtR3axLv85hpK5BKgEy8ym9hPNoK6', 3, 0, 1599667920, 'offline'),
 ('8', 'admin', 'Admin LAB', '', '', '', '', '', 0, 0, '', '', 'admin@gmail.com', '', 'default.jpg', 'ec54193c7b13f115a35da3282d74a295af9a72ca8f8a5ebd9655dbf8eadd8a02', '$2y$10$jb3uBvvS41mfsMHU4xaICul08WsrJzMyLpiIVT9bpx06CQQ/vmNle', 1, 1, 0, 'offline');
 
 -- --------------------------------------------------------
@@ -692,6 +705,13 @@ CREATE TABLE `user_token` (
   `token` varchar(128) NOT NULL,
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user_token`
+--
+
+INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
+('5f6373c52e54c', 'dasdsadadad@gmail.com', 'L60yMG6f7WaQxs5SS/lpAMsekCDa70yZasIJdA9G3FU=', 1600353221);
 
 --
 -- Indexes for dumped tables
