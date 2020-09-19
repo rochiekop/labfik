@@ -1,7 +1,13 @@
 <!-- Main Container -->
 <main class="akun-container">
   <div class="fik-section-title2">
-    <h4>Bimbingan</h4>
+    <?php foreach ($bimbingan as $t) : ?>
+    <?php if ($this->session->userdata('id') == $t['dosen_pemb1'] or $this->session->userdata('id') == $t['dosen_pemb2']) { ?>
+      <h4>Bimbingan</h4>
+    <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1'] or $this->session->userdata('id') == $t['dosen_peng2']) { ?>
+      <h4>Pengujian</h4>
+    <?php } ?>
+    <?php endforeach; ?>
   </div>
   <div class="input-group">
     <div class="input-group-append">
@@ -54,8 +60,12 @@
               <td><?= $t['tahun'] ?></td>
               <?php if ($this->session->userdata('id') == $t['dosen_pemb1']) { ?>
                 <td>Pembimbing 1</td>
-              <?php } else { ?>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_pemb2']) { ?>
                 <td>Pembimbing 2</td>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1']) { ?>
+                <td>Penguji 1</td>
+              <?php } elseif ($this->session->userdata('id') == $t['dosen_peng2']) { ?>
+                <td>Penguji 2</td>
               <?php } ?>
               <td><?= $t['status_bimbingan'] ?></td>
             </tr>

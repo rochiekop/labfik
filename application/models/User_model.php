@@ -476,6 +476,39 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getMhsDiuji($query = null, $filter = null)
+	{
+		$this->db->select('user.name,user.nim,user.prodi,guidance.peminatan,guidance.id as id_guidance,guidance.tahun,thesis_lecturers.dosen_pembimbing1,thesis_lecturers.dosen_pembimbing2,thesis_lecturers.dosen_penguji1,thesis_lecturers.dosen_penguji2');
+		$this->db->from('thesis_lecturers');
+		$this->db->join('guidance', 'thesis_lecturers.id_guidance = guidance.id');
+		$this->db->join('user', 'user.id = guidance.id_mhs');
+		$this->db->group_start();
+		$this->db->where('thesis_lecturers.dosen_penguji1', $this->session->userdata('id'));
+		$this->db->or_where('thesis_lecturers.dosen_penguji2', $this->session->userdata('id'));
+		$this->db->group_end();
+		$this->db->group_start();
+		if ($filter == 'Nama') {
+			$this->db->like('user.name', $query);
+		} elseif ($filter == 'NIM') {
+			$this->db->like('user.nim', $query);
+		} elseif ($filter == 'Prodi') {
+			$this->db->like('user.prodi', $query);
+		} elseif ($filter == 'Kosentrasi') {
+			$this->db->like('guidance.peminatan', $query);
+		} elseif ($filter == 'Tahun') {
+			$this->db->like('guidance.tahun', $query);
+		} else {
+			$this->db->like('user.name', $query);
+			$this->db->or_like('guidance.tahun', $query);
+			$this->db->or_like('user.nim', $query);
+			$this->db->or_like('user.prodi', $query);
+			$this->db->or_like('guidance.peminatan', $query);
+		}
+		$this->db->group_end();
+		$this->db->order_by('guidance.id', 'desc');
+		return $this->db->get()->result_array();
+	}
+
 	public function countFileBimbingan($id_guidance)
 	{
 		$this->db->select('id');
@@ -517,7 +550,7 @@ class User_model extends CI_Model
 	}
 	public function getmhsbimbinganbyid($id)
 	{
-		$this->db->select('user.name,user.nim,user.prodi,no_telp,thesis_lecturers.dosen_pembimbing1,guidance.peminatan');
+		$this->db->select('user.name,user.nim,user.prodi,no_telp,thesis_lecturers.dosen_pembimbing1,thesis_lecturers.dosen_pembimbing2,thesis_lecturers.dosen_penguji1,thesis_lecturers.dosen_penguji2,guidance.peminatan');
 		$this->db->from('thesis');
 		$this->db->join('guidance', 'guidance.id = thesis.id_guidance');
 		$this->db->join('user', 'guidance.id_mhs = user.id');

@@ -477,6 +477,7 @@ class Users extends CI_Controller
     $this->load->view('dashboard/users/viewfilepdf', $data);
     $this->load->view('templates/dashboard/footer');
   }
+
   public function bimbingandsn()
   {
     $data['title'] = 'LABFIK | Daftar Bimbingan';
@@ -544,10 +545,37 @@ class Users extends CI_Controller
 
   public function penguji()
   {
+    // $data['title'] = 'LABFIK | Penguji Tugas Akhir';
+    // $this->load->view('templates/dashboard/headerDosenMhs', $data);
+    // $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
+    // $this->load->view('dashboard/users/penguji', $data);
+    // $this->load->view('templates/dashboard/footer');
+
     $data['title'] = 'LABFIK | Penguji Tugas Akhir';
+    $bimbingan = $this->user_model->getMhsDiuji();
+    $userslist = [];
+    foreach ($bimbingan as $u) {
+      $userslist[] =
+        [
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'tahun' => $u['tahun'],
+          'dosen_pemb1' => $u['dosen_pembimbing1'],
+          'dosen_pemb2' => $u['dosen_pembimbing2'],
+          'dosen_peng1' => $u['dosen_penguji1'],
+          'dosen_peng2' => $u['dosen_penguji2'],
+          'status_bimbingan' => $this->thesis_model->getStepPreview($u['id_guidance'])->status_preview,
+          'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
+        ];
+    }
+    $data['bimbingan'] = $userslist;
+
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
-    $this->load->view('dashboard/users/penguji', $data);
+    $this->load->view('dashboard/users/bimbingandsn', $data);
     $this->load->view('templates/dashboard/footer');
   }
 
