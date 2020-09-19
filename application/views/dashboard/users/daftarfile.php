@@ -86,7 +86,7 @@
                             <td><?= $t['nama'] ?></td>
                             <td> <a href="<?= base_url('assets/upload/thesis/') . $t['username'] . '/' . $t['file'] ?>" download title="Download File"><?= $t['file'] ?></a></td>
                             <td><a data-toggle="modal" data-target="#pdf<?= encrypt_url($t['id']); ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
-                            <?php if ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update file") : ?>
+                            <?php if ($t['status_doswal'] == "Dikirim" or $t['status_doswal'] == "Update") : ?>
                                 <?php if ($t['view_doswal'] == "Belum Dilihat" or $t['view_doswal'] == "Dilihat Koorkk") :  ?>
                                     <td></td>
                                 <?php else : ?>
@@ -94,7 +94,7 @@
                                         <a data-toggle="modal" data-target="#<?= encrypt_url($t['id']); ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                                     </td>
                                 <?php endif; ?>
-                                <?php if ($t['status_doswal'] == "Update file") : ?>
+                                <?php if ($t['status_doswal'] == "Update") : ?>
                                     <td><b>File Baru</b></td>
                                 <?php else : ?>
                                     <td></td>

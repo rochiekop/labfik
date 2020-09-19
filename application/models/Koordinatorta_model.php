@@ -5,10 +5,9 @@ class Koordinatorta_model extends CI_Model
 {
   public function getMhs()
   {
-    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.status_file,guidance.peminatan, dosen_pembimbing1,dosen_pembimbing2, guidance.judul_1,guidance.judul_2,guidance.judul_3,guidance.tahun,user.dosen_wali');
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.id as id_guidance,guidance.status_file,guidance.peminatan,guidance.judul_1,guidance.judul_2,guidance.judul_3,guidance.tahun,user.dosen_wali');
     $this->db->from('user');
     $this->db->join('guidance', 'guidance.id_mhs = user.id');
-    $this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
     $this->db->where('guidance.status_file', 'Disetujui Adminlaa');
     $this->db->or_where('guidance.status_file', 'Disetujui Ketua KK');
     $this->db->order_by('guidance.id', 'desc');
@@ -17,7 +16,7 @@ class Koordinatorta_model extends CI_Model
 
   public function getThesisLecturer()
   {
-    $this->db->select('thesis_lecturers.*, guidance.id');
+    $this->db->select('thesis_lecturers.dosen_pembimbing1,thesis_lecturers.dosen_pembimbing2');
     $this->db->from('thesis_lecturers');
     $this->db->join('guidance', 'guidance.id = thesis_lecturers.id_guidance');
     return $this->db->get()->result_array();
@@ -32,7 +31,7 @@ class Koordinatorta_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
-  public function getDosen($prodi = null, $query = null, $filter = null, $limit = null, $start = null)
+  public function getDosen($prodi = null, $query = null, $filter = null)
   {
     $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi,koordinator');
     $this->db->from('user');
@@ -46,7 +45,6 @@ class Koordinatorta_model extends CI_Model
       $this->db->like('user.name', $query);
     }
     $this->db->group_end();
-    $this->db->limit($limit);
     return $this->db->get()->result_array();
   }
 

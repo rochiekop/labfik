@@ -12,37 +12,37 @@
       </thead>
       <tbody>
         <tr>
-          <td style="width: 20px;">Judul 1</td>
+          <td style="width: 20px;">Dosen Pembimbing 1</td>
           <td>:</td>
-          <td><?= $details['judul_1'] ?></td>
+          <td><?= $dosbing1 ?></td>
         </tr>
-        <?php if ($details['judul_2'] != '') : ?>
-          <tr>
-            <td style="width: 20px;">Judul 2</td>
-            <td>:</td>
-            <td><?= $details['judul_2'] ?></td>
-          </tr>
-        <?php elseif ($details['judul_3'] != '') : ?>
-          <tr>
-            <td style="width: 20px;">Judul 3</td>
-            <td>:</td>
-            <td><?= $details['judul_3'] ?></td>
-          </tr>
-        <?php endif; ?>
+        <tr>
+          <td style="width: 20px;">Dosen Pembimbing 2</td>
+          <td>:</td>
+          <td><?= $dosbing2 ?></td>
+        </tr>
+        <tr>
+          <td style="width: 20px;">Kel. Keahlian</td>
+          <td>:</td>
+          <?php if ($data['kelompok_keahlian'] == "") : ?>
+            <td></td>
+          <?php elseif ($data['kelompok_keahlian'] !== "") : ?>
+            <?php if (substr($data['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
+              <td><?= substr($data['kelompok_keahlian'], 6) ?></td>
+            <?php else : ?>
+              <td><?= $data['kelompok_keahlian'] ?></td>
+            <?php endif; ?>
+          <?php endif; ?>
+        </tr>
         <tr>
           <td style="width: 20px;">Dosen Wali</td>
           <td>:</td>
-          <td><?= $doswal['name'] ?></td>
-        </tr>
-        <tr>
-          <td style="width: 20px;">Kosentrasi</td>
-          <td>:</td>
-          <td><?= $details['peminatan'] ?></td>
+          <td><?= $doswal ?></td>
         </tr>
         <tr>
           <td>Tahun</td>
           <td>:</td>
-          <td><?= $details['tahun'] ?></td>
+          <td><?= $tahun ?></td>
         </tr>
       </tbody>
     </table>
