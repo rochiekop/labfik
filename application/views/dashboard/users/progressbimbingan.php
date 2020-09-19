@@ -129,8 +129,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> >Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> >Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -146,10 +146,10 @@
           <br>
 
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
     </div>
@@ -196,9 +196,9 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
           <!-- </?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); $nilai2 = explode(",", $penilaian->nilai_pembimbing2); $nilai3 = explode(",", $penilaian->nilai_penguji1); $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
     </div>
@@ -244,8 +244,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success">Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger">Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?> <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> " class="btn badge badge-success">Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?> <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> " class="btn badge badge-danger">Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -261,11 +261,11 @@
           <br>
 
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction2" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px"><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
 
@@ -274,7 +274,7 @@
     <div class="tab-pane fade <?php echo ($step->status_preview == 'sidang') ? 'show active' : ''; ?>" id="pat" role="tabpanel" aria-labelledby="pat-tab">
       <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a> -->
       <div class="alert alert-warning">
-        Preview 4. Tahap sidang
+        Tahap sidang
       </div>
       
       <div class="table-responsive">
@@ -319,11 +319,10 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#grading_sidang" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
         <!-- </?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
         <button class="btn btn-success" data-toggle="modal" data-target="#lulus" </?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-undo"></span> Kembali</button>
-        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-times"></span> Ulangi</button>
-
-
+        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
+        
       </div>
     </div>
 
