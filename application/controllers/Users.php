@@ -521,6 +521,9 @@ class Users extends CI_Controller
           'peminatan' => $u['peminatan'],
           'tahun' => $u['tahun'],
           'dosen_pemb1' => $u['dosen_pembimbing1'],
+          'dosen_pemb2' => $u['dosen_pembimbing2'],
+          'dosen_peng1' => $u['dosen_penguji1'],
+          'dosen_peng2' => $u['dosen_penguji2'],
           'status_bimbingan' => $this->thesis_model->getStepPreview($u['id_guidance'])->status_preview,
           'file_bimbingan' => $this->user_model->countFileBimbingan($u['id_guidance']),
         ];
