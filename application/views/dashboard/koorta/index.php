@@ -9,12 +9,14 @@
         <div class="input-group-prepend">
           <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item item">Semua</a>
-            <a class="dropdown-item item">Nama</a>
-            <a class="dropdown-item item">NIM</a>
-            <a class="dropdown-item item">Prodi</a>
-            <a class="dropdown-item item">Peminatan</a>
-            <a class="dropdown-item item">Keahlian</a>
+            <a class="dropdown-item item" id="item">Semua</a>
+            <a class="dropdown-item item" id="item">Nama</a>
+            <a class="dropdown-item item" id="item">NIM</a>
+            <a class="dropdown-item item" id="item">Prodi</a>
+            <a class="dropdown-item item" id="item">Peminatan</a>
+            <a class="dropdown-item item" id="item">Judul 1</a>
+            <a class="dropdown-item item" id="item">Judul 2</a>
+            <a class="dropdown-item item" id="item">Judul 3</a>
           </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -27,14 +29,13 @@
           <thead>
             <tr>
               <th scope="col" style="width:40px">No</th>
-              <th scope="col"></th>
               <th scope="col">Nama</th>
               <th scope="col">NIM</th>
               <th scope="col">Prodi</th>
               <th scope="col">Peminatan</th>
-              <th scope="col">Keahlian</th>
-              <th scope="col">Pembimbing 1</th>
-              <th scope="col">Pembimbing 2</th>
+              <th scope="col">Judul 1</th>
+              <th scope="col">Judul 2</th>
+              <th scope="col">Judul 3</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -50,34 +51,26 @@
                   <tr>
                   <?php endif; ?>
                   <td><b><?= ++$no ?></b></td>
-                  <?php if ($t['aksi'] != 0) : ?>
-                    <td> <a href="<?= base_url('koordinator_ta/viewdetail/') . encrypt_url($t['id']); ?>" class="btn badge badge-secondary">Details</a></td>
-                  <?php else : ?>
-                    <td></td>
-                  <?php endif; ?>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['prodi'] ?></td>
                   <td><?= $t['peminatan'] ?></td>
-                  <?php if (substr($t['data']['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
-                    <td><?= substr($t['data']['kelompok_keahlian'], 6) ?></td>
-                  <?php else : ?>
-                    <td><?= $t['data']['kelompok_keahlian'] ?></td>
-                  <?php endif; ?>
-                  <?php if ($t['dosbing1'] != "") : ?>
-                    <td><?= $t['dosbing1'] ?></td>
-                    <td><?= $t['dosbing2'] ?></td>
-                    <td><b>Ditambahkan</b></td>
-                  <?php else : ?>
-                    <td></td>
-                    <td></td>
+                  <td><?= $t['judul1'] ?></td>
+                  <td><?= $t['judul2'] ?></td>
+                  <td><?= $t['judul3'] ?></td>
+                  <?php if ($t['aksi'] == 0) : ?>
                     <td>
                       <a data-toggle="modal" data-target="#exampleModal<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">+ Pembimbing</a>
                     </td>
+                  <?php else : ?>
+                    <td><a href="<?= base_url('koordinator_ta/viewdetail/') . encrypt_url($t['id_guidance']); ?>" class="btn badge badge-secondary">Details</a></td>
                   <?php endif; ?>
                   </tr>
                 <?php endforeach; ?>
               <?php endif; ?>
+              <tr class="notfound">
+                <td colspan="9"></td>
+              </tr>
           </tbody>
         </table>
       </table>
@@ -129,47 +122,176 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="details<?= $m['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="exampleModalLabel">Mahasiswa : <?= $m['name'] ?></h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table>
+              <thead>
+                <th style="width: 160px;"></th>
+                <th style="width: 10px;"></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 20px;">Dosen Pembimbing 1</td>
+                  <td>:</td>
+                  <td><?= $m['dosenwali'] ?></td>
+                </tr>
+                <tr>
+                  <td style="width: 20px;">Dosen Pembimbing 2</td>
+                  <td>:</td>
+                  <td><?= $m['dosenwali'] ?></td>
+                </tr>
+                <tr>
+                  <td style="width: 20px;">Peminatan</td>
+                  <td>:</td>
+                  <?php if ($m['data']['kelompok_keahlian'] == "") : ?>
+                    <td></td>
+                  <?php elseif ($m['data']['kelompok_keahlian'] !== "") : ?>
+                    <?php if (substr($m['data']['kelompok_keahlian'], 0, 5) == "Ketua") : ?>
+                      <td><?= substr($m['data']['kelompok_keahlian'], 6) ?></td>
+                    <?php else : ?>
+                      <td><?= $m['data']['kelompok_keahlian'] ?></td>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                </tr>
+                <tr>
+                  <td style="width: 20px;">Dosen Wali</td>
+                  <td>:</td>
+                  <td><?= $m['dosenwali'] ?></td>
+                </tr>
+                <tr>
+                  <td style="width: 20px;">Kosentrasi</td>
+                  <td>:</td>
+                  <td><?= $m['peminatan'] ?></td>
+                </tr>
+                <tr>
+                  <td>Tahun</td>
+                  <td>:</td>
+                  <td><?= $m['tahun'] ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   <?php endforeach; ?>
-
+  <style>
+    .notfound {
+      display: none;
+      background-color: whitesmoke;
+      text-align: center;
+    }
+  </style>
   <script>
     $(document).ready(function() {
-      var keyword = document.getElementById('keyword');
-      var container = document.getElementById('container');
       $(".item").click(function() {
         var text = $(this).text();
-        // alert(text)
         $("#filter").text(text)
-        if ((text != 'Semua')) {
-          load_data(text);
-        } else {
-          load_data()
-        }
-      });
 
-      function load_data(filter, keyword) {
-        $.ajax({
-          url: '<?= base_url('search/fetchdatapendaftarankoorta') ?>',
-          method: "POST",
-          data: {
-            filter: filter,
-            keyword: keyword,
-          },
-          success: function(data) {
-            $('#pengajuan').html(data);
-            // console.log(data)
-          }
-        });
-      }
-      keyword.addEventListener('keyup', function() {
-        var keyword = $(this).val();
+      });
+      $('#keyword').keyup(function() {
         var filter = $('#filter').text()
-        if (keyword != '') {
-          load_data(filter, keyword);
-        } else if (filter != "Semua" && filter != "Filter") {
-          load_data(filter);
-        } else {
-          load_data();
+        var search = $(this).val();
+        // alert(search)
+        if (filter == "Nama") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(2):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "NIM") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Prodi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Peminatan") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(5):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Judul 1") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(6):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Judul 2") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(7):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Judul 3") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(8):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Semua" || filter == "Filter") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
         }
-      })
+
+      });
+      $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+        return function(elem) {
+          return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+      });
     });
   </script>

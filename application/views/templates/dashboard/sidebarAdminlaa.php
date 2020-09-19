@@ -12,6 +12,9 @@
       <div class="card">
         <a href="<?= base_url('adminlaa') ?>" class="btn"><span class="fas fa-align-left"></span> Pendaftaran</a>
       </div>
+      <div class="card">
+        <a href="<?= base_url('listmhs') ?>" class="btn"><span class="fas fa-users"></span> List Mahasiswa</a>
+      </div>
       <div class="divider"></div>
       <div class="card">
         <a href="#" class="btn"><span class="fas fa-life-ring"></span> Helpdesk</a>

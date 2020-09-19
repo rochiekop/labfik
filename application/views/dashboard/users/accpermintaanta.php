@@ -11,13 +11,11 @@
         <div class="input-group-append">
             <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
             <div class="dropdown-menu">
-                <a class="dropdown-item item">Semua</a>
-                <a class="dropdown-item item">Nama</a>
-                <a class="dropdown-item item">NIM</a>
-                <a class="dropdown-item item">Prodi</a>
-                <a class="dropdown-item item">Kosentrasi</a>
-                <a class="dropdown-item item">Dosen Wali</a>
-                <a class="dropdown-item item">Tahun</a>
+                <a class="dropdown-item item" id="item">Semua</a>
+                <a class="dropdown-item item" id="item">Nama</a>
+                <a class="dropdown-item item" id="item">NIM</a>
+                <a class="dropdown-item item" id="item">Prodi</a>
+                <a class="dropdown-item item" id="item">Keahlian</a>
             </div>
         </div>
         <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -27,7 +25,7 @@
             <thead>
                 <tr>
                     <th scope="col" style="width:48px">No</th>
-                    <th scope="col" style="width:20px">&nbsp;</th>
+                    <th scope="col" style="width:80px">&nbsp;</th>
                     <th scope="col">Nama</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Prodi</th>
@@ -64,7 +62,6 @@
                     <?php endif; ?>
             </tbody>
         </table>
-        <!-- <?php var_dump($pta) ?> -->
     </div>
 </main>
 <!-- End Main Container -->
@@ -88,40 +85,71 @@
 <?php endforeach; ?>
 <script>
     $(document).ready(function() {
-        var keyword = document.getElementById('keyword');
-        var container = document.getElementById('container');
         $(".item").click(function() {
             var text = $(this).text();
             $("#filter").text(text)
-            if (text != '') {
-                load_data(keyword = null, text);
-            } else {
-                load_data();
-            }
         });
-
-        function load_data(keyword, filter) {
-            $.ajax({
-                url: '<?= base_url('search/fetchdatapendaftarantakoorkk') ?>',
-                method: "POST",
-                data: {
-                    keyword: keyword,
-                    filter: filter,
-                },
-                success: function(data) {
-                    $('#pta').html(data);
-                    // console.log(data)
-                }
-            });
-        }
-        keyword.addEventListener('keyup', function() {
-            var keyword = $(this).val();
+        $('#keyword').keyup(function() {
             var filter = $('#filter').text()
-            if (keyword != '') {
-                load_data(keyword, filter);
-            } else {
-                load_data();
+            var search = $(this).val();
+            // alert(search)
+            if (filter == "Nama") {
+                $('table tbody tr').hide();
+                var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
+                if (len > 0) {
+                    $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+                        $(this).closest('tr').show();
+                    });
+                } else {
+                    $('.notfound').show();
+                }
+            } else if (filter == "NIM") {
+                $('table tbody tr').hide();
+                var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
+                if (len > 0) {
+                    $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+                        $(this).closest('tr').show();
+                    });
+                } else {
+                    $('.notfound').show();
+                }
+            } else if (filter == "Prodi") {
+                $('table tbody tr').hide();
+                var len = $('table tbody tr:not(.notfound) td:nth-child(5):contains("' + search + '")').length;
+                if (len > 0) {
+                    $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+                        $(this).closest('tr').show();
+                    });
+                } else {
+                    $('.notfound').show();
+                }
+            } else if (filter == "Keahlian") {
+                $('table tbody tr').hide();
+                var len = $('table tbody tr:not(.notfound) td:nth-child(6):contains("' + search + '")').length;
+                if (len > 0) {
+                    $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+                        $(this).closest('tr').show();
+                    });
+                } else {
+                    $('.notfound').show();
+                }
+            } else if (filter == "Semua" || filter == "Filter") {
+                $('table tbody tr').hide();
+                var len = $('table tbody tr:not(.notfound) td:contains("' + search + '")').length;
+                if (len > 0) {
+                    $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+                        $(this).closest('tr').show();
+                    });
+                } else {
+                    $('.notfound').show();
+                }
             }
-        })
+
+        });
+        $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+            return function(elem) {
+                return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+            };
+        });
     });
 </script>

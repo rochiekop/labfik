@@ -22,9 +22,9 @@ class Koordinator_ta extends CI_Controller
     $data['lecturer'] = $this->koordinatorta_model->getThesisLecturer();
     $mhs = $this->koordinatorta_model->getMhs();
 
-
-    $getDosen = $this->koordinatorta_model->getDosen();
-
+    $prodi = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row()->prodi;
+    $getDosen = $this->koordinatorta_model->getDosen($prodi);
+    $dosbing = $this->koordinatorta_model->getThesisLecturer();
     $userslist = [];
     foreach ($getDosen as $u) {
       $userslist[] =
@@ -47,12 +47,12 @@ class Koordinator_ta extends CI_Controller
           'id' => $u['id'],
           'id_guidance' => $u['id_guidance'],
           'name' => $u['name'],
+          'peminatan' => $u['peminatan'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],
-          'peminatan' => $u['peminatan'],
-          'dosbing1' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name : "",
-          'dosbing2' => !empty($this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name) ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name : "",
-          'data' => $this->koordinatorta_model->getKK($u['id_guidance']),
+          'judul1' => $u['judul_1'],
+          'judul2' => $u['judul_2'],
+          'judul3' => $u['judul_3'],
           'aksi' => $this->koordinatorta_model->getCheckThesisLecturer($u['id_guidance']),
         ];
     }
@@ -65,7 +65,8 @@ class Koordinator_ta extends CI_Controller
   }
   public function kuotadosen()
   {
-    $getDosen = $this->koordinatorta_model->getDosen();
+    $prodi = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row()->prodi;
+    $getDosen = $this->koordinatorta_model->getDosen($prodi);
     $data['title'] =  "Laboratotium FIK | Kuota Dosen Tugas Akhir";
     $userslist = [];
     foreach ($getDosen as $u) {
@@ -159,12 +160,14 @@ class Koordinator_ta extends CI_Controller
       redirect('koordinator_ta');
     } else {
       $data = [
+        'id' => uniqid(),
+        'id_guidance' => $idguidance,
         'dosen_pembimbing1' => $values[0],
         'kelompok_keahlian' => $values[1],
         'dosen_pembimbing2' => $dosbing2,
         'date' => date('m-d-Y H:i:s'),
       ];
-      $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
+      $this->db->insert('thesis_lecturers', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $pemb1->name . ' dan ' . $pemb2->name . ' berhasil ditambahakan sebagai dosen pembimbing</div>');
       redirect('koordinator_ta');
     }
@@ -173,10 +176,21 @@ class Koordinator_ta extends CI_Controller
   public function viewdetail($id)
   {
     $id = decrypt_url($id);
-    $data['title'] = "Detail Pendaftaran TA";
-    $data['details'] = $this->koordinatorta_model->getMhsById($id);
-    $dosenwali = $this->adminlaa_model->getDosenWali($data['details']['dosen_wali']);
-    $data['doswal'] = json_decode(json_encode($dosenwali), true);
+    $id1 = $this->db->get_where('thesis_lecturers', ['id_guidance' => $id])->row()->dosen_pembimbing1;
+    $id2 = $this->db->get_where('thesis_lecturers', ['id_guidance' => $id])->row()->dosen_pembimbing2;
+    $id_mhs = $this->db->get_where('guidance', ['id' => $id])->row()->id_mhs;
+    $id_doswal = $this->db->get_where('user', ['id' => $id_mhs])->row()->dosen_wali;
+
+    $data = [
+      'title' => "Laboratotium FIK | Details Mahasiswa",
+      'dosbing1' => $this->db->get_where('user', ['id' => $id1])->row()->name,
+      'dosbing2' => $this->db->get_where('user', ['id' => $id2])->row()->name,
+      'data' => $this->koordinatorta_model->getKK($id),
+      'peminatan' => $this->db->get_where('guidance', ['id' => $id])->row()->peminatan,
+      'tahun' => $this->db->get_where('guidance', ['id' => $id])->row()->tahun,
+      'doswal' => $this->db->get_where('user', ['id' => $id_doswal])->row()->name,
+    ];
+
     $this->load->view("templates/dashboard/headerKoorTa", $data);
     $this->load->view("templates/dashboard/sidebarKoorTa");
     $this->load->view("dashboard/koorta/details", $data);

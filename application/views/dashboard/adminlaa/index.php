@@ -15,19 +15,20 @@
       <div class="input-group-append">
         <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Filter</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item item">Semua</a>
-          <a class="dropdown-item item">Nama</a>
-          <a class="dropdown-item item">NIM</a>
-          <a class="dropdown-item item">Prodi</a>
-          <a class="dropdown-item item">Kosentrasi</a>
-          <a class="dropdown-item item">Tahun</a>
+          <a class="dropdown-item item" id="item">Semua</a>
+          <a class="dropdown-item item" id="item">Nama</a>
+          <a class="dropdown-item item" id="item">NIM</a>
+          <a class="dropdown-item item" id="item">Prodi</a>
+          <a class="dropdown-item item" id="item">Kosentrasi</a>
+          <a class="dropdown-item item" id="item">Dosen Wali</a>
+          <a class="dropdown-item item" id="item">Status</a>
         </div>
       </div>
-      <input type="text" class="form-control" id="keyword" onkeyup="searchpengajuantaadminlaa()" aria-label="Text input with dropdown button" placeholder="Pencarian">
+      <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
     </div>
     <div class="table-responsive admin-list">
       <table class="table">
-        <table class="table" id="myTable">
+        <table class="table" id="myTable" width='100%'>
           <thead>
             <tr>
               <th scope="col" style="width:48px">No</th>
@@ -72,52 +73,119 @@
                   </tr>
                 <?php endforeach; ?>
               <?php endif; ?>
+              <tr class="notfound">
+                <td colspan="9"></td>
+              </tr>
           </tbody>
         </table>
       </table>
     </div>
   </main>
-  <script type="text/javascript" src="<?= base_url('assets/js/search.js') ?>"></script>
+  <style>
+    .notfound {
+      display: none;
+      background-color: whitesmoke;
+      text-align: center;
+    }
+  </style>
   <!-- End Main Container -->
   <script>
     $(document).ready(function() {
-      var keyword = document.getElementById('keyword');
-      var container = document.getElementById('container');
       $(".item").click(function() {
         var text = $(this).text();
-        // alert(text)
         $("#filter").text(text)
-        if ((text != 'Semua')) {
-          load_data(text);
-        } else {
-          load_data()
-        }
       });
-
-      function load_data(filter, keyword) {
-        $.ajax({
-          url: '<?= base_url('search/fetchdatapendaftaranadminlaa') ?>',
-          method: "POST",
-          data: {
-            filter: filter,
-            keyword: keyword,
-          },
-          success: function(data) {
-            $('#pendaftaranta').html(data);
-            // console.log(data)
-          }
-        });
-      }
-      keyword.addEventListener('keyup', function() {
-        var keyword = $(this).val();
+      $('#keyword').keyup(function() {
         var filter = $('#filter').text()
-        if (keyword != '') {
-          load_data(filter, keyword);
-        } else if (filter != "Semua" && filter != "Filter") {
-          load_data(filter);
-        } else {
-          load_data();
+        var search = $(this).val();
+        // alert(search)
+        if (filter == "Nama") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "NIM") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Prodi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(5):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Kosentrasi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(6):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Dosen Wali") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(7):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Tahun") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(8):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Status") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(9):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Semua" || filter == "Filter") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
         }
-      })
+
+      });
+      $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+        return function(elem) {
+          return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+      });
     });
   </script>

@@ -87,43 +87,39 @@
 
   <script>
     $(document).ready(function() {
-      var keyword = document.getElementById('keyword');
-      var container = document.getElementById('container');
       $(".item").click(function() {
         var text = $(this).text();
-        // alert(text)
         $("#filter").text(text)
-        if ((text != 'Semua')) {
-          load_data(text);
-        } else {
-          load_data()
-        }
       });
-
-      function load_data(filter, keyword) {
-        $.ajax({
-          url: '<?= base_url('search/fetchdatakuotadosen') ?>',
-          method: "POST",
-          data: {
-            filter: filter,
-            keyword: keyword,
-          },
-          success: function(data) {
-            $('#kuotadosen').html(data);
-            // console.log(data)
-          }
-        });
-      }
-      keyword.addEventListener('keyup', function() {
-        var keyword = $(this).val();
-        var filter = $('#filter').text()
-        if (keyword != '') {
-          load_data(filter, keyword);
-        } else if (filter != "Semua" && filter != "Filter") {
-          load_data(filter);
+    });
+    $('#keyword').keyup(function() {
+      var filter = $('#filter').text()
+      var search = $(this).val();
+      if (filter == "Nama") {
+        $('table tbody tr').hide();
+        var len = $('table tbody tr:not(.notfound) td:nth-child(2):contains("' + search + '")').length;
+        if (len > 0) {
+          $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+            $(this).closest('tr').show();
+          });
         } else {
-          load_data();
+          $('.notfound').show();
         }
-      })
+      } else {
+        $('table tbody tr').hide();
+        var len = $('table tbody tr:not(.notfound) td:contains("' + search + '")').length;
+        if (len > 0) {
+          $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+            $(this).closest('tr').show();
+          });
+        } else {
+          $('.notfound').show();
+        }
+      }
+    });
+    $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+      return function(elem) {
+        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+      };
     });
   </script>

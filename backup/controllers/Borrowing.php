@@ -1,0 +1,196 @@
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Borrowing extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('borrowing_model');
+        $this->load->model('item_model');
+        $this->load->model('admin_model');
+        $this->load->model('notification_model');
+        $this->load->library('form_validation');
+        is_logged_in();
+    }
+
+    public function index()
+    {
+        
+    }
+
+    public function listAll()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllBorrowing();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllWaiting()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllWaiting();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/logAction", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllAccepted()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllAccepted();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllDeclined()
+    {
+        $data["borrowing"] = $this->borrowing_model->getAllDeclined();
+        $this->load->view("templates/dashboard/headerKaur");
+        $this->load->view("templates/dashboard/sidebarKaur");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function listAllById($user_id)
+    {
+        $data["borrowing"] = $this->borrowing_model->getByUserId($user_id);
+
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("item/dosenMhs/logAction", $data);
+            $this->load->view("templates/dashboard/footer");
+        } else if ($this->session->userdata('role_id') == '1') {
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("item/kaur/logAction", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+    }
+
+    public function listAllByIdWithStatus($user_id, $status)
+    {
+        $data["borrowing"] = $this->borrowing_model->getByUserIdWithStatus($user_id, $status);
+        $this->load->view("templates/dashboard/headerAdmin");
+        $this->load->view("templates/dashboard/sidebarAdmin");
+        $this->load->view("item/kaur/log", $data);
+        $this->load->view("templates/dashboard/footer");
+    }
+
+    public function showItem($id = null)
+    {
+        $item = $this->item_model;
+        $data["item"] = $item->getById($id);
+        if (!$data["item"]) show_404();
+
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') 
+        {
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            // $this->load->view("item/dosenMhs/borrow", $data);
+            $this->load->view("item/borrowing", $data);
+            $this->load->view("templates/dashboard/footer");
+        } 
+        else if ($this->session->userdata('role_id') == '1') 
+        {
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            // $this->load->view("item/admin/borrow", $data);
+            $this->load->view("item/borrowing", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+        else if ($this->session->userdata('role_id') == '2')
+        {
+            $this->load->view("templates/dashboard/headerKaur");
+            $this->load->view("templates/dashboard/sidebarKaur");
+            // $this->load->view("item/admin/borrow", $data);
+            $this->load->view("item/borrowing", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+
+    }
+
+    public function addBorrowing()
+    {
+        $borrowing = $this->borrowing_model;
+        $notification = $this->notification_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($borrowing->rules());
+
+        if ($validation->run()) {
+            $borrowing->save();
+
+            // tambah notifikasi
+            $description = 'Barang ini ingin dipinjam';
+            $notification->saveBorrowingNotification($description);
+
+            $this->session->set_flashdata('success', 'Berhasil disimpan');
+        }
+
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+            $data["item"] = $this->item_model->getAll();
+            $this->load->view("templates/dashboard/headerDosenMhs");
+            $this->load->view("templates/dashboard/sidebarDosenMhs");
+            $this->load->view("item/dosenMhs/list", $data);
+            $this->load->view("templates/dashboard/footer");
+        } else if ($this->session->userdata('role_id') == '1') {
+            $data["item"] = $this->item_model->getAll();
+            $this->load->view("templates/dashboard/headerAdmin");
+            $this->load->view("templates/dashboard/sidebarAdmin");
+            $this->load->view("item/admin/list", $data);
+            $this->load->view("templates/dashboard/footer");
+        }
+    }
+
+    public function changeStatusAccepted($id, $user_id)
+    {
+        $this->borrowing_model->updateStatusAccepted($id);
+
+        $status = 'accepted';
+        $this->borrowing_model->updateItemQuantity($id, $status);
+
+        $description = 'Peminjaman diizinkan';
+        $this->notification_model->assignBorrowingNotification($user_id, $id, $description);
+        
+        redirect(site_url('borrowing/listAllWaiting'));
+    }
+
+    public function changeStatusDeclined($id, $user_id)
+    {
+        $this->borrowing_model->updateStatusDeclined($id);
+
+        $description = 'Peminjaman tidak diizinkan';
+        $this->notification_model->assignBorrowingNotification($user_id, $id, $description);
+
+        redirect(site_url('borrowing/listAllWaiting'));
+    }
+
+    public function changeStatusDone($id)
+    {   
+        $status = 'done';
+        $this->borrowing_model->updateItemQuantity($id, $status);
+        $this->borrowing_model->updateStatusDone($id);
+
+        $user_id = $this->session->userdata('id');
+        redirect(site_url('borrowing/listAllById/' . $user_id));
+    }
+
+    // public function changeItemQuantity($id)
+    // {
+    //     if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') {
+    //         if ($this->borrowing_model->updateStatusDone($id)) {
+    //             redirect(site_url('borrowing/listAllByDosenMhs/' . $id));
+    //         }
+    //     } else if ($this->session->userdata('role_id') == '1') {
+    //         if ($this->borrowing_model->updateStatusDone($id)) {
+    //             redirect(site_url('borrowing/listAllByIdAdmin/' . $id));
+    //         }
+    //     }
+    // }
+
+}

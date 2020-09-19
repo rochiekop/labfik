@@ -46,20 +46,16 @@
                 <tr>
                   <!-- For Dosen Wali -->
                   <td><?= $k['nama'] ?></td>
-                  <?php if ($statusfile == "Disetujui koor" or $statusfile == "Dikirim") : ?>
+                  <?php if ($statusfile == "Dikirim") : ?>
                     <?php if ($k['status_doswal'] == 'Ditolak wali') :  ?>
                       <td>Ditolak wali dosen</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
-                    <?php elseif ($k['status_doswal'] == 'Ditolak koor') :  ?>
-                      <td>Ditolak Koordinator KK</td>
-                      <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
-                      <td><?= $k['komentar'] ?></td>
-                    <?php elseif ($k['status_doswal'] == 'Disetujui wali' or $k['status_doswal'] == 'Dikirim' or $k['status_doswal'] == 'Disetujui koor') : ?>
+                    <?php elseif ($k['status_doswal'] == 'Disetujui wali' or $k['status_doswal'] == 'Dikirim') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
                       <td></td>
-                    <?php elseif ($k['status_doswal'] == 'Update file') : ?>
+                    <?php elseif ($k['status_doswal'] == 'Update') : ?>
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
                       <td><?= $k['komentar'] ?></td>
@@ -67,10 +63,6 @@
                       <td><?= $k['status_doswal'] ?></td>
                       <td></td>
                       <td><?= $k['komentar'] ?></td>
-                    <?php else : ?>
-                      <td>Dikirim</td>
-                      <td></td>
-                      <td></td>
                     <?php endif; ?>
                     <!-- For Adminlaa -->
                   <?php elseif ($statusfile == "Disetujui wali" or $statusfile == "Disetujui Adminlaa" or $statusfile == "Disetujui Ketua KK") : ?>
@@ -78,11 +70,15 @@
                       <td>Ditolak Admin Laa</td>
                       <td><a data-toggle="modal" data-target="#upload<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Upload</a></td>
                       <td><?= $k['komentar'] ?></td>
-                    <?php elseif ($k['status_adminlaa'] == 'Disetujui' or $k['status_adminlaa'] == 'Dikirim') : ?>
-                      <td><?= $k['status_adminlaa'] ?></td>
+                    <?php elseif ($k['status_adminlaa'] == 'Disetujui') : ?>
+                      <td><?= $k['status_adminlaa'] ?> Admin Laa</td>
                       <?php if ($statusfile == "Disetujui Adminlaa" or $statusfile == "Disetujui Ketua KK") : ?>
                         <td><a data-toggle="modal" data-target="#view<?= $k['id'] ?>" class="badge badge-secondary" style="color:#fff">Lihat</a></td>
                       <?php endif; ?>
+                      <td></td>
+                      <td></td>
+                    <?php elseif ($k['status_adminlaa'] == 'Dikirim') : ?>
+                      <td>Dikirim ke adminlaa</td>
                       <td></td>
                       <td></td>
                     <?php elseif ($k['status_adminlaa'] == 'Update') : ?>
@@ -179,6 +175,10 @@
               <input type="file" class="form-control" name="filependaftaran[]" id="files5" required style="padding:13px 16px">
               <span id="chk-error5"></span>
             </div>
+            <font color="red">
+              *) file harus format pdf <br>
+              *) maximal upload kurang dari 10 MB
+            </font>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
