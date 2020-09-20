@@ -112,7 +112,6 @@ class Users extends CI_Controller
         'tahun' => date('Y'),
         'status_file' => "Dikirim",
         'date' => date("d-m-Y"),
-        'status_preview' => 'preview1'
       ];
       $this->db->insert('guidance', $data);
       $allfile = count($_FILES['filependaftaran']['name']);
