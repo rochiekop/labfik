@@ -104,6 +104,7 @@ class Admin_karya extends CI_Controller
                 $i = $this->input;
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
+                    'id_tampilan'   =>  uniqid(),
                     'id' =>  $this->session->userdata('id'),
                     'nama' =>  $i->post('nama'),
                     'slug_tampilan' => $slug_tampilan,
@@ -116,10 +117,11 @@ class Admin_karya extends CI_Controller
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'tanggal_post'  =>  date('Y-m-d'),
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Ditambah!</div>');
                 redirect(base_url('admin_karya'), 'refresh');
             }
         }
@@ -237,6 +239,7 @@ class Admin_karya extends CI_Controller
                     'deskripsi'     => $i->post('deskripsi')
                 );
                 $this->tampilan_model->edit($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Diedit!</div>');
                 redirect(base_url('admin_karya'), 'refresh');
             }
         }
@@ -263,14 +266,21 @@ class Admin_karya extends CI_Controller
     public function accepted($id)
     {
         $this->gambar_model->changeStatusAccepted($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish Disetujui!</div>');
         redirect('admin_karya/listacc');
     }
 
     public function Declined($id)
     {
         $this->gambar_model->changeStatusDeclined($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat ditolak!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish ditolak!</div>');
+        redirect('admin_karya/listacc');
+    }
+
+    public function batal($id)
+    {
+        $this->gambar_model->changeStatusBatal($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish dibatalkan!</div>');
         redirect('admin_karya/listacc');
     }
 

@@ -149,7 +149,7 @@ class Tampilan_model extends CI_Model
         $this->db->select('*');
         $this->db->from('tampilan');
         $this->db->where('id_tampilan', $id_tampilan);
-        $this->db->order_by('id_tampilan', 'desc');
+        $this->db->order_by('id_tampilan');
         $query = $this->db->get();
         return $query->row_array();
     }

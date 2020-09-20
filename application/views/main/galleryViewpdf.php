@@ -10,7 +10,7 @@
             <?php if ($tampilan->likes > 0) {
               echo $tampilan->likes;
             } else {
-              echo 'Like';
+              echo 'Upvote';
             } ?>
           </span></a>
         <a><i class="fas fa-eye"></i><?= $tampilan->views ?></a>

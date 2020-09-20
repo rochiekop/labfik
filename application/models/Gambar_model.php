@@ -143,6 +143,14 @@ class Gambar_model extends CI_Model
         $this->db->update('tampilan', $data, ['id_tampilan' => $id]);
     }
 
+    public function changeStatusBatal($id)
+    {
+        $data = array(
+            'status' => 'Menunggu Acc',
+        );
+        $this->db->update('tampilan', $data, ['id_tampilan' => $id]);
+    }
+
     public function hitung()
     {
         $this->db->select('*');

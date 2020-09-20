@@ -87,7 +87,7 @@ class Karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['allowed_types'] = 'jpg|png|jpeg|gif|pdf';
             $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
@@ -107,6 +107,7 @@ class Karya extends CI_Controller
                 $i = $this->input;
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
+                    'id_tampilan'   =>  uniqid(),
                     'id' =>  $this->session->userdata('id'),
                     'nama' =>  $i->post('nama'),
                     'slug_tampilan' => $slug_tampilan,
@@ -119,10 +120,11 @@ class Karya extends CI_Controller
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'tanggal_post'  =>  date('Y-m-d'),
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Ditambahkan!</div>');
                 redirect(base_url('karya/listbydsn'), 'refresh');
             }
         }
@@ -180,7 +182,7 @@ class Karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['allowed_types'] = 'mov|mpeg|mp3|avi|mp4';
             $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
@@ -200,6 +202,7 @@ class Karya extends CI_Controller
                 $i = $this->input;
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
+                    'id_tampilan'   =>  uniqid(),
                     'id' =>  $this->session->userdata('id'),
                     'nama' =>  $i->post('nama'),
                     'slug_tampilan' => $slug_tampilan,
@@ -212,10 +215,11 @@ class Karya extends CI_Controller
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'tanggal_post'  =>  date('Y-m-d'),
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Ditambahkan!</div>');
                 redirect(base_url('karya/listbydsn'), 'refresh');
             }
         }
@@ -273,7 +277,7 @@ class Karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['allowed_types'] = 'jpg|png|jpeg|gif|pdf';
             $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
@@ -293,6 +297,7 @@ class Karya extends CI_Controller
                 $i = $this->input;
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
+                    'id_tampilan'   =>  uniqid(),
                     'id' =>  $this->session->userdata('id'),
                     'nama' =>  $this->session->userdata('name'),
                     'slug_tampilan' => $slug_tampilan,
@@ -305,10 +310,11 @@ class Karya extends CI_Controller
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'tanggal_post'  =>  date('Y-m-d'),
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Ditambahkan!</div>');
                 redirect(base_url('karya/listbymhs'), 'refresh');
             }
         }
@@ -366,7 +372,7 @@ class Karya extends CI_Controller
         );
         if ($valid->run()) {
             $config['upload_path'] = './assets/upload/images/';
-            $config['allowed_types'] = 'jpg|png|jpeg|gif|mov|mpeg|mp3|avi|mp4';
+            $config['allowed_types'] = 'mov|mpeg|mp3|avi|mp4';
             $config['max_size'] = '0';
 
             $this->load->library('upload', $config);
@@ -386,6 +392,7 @@ class Karya extends CI_Controller
                 $i = $this->input;
                 $slug_tampilan = url_title($this->input->post('judul'), 'dash', TRUE);
                 $data = array(
+                    'id_tampilan'   =>  uniqid(),
                     'id' =>  $this->session->userdata('id'),
                     'nama' =>  $this->session->userdata('name'),
                     'slug_tampilan' => $slug_tampilan,
@@ -398,10 +405,11 @@ class Karya extends CI_Controller
                     'judul'       => $i->post('judul'),
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'    =>  $upload_gambar['upload_data']['file_name'],
-                    'tanggal_post'  =>  date('Y-m-d H:i:s'),
+                    'tanggal_post'  =>  date('Y-m-d'),
                     'status'    =>  'Menunggu Acc'
                 );
                 $this->tampilan_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Ditambahkan!</div>');
                 redirect(base_url('karya/listbymhs'), 'refresh');
             }
         }
@@ -517,6 +525,7 @@ class Karya extends CI_Controller
                     'deskripsi'     => $i->post('deskripsi')
                 );
                 $this->tampilan_model->edit($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Telah Diedit!</div>');
                 redirect(base_url('karya/listbydsn'), 'refresh');
             }
         }

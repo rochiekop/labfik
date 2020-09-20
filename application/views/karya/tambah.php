@@ -3,6 +3,12 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5>Upload Karya</h5>
     </div>
+    <div id="uploaded_file"></div>
+    <?php
+    if (isset($error)) {
+        echo "<div class='alert alert-warning' role='alert'> $error </div>";
+    }
+    ?>
     <div class="row">
         <div class="col-md-5" id="imagePreview">
             <embed type="application/pdf" class="fas fa-image placeholder-img" width="445px" />
@@ -10,21 +16,6 @@
         </div>
         <div class="col-md-7">
             <div class="card">
-                <?php
-
-                if (isset($error)) {
-                    echo '<p class="alert alert-warning">';
-                    echo $error;
-                    echo '</p>';
-                }
-
-                echo validation_errors('<div class="alert alert-warning">', '</div>');
-                ?>
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div id="uploaded_file"></div>
-                    </div>
-                </div>
                 <form method="post" id="form-upload" enctype="multipart/form-data" action="<?= base_url('karya/tambahbymhs') ?>">
                     <div class="card-body">
                         <div class="custom-form">
@@ -141,9 +132,10 @@
                     contentType: false,
                     success: function(data) {
                         if (data.result == '1') {
-                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                            $('#form-upload')[0].reset();
+                            $('#uploaded_file').html('<p class="alert alert-warning" role="alert">Tolong Lihat Kembali Data Anda</p>');
                         } else {
-                            $('#uploaded_file').html('<p style="color:#EA4335;">Tolong Lihat Kembali Data Anda</p>');
+                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
                         }
                     },
                     xhr: function() {

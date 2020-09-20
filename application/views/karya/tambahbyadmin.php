@@ -3,6 +3,7 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5>Upload Karya</h5>
     </div>
+    <div id="uploaded_file"></div>
     <div class="row">
         <div class="col-md-8">
             <div class="card">
@@ -119,9 +120,10 @@
                     contentType: false,
                     success: function(data) {
                         if (data.result == '1') {
-                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
+                            $('#form-upload')[0].reset();
+                            $('#uploaded_file').html('<p class="alert alert-warning" role="alert">Tolong Lihat Kembali Data Anda</p>');
                         } else {
-                            $('#uploaded_file').html('<p style="color:#EA4335;">Tolong Lihat Kembali Data Anda</p>');
+                            window.location.href = "<?= base_url(); ?>karya/listbymhs";
                         }
                     },
                     xhr: function() {

@@ -3,6 +3,7 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
     </div>
+    <div id="uploaded_file"></div>
     <div class="row">
         <div class="col-md-4" id="imagePreview">
             <?php if ($tampilan['type'] == 'Video') : ?>
@@ -170,7 +171,11 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        window.location.href = "<?= base_url(); ?>admin_karya";
+                        if (data.result == '1') {
+                            $('#uploaded_file').html('<p class="alert alert-warning" role="alert">Tolong Lihat Kembali Data Anda</p>');
+                        } else {
+                            window.location.href = "<?= base_url(); ?>admin_karya";
+                        }
                     },
                     xhr: function() {
                         var xhr = new XMLHttpRequest();

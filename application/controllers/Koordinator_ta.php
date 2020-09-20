@@ -90,20 +90,173 @@ class Koordinator_ta extends CI_Controller
 
   public function previewdua()
   {
-    $data = array(
-      'title' => "Laboratotium FIK | Preview 2",
-    );
+    $pr2 = $this->koordinatorta_model->getpeview2();
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
+    $getDosen = $this->koordinatorta_model->getDosen();
+    $data['title'] = "Laboratotium FIK | Preview 2";
+    $userslist = [];
+    foreach ($getDosen as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'prodi' => $u['prodi'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+    $data['dosen'] = $userslist;
+    $userslist = [];
+    foreach ($pr2 as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'id_mhs'  => $u['id_mhs'],
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'date'   =>  $u['date'],
+          'tahun' => $u['tahun'],
+          'no_telp' => $u['no_telp'],
+          'status'  => $u['status'],
+          'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
+          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+        ];
+    }
+    $data['preview2'] = $userslist;
     $this->load->view("templates/dashboard/headerKoorTa", $data);
     $this->load->view("templates/dashboard/sidebarKoorTa");
     $this->load->view("dashboard/koorta/preview2", $data);
     $this->load->view("templates/dashboard/footer");
   }
 
-  public function sidang()
+  public function bookingPlaceoffline()
   {
     $data = array(
-      'title' => "Laboratotium FIK | Sidang",
+      'id' => uniqid(),
+      'id_peminjam' => $this->input->post('id_peminjam'),
+      'id_ruangan' => $this->input->post('id_ruangan'),
+      'date' => $this->input->post('tanggal'),
+      'time' => implode(", ", $this->input->post('time')),
+      'status' => 'Diterima',
+      'statusta'  => 'sidang ta'
     );
+    $this->db->insert('booking', $data);
+    $data = array(
+      'status'      => 'sidang ta'
+    );
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
+    $id_booking = $this->koordinatorta_model->getbooking($this->input->post('id_peminjam'), 'sidang ta');
+    $data = array(
+      'id_offline'  =>  $id_booking,
+      'status'      => 'sidang ta'
+    );
+    $this->db->update('guidance', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
+    redirect('Koordinator_ta/previewdua');
+  }
+
+  public function placeonline()
+  {
+    $data = array(
+      'id' => uniqid(),
+      'id_mhs'  =>  $this->input->post('id_mhs'),
+      'ruangan'   =>  $this->input->post('ruangan'),
+      'date' => $this->input->post('tanggal'),
+      'time' => implode(", ", $this->input->post('time')),
+      'status'  => 'preview 2'
+    );
+    $this->db->insert('taonline', $data);
+    $dosbing1 = $this->input->post('dosbing1');
+    $dosbing2 = $this->input->post('dosbing2');
+    $data = array(
+      'dosen_penguji1' => $dosbing1,
+      'dosen_penguji2' => $dosbing2,
+      'status'      => 'preview 2'
+    );
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
+    $id_booking = $this->koordinatorta_model->getbookingonline($this->input->post('id_mhs'), 'preview 2');
+    $data = array(
+      'id_online'  =>  $id_booking
+    );
+    $this->db->update('guidance ', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
+    redirect('Koordinator_ta/previewdua');
+  }
+
+  public function placeonlinesidang()
+  {
+    $data = array(
+      'id' => uniqid(),
+      'id_mhs'  =>  $this->input->post('id_mhs'),
+      'ruangan'   =>  $this->input->post('ruangan'),
+      'date' => $this->input->post('tanggal'),
+      'time' => implode(", ", $this->input->post('time')),
+      'status'  => 'sidang ta'
+    );
+    $this->db->insert('taonline', $data);
+    $data = array(
+      'status'      => 'sidang ta'
+    );
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
+    $id_booking = $this->koordinatorta_model->getbookingonline($this->input->post('id_mhs'), 'sidang ta');
+    $data = array(
+      'id_online'  =>  $id_booking,
+      'status'      => 'sidang ta'
+    );
+    $this->db->update('guidance', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
+    redirect('Koordinator_ta/previewdua');
+  }
+
+  public function sidang()
+  {
+    $pr2 = $this->koordinatorta_model->getpeview2();
+    $data['kruangan'] = $this->admin_model->kategoriruangan();
+    $getDosen = $this->koordinatorta_model->getDosen();
+    $data['title'] = "Laboratotium FIK | Sidang";
+    $userslist = [];
+    foreach ($getDosen as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'prodi' => $u['prodi'],
+          'kuota_bimbingan' => $u['kuota_bimbingan'],
+          'kuota_penguji' => $u['kuota_penguji'],
+          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
+          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
+        ];
+    }
+    $data['dosen'] = $userslist;
+    $userslist = [];
+    foreach ($pr2 as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'id_mhs'  => $u['id_mhs'],
+          'id_guidance' => $u['id_guidance'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'date'   =>  $u['date'],
+          'tahun' => $u['tahun'],
+          'no_telp' => $u['no_telp'],
+          'status'  => $u['status'],
+          'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
+          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'dospeng1' => $this->adminlaa_model->getDosenWali($u['dosen_penguji1'])->name,
+          'dospeng2' => $this->adminlaa_model->getDosenWali($u['dosen_penguji2'])->name,
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+        ];
+    }
+    $data['preview2'] = $userslist;
     $this->load->view("templates/dashboard/headerKoorTa", $data);
     $this->load->view("templates/dashboard/sidebarKoorTa");
     $this->load->view("dashboard/koorta/sidang", $data);

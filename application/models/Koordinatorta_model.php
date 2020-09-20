@@ -74,4 +74,22 @@ class Koordinatorta_model extends CI_Model
     $data =  $this->db->get()->row();
     return  json_decode(json_encode($data), true);
   }
+
+  public function getbooking($id_peminjam, $statusta)
+  {
+    $this->db->select('id');
+    $this->db->from('booking');
+    $this->db->where('id_peminjam', $id_peminjam);
+    $this->db->where('statusta', $statusta);
+    return $this->db->get()->row()->id;
+  }
+
+  public function getbookingonline($id_mhs, $status)
+  {
+    $this->db->select('id');
+    $this->db->from('taonline');
+    $this->db->where('id_mhs', $id_mhs);
+    $this->db->where('status', $status);
+    return $this->db->get()->row()->id;
+  }
 }

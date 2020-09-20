@@ -3,6 +3,7 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5>Permintaan Listing Karya</h5>
     </div>
+    <?= $this->session->flashdata('message'); ?>
     <div class="input-group">
         <div class="input-group-append">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px 0 0 5px">Prodi</button>
@@ -61,8 +62,10 @@
                                     <a href="<?= base_url('kaur_karya/accepted/') . $l->id_tampilan; ?>" class="btn badge badge-success">Acc</a>
                                     <a data-toggle="modal" data-target="#declinedmodal<?= $l->id; ?>" class="btn badge badge-danger" style="color: white;">Tolak</a>
                                 </td>
-                            <?php else : ?>
-                                <td></td>
+                            <?php elseif ($l->status == 'Diterima' or $l->status == 'Ditolak') : ?>
+                                <td class="action" style="width:130px;text-align:center;">
+                                    <a data-toggle="modal" data-target="#batal<?= $l->id; ?>" class="btn badge badge-danger" style="color: white;">Batalkan</a>
+                                </td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
@@ -73,6 +76,22 @@
 </main>
 
 <?php foreach ($tampilan as $data) : ?>
+    <div class="modal fade bd-example-modal-sm" id="batal<?= $data->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Batalkan permintaan posting ?
+                </div>
+                <form action="<?= base_url('kaur_karya/batal/') . $data->id_tampilan; ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-footer">
+                        <input type="hidden" id="id" name="id" value="<?= $data->id; ?>">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                        <button type="submit" name="declinedpeminjaman" class="btn btn-danger btn-sm">Batalkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= $data->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">

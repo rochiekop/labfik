@@ -69,14 +69,21 @@ class Kaur_karya extends CI_Controller
     public function accepted($id)
     {
         $this->gambar_model->changeStatusAccepted($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat disetujui!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish disetujui!</div>');
         redirect('kaur_karya');
     }
 
     public function Declined($id)
     {
         $this->gambar_model->changeStatusDeclined($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Peminjaman tempat ditolak!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish ditolak!</div>');
+        redirect('kaur_karya');
+    }
+
+    public function batal($id)
+    {
+        $this->gambar_model->changeStatusBatal($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish dibatalkan!</div>');
         redirect('kaur_karya');
     }
 }

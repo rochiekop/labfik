@@ -5,6 +5,7 @@
         <span class="fas fa-door-open zzzz"></span>
         <h5><?= $title ?></h5>
     </div>
+    <?= $this->session->flashdata('message'); ?>
     <div class="input-group">
         <div class="input-group-append">
             <button class="btn btn-primary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:1px solid rgba(0,0,0,.1);">Urutkan</button>

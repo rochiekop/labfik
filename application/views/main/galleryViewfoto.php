@@ -5,12 +5,12 @@
             <h6><?= $tampilan->judul ?></h6>
             by <b><?= $tampilan->nama ?></b>
             <div class="stat-vote">
-                <a onclick="savelike(<?= $tampilan->id_tampilan; ?>);" title="Upvote"><i class="fas fa-chevron-up"></i>
+                <a onclick="savelike('<?= $tampilan->id_tampilan; ?>');" title="Upvote"><i class="fas fa-chevron-up"></i>
                     <span id="like_<?php echo $tampilan->id_tampilan; ?>">
                         <?php if ($tampilan->likes > 0) {
                             echo $tampilan->likes;
                         } else {
-                            echo 'Like';
+                            echo 'Upvote';
                         } ?>
                     </span></a>
                 <a><i class="fas fa-eye"></i><?= $tampilan->views ?></a>
