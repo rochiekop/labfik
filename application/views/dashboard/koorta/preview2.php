@@ -51,11 +51,15 @@
                 </td>
                 <?php if ($t['status'] == '') : ?>
                   <td>
-                    <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">Buat Jadwal</a>
+                    <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">Buat Aksi</a>
                   </td>
-                <?php elseif ($t['status'] == 'jadwal ta') : ?>
+                <?php elseif ($t['status'] == 'preview 2') : ?>
                   <td>
-                    <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">Edit Jadwal</a>
+                    <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">Edit Aksi</a>
+                  </td>
+                <?php elseif ($t['status'] == 'sidang ta') : ?>
+                  <td>
+                    Tentukan Jadwal Sidang
                   </td>
                 <?php endif; ?>
               </tr>
@@ -102,7 +106,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-              <label>Tempat</label>
+              <!-- <label>Tempat</label>
               <div class="form-group">
                 <input type="text" name="ruangan" value="" class="form-control" id="cek" placeholder="Contoh: zoom.com/lorem" required>
               </div>
@@ -119,7 +123,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> -->
             </div>
             <input type="hidden" name="id_mhs" class="form-control" placeholder="" value="<?= $m['id_mhs'] ?>" required="required" autocomplete="off" />
             <input type="hidden" name="id_guidance" class="form-control" placeholder="" value="<?= $m['id_guidance'] ?>" required="required" autocomplete="off" />

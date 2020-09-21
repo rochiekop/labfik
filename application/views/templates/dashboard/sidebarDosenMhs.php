@@ -84,14 +84,14 @@ $bimbingan = $this->db->query($guidance, array($this->session->userdata('id'), '
             <li><a href="<?= base_url('karya/listbydsn') ?>">Karya Saya</a></li>
           <?php endif; ?>
           <?php if ($this->session->userdata('role_id') == 4) : ?>
-            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload File</a></li>
+            <li><a href="<?= base_url('karya/tambahbymhs') ?>">Upload Karya</a></li>
           <?php elseif ($this->session->userdata('role_id') == 3) : ?>
-            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload File</a></li>
+            <li><a href="<?= base_url('karya/tambahbydsn') ?>">Upload Karya</a></li>
           <?php endif; ?>
           <?php if ($this->session->userdata('role_id') == 4) : ?>
-            <li><a href="<?= base_url('karya/tambahbymhsvid') ?>">Upload Video</a></li>
+            <li><a href="<?= base_url('karya/tambahbymhsvid') ?>" hidden>Upload Video</a></li>
           <?php elseif ($this->session->userdata('role_id') == 3) : ?>
-            <li><a href="<?= base_url('karya/tambahbydsnvid') ?>">Upload Video</a></li>
+            <li><a href="<?= base_url('karya/tambahbydsnvid') ?>" hidden>Upload Video</a></li>
           <?php endif; ?>
         </ul>
       </div>

@@ -24,7 +24,6 @@ class Koordinator_ta extends CI_Controller
 
     $prodi = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row()->prodi;
     $getDosen = $this->koordinatorta_model->getDosen($prodi);
-    $dosbing = $this->koordinatorta_model->getThesisLecturer();
     $userslist = [];
     foreach ($getDosen as $u) {
       $userslist[] =
@@ -92,7 +91,7 @@ class Koordinator_ta extends CI_Controller
   {
     $pr2 = $this->koordinatorta_model->getpeview2();
     $data['kruangan'] = $this->admin_model->kategoriruangan();
-    $getDosen = $this->koordinatorta_model->getDosen();
+    $getDosen = $this->koordinatorta_model->getDospeng();
     $data['title'] = "Laboratotium FIK | Preview 2";
     $userslist = [];
     foreach ($getDosen as $u) {
@@ -100,11 +99,6 @@ class Koordinator_ta extends CI_Controller
         [
           'id' => $u['id'],
           'name' => $u['name'],
-          'prodi' => $u['prodi'],
-          'kuota_bimbingan' => $u['kuota_bimbingan'],
-          'kuota_penguji' => $u['kuota_penguji'],
-          'count_bimbingan' => $this->koordinatorta_model->countStatusBimbingan($u['id']),
-          'count_penguji' => $this->koordinatorta_model->countStatusPenguji($u['id']),
         ];
     }
     $data['dosen'] = $userslist;
@@ -147,31 +141,27 @@ class Koordinator_ta extends CI_Controller
       'statusta'  => 'sidang ta'
     );
     $this->db->insert('booking', $data);
-    $data = array(
-      'status'      => 'sidang ta'
-    );
-    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
     $id_booking = $this->koordinatorta_model->getbooking($this->input->post('id_peminjam'), 'sidang ta');
     $data = array(
-      'id_offline'  =>  $id_booking,
-      'status'      => 'sidang ta'
+      'status'      => 'sidang ta',
+      'id_offline'  =>  $id_booking
     );
-    $this->db->update('guidance', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
-    redirect('Koordinator_ta/previewdua');
+    redirect('Koordinator_ta/sidang');
   }
 
   public function placeonline()
   {
-    $data = array(
-      'id' => uniqid(),
-      'id_mhs'  =>  $this->input->post('id_mhs'),
-      'ruangan'   =>  $this->input->post('ruangan'),
-      'date' => $this->input->post('tanggal'),
-      'time' => implode(", ", $this->input->post('time')),
-      'status'  => 'preview 2'
-    );
-    $this->db->insert('taonline', $data);
+    // $data = array(
+    //   'id' => uniqid(),
+    //   'id_mhs'  =>  $this->input->post('id_mhs'),
+    //   'ruangan'   =>  $this->input->post('ruangan'),
+    //   'date' => $this->input->post('tanggal'),
+    //   'time' => implode(", ", $this->input->post('time')),
+    //   'status'  => 'preview 2'
+    // );
+    // $this->db->insert('taonline', $data);
     $dosbing1 = $this->input->post('dosbing1');
     $dosbing2 = $this->input->post('dosbing2');
     $data = array(
@@ -180,12 +170,12 @@ class Koordinator_ta extends CI_Controller
       'status'      => 'preview 2'
     );
     $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
-    $id_booking = $this->koordinatorta_model->getbookingonline($this->input->post('id_mhs'), 'preview 2');
-    $data = array(
-      'id_online'  =>  $id_booking
-    );
-    $this->db->update('guidance ', $data, ['id_mhs' => $this->input->post('id_mhs')]);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
+    // $id_booking = $this->koordinatorta_model->getbookingonline($this->input->post('id_mhs'), 'preview 2');
+    // $data = array(
+    //   'id_online'  =>  $id_booking
+    // );
+    // $this->db->update('guidance ', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Dosen Penguji Telah Tersimpan!</div>');
     redirect('Koordinator_ta/previewdua');
   }
 
@@ -200,23 +190,32 @@ class Koordinator_ta extends CI_Controller
       'status'  => 'sidang ta'
     );
     $this->db->insert('taonline', $data);
-    $data = array(
-      'status'      => 'sidang ta'
-    );
-    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
     $id_booking = $this->koordinatorta_model->getbookingonline($this->input->post('id_mhs'), 'sidang ta');
     $data = array(
-      'id_online'  =>  $id_booking,
-      'status'      => 'sidang ta'
+      'status'      => 'sidang ta',
+      'id_online'  =>  $id_booking
     );
-    $this->db->update('guidance', $data, ['id_mhs' => $this->input->post('id_mhs')]);
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Telah Terkirim!</div>');
-    redirect('Koordinator_ta/previewdua');
+    redirect('Koordinator_ta/sidang');
+  }
+
+  public function batal()
+  {
+    $id = $this->input->post('id_offline');
+    $this->db->delete('booking', ['id' => $id]);
+    $data = array(
+      'status' => 'preview 2',
+      'id_offline' => ''
+    );
+    $this->db->update('thesis_lecturers', $data, ['id_guidance' => $this->input->post('id_guidance')]);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Permintaan Publish dibatalkan!</div>');
+    redirect('Koordinator_ta/sidang');
   }
 
   public function sidang()
   {
-    $pr2 = $this->koordinatorta_model->getpeview2();
+    $pr2 = $this->koordinatorta_model->getsidang();
     $data['kruangan'] = $this->admin_model->kategoriruangan();
     $getDosen = $this->koordinatorta_model->getDosen();
     $data['title'] = "Laboratotium FIK | Sidang";
@@ -241,6 +240,8 @@ class Koordinator_ta extends CI_Controller
           'id' => $u['id'],
           'id_mhs'  => $u['id_mhs'],
           'id_guidance' => $u['id_guidance'],
+          'id_online'  => $u['id_online'],
+          'id_offline'  => $u['id_offline'],
           'name' => $u['name'],
           'nim' => $u['nim'],
           'prodi' => $u['prodi'],

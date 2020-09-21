@@ -48,6 +48,15 @@ class Koordinatorta_model extends CI_Model
     return $this->db->get()->result_array();
   }
 
+  public function getDospeng()
+  {
+    $this->db->select('id,name,kuota_bimbingan,kuota_penguji,prodi,koordinator');
+    $this->db->from('user');
+    $this->db->where('role_id', 3);
+    $this->db->where('is_active', 1);
+    return $this->db->get()->result_array();
+  }
+
   public function countStatusBimbingan($id)
   {
     $this->db->select('id');
@@ -91,5 +100,27 @@ class Koordinatorta_model extends CI_Model
     $this->db->where('id_mhs', $id_mhs);
     $this->db->where('status', $status);
     return $this->db->get()->row()->id;
+  }
+
+  public function getpeview2()
+  {
+    $this->db->select('thesis_lecturers.id, user.name, guidance.id_mhs, thesis_lecturers.id_guidance, user.nim, user.prodi, guidance.peminatan, thesis_lecturers.date, guidance.tahun, user.no_telp, thesis_lecturers.status, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, user.dosen_wali');
+    $this->db->from('thesis_lecturers');
+    $this->db->join('guidance', 'guidance.id = thesis_lecturers.id_guidance');
+    $this->db->join('user', 'guidance.id_mhs = user.id');
+    $this->db->where('guidance.status_preview', 'preview2');
+    $this->db->order_by('guidance.id', 'desc');
+    return $this->db->get()->result_array();
+  }
+
+  public function getsidang()
+  {
+    $this->db->select('thesis_lecturers.id, user.name, guidance.id_mhs, thesis_lecturers.id_guidance, user.nim, user.prodi, guidance.peminatan, thesis_lecturers.date, guidance.tahun, user.no_telp, thesis_lecturers.status, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, user.dosen_wali, thesis_lecturers.dosen_penguji1, thesis_lecturers.dosen_penguji2, thesis_lecturers.id_offline, thesis_lecturers.id_online');
+    $this->db->from('thesis_lecturers');
+    $this->db->join('guidance', 'guidance.id = thesis_lecturers.id_guidance');
+    $this->db->join('user', 'guidance.id_mhs = user.id');
+    $this->db->where('guidance.status_preview', 'sidang');
+    $this->db->order_by('guidance.id', 'desc');
+    return $this->db->get()->result_array();
   }
 }

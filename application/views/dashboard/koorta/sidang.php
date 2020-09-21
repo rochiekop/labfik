@@ -12,7 +12,6 @@
             <a class="dropdown-item" href="#">Nama A-Z</a>
             <a class="dropdown-item" href="#">Terbaru</a>
             <a class="dropdown-item" href="#">Belum Ada Jadwal</a>
-            <a class="dropdown-item" href="#">Edit Jadwal</a>
           </div>
         </div>
         <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Cari nama mahasiswa/NIM/Dosen Wali">
@@ -50,10 +49,16 @@
                   <?= $t['dospeng1'] ?> <br>
                   <?= $t['dospeng2'] ?>
                 </td>
-                <td>
-                  <a data-toggle="modal" data-target="#offline<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">offline</a>
-                  <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">online</a>
-                </td>
+                <?php if ($t['status'] == 'preview 2') : ?>
+                  <td>
+                    <a data-toggle="modal" data-target="#offline<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">offline</a>
+                    <a data-toggle="modal" data-target="#online<?= $t['id'] ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">online</a>
+                  </td>
+                <?php elseif ($t['id_offline'] != '') : ?>
+                  <td>
+                    <a data-toggle="modal" data-target="#declinedmodal<?= encrypt_url($t['id']); ?>" class="badge badge-primary" style="color:#fff;margin-top:6px">Edit Jadwal</a>
+                  </td>
+                <?php endif; ?>
               </tr>
             <?php $no++;
             } ?>
@@ -62,11 +67,28 @@
       </table>
     </div>
 
-
   </main>
   <!-- End Main Container -->
 
   <?php foreach ($preview2 as $m) : ?>
+    <div class="modal fade bd-example-modal-sm" id="declinedmodal<?= encrypt_url($m['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            Batalkan Jadwal Sidang?
+          </div>
+          <form action="batal" method="post" enctype="multipart/form-data">
+            <div class="modal-footer">
+              <input type="hidden" id="id" name="id_offline" value="<?= $m['id_offline']; ?>">
+              <input type="hidden" id="id" name="id_guidance" value="<?= $m['id_guidance']; ?>">
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+              <button type="submit" name="declinedpeminjaman" class="btn btn-danger btn-sm">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade" id="online<?= $m['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
