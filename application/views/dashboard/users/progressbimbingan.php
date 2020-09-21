@@ -69,19 +69,52 @@
 
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a> -->
+      <?php if ($step->status_preview == 'preview1') : ?>
+        <a class="nav-link btn-secondary active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php elseif ($step->status_preview == 'preview2' or $step->status_preview == 'preview3' or $step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : ''; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : 'disabled'; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a> -->
+      <?php if ($step->status_preview == 'preview2') : ?>
+        <a class="nav-link btn-secondary active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <?php elseif ($step->status_preview == 'preview3' or $step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>  
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : ''; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : 'disabled'; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a> -->
+      <?php if ($step->status_preview == 'preview3') : ?>
+        <a class="nav-link btn-secondary active" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php elseif ($step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : ''; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : 'disabled'; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a> -->
+      <?php if ($step->status_preview == 'sidang') : ?>
+        <a class="nav-link btn-secondary active" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php elseif ($step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'lulus') ? 'btn-secondary active' : ''; ?>" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="<?php echo ($step->status_preview == 'lulus') ? 'true' : 'false'; ?>">Lulus</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'lulus') ? 'btn-secondary active' : 'disabled'; ?>" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="<?php echo ($step->status_preview == 'lulus') ? 'true' : 'false'; ?>">Lulus</a> -->
+      <?php if ($step->status_preview == 'lulus') : ?>
+        <a class="nav-link btn-secondary active" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="false">Lulus</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="false">Lulus</a>
+      <?php endif; ?>
     </li>
   </ul>
 
@@ -129,8 +162,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> >Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> >Revisi</a>
+                      <button href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</button>
+                      <button href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</button>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -146,10 +179,10 @@
           <br>
 
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') ? '' : 'hidden') ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
     </div>
@@ -159,7 +192,7 @@
         Preview 2. Tahap audiensi/presentasi
       </div>
       
-      <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) : ?>
+      <?php if ($lecturers->dosen_penguji1 == $this->session->userdata('id')) : ?>
       <div style="padding-bottom:20px">
         <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"><span class="fa fa-plus"></span> Input Jadwal Presentasi</button>
       </div>
@@ -196,9 +229,9 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
           <!-- </?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); $nilai2 = explode(",", $penilaian->nilai_pembimbing2); $nilai3 = explode(",", $penilaian->nilai_penguji1); $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
     </div>
@@ -244,8 +277,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?> <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> " class="btn badge badge-success">Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?> <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> " class="btn badge badge-danger">Revisi</a>
+                      <button href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-success">Sesuai</button>
+                      <button href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-danger">Revisi</button>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
@@ -263,9 +296,9 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction2" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
           <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
         </div>
       </div>
 
@@ -319,9 +352,9 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#grading_sidang" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
         <!-- </?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
         <button class="btn btn-success" data-toggle="modal" data-target="#lulus" </?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check"></span> Lanjut</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-undo"></span> Kembali</button>
-        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-times"></span> Ulangi</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
         
       </div>
     </div>
@@ -397,6 +430,7 @@
             <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
             <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?>>
             <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+            <textarea name="komentar_kelayakan" id="editable" class="editable" cols="30" rows="10"><?= $layak->komentar_kelayakan ?></textarea>
           </div>
 
           <div class="modal-footer">
@@ -448,12 +482,14 @@
             </div>
 
             <div style="padding:10px">
-              <center><strong>Bab 3</strong></center>
+              <center><strong>Bab 4</strong></center>
               <input type="checkbox" id="konsep" name="kelayakan2[]" value="konsep" <?php echo (in_array('konsep', $check2)) ? 'checked' : ''; ?>>
               <label for="konsep"> Konsep perancangan</label><br>
               <input type="checkbox" id="karya" name="kelayakan2[]" value="karya" <?php echo (in_array('karya', $check2)) ? 'checked' : ''; ?>>
               <label for="karya"> Karya visual</label><br>
             </div>
+
+            <textarea name="komentar_kelayakan2" id="editable" class="editable" cols="30" rows="10"><?= $layak->komentar_kelayakan2 ?></textarea>
 
           </div>
 
@@ -695,7 +731,7 @@
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
     height: '350',
-    width: '520',
+    width: '470',
     readonly: 1
   });
 
@@ -707,7 +743,7 @@
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
     height: '350',
-    width: '520',
+    width: '470',
   });
 </script>
 

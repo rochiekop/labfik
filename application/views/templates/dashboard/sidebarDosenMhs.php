@@ -29,7 +29,7 @@ $bimbingan = $this->db->query($guidance, array($this->session->userdata('id'), '
             <li><a href="<?= base_url('users/pendaftarantugasakhir') ?>">Pendaftaran</a></li>
             <?php if (!empty($bimbingan)) : ?>
               <li><a href="<?= base_url('users/bimbingantugasakhir') ?>">Bimbingan</a></li>
-              <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li>
+              <!-- <li><a href="<?= base_url('users/sidang') ?>">Sidang</a></li> -->
             <?php endif ?>
           </ul>
         </div>

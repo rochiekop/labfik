@@ -11,9 +11,10 @@
       <div class="alert alert-success">Koordinator TA telah menambahkan <?= $dosbing1['name'] ?> dan <?= $dosbing2['name'] ?> sebagai dosen pembimbing tugas akhir anda,<br> <a href="<?= base_url('users/bimbingantugasakhir') ?>" class="btn btn-success btn-sm" style="margin-top:6px;">Mulai Bimbingan</a> </div>
     <?php endif; ?> -->
     <?php if (empty($file)) : ?>
-      <a data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</a>
+      <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff">Daftar Tugas Akhir</button>
     <?php else : ?>
-      <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button>
+      <!-- <button data-toggle="modal" data-target="#judul" class="btn btn-sm btn-primary" style="color:#fff" disabled="disabled">Daftar Tugas Akhir</button> -->
+      <button data-toggle="modal" data-target="#judul2" class="btn btn-sm btn-primary" style="color:#fff">Edit Judul</button>
     <?php endif; ?>
     <br><br>
     <?php echo form_error('filependaftaran', '<p class="help-block">', '</p>'); ?>
@@ -181,8 +182,64 @@
             </font>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batalkan</button>
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-sm btn-primary" name="daftar" id="btn_daftar" value="Daftar">Daftar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal judul 2 -->
+  <div class="modal fade" id="judul2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">Form Pendaftaran Tugas Akhir</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="<?= base_url('users/inputformpendaftaran') ?>" id="upload_form" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <input type="hidden" id="id_mhs" name="id_mhs" value="<?= $mhs['id'] ?>">
+            <div class="form-group">
+              <label for="exampleFormControlFile1" id="judul">Judul 1</label>
+              <input name="judul1" pattern="[^()/<>[\]\\,'|\x22]+" type="text" class="form-control" required value="<?= set_value('judul'); ?>">
+              <?php echo form_error('judul', '<small class="text-danger">', '</small>'); ?>
+              <!-- <div class="invalid-feedback">
+                Please choose a username.
+              </div> -->
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1" id="judul">Judul 2</label>
+              <input name="judul2" pattern="[^()/<>[\]\\,'|\x22]+" class="form-control" value="<?= set_value('judul'); ?>">
+              <?php echo form_error('judul2', '<small class="text-danger">', '</small>'); ?>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1" id="judul">Judul 3</label>
+              <input name="judul3" pattern="[^()/<>[\]\\,'|\x22]+" class="form-control" value="<?= set_value('judul'); ?>">
+              <?php echo form_error('judul3', '<small class="text-danger">', '</small>'); ?>
+            </div>
+            <?php if ($mhs['prodi'] == "Desain Komunikasi Visual") : ?>
+              <div class="form-group">
+                <label for="kosentrasi">Kosentrasi</label>
+                <select name="peminatan" required class="form-control" id="peminatan">
+                  <option value="">Pilih Kosentrasi</option>
+                  <?php foreach ($kosentrasi as $k) { ?>
+                    <option value="<?= $k['nama_child'] ?>">
+                      <?= $k['nama_child'] ?>
+                    </option>
+                  <?php } ?>
+                </select>
+              </div>
+            <?php else : ?>
+              <input type="hidden" name="peminatan" class="form-control" value="">
+            <?php endif; ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-sm btn-primary" name="daftar" id="btn_daftar" value="Daftar">Simpan</button>
           </div>
         </form>
       </div>

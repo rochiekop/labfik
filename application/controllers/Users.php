@@ -209,7 +209,7 @@ class Users extends CI_Controller
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $file = $this->adminlaa_model->getFiles($this->session->userdata('id'));
+    $file = $this->adminlaa_model->getFiles($this->session->userdata('id'), 'pendaftaran_bimbingan');
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     // $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
     $kosentrasi = $this->db->get('child_kategori')->result_array();

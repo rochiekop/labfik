@@ -135,7 +135,8 @@ class Thesis_model extends CI_Model
     public function saveKelayakan($id_guidance)
     {
         $data = array(
-            'kelayakan' => implode(',', $this->input->post('kelayakan', true))
+            'kelayakan' => implode(',', $this->input->post('kelayakan', true)),
+            'komentar_kelayakan' => $this->input->post('komentar_kelayakan', true)
         );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
@@ -143,7 +144,8 @@ class Thesis_model extends CI_Model
     public function saveKelayakan2($id_guidance)
     {
         $data = array(
-            'kelayakan2' => implode(',', $this->input->post('kelayakan2', true))
+            'kelayakan2' => implode(',', $this->input->post('kelayakan2', true)),
+            'komentar_kelayakan2' => $this->input->post('komentar_kelayakan2', true)
         );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
@@ -202,7 +204,7 @@ class Thesis_model extends CI_Model
 
     public function getKelayakan($id_guidance)
     {
-        $this->db->select('kelayakan, kelayakan2');
+        $this->db->select('kelayakan, kelayakan2, komentar_kelayakan, komentar_kelayakan2');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();

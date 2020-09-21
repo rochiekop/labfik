@@ -9,19 +9,52 @@
   <br>
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : 'disabled'; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview1') ? 'btn-secondary active' : ''; ?>" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview1') ? 'true' : 'false'; ?>">Preview 1</a> -->
+      <?php if ($step->status_preview == 'preview1') : ?>
+        <a class="nav-link btn-secondary active" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php elseif ($step->status_preview == 'preview2' or $step->status_preview == 'preview3' or $step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="satu-tab" data-toggle="tab" href="#satu" role="tab" aria-selected="false">Preview 1</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : 'disabled'; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview2') ? 'btn-secondary active' : 'disabled'; ?>" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview2') ? 'true' : 'false'; ?>">Preview 2</a> -->
+      <?php if ($step->status_preview == 'preview2') : ?>
+        <a class="nav-link btn-secondary active" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <?php elseif ($step->status_preview == 'preview3' or $step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>  
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : 'disabled'; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'preview3') ? 'btn-secondary active' : 'disabled'; ?>" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="<?php echo ($step->status_preview == 'preview3') ? 'true' : 'false'; ?>">Preview 3</a> -->
+      <?php if ($step->status_preview == 'preview3') : ?>
+        <a class="nav-link btn-secondary active" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php elseif ($step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="tiga-tab" data-toggle="tab" href="#tiga" role="tab" aria-selected="false">Preview 3</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : 'disabled'; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'sidang') ? 'btn-secondary active' : 'disabled'; ?>" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="<?php echo ($step->status_preview == 'sidang') ? 'true' : 'false'; ?>">Sidang Akhir</a> -->
+      <?php if ($step->status_preview == 'sidang') : ?>
+        <a class="nav-link btn-secondary active" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php elseif ($step->status_preview == 'lulus') : ?>
+        <a class="nav-link" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="pat-tab" data-toggle="tab" href="#pat" role="tab" aria-selected="false">Sidang Akhir</a>
+      <?php endif; ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link <?php echo ($step->status_preview == 'lulus') ? 'btn-secondary active' : 'disabled'; ?>" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="<?php echo ($step->status_preview == 'lulus') ? 'true' : 'false'; ?>">Lulus</a>
+      <!-- <a class="nav-link <?php echo ($step->status_preview == 'lulus') ? 'btn-secondary active' : 'disabled'; ?>" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="<?php echo ($step->status_preview == 'lulus') ? 'true' : 'false'; ?>">Lulus</a> -->
+      <?php if ($step->status_preview == 'lulus') : ?>
+        <a class="nav-link btn-secondary active" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="false">Lulus</a>
+      <?php else : ?>
+        <a class="nav-link disabled" id="ma-tab" data-toggle="tab" href="#ma" role="tab" aria-selected="false">Lulus</a>
+      <?php endif; ?>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
@@ -34,7 +67,7 @@
         <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
           <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
         <?php else : ?>
-          <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
+          <button class="btn btn-sm btn-primary" disabled style="color:#fff">Tambah Bimbingan</button>
         <?php endif; ?>
       </div>
       <div class="table-responsive">
@@ -96,6 +129,7 @@
     
         <div>
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:5px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:5px; margin:2px"><span class="fas fa-check-square"></span> Checklist</button>
         </div>
       </div>
     </div>
@@ -131,7 +165,6 @@
         </table>
         <div>
           <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Lihat Penilaian</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:5px; margin:2px"><span class="fas fa-check-square"></span> Checklist</button>
         </div>
       </div>
     </div>
@@ -144,7 +177,7 @@
         <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
           <a data-toggle="modal" data-target="#exampleModal3" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
         <?php else : ?>
-          <button class="btn btn-sm btn-secondary" disabled style="color:#fff">Tambah Bimbingan</button>
+          <button class="btn btn-sm btn-primary" disabled style="color:#fff">Tambah Bimbingan</button>
         <?php endif; ?>
       </div>
       
@@ -217,8 +250,12 @@
     <div class="tab-pane fade <?php echo ($step->status_preview == 'sidang') ? 'show active' : ''; ?>" id="pat" role="tabpanel" aria-labelledby="pat-tab">
       <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a> -->
       <div class="alert alert-warning">
-        Preview 4. Tahap sidang
+        Tahap sidang: silahkan unggah file pelengkap untuk mengikuti sidang
       </div>
+      <div class="dropdown">
+        <a data-toggle="modal" data-target="#register" class="btn btn-primary" style="color:#fff"> <span class="fas fa-file-upload"></span> Daftar sidang</a>
+      </div>
+
       
       <div class="table-responsive">
         <table class="table table-hover">
@@ -433,6 +470,8 @@
               <label for="karya"> Karya visual</label><br>
             </div>
 
+            <textarea name="komentar_kelayakan" id="readonly" class="readonly" cols="30" rows="10"><?= $layak->komentar_kelayakan ?></textarea>
+
           </div>
 
           <div class="modal-footer">
@@ -602,6 +641,7 @@
             <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
             <input type="checkbox" id="kaidah" name="kelayakan[]" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?> disabled>
             <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+            <textarea name="komentar_kelayakan" id="readonly" class="readonly" cols="30" rows="10"><?= $layak->komentar_kelayakan ?></textarea>
           </div>
 
           <div class="modal-footer">
