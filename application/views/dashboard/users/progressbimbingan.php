@@ -162,8 +162,8 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <button href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</button>
-                      <button href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</button>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
                       <p>Sesuai</p>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
