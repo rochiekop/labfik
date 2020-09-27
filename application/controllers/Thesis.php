@@ -86,7 +86,7 @@ class Thesis extends CI_Controller
     public function setUlangiBimbingan($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
-        $this->thesis_model->savePenilaianPenguji($id_guidance);
+        $this->thesis_model->setUlangiBimbingan($id_guidance);
         redirect('users/bimbingandsn');
     }
 

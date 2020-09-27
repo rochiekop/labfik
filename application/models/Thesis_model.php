@@ -64,7 +64,7 @@ class Thesis_model extends CI_Model
         $query = $this->db->get();
         $guidance_id = $query->row()->id_guidance;
 
-        $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2');
+        $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2, dosen_penguji3');
         $this->db->from('thesis_lecturers');
         $this->db->where('id_guidance', $guidance_id);
         $query = $this->db->get();
@@ -74,7 +74,7 @@ class Thesis_model extends CI_Model
 
     public function getLecturersByGuidance($guidance_id)
     {
-        $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2');
+        $this->db->select('id_guidance, dosen_pembimbing1, dosen_pembimbing2, dosen_penguji1, dosen_penguji2, dosen_penguji3');
         $this->db->from('thesis_lecturers');
         $this->db->where('id_guidance', $guidance_id);
         $query = $this->db->get();

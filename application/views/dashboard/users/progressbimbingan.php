@@ -3,42 +3,93 @@
 
   <div class="fik-section-title2">
     <h4>Bimbingan Tugas Akhir</h4>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
   </div>
-
-  <table>
-    <thead>
-      <th style="width: 60px;"></th>
-      <th style="width: 10px;"></th>
-      <th></th>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="width: 20px;">Nama</td>
-        <td>:</td>
-        <td><?= $mhsbyid['name'] ?></td>
-      </tr>
-      <tr>
-        <td>NIM</td>
-        <td>:</td>
-        <td><?= $mhsbyid['nim'] ?></td>
-      </tr>
-      <tr>
-        <td>Prodi</td>
-        <td>:</td>
-        <td><?= $mhsbyid['prodi'] ?></td>
-      </tr>
-      <tr>
-        <td>Kosentrasi</td>
-        <td>:</td>
-        <td><?= $mhsbyid['peminatan'] ?></td>
-      </tr>
-      <tr>
-        <td>No.Telp</td>
-        <td>:</td>
-        <td><?= $mhsbyid['no_telp'] ?></td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <table>
+      <td style="">
+        <table >
+          <thead>
+            <th style="width: 60px;"></th>
+            <th style="width: 10px;"></th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20px;">Nama</td>
+              <td>:</td>
+              <td><?= $mhsbyid['name'] ?></td>
+            </tr>
+            <tr>
+              <td>NIM</td>
+              <td>:</td>
+              <td><?= $mhsbyid['nim'] ?></td>
+            </tr>
+            <tr>
+              <td>Prodi</td>
+              <td>:</td>
+              <td><?= $mhsbyid['prodi'] ?></td>
+            </tr>
+            <tr>
+              <td>Kosentrasi</td>
+              <td>:</td>
+              <td><?= $mhsbyid['peminatan'] ?></td>
+            </tr>
+            <tr>
+              <td>No.Telp</td>
+              <td>:</td>
+              <td><?= $mhsbyid['no_telp'] ?></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="padding-left:50px; float:right">
+        <table>
+          <thead>
+            <th style="width: 150px;"></th>
+            <th style="width: 10px;"></th>
+          </thead>
+          <tbody>
+            <?php if ($nama_pembimbing1 != "") : ?>
+            <tr>
+              <td>Dosen Pembimbing 1</td>
+              <td>:</td>
+              <td><?= $nama_pembimbing1 ?></td>
+            </tr>
+            <?php endif; ?>
+            <?php if ($nama_pembimbing2 != "") : ?>
+            <tr>
+              <td>Dosen Pembimbing 2</td>
+              <td>:</td>
+              <td><?= $nama_pembimbing2 ?></td>
+            </tr>
+            <?php endif; ?>
+            <?php if ($nama_penguji1 != "") : ?>
+            <tr>
+              <td>Dosen Penguji 1</td>
+              <td>:</td>
+              <td><?= $nama_penguji1 ?></td>
+            </tr>
+            <?php endif; ?>
+            <?php if ($nama_penguji2 != "") : ?>
+            <tr>
+              <td>Dosen Penguji 2</td>
+              <td>:</td>
+              <td><?= $nama_penguji2 ?></td>
+            </tr>
+            <?php endif; ?>
+            <?php if ($nama_penguji3 != "") : ?>
+            <tr>
+              <td>Dosen Penguji 3</td>
+              <td>:</td>
+              <td><?= $nama_penguji3 ?></td>
+            </tr>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </td>
+    </table>
+  </div>
   <br>
   <?php if ($this->session->userdata('id') == $mhsbyid['dosen_pembimbing1']) { ?>
     <td> Status Anda : Pembimbing 1</b></td>
@@ -182,17 +233,17 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') ? '' : 'hidden') ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
     </div>
 
     <div class="tab-pane fade <?php echo ($step->status_preview == 'preview2') ? 'show active' : ''; ?>" id="dua" role="tabpanel" aria-labelledby="dua-tab">
       <div class="alert alert-warning">
-        Preview 2. Tahap audiensi/presentasi
+        Preview 2. Tahap Bimbingan Lanjutan dan Audiensi
       </div>
       
-      <?php if ($lecturers->dosen_penguji1 == $this->session->userdata('id')) : ?>
+      <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') : ?>
       <div style="padding-bottom:20px">
         <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"><span class="fa fa-plus"></span> Input Jadwal Presentasi</button>
       </div>
@@ -202,28 +253,137 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Dosen Pembimbing</th>
-              <th scope="col">Dosen Penguji</th>
-              <th scope="col">Tanggal Audiensi</th>
-              <th scope="col">Waktu Audiensi</th>
-              <th scope="col">Ruangan Audiensi</th>
-              <!-- <th scope="col">Nilai</th> -->
+              <th scope="col">#</th>
+              <th scope="col" style="width:30%;">Keterangan</th>
+              <th scope="col" style="width:30%;">Dokumen</th>
+              <th scope="col">Proyek</th>
+              <th scope="col" style="width:30%;">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <p style="padding:10px"><?= $nama_pembimbing1 ?></p> <p style="padding:10px"><?= $nama_pembimbing2 ?></p>
-              </td>
-              <td>
-                <p style="padding:10px"><?= $nama_penguji1 ?></p> <p style="padding:10px"><?= $nama_penguji2 ?></p>
-              </td>
-              <td> <p style="padding:10px"><?= $informasi_presentasi->tanggal_presentasi ?></p> </td>
-              <td> <p style="padding:10px"><?= $informasi_presentasi->waktu_presentasi ?></p> </td>
-              <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
-            </tr>
+            <?php if (empty($filebimbingan2)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">tidak ada bimbingan</td>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($filebimbingan2 as $f) : ?>
+                <tr>
+                  <th scope="row"><?= ++$no ?></th>
+                  <td>
+                    <?= $f['keterangan'] ?>
+                  </td>
+                  <td>
+                    <?php $file = explode(",", $f['pdf_file']); ?>
+                    <?php foreach ($file as $t) : ?>
+                      <a href="<?= base_url('thesis/openFile/' . $f['id'] . '/' . $t) ?>"><?= $t ?></a><br>
+                    <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <?php $file = explode(",", $f['link_project']); ?>
+                    <?php foreach ($file as $t) : ?>
+                      <a href="<?= $t ?>" class="badge badge-info" style="margin:5px" target="_blank">Link Proyek</a>
+                    <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <?php if ($f['status'] == 'Dikirim') : ?>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
+                    <?php elseif ($f['status'] == 'Sesuai') : ?>
+                      <p>Sesuai</p>
+                    <?php elseif ($f['status'] == 'Revisi') : ?>
+                      <p>Revisi</p>
+                    <?php endif; ?>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
+        <div>
+          <table>
+            <td>
+              <table>
+                <thead>
+                  <th style="width: 150px;"></th>
+                  <th style="width: 10px;"></th>
+                </thead>
+                <tbody>
+                  <?php if ($informasi_presentasi->tanggal_presentasi != "0000-00-00") : ?>
+                  <tr>
+                    <td>Tanggal Audiensi</td>
+                    <td>:</td>
+                    <td><?= $informasi_presentasi->tanggal_presentasi ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($informasi_presentasi->waktu_presentasi != "00:00:00") : ?>
+                  <tr>
+                    <td>Waktu Audiensi</td>
+                    <td>:</td>
+                    <td><?= $informasi_presentasi->waktu_presentasi ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($informasi_presentasi->link_presentasi != "") : ?>
+                  <tr>
+                    <td>Link Audiensi</td>
+                    <td>:</td>
+                    <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
+                  </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </td>
+            <td>
+              <br>
+              <table>
+                <thead>
+                  <th style="width: 150px;"></th>
+                  <th style="width: 10px;"></th>
+                </thead>
+                <tbody>
+                  <?php if ($nama_pembimbing1 != "") : ?>
+                  <tr>
+                    <td>Nilai Pembimbing 1</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing1)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_pembimbing2 != "") : ?>
+                  <tr>
+                    <td>Nilai Pembimbing 2</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing2)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji1 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 1</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji1)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji2 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 2</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji2)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji3 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 3</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji3)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"></span> Detail</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </table>
+        </div>
         <div>
           <br>
           <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
@@ -231,7 +391,7 @@
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
           <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
     </div>
@@ -253,11 +413,11 @@
             </tr>
           </thead>
           <tbody>
-            <?php if (empty($filebimbingan2)) : ?>
+            <?php if (empty($filebimbingan3)) : ?>
               <td colspan="6" style="background-color: whitesmoke;text-align:center">tidak ada bimbingan</td>
             <?php else : ?>
               <?php $no = 0;
-              foreach ($filebimbingan2 as $f) : ?>
+              foreach ($filebimbingan3 as $f) : ?>
                 <tr>
                   <!-- <th scope="row"><?= ++$no ?></th> -->
                   <td>
@@ -298,7 +458,7 @@
           <?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
           <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
+          <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
 
@@ -354,7 +514,7 @@
         <button class="btn btn-success" data-toggle="modal" data-target="#lulus" </?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
         <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
         <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
-        <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
+        <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         
       </div>
     </div>
@@ -815,6 +975,84 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for single grading -->
+<div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
+      </div>
+      <form action="<?= base_url('thesis/savePenilaian/' . encrypt_url($guidance_id)) ?>" method="POST">
+        <div class="modal-body">
+          <div class="custom-form">
+            <h6 style="padding:10px">Pembimbing 1: <?= $nama_pembimbing1 ?></h6>
+            <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <center><strong>Bab 1</strong></center>
+            <div style="padding:10px">
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
+              </div>
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
+              </div>
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
+              </div>
+            </div>
+            <center><strong>Bab 2</strong></center>
+            <div style="padding:10px">
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
+              </div>
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
+              </div>
+            </div>
+            <center><strong>Bab 3</strong></center>
+            <div style="padding:10px">
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
+              </div>
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
+              </div>
+            </div>
+            <center><strong>Sistematika Penulisan</strong></center>
+            <div style="padding:10px">
+              <div class="form-group" style="padding-left:10px">
+                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+                <label>Kaidah tata tulis ilmiah *10</label>
+              </div>
+            </div>
+            <center><strong>Total</strong></center>
+            <?php  $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <div style="padding:10px">
+              <div class="form-group" style="padding-left:10px">
+              <input type="number" name="" value="<?= array_sum($nilai1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                <label>Total nilai penguji 1</label>
+              </div>
+            </div>
+            <div style="padding:10px">
+              <textarea name="penilaian1" class="<?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing1 ?></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Kirim</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
