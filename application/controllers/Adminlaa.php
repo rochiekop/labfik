@@ -235,4 +235,37 @@ class Adminlaa extends CI_Controller
       redirect('adminlaa/viewdetail/' . encrypt_url($data1));
     }
   }
+
+  public function preview1()
+  {
+    $data['title'] = "Daftar Mahasiswa Preview 1";
+    $name = $this->adminlaa_model->getMhsPreview('preview1');
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
+          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'kelayakan' => $u['kelayakan']
+        ];
+    }
+    $data['mahasiswa'] = $userslist;
+
+    $this->load->view('templates/dashboard/headerAdminlaa', $data);
+    $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
+    $this->load->view('dashboard/adminlaa/preview1', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function preview2()
+  {
+    $data['title'] = "Daftar Mahasiswa Preview 2";
+    $data['mahasiswa'] = $this->adminlaa_model->getMhsPreview2('preview2');
+    $this->load->view('templates/dashboard/headerAdminlaa', $data);
+    $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
+    $this->load->view('dashboard/adminlaa/preview2', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
 }
