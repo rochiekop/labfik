@@ -209,7 +209,7 @@ class Users extends CI_Controller
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $file = $this->adminlaa_model->getFiles($this->session->userdata('id'), 'pendaftaran_bimbingan');
+    $file = $this->user_model->getfile($this->session->userdata('id'), 'pendaftaran_bimbingan');
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     // $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
     $kosentrasi = $this->db->get('child_kategori')->result_array();
@@ -381,6 +381,7 @@ class Users extends CI_Controller
       if ($cekstatus == 5) {
         $data = [
           'status_file' => 'Disetujui wali',
+          'date' => date('d-m-Y')
         ];
         $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
@@ -949,7 +950,7 @@ class Users extends CI_Controller
     $id_guidance = decrypt_url($id);
     $file = $this->db->get_where('guidance', ['id' => $id_guidance])->row_array();
     if ($file) {
-      $data = array('status_file' => 'Disetujui Ketua KK');
+      $data = array('status_file' => 'Disetujui Ketua KK', 'date' => date('d-m-Y'));
       $this->db->update('guidance', $data, ['id' => $id_guidance]);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran tugas akhir disetujui</div>');
       redirect('users/takoor');

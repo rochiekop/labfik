@@ -2,11 +2,11 @@
 <main class="akun-container">
   <div class="fik-section-title2">
     <?php foreach ($bimbingan as $t) : ?>
-    <?php if ($this->session->userdata('id') == $t['dosen_pemb1'] or $this->session->userdata('id') == $t['dosen_pemb2']) { ?>
-      <h4>Bimbingan</h4>
-    <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1'] or $this->session->userdata('id') == $t['dosen_peng2']) { ?>
-      <h4>Pengujian</h4>
-    <?php } ?>
+      <?php if ($this->session->userdata('id') == $t['dosen_pemb1'] or $this->session->userdata('id') == $t['dosen_pemb2']) { ?>
+        <h4>Bimbingan</h4>
+      <?php } elseif ($this->session->userdata('id') == $t['dosen_peng1'] or $this->session->userdata('id') == $t['dosen_peng2']) { ?>
+        <h4>Pengujian</h4>
+      <?php } ?>
     <?php endforeach; ?>
   </div>
   <div class="input-group">

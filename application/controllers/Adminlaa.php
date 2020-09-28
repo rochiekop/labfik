@@ -121,7 +121,8 @@ class Adminlaa extends CI_Controller
       if ($cekstatus == 5) {
         $data = [
           'status_file' => 'Disetujui Adminlaa',
-          'status_preview' => 'preview1'
+          'status_preview' => 'preview1',
+          "date" => date('d-m-Y')
         ];
         $this->db->update('guidance', $data, ['id_mhs' => $file['id_mhs']]);
       }
