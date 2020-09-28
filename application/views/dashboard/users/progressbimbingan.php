@@ -7,7 +7,7 @@
   </div>
   <div>
     <table>
-      <td style="">
+      <td>
         <table >
           <thead>
             <th style="width: 60px;"></th>
@@ -374,10 +374,21 @@
                     <td><?= array_sum(explode(",", $penilaian->nilai_penguji3)) ?></td>
                   </tr>
                   <?php endif; ?>
+
+                  <?php if ($penilaian->nilai_pembimbing1 != ',,,,,,,') : ?>
+                  <?php $pembagi = 1 ?>
+                  <tr>
+                    <th>Rata-rata</th>
+                    <th>:</th>
+                    <?php if ($penilaian->nilai_pembimbing2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji1 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji3 != ',,,,,,,') $pembagi = $pembagi+1 ; ?>
+                    <th><?= ( array_sum(explode(",", $penilaian->nilai_pembimbing1)) + array_sum(explode(",", $penilaian->nilai_pembimbing2)) + array_sum(explode(",", $penilaian->nilai_penguji1)) + array_sum(explode(",", $penilaian->nilai_penguji2)) + array_sum(explode(",", $penilaian->nilai_penguji3)) ) / $pembagi ?></th>
+                  </tr>
+                  <?php endif; ?>
+
                   <tr>
                     <td></td>
                     <td></td>
-                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"></span> Detail</button></td>
+                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#grade_detail" style="color:white; padding:5px; margin:2px"></span> Detail</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -386,7 +397,7 @@
         </div>
         <div>
           <br>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px" <?php echo ($step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
           <!-- </?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); $nilai2 = explode(",", $penilaian->nilai_pembimbing2); $nilai3 = explode(",", $penilaian->nilai_penguji1); $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
@@ -981,70 +992,70 @@
 
 <!-- Modal for single grading -->
 <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
       </div>
-      <form action="<?= base_url('thesis/savePenilaian/' . encrypt_url($guidance_id)) ?>" method="POST">
+      <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $peran = 'pembimbing1'; elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $peran = 'pembimbing2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $peran = 'penguji1'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $peran = 'penguji2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $peran = 'penguji3'; ?>
+      <form action="<?= base_url('thesis/savePenilaian/' . encrypt_url($guidance_id) . '/' . $peran) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-            <h6 style="padding:10px">Pembimbing 1: <?= $nama_pembimbing1 ?></h6>
-            <?php $file = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $file = explode(",", $penilaian->nilai_pembimbing1); elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $file = explode(",", $penilaian->nilai_pembimbing2); elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $file = explode(",", $penilaian->nilai_penguji1); elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $file = explode(",", $penilaian->nilai_penguji2); elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $file = explode(",", $penilaian->nilai_penguji3) ?>
             <center><strong>Bab 1</strong></center>
             <div style="padding:10px">
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
               </div>
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
               </div>
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
               </div>
             </div>
             <center><strong>Bab 2</strong></center>
             <div style="padding:10px">
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
               </div>
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
               </div>
             </div>
             <center><strong>Bab 3</strong></center>
             <div style="padding:10px">
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
               </div>
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="20" name="nilai1[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
               </div>
             </div>
             <center><strong>Sistematika Penulisan</strong></center>
             <div style="padding:10px">
-              <div class="form-group" style="padding-left:10px">
-                <input type="number" min="0" max="10" name="nilai1[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : ''; ?> />
+              <div class="form-group">
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off"/>
                 <label>Kaidah tata tulis ilmiah *10</label>
               </div>
             </div>
             <center><strong>Total</strong></center>
-            <?php  $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <?php  $nilai = explode(",", $penilaian->nilai_pembimbing1); ?>
             <div style="padding:10px">
-              <div class="form-group" style="padding-left:10px">
-              <input type="number" name="" value="<?= array_sum($nilai1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
-                <label>Total nilai penguji 1</label>
+              <div class="form-group">
+              <input type="number" name="" value="<?= array_sum($nilai) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
+                <label>Total nilai</label>
               </div>
             </div>
-            <div style="padding:10px">
-              <textarea name="penilaian1" class="<?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing1 ?></textarea>
+            <div>
+              <textarea name="penilaian" class="<?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'readonly' : 'editable'; ?>" cols="30" rows="10"><?= $penilaian->penilaian_pembimbing1 ?></textarea>
             </div>
           </div>
         </div>
@@ -1057,8 +1068,103 @@
   </div>
 </div>
 
+<!-- Modal for grading detail -->
+<div class="modal fade" id="grade_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Nilai</h5>
+      </div>
+        <div class="modal-body">
+          <div class="custom-form">
+            <ul style="list-style-type:none;">
+              <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+              <li><h6>Pembimbing 1 : <?= $nama_pembimbing1 ?></h6></li>
+              <br>
+              <li><strong>Bab 1</strong></li>
+              <li>Ketetapan menjelaskan fenomena permasalahan : <?= $nilai2[0] ?></li>
+              <li>Ketetapan mengidentifikasi dan merumuskan permasalahan : <?= $nilai2[1] ?></li>
+              <li>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan : <?= $nilai2[2] ?></li>
+              <li><strong>Bab 2</strong></li>
+              <li>Relevansi pemilihan teori dengan lingkum penelitian/perancangan</li>
+              <li></li>
+              <li><strong>Bab 3</strong></li>
+              <li></li>
+              <li></li>
+              <li><strong>Bab 4</strong></li>
+              <li></li>
+            </ul>
+
+
+
+            <table>
+                <table>
+                  <tbody>
+                    <strong>Pembimbing 2 : <?= $nama_pembimbing2 ?></strong>
+                    <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+
+                    <tr><h6>Bab 1</h6></tr>
+                    <tr>
+                      <td>Ketetapan menjelaskan fenomena permasalahan *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[0] ?></td>
+                    </tr>
+                    <tr>
+                      <td>Ketetapan mengidentifikasi dan merumuskan permasalahan *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[1] ?></td>
+                    </tr>
+                    <tr>
+                      <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[2] ?></td>
+                    </tr>
+                    
+                    <tr><h6>Bab 2</h6></tr>
+                    <tr>
+                      <td>Relevansi pemilihan teori dengan lingkum penelitian/perancangan *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[3] ?></td>
+                    </tr>
+                    <tr>
+                      <td>Kemutakhiran teori yang digunakan (merujuk artikel/peblikasi dosen) *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[4] ?></td>
+                    </tr>
+
+                    <tr><h6>Bab 3</h6></tr>
+                    <tr>
+                      <td>Kelengkapan dan kesesuaian data yang diperoleh *20</td>
+                      <td>:</td>
+                      <td><?= $nilai2[5] ?></td>
+                    </tr>
+                    <tr>
+                      <td>Ketepatan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</td>
+                      <td>:</td>
+                      <td><?= $nilai2[6] ?></td>
+                    </tr>
+
+                    <tr><h6>Bab 4</h6></tr>
+                    <tr>
+                      <td>Kaidah tata tulis karya ilmiah *10</td>
+                      <td>:</td>
+                      <td><?= $nilai2[7] ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for single grading sidang -->
+
 <!-- Modal for all grading -->
-<div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -1320,7 +1426,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Modal for all grading sidang -->
 <div class="modal fade" id="grading_sidang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
