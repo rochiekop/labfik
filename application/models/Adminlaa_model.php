@@ -115,4 +115,23 @@ class Adminlaa_model extends CI_Model
     $this->db->group_by('id_mhs');
     return count($this->db->get()->result_array());
   }
+
+  public function getMhsPreview($preview)
+  {
+    $this->db->select('user.name, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan');
+    $this->db->from('guidance');
+    $this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
+    $this->db->join('user', 'user.id = guidance.id_mhs');
+    $this->db->where('status_preview', $preview);
+    return $this->db->get()->result_array();
+  }
+
+  public function getMhsPreview2($preview)
+  {
+    $this->db->select('user.name,guidance.status_preview, user.nim,guidance.nilai_pembimbing1,guidance.nilai_pembimbing2,guidance.nilai_penguji3,guidance.nilai_penguji1,guidance.nilai_penguji2');
+    $this->db->from('guidance');
+    $this->db->join('user', 'user.id = guidance.id_mhs');
+    $this->db->where('status_preview', $preview);
+    return $this->db->get()->result_array();
+  }
 }

@@ -16,11 +16,11 @@
         <a href="<?= base_url('listmhs') ?>" class="btn"><span class="fas fa-users"></span> List Mahasiswa</a>
       </div>
       <div class="card">
-        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"><span class="fas fa-door-open"></span> Progress Bimbingan</a>
+        <a href="#" class="btn" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"><span class="fas fa-indent"></span> Progress Bimbingan</a>
         <div id="collapse2" class="collapse" data-parent="#accordion">
           <ul>
-            <li><a href="<?= base_url('#') ?>">Preview 1</a></li>
-            <li><a href="<?= base_url('#') ?>">Preview 2</a></li>
+            <li><a href="<?= base_url('adminlaa/preview1') ?>">Preview 1</a></li>
+            <li><a href="<?= base_url('adminlaa/preview2') ?>">Preview 2</a></li>
             <li><a href="<?= base_url('#') ?>">Preview 3</a></li>
           </ul>
         </div>
