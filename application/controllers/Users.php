@@ -151,6 +151,7 @@ class Users extends CI_Controller
               'view_doswal' => "Belum Dilihat",
               'status_doswal' => "Dikirim",
               'date' => date('d-m-Y'),
+              'jenis_pendaftaran' => "pendaftaran_bimbingan"
             );
             $this->db->insert('file_pendaftaran', $data);
           } else {
@@ -209,7 +210,7 @@ class Users extends CI_Controller
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
-    $file = $this->adminlaa_model->getFiles($this->session->userdata('id'), 'pendaftaran_bimbingan');
+    $file = $this->user_model->getfile($this->session->userdata('id'), 'pendaftaran_bimbingan');
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     // $thesis_lecturers = $this->db->get_where('thesis_lecturers', ['id_guidance' => $cek['id']])->row_array();
     $kosentrasi = $this->db->get('child_kategori')->result_array();
@@ -333,7 +334,7 @@ class Users extends CI_Controller
 
   public function daftarfile($id)
   {
-    $pta = $this->user_model->getfile($id);
+    $pta = $this->user_model->getfile($id, 'pendaftaran_bimbingan');
     $mhs = $this->user_model->getDataMhsbyId($id);
     $data = array(
       'title'  =>  'File Pendaftaran: ',

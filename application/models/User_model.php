@@ -394,12 +394,13 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function getfile($id)
+	public function getfile($id, $jenis)
 	{
 		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
 		$this->db->from('file_pendaftaran');
 		$this->db->join('user', 'file_pendaftaran.id_mhs = user.id');
 		$this->db->where('id_mhs', $id);
+		$this->db->where('jenis_pendaftaran', $jenis);
 		$this->db->order_by('file_pendaftaran.id', 'asc');
 		return $this->db->get()->result_array();
 	}
