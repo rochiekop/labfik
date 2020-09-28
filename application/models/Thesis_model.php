@@ -253,6 +253,14 @@ class Thesis_model extends CI_Model
         $this->db->update('thesis', $data, array('id' => $thesis_id));
     }
 
+    public function resetBimbingan($thesis_id)
+    {
+        $data = array(
+            'status' => 'Dikirim'
+        );
+        $this->db->update('thesis', $data, array('id' => $thesis_id));
+    }
+
     public function setKembali1($id_guidance)
     {
         $data = array(

@@ -83,6 +83,12 @@ class Thesis extends CI_Controller
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
 
+    public function resetBimbingan($thesis_id, $id_guidance)
+    {
+        $this->thesis_model->resetBimbingan($thesis_id);
+        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+    }
+
     public function setUlangiBimbingan($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);

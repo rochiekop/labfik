@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Sep 2020 pada 16.15
+-- Waktu pembuatan: 28 Sep 2020 pada 17.56
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -31,22 +31,25 @@ SET time_zone = "+00:00";
 CREATE TABLE `thesis_lecturers` (
   `id` varchar(64) NOT NULL,
   `id_guidance` varchar(64) NOT NULL,
+  `id_offline` varchar(64) NOT NULL,
+  `id_online` varchar(64) NOT NULL,
   `dosen_pembimbing1` varchar(128) NOT NULL,
   `dosen_pembimbing2` varchar(128) NOT NULL,
   `dosen_penguji1` varchar(128) NOT NULL,
   `dosen_penguji2` varchar(128) NOT NULL,
+  `dosen_penguji3` varchar(128) NOT NULL,
   `date` varchar(64) NOT NULL,
   `date_edit` varchar(64) NOT NULL,
-  `kelompok_keahlian` varchar(64) NOT NULL
+  `kelompok_keahlian` varchar(64) NOT NULL,
+  `status` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `thesis_lecturers`
 --
 
-INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `dosen_pembimbing1`, `dosen_pembimbing2`, `dosen_penguji1`, `dosen_penguji2`, `date`, `date_edit`, `kelompok_keahlian`) VALUES
-('5f4cc58d499f5', '5f48af1704a46', '5f1e7dc5ca07e', '5f2128a43c90b', '5f28dbe13ddf9', '5f3b9697e3aa5', '08-31-2020 16:40:29', '', ''),
-('5f525822a2861', '5f5233fe39202', '5f1e7dc5ca07e', '5f3b9697e3aa5', '5f2128a43c90b', '5f28dbe13ddf9', '09-04-2020 22:07:14', '', '');
+INSERT INTO `thesis_lecturers` (`id`, `id_guidance`, `id_offline`, `id_online`, `dosen_pembimbing1`, `dosen_pembimbing2`, `dosen_penguji1`, `dosen_penguji2`, `dosen_penguji3`, `date`, `date_edit`, `kelompok_keahlian`, `status`) VALUES
+('5f71fc7bb49d3', '5f71fbc8bc8d9', '', '', '5f28dbe13ddf9', '5f50f84ac76e6', '5f2128a43c90b', '5f3b9697e3aa5', '', '09-28-2020 22:08:43', '', 'Inlive', 'preview 2');
 
 --
 -- Indexes for dumped tables

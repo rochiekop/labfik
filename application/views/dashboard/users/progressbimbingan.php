@@ -208,7 +208,7 @@
                   <td>
                     <?php $file = explode(",", $f['link_project']); ?>
                     <?php foreach ($file as $t) : ?>
-                      <a href="<?= $t ?>" class="badge badge-info" style="margin:5px" target="_blank">Link Proyek</a>
+                      <a href="<?= $t ?>" class="badge badge-info" target="_blank">Link Proyek</a>
                     <?php endforeach; ?>
                   </td>
                   <td>
@@ -216,9 +216,9 @@
                       <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
                       <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      <p>Sesuai</p>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      <p>Revisi</p>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -288,9 +288,9 @@
                       <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
                       <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      <p>Sesuai</p>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      <p>Revisi</p>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -451,9 +451,9 @@
                       <button href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-success">Sesuai</button>
                       <button href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-danger">Revisi</button>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      <p>Sesuai</p>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      <p>Revisi</p>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -1077,81 +1077,94 @@
       </div>
         <div class="modal-body">
           <div class="custom-form">
-            <ul style="list-style-type:none;">
-              <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
-              <li><h6>Pembimbing 1 : <?= $nama_pembimbing1 ?></h6></li>
-              <br>
-              <li><strong>Bab 1</strong></li>
-              <li>Ketetapan menjelaskan fenomena permasalahan : <?= $nilai2[0] ?></li>
-              <li>Ketetapan mengidentifikasi dan merumuskan permasalahan : <?= $nilai2[1] ?></li>
-              <li>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan : <?= $nilai2[2] ?></li>
-              <li><strong>Bab 2</strong></li>
-              <li>Relevansi pemilihan teori dengan lingkum penelitian/perancangan</li>
-              <li></li>
-              <li><strong>Bab 3</strong></li>
-              <li></li>
-              <li></li>
-              <li><strong>Bab 4</strong></li>
-              <li></li>
-            </ul>
 
-
-
+            <?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+            <?php $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
+            <?php $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
+            <?php $nilai5 = explode(",", $penilaian->nilai_penguji3); ?>
+            
             <table>
-                <table>
-                  <tbody>
-                    <strong>Pembimbing 2 : <?= $nama_pembimbing2 ?></strong>
-                    <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
-
-                    <tr><h6>Bab 1</h6></tr>
-                    <tr>
-                      <td>Ketetapan menjelaskan fenomena permasalahan *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[0] ?></td>
-                    </tr>
-                    <tr>
-                      <td>Ketetapan mengidentifikasi dan merumuskan permasalahan *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[1] ?></td>
-                    </tr>
-                    <tr>
-                      <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[2] ?></td>
-                    </tr>
-                    
-                    <tr><h6>Bab 2</h6></tr>
-                    <tr>
-                      <td>Relevansi pemilihan teori dengan lingkum penelitian/perancangan *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[3] ?></td>
-                    </tr>
-                    <tr>
-                      <td>Kemutakhiran teori yang digunakan (merujuk artikel/peblikasi dosen) *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[4] ?></td>
-                    </tr>
-
-                    <tr><h6>Bab 3</h6></tr>
-                    <tr>
-                      <td>Kelengkapan dan kesesuaian data yang diperoleh *20</td>
-                      <td>:</td>
-                      <td><?= $nilai2[5] ?></td>
-                    </tr>
-                    <tr>
-                      <td>Ketepatan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</td>
-                      <td>:</td>
-                      <td><?= $nilai2[6] ?></td>
-                    </tr>
-
-                    <tr><h6>Bab 4</h6></tr>
-                    <tr>
-                      <td>Kaidah tata tulis karya ilmiah *10</td>
-                      <td>:</td>
-                      <td><?= $nilai2[7] ?></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <thead>
+                <th >Aspek</th>
+                <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
+                <br>
+              </thead>
+              <tbody>
+                <tr><td colspan="5"><center><strong>Bab 1</strong></center></td></tr>
+                <tr>
+                  <td>Ketetapan menjelaskan fenomena permasalahan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[0].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[0].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Ketetapan mengidentifikasi dan merumuskan permasalahan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[1].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[1].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[2].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[2].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Bab 2</strong></center></td></tr>
+                <tr>
+                  <td>Relevansi pemilihan teori dengan lingkup penelitian/perancangan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[3].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[3].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen)</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[4].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[4].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Bab 3</strong></center></td></tr>
+                <tr>
+                  <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[5].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[5].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[6].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[6].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Sistematika penulisan</strong></center></td></tr>
+                <tr>
+                  <td>Kaidah tata tulis karya ilmiah</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[7].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[7].'</td>' : ''; ?>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="modal-footer">
