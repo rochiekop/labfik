@@ -58,7 +58,7 @@ class Adminlaa extends CI_Controller
   public function viewdetail($id)
   {
     $id = decrypt_url($id);
-    $file = $this->adminlaa_model->getFiles($id);
+    $file = $this->adminlaa_model->getFiles($id, 'pendaftaran_bimbingan');
     $mhs = $this->adminlaa_model->getMhsbyId($id);
     $dosbing = $this->adminlaa_model->getDosbing($id);
     if ($dosbing != "") {
@@ -179,7 +179,7 @@ class Adminlaa extends CI_Controller
       'view_adminlaa' => 'Dilihat'
     ];
     $this->db->update('file_pendaftaran', $data, ['id' => $id]);
-    $data = $this->adminlaa_model->getFiles($id_mhs);
+    $data = $this->adminlaa_model->getFiles($id_mhs, 'pendaftaran_bimbingan');
     $output = '';
     if (!empty($data)) {
       $no = 0;
