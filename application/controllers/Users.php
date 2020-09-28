@@ -151,6 +151,7 @@ class Users extends CI_Controller
               'view_doswal' => "Belum Dilihat",
               'status_doswal' => "Dikirim",
               'date' => date('d-m-Y'),
+              'jenis_pendaftaran' => "pendaftaran_bimbingan"
             );
             $this->db->insert('file_pendaftaran', $data);
           } else {
@@ -333,7 +334,7 @@ class Users extends CI_Controller
 
   public function daftarfile($id)
   {
-    $pta = $this->user_model->getfile($id);
+    $pta = $this->user_model->getfile($id, 'pendaftaran_bimbingan');
     $mhs = $this->user_model->getDataMhsbyId($id);
     $data = array(
       'title'  =>  'File Pendaftaran: ',
