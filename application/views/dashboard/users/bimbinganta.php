@@ -4,8 +4,11 @@
     <h4>Bimbingan</h4>
   </div>
   <?= $this->session->flashdata('message'); ?>
-  <p>Pembimbing 1 : <?= $dosbing1['name'] ?></p>
-  <p>Pembimbing 2 : <?= $dosbing2['name'] ?></p>
+  <?php echo ($nama_pembimbing1 != '') ? '<p>Pembimbing 1: '.$nama_pembimbing1.' </p>' : ''; ?>
+  <?php echo ($nama_pembimbing2 != '') ? '<p>Pembimbing 2: '.$nama_pembimbing1.' </p>' : ''; ?>
+  <?php echo ($nama_penguji1 != '') ? '<p>Penguji 1: '.$nama_penguji1.' </p>' : ''; ?>
+  <?php echo ($nama_penguji2 != '') ? '<p>Penguji 2: '.$nama_penguji2.' </p>' : ''; ?>
+  <?php echo ($nama_penguji3 != '') ? '<p>Penguji 3: '.$nama_penguji3.' </p>' : ''; ?>
   <br>
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item">
@@ -64,10 +67,10 @@
         Preview 1. Tahap awal bimbingan tugas akhir.
       </div>
       <div class="dropdown">
-        <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
-          <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
+        <?php if ((count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) and ($step->status_preview == 'preview1')) : ?>
+          <a data-toggle="modal" data-target="#tambah_bimbingan_preview1" class="btn btn-sm btn-primary" style="color:#fff"><span class="fas fa-plus"></span> Tambah Bimbingan</a>
         <?php else : ?>
-          <button class="btn btn-sm btn-primary" disabled style="color:#fff">Tambah Bimbingan</button>
+          <button class="btn btn-sm btn-primary" disabled style="color:#fff"><span class="fas fa-plus"></span> Tambah Bimbingan</button>
         <?php endif; ?>
       </div>
       <div class="table-responsive">
@@ -138,33 +141,158 @@
       <div class="alert alert-warning">
         Preview 2. Tahap audiensi/presentasi.
       </div>
+      <div class="dropdown">
+        <?php if ((count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) and ($step->status_preview == 'preview2')) : ?>
+          <a data-toggle="modal" data-target="#tambah_bimbingan_preview2" class="btn btn-sm btn-primary" style="color:#fff"><span class="fas fa-plus"></span> Tambah Bimbingan</a>
+        <?php else : ?>
+          <button class="btn btn-sm btn-primary" disabled style="color:#fff"><span class="fas fa-plus"></span> Tambah Bimbingan</button>
+        <?php endif; ?>
+      </div>
       <div class="table-responsive">
-        <table class="table table-hover">
+      <table class="table table-hover">
           <thead>
-          <tr>
-            <th scope="col">Dosen Pembimbing</th>
-            <th scope="col">Dosen Penguji</th>
-            <th scope="col">Tanggal Audiensi</th>
-            <th scope="col">Waktu Audiensi</th>
-            <th scope="col">Ruangan Audiensi</th>
-            <!-- <th scope="col">Nilai</th> -->
-          </tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" style="width:30%;">Keterangan</th>
+              <th scope="col" style="width:30%;">Dokumen</th>
+              <th scope="col">Proyek</th>
+              <th scope="col" style="width:30%;">Status</th>
+            </tr>
           </thead>
           <tbody>
-            <tr>
-            <td>
-              <p style="padding:10px"><?= $nama_pembimbing1 ?></p> <p style="padding:10px"><?= $nama_pembimbing2 ?></p>
-            </td>
-            <td>
-              <p style="padding:10px"><?= $nama_penguji1 ?></p> <p style="padding:10px"><?= $nama_penguji2 ?></p>
-            </td>
-            <td> <p style="padding:10px"><?= $informasi_presentasi->tanggal_presentasi ?></p> </td>
-            <td> <p style="padding:10px"><?= $informasi_presentasi->waktu_presentasi ?></p> </td>
-            <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
+            <?php if (empty($allhistory2)) : ?>
+              <td colspan="6" style="background-color: whitesmoke;text-align:center">tidak ada bimbingan</td>
+            <?php else : ?>
+              <?php $no = 0;
+              foreach ($allhistory2 as $f) : ?>
+                <tr>
+                  <th scope="row"><?= ++$no ?></th>
+                  <td>
+                    <?= $f['keterangan'] ?>
+                  </td>
+                  <td>
+                    <?php $file = explode(",", $f['pdf_file']); ?>
+                    <?php foreach ($file as $t) : ?>
+                      <a href="<?= base_url('thesis/openFile/' . $f['id'] . '/' . $t) ?>"><?= $t ?></a><br>
+                    <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <?php $file = explode(",", $f['link_project']); ?>
+                    <?php foreach ($file as $t) : ?>
+                      <a href="<?= $t ?>" class="badge badge-info" style="margin:5px" target="_blank">Link Proyek</a>
+                    <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <?php if ($f['status'] == 'Dikirim') : ?>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
+                    <?php elseif ($f['status'] == 'Sesuai') : ?>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                    <?php elseif ($f['status'] == 'Revisi') : ?>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                    <?php endif; ?>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
         <div>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Lihat Penilaian</button>
+          <table>
+            <td>
+              <table>
+                <thead>
+                  <th style="width: 150px;"></th>
+                  <th style="width: 10px;"></th>
+                </thead>
+                <tbody>
+                  <?php if ($informasi_presentasi->tanggal_presentasi != "0000-00-00") : ?>
+                  <tr>
+                    <td>Tanggal Audiensi</td>
+                    <td>:</td>
+                    <td><?= $informasi_presentasi->tanggal_presentasi ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($informasi_presentasi->waktu_presentasi != "00:00:00") : ?>
+                  <tr>
+                    <td>Waktu Audiensi</td>
+                    <td>:</td>
+                    <td><?= $informasi_presentasi->waktu_presentasi ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($informasi_presentasi->link_presentasi != "") : ?>
+                  <tr>
+                    <td>Link Audiensi</td>
+                    <td>:</td>
+                    <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
+                  </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </td>
+            <td>
+              <br>
+              <table>
+                <thead>
+                  <th style="width: 150px;"></th>
+                  <th style="width: 10px;"></th>
+                </thead>
+                <tbody>
+                  <?php if ($nama_pembimbing1 != "") : ?>
+                  <tr>
+                    <td>Nilai Pembimbing 1</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing1)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_pembimbing2 != "") : ?>
+                  <tr>
+                    <td>Nilai Pembimbing 2</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing2)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji1 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 1</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji1)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji2 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 2</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji2)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if ($nama_penguji3 != "") : ?>
+                  <tr>
+                    <td>Nilai Penguji 3</td>
+                    <td>:</td>
+                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji3)) ?></td>
+                  </tr>
+                  <?php endif; ?>
+
+                  <?php if ($penilaian->nilai_pembimbing1 != ',,,,,,,') : ?>
+                  <?php $pembagi = 1 ?>
+                  <tr>
+                    <th>Rata-rata</th>
+                    <th>:</th>
+                    <?php if ($penilaian->nilai_pembimbing2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji1 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji3 != ',,,,,,,') $pembagi = $pembagi+1 ; ?>
+                    <th><?= ( array_sum(explode(",", $penilaian->nilai_pembimbing1)) + array_sum(explode(",", $penilaian->nilai_pembimbing2)) + array_sum(explode(",", $penilaian->nilai_penguji1)) + array_sum(explode(",", $penilaian->nilai_penguji2)) + array_sum(explode(",", $penilaian->nilai_penguji3)) ) / $pembagi ?></th>
+                  </tr>
+                  <?php endif; ?>
+
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#grade_detail" style="color:white; padding:5px; margin:2px"></span> Detail</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </table>
         </div>
       </div>
     </div>
@@ -174,8 +302,8 @@
         Preview 3. Tahap Bimbingan Lanjut
       </div>
       <div class="dropdown">
-        <?php if (count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) : ?>
-          <a data-toggle="modal" data-target="#exampleModal3" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
+        <?php if ((count($buttonaddbimbingan) == count($buttonaddbimbingan2) or empty($buttonaddbimbingan2)) and ($step->status_preview == 'preview3')) : ?>
+          <a data-toggle="modal" data-target="#tambah_bimbingan_preview3" class="btn btn-sm btn-primary" style="color:#fff">Tambah Bimbingan</a>
         <?php else : ?>
           <button class="btn btn-sm btn-primary" disabled style="color:#fff">Tambah Bimbingan</button>
         <?php endif; ?>
@@ -196,11 +324,11 @@
             </tr>
           </thead>
           <tbody id="bimbingan">
-            <?php if (empty($allhistory2)) : ?>
+            <?php if (empty($allhistory3)) : ?>
               <td colspan="7" style="background-color: whitesmoke;text-align:center">List Bimbingan kosong</td>
             <?php else : ?>
               <?php $no = 0;
-              foreach ($allhistory2 as $t) : ?>
+              foreach ($allhistory3 as $t) : ?>
                 <tr>
                   <td scope="row"><?= ++$no ?></td>
                   <td><?= $t['keterangan'] ?></td>
@@ -315,7 +443,7 @@
 <!-- End Main Container -->
 
 <!-- Modal tambah bimbingan preview 1 -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="tambah_bimbingan_preview1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -369,8 +497,63 @@
   </div>
 </div>
 
+<!-- Modal tambah bimbingan preview 2-->
+<div class="modal fade" id="tambah_bimbingan_preview2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">Tambah Bimbingan</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('users/addbimbingan/preview2') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" id="id_guidance" value="<?= $guide['id'] ?>" name="id_guidance">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="Semua" id="exampleFormControlFile1" name="fordosen" style="padding:13px 16px">
+          </div>
+          <div class="row">
+            <div class="col-lg-11" id="dynamic">
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Kirim Dokumen</label>
+                <input type="file" class="form-control" name="fileta[]" required style="padding:13px 16px">
+              </div>
+            </div>
+            <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon">
+              <a id="tambah"> <span class="fas fa-plus"></span></a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-11" id="dynamic2">
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Link Project</label>
+                <input type="text" class="form-control" name="link_project[]" style="padding:13px 16px">
+              </div>
+            </div>
+            <div class="col-lg" style="margin-top: 40px;margin-left:-10px" id="icon2">
+              <a id="tambah2"> <span class="fas fa-plus"></span></a>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="ketbim">Keterangan</label>
+            <textarea class="form-control" style="padding:12px" rows="5" required id="ketbim" name="keterangan" aria-describedby="keterangan" placeholder="Masukan keterangan... (cth. Bab II)" maxlength="320"></textarea>
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- Modal tambah bimbingan preview 3-->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="tambah_bimbingan_preview3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -653,8 +836,114 @@
   </div>
 </div>
 
+<!-- Modal for grading detail -->
+<div class="modal fade" id="grade_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Nilai</h5>
+      </div>
+        <div class="modal-body">
+          <div class="custom-form">
+
+            <?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+            <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+            <?php $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
+            <?php $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
+            <?php $nilai5 = explode(",", $penilaian->nilai_penguji3); ?>
+            
+            <table>
+              <thead>
+                <th >Aspek</th>
+                <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
+                <br>
+              </thead>
+              <tbody>
+                <tr><td colspan="5"><center><strong>Bab 1</strong></center></td></tr>
+                <tr>
+                  <td>Ketetapan menjelaskan fenomena permasalahan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[0].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[0].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[0].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Ketetapan mengidentifikasi dan merumuskan permasalahan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[1].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[1].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[1].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[2].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[2].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[2].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Bab 2</strong></center></td></tr>
+                <tr>
+                  <td>Relevansi pemilihan teori dengan lingkup penelitian/perancangan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[3].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[3].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[3].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen)</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[4].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[4].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[4].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Bab 3</strong></center></td></tr>
+                <tr>
+                  <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[5].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[5].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[5].'</td>' : ''; ?>
+                </tr>
+                <tr>
+                  <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[6].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[6].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[6].'</td>' : ''; ?>
+                </tr>
+                <tr><td colspan="5"><center><strong>Sistematika penulisan</strong></center></td></tr>
+                <tr>
+                  <td>Kaidah tata tulis karya ilmiah</td>
+                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[7].'</td>' : ''; ?>
+                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[7].'</td>' : ''; ?>
+                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[7].'</td>' : ''; ?>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal for all grading -->
-<div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="grading" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -915,7 +1204,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Modal for all grading sidang -->
 <div class="modal fade" id="grading_sidang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

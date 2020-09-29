@@ -257,7 +257,8 @@ class Users extends CI_Controller
     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
     $data['guide'] = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
     $data['allhistory'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview1');
-    $data['allhistory2'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview3');
+    $data['allhistory2'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview2');
+    $data['allhistory3'] = $this->user_model->getfilebimbinganbyuserid($this->session->userdata('id'), 'preview3');
     $data['buttonaddbimbingan'] = $this->user_model->checkaddbimbingan();
     $data['buttonaddbimbingan2'] = $this->user_model->checkaddbimbingan2();
     $cek = $this->db->get_where('guidance', ['id_mhs' => $this->session->userdata('id')])->row_array();
@@ -279,6 +280,7 @@ class Users extends CI_Controller
     ($data['lecturers']->dosen_pembimbing2 == null) ? $data['nama_pembimbing2'] = '' : $data['nama_pembimbing2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_pembimbing2))->row()->name;
     ($data['lecturers']->dosen_penguji1 == null) ? $data['nama_penguji1'] = '' : $data['nama_penguji1'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji1))->row()->name;
     ($data['lecturers']->dosen_penguji2 == null) ? $data['nama_penguji2'] = '' : $data['nama_penguji2'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji2))->row()->name;
+    ($data['lecturers']->dosen_penguji3 == null) ? $data['nama_penguji3'] = '' : $data['nama_penguji3'] = $this->db->get_where('user', array('id' => $data['lecturers']->dosen_penguji3))->row()->name;
 
     $data['informasi_presentasi'] = $this->thesis_model->getInformasiPresentasi($data['guidance_id']);
     $data['penilaian'] = $this->thesis_model->getPenilaian($data['guidance_id']);
