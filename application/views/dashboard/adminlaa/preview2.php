@@ -60,7 +60,7 @@
                   <td><?= array_sum(explode(",",  $t['nilai_penguji2'])) ?></td>
                   <td><?= array_sum(explode(",",  $t['nilai_penguji3'])) ?></td>
                   <?php if ($t['status_preview'] == 'preview2') : ?>
-                    <td>On Progress</td>
+                    <td><b>On Progress</b></td>
                   <?php else : ?>
                   <?php endif; ?>
                 </tr>

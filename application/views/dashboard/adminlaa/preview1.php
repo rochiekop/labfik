@@ -53,13 +53,19 @@
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['dosbing1'] ?></td>
                   <td><?= $t['dosbing2'] ?></td>
-                  <td><?= in_array('kesesuaian', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                  <td><?= in_array('ketepatan', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                  <td><?= in_array('kaidah', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                  <?php if (count(explode(",", $t['kelayakan'])) != 3) : ?>
-                    <td>On Progress</td>
+                  <?php if (empty($t['kelayakan'])) : ?>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   <?php else : ?>
-                    <td>Lulus preview 1</td>
+                    <td><?= in_array('kesesuaian', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
+                    <td><?= in_array('ketepatan', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
+                    <td><?= in_array('kaidah', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
+                  <?php endif; ?>
+                  <?php if ($t['status_preview'] == "preview1") : ?>
+                    <td><b>On Progress</b></td>
+                  <?php else : ?>
+                    <td><b>Lulus</b></td>
                   <?php endif; ?>
                 </tr>
               <?php endforeach; ?>

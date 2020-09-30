@@ -116,22 +116,28 @@ class Adminlaa_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
-  public function getMhsPreview($preview)
+  public function getMhsPreview1()
   {
-    $this->db->select('user.name, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan');
+    $this->db->select('user.name, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan,guidance.status_preview');
     $this->db->from('guidance');
-    $this->db->join('thesis_lecturers', 'guidance.id = thesis_lecturers.id_guidance');
     $this->db->join('user', 'user.id = guidance.id_mhs');
-    $this->db->where('status_preview', $preview);
+    $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
+    $this->db->where('status_file', 'Disetujui Ketua KK');
+    $this->db->where('status_preview', 'preview1');
+    $this->db->or_where('status_preview', 'preview2');
+    $this->db->or_where('status_preview', 'preview3');
+    $this->db->or_where('status_preview', 'sidang');
     return $this->db->get()->result_array();
   }
 
-  public function getMhsPreview2($preview)
+  public function getMhsPreview2()
   {
     $this->db->select('user.name,guidance.status_preview, user.nim,guidance.nilai_pembimbing1,guidance.nilai_pembimbing2,guidance.nilai_penguji3,guidance.nilai_penguji1,guidance.nilai_penguji2');
     $this->db->from('guidance');
     $this->db->join('user', 'user.id = guidance.id_mhs');
-    $this->db->where('status_preview', $preview);
+    $this->db->where('status_preview', 'preview2');
+    $this->db->or_where('status_preview', 'preview3');
+    $this->db->or_where('status_preview', 'sidang');
     return $this->db->get()->result_array();
   }
 }
