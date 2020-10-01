@@ -62,6 +62,7 @@
                   <?php if ($t['status_preview'] == 'preview2') : ?>
                     <td><b>On Progress</b></td>
                   <?php else : ?>
+                    <td><b>Lulus</b></td>
                   <?php endif; ?>
                 </tr>
               <?php endforeach; ?>
