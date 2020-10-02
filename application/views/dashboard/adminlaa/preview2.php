@@ -18,11 +18,11 @@
           <a class="dropdown-item item" id="item">Semua</a>
           <a class="dropdown-item item" id="item">Nama</a>
           <a class="dropdown-item item" id="item">NIM</a>
-          <a class="dropdown-item item" id="item">Nilai Pemb.1</a>
-          <a class="dropdown-item item" id="item">Nilai Pemb.2</a>
-          <a class="dropdown-item item" id="item">Nilai Peng.1</a>
-          <a class="dropdown-item item" id="item">Nilai Peng.2</a>
-          <a class="dropdown-item item" id="item">Nilai Peng.3</a>
+          <a class="dropdown-item item" id="item">Nilai Pembimbing 1</a>
+          <a class="dropdown-item item" id="item">Nilai Pembimbing 2</a>
+          <a class="dropdown-item item" id="item">Nilai Penguji 1</a>
+          <a class="dropdown-item item" id="item">Nilai Penguji 2</a>
+          <a class="dropdown-item item" id="item">Nilai Penguji 3</a>
         </div>
       </div>
       <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -103,7 +103,7 @@
           } else {
             $('.notfound').show();
           }
-        } else if (filter == "Pembimbing 1") {
+        } else if (filter == "Nilai Pembimbing 1") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
           if (len > 0) {
@@ -113,9 +113,39 @@
           } else {
             $('.notfound').show();
           }
-        } else if (filter == "Pembimbing 2") {
+        } else if (filter == "Nilai Pembimbing 2") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(5):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Nilai Penguji 1") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(6):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Nilai Penguji 2") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(7):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Nilai Penguji 3") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(8):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
               $(this).closest('tr').show();
