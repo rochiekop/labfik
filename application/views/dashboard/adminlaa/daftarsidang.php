@@ -9,7 +9,7 @@
 
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h4>Daftar Mahasiswa Preview 1</h4>
+      <h4>List Mahasiswa Pendaftar Sidang</h4>
     </div>
     <div class="input-group">
       <div class="input-group-append">
@@ -18,8 +18,10 @@
           <a class="dropdown-item item" id="item">Semua</a>
           <a class="dropdown-item item" id="item">Nama</a>
           <a class="dropdown-item item" id="item">NIM</a>
-          <a class="dropdown-item item" id="item">Pembimbing 1</a>
-          <a class="dropdown-item item" id="item">Pembimbing 2</a>
+          <a class="dropdown-item item" id="item">Prodi</a>
+          <a class="dropdown-item item" id="item">Kosentrasi</a>
+          <a class="dropdown-item item" id="item">Dosen Wali</a>
+          <a class="dropdown-item item" id="item">Status</a>
         </div>
       </div>
       <input type="text" class="form-control" id="keyword" aria-label="Text input with dropdown button" placeholder="Pencarian">
@@ -30,52 +32,64 @@
           <thead>
             <tr>
               <th scope="col" style="width:48px">No</th>
+              <th scope="col" style="width:90px">&nbsp;</th>
               <th scope="col">Nama</th>
               <th scope="col">NIM</th>
-              <th scope="col">Pembimbing 1</th>
-              <th scope="col">Pembimbing 2</th>
-              <th scope="col">Ketepatan</th>
-              <th scope="col">Kesesuaian</th>
-              <th scope="col">Kaidah</th>
+              <th scope="col">Prodi</th>
+              <th scope="col">Kosentrasi</th>
+              <th scope="col">Dosen Wali</th>
+              <th scope="col">Tahun</th>
               <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody id="pendaftaranta">
             <?php if (empty($mahasiswa)) : ?>
-              <td colspan="9" style="background-color: whitesmoke;text-align:center">List Mahasiswa kosong</td>
+              <td colspan="9" style="background-color: whitesmoke;text-align:center">List Pendaftaran kosong</td>
             <?php else : ?>
               <?php $no = 0;
               foreach ($mahasiswa as $t) : ?>
-                <tr style="background-color: #ebecf1;color:black">
-                <tr>
+                <?php if ($t['status_file'] != "Disetujui Adminlaa") : ?>
+                  <tr style="background-color: #ebecf1;color:black">
+                  <?php else : ?>
+                  <tr>
+                  <?php endif; ?>
                   <td><?= ++$no ?></td>
+                  <td> <a href="<?= base_url('adminlaa/viewdetaildaftarsidang/') . encrypt_url($t['id']); ?>" class="btn badge badge-secondary">Details</a></td>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
-                  <td><?= $t['dosbing1'] ?></td>
-                  <td><?= $t['dosbing2'] ?></td>
-                  <?php if (empty($t['kelayakan'])) : ?>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                  <td><?= $t['prodi'] ?></td>
+                  <td><?= $t['peminatan'] ?></td>
+                  <td><?= $t['dosen_wali'] ?></td>
+                  <td><?= $t['tahun'] ?></td>
+                  <?php if ($t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
+                    <td><b>Menunggu Persetujuan</b></td>
+                  <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
+                    <td><b><?= $t['diterima'] ?> Diterima, <?= $t['ditolak'] ?> Ditolak</b></td>
+                  <?php elseif ($t['updated'] != "0") : ?>
+                    <td><b><?= $t['updated'] ?> File baru</b></td>
                   <?php else : ?>
-                    <td><?= in_array('kesesuaian', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('ketepatan', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('kaidah', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
+                    <td><b>Disetujui</b></td>
                   <?php endif; ?>
-                  <?php if ($t['status_preview'] == "preview1") : ?>
-                    <td><b>On Progress</b></td>
-                  <?php else : ?>
-                    <td><b>Lulus</b></td>
-                  <?php endif; ?>
-                </tr>
-              <?php endforeach; ?>
-            <?php endif; ?>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
+              <tr class="notfound">
+                <td></td>
+              </tr>
           </tbody>
         </table>
+        <?php var_dump($mahasiswa) ?>
       </table>
     </div>
   </main>
-
+  <style>
+    .notfound {
+      display: none;
+      background-color: whitesmoke;
+      text-align: center;
+    }
+  </style>
+  <!-- End Main Container -->
   <script>
     $(document).ready(function() {
       $(".item").click(function() {
@@ -88,7 +102,7 @@
         // alert(search)
         if (filter == "Nama") {
           $('table tbody tr').hide();
-          var len = $('table tbody tr:not(.notfound) td:nth-child(2):contains("' + search + '")').length;
+          var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
               $(this).closest('tr').show();
@@ -98,16 +112,6 @@
           }
         } else if (filter == "NIM") {
           $('table tbody tr').hide();
-          var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
-          if (len > 0) {
-            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
-              $(this).closest('tr').show();
-            });
-          } else {
-            $('.notfound').show();
-          }
-        } else if (filter == "Pembimbing 1") {
-          $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
@@ -116,9 +120,49 @@
           } else {
             $('.notfound').show();
           }
-        } else if (filter == "Pembimbing 2") {
+        } else if (filter == "Prodi") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(5):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Kosentrasi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(6):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Dosen Wali") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(7):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Tahun") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(8):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Status") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(9):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
               $(this).closest('tr').show();

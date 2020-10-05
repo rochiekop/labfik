@@ -136,7 +136,25 @@ class Adminlaa extends CI_Controller
     }
   }
 
+  public function accfilependaftaransidang($id)
+  {
+    $id = decrypt_url($id);
+    $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
 
+    if ($file) {
+      $data = [
+        'status_adminlaa' => 'Disetujui',
+        'komentar' => '',
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $file['nama'] . ' disetujui</div>');
+      redirect(base_url('adminlaa/viewdetaildaftarsidang/' . encrypt_url($file['id_mhs'])));
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data yang anda minta tidak ada</div>');
+      $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
+      redirect(base_url('adminlaa/viewdetail/' . encrypt_url($id)));
+    }
+  }
   public function tolakfilependaftaran()
   {
     $id = $this->input->post('id');
@@ -151,6 +169,22 @@ class Adminlaa extends CI_Controller
       redirect('adminlaa/viewdetail/' . encrypt_url($file['id_mhs']));
     }
   }
+
+  public function tolakfilependaftaransidang()
+  {
+    $id = $this->input->post('id');
+    $file = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    $nama = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->nama;
+    if ($file) {
+      $data = [
+        'status_adminlaa' => 'Ditolak',
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File ' . $nama . ' ditolak</div>');
+      redirect('adminlaa/viewdetaildaftarsidang/' . encrypt_url($file['id_mhs']));
+    }
+  }
+
 
   function berikomentar($id)
   {
@@ -169,6 +203,27 @@ class Adminlaa extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
       $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
       redirect('adminlaa/viewdetail' . encrypt_url($data1));
+    }
+  }
+
+
+  function berikomentardaftarsidang($id)
+  {
+    $id = decrypt_url($id);
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row_array();
+    if ($data) {
+      $komentar = $this->input->post('komentar');
+      $data = array(
+        'komentar' => $komentar
+      );
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Komentar Anda Telah Terkirim</div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('adminlaa/viewdetaildaftarsidang/' . encrypt_url($data1));
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Komentar Anda Tidak Terkirim/div>');
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('adminlaa/viewdetaildaftarsidang' . encrypt_url($data1));
     }
   }
 
@@ -236,6 +291,19 @@ class Adminlaa extends CI_Controller
     }
   }
 
+
+  public function displayactionadminlaads($id)
+  {
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->view_adminlaa;
+    if ($data == "Belum Dilihat") {
+      $data = [
+        'view_adminlaa' => 'Dilihat'
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('adminlaa/viewdetaildaftarsidang/' . encrypt_url($data1));
+    }
+  }
   public function preview1()
   {
     $data['title'] = "Daftar Mahasiswa Preview 1";
@@ -268,5 +336,90 @@ class Adminlaa extends CI_Controller
     $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
     $this->load->view('dashboard/adminlaa/preview2', $data);
     $this->load->view('templates/dashboard/footer');
+  }
+  public function preview3()
+  {
+    $data['title'] = "Daftar Mahasiswa Preview 3";
+    $name = $this->adminlaa_model->getMhsPreview3();
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'name' => $u['name'],
+          'komentar_kelayakan2' => $u['komentar_kelayakan2'],
+          'guidance_id' => $u['id'],
+          'nim' => $u['nim'],
+          'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
+          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'kelayakan' => $u['kelayakan2'],
+          'status_preview' => $u['status_preview']
+        ];
+    }
+    $data['mahasiswa'] = $userslist;
+    $this->load->view('templates/dashboard/headerAdminlaa', $data);
+    $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
+    $this->load->view('dashboard/adminlaa/preview3', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+  public function daftarsidang()
+  {
+    $data['title'] = "List Mahasiswa Pendaftar Sidang";
+    $name = $this->adminlaa_model->getMhsDaftarSidang();
+
+    $userslist = [];
+    foreach ($name as $u) {
+      $userslist[] =
+        [
+          'id' => $u['id'],
+          'name' => $u['name'],
+          'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
+          'peminatan' => $u['peminatan'],
+          'dosen_wali' => $this->adminlaa_model->getDosenWali($u['dosen_wali'])->name,
+          'status_file' => $u['status_file'],
+          'tahun' => $u['tahun'],
+          'diterima' => $this->adminlaa_model->countStatusDS($u['id'], 'Disetujui'),
+          'ditolak' => $this->adminlaa_model->countStatusDS($u['id'], 'Ditolak'),
+          'updated' => $this->adminlaa_model->countStatusDS($u['id'], 'Update'),
+        ];
+    }
+    $data['mahasiswa'] = $userslist;
+    $this->load->view('templates/dashboard/headerAdminlaa', $data);
+    $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
+    $this->load->view('dashboard/adminlaa/daftarsidang', $data);
+    $this->load->view('templates/dashboard/footer');
+  }
+
+  public function viewdetaildaftarsidang($id)
+  {
+    $id = decrypt_url($id);
+    $file = $this->adminlaa_model->getFilesDaftarSidang($id, 'pendaftaran_sidang');
+    $mhs = $this->adminlaa_model->getMhsbyId($id);
+    $dosbing = $this->adminlaa_model->getDosbing($id);
+    if ($dosbing != "") {
+      $dosbing1 = !empty($this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name) ? $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing1"]])->row()->name : "";
+      $dosbing2 = !empty($this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name) ? $this->db->get_where('user', ['id' => $dosbing["dosen_pembimbing2"]])->row()->name : "";
+    } else {
+      $dosbing1 = "";
+      $dosbing2 = "";
+    }
+    $data = array(
+      'title'     => 'Details Pendaftar Sidang',
+      'file'   => $file,
+      'mhs' => $mhs,
+      'dosbing1' => $dosbing1,
+      'dosbing' => $dosbing,
+      'dosbing2' => $dosbing2,
+    );
+    if ($file) {
+      $this->load->view('templates/dashboard/headerAdminlaa', $data);
+      $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
+      $this->load->view('dashboard/adminlaa/viewdetaildaftarsidang', $data);
+      $this->load->view('templates/dashboard/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger role="alert">Data yang anda minta tidak tersedia.</div>');
+      $id = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id;
+      redirect('adminlaa/daftarsidang');
+    }
   }
 }

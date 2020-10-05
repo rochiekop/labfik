@@ -3,12 +3,12 @@
 
   <div class="fik-section-title2">
     <h4>Bimbingan Tugas Akhir</h4>
-    <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id')) ? '' : 'hidden'; ?>><span class="fas fa-times"></span> Ulangi</button>
   </div>
   <div>
     <table>
       <td>
-        <table >
+        <table>
           <thead>
             <th style="width: 60px;"></th>
             <th style="width: 10px;"></th>
@@ -51,39 +51,39 @@
           </thead>
           <tbody>
             <?php if ($nama_pembimbing1 != "") : ?>
-            <tr>
-              <td>Dosen Pembimbing 1</td>
-              <td>:</td>
-              <td><?= $nama_pembimbing1 ?></td>
-            </tr>
+              <tr>
+                <td>Dosen Pembimbing 1</td>
+                <td>:</td>
+                <td><?= $nama_pembimbing1 ?></td>
+              </tr>
             <?php endif; ?>
             <?php if ($nama_pembimbing2 != "") : ?>
-            <tr>
-              <td>Dosen Pembimbing 2</td>
-              <td>:</td>
-              <td><?= $nama_pembimbing2 ?></td>
-            </tr>
+              <tr>
+                <td>Dosen Pembimbing 2</td>
+                <td>:</td>
+                <td><?= $nama_pembimbing2 ?></td>
+              </tr>
             <?php endif; ?>
             <?php if ($nama_penguji1 != "") : ?>
-            <tr>
-              <td>Dosen Penguji 1</td>
-              <td>:</td>
-              <td><?= $nama_penguji1 ?></td>
-            </tr>
+              <tr>
+                <td>Dosen Penguji 1</td>
+                <td>:</td>
+                <td><?= $nama_penguji1 ?></td>
+              </tr>
             <?php endif; ?>
             <?php if ($nama_penguji2 != "") : ?>
-            <tr>
-              <td>Dosen Penguji 2</td>
-              <td>:</td>
-              <td><?= $nama_penguji2 ?></td>
-            </tr>
+              <tr>
+                <td>Dosen Penguji 2</td>
+                <td>:</td>
+                <td><?= $nama_penguji2 ?></td>
+              </tr>
             <?php endif; ?>
             <?php if ($nama_penguji3 != "") : ?>
-            <tr>
-              <td>Dosen Penguji 3</td>
-              <td>:</td>
-              <td><?= $nama_penguji3 ?></td>
-            </tr>
+              <tr>
+                <td>Dosen Penguji 3</td>
+                <td>:</td>
+                <td><?= $nama_penguji3 ?></td>
+              </tr>
             <?php endif; ?>
           </tbody>
         </table>
@@ -136,7 +136,7 @@
       <?php elseif ($step->status_preview == 'preview3' or $step->status_preview == 'sidang' or $step->status_preview == 'lulus') : ?>
         <a class="nav-link" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
       <?php else : ?>
-        <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>  
+        <a class="nav-link disabled" id="dua-tab" data-toggle="tab" href="#dua" role="tab" aria-selected="false">Preview 2</a>
       <?php endif; ?>
     </li>
     <li class="nav-item">
@@ -172,11 +172,11 @@
   <div class="tab-content" id="myTabContent" style="padding-top:20px;">
 
     <div class="tab-pane fade <?php echo ($step->status_preview == 'preview1') ? 'show active' : ''; ?>" id="satu" role="tabpanel" aria-labelledby="satu-tab">
-      
+
       <div class="alert alert-warning">
         Preview 1. Tahap Bimbingan
       </div>
-      
+
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -213,12 +213,12 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -230,9 +230,9 @@
           <br>
 
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') ? '' : 'hidden') ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') ? '' : 'hidden') ?>><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan = explode(",", $layak->kelayakan); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut" <?php echo (count($kelayakan) == 3) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>><span class="fas fa-check"></span> Lanjut</button>
           <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
@@ -242,11 +242,11 @@
       <div class="alert alert-warning">
         Preview 2. Tahap Bimbingan Lanjutan dan Audiensi
       </div>
-      
+
       <?php if ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') : ?>
-      <div style="padding-bottom:20px">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"><span class="fa fa-plus"></span> Input Jadwal Presentasi</button>
-      </div>
+        <div style="padding-bottom:20px">
+          <button class="btn btn-primary" data-toggle="modal" data-target="#presentation_data" style="color:white; padding:5px; margin:2px"><span class="fa fa-plus"></span> Input Jadwal Presentasi</button>
+        </div>
       <?php endif; ?>
 
       <div class="table-responsive">
@@ -285,12 +285,12 @@
                   </td>
                   <td>
                     <?php if ($f['status'] == 'Dikirim') : ?>
-                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Sesuai</a>
-                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Revisi</a>
+                      <a href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-success" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Sesuai</a>
+                      <a href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Revisi</a>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -308,25 +308,25 @@
                 </thead>
                 <tbody>
                   <?php if ($informasi_presentasi->tanggal_presentasi != "0000-00-00") : ?>
-                  <tr>
-                    <td>Tanggal Audiensi</td>
-                    <td>:</td>
-                    <td><?= $informasi_presentasi->tanggal_presentasi ?></td>
-                  </tr>
+                    <tr>
+                      <td>Tanggal Audiensi</td>
+                      <td>:</td>
+                      <td><?= $informasi_presentasi->tanggal_presentasi ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($informasi_presentasi->waktu_presentasi != "00:00:00") : ?>
-                  <tr>
-                    <td>Waktu Audiensi</td>
-                    <td>:</td>
-                    <td><?= $informasi_presentasi->waktu_presentasi ?></td>
-                  </tr>
+                    <tr>
+                      <td>Waktu Audiensi</td>
+                      <td>:</td>
+                      <td><?= $informasi_presentasi->waktu_presentasi ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($informasi_presentasi->link_presentasi != "") : ?>
-                  <tr>
-                    <td>Link Audiensi</td>
-                    <td>:</td>
-                    <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
-                  </tr>
+                    <tr>
+                      <td>Link Audiensi</td>
+                      <td>:</td>
+                      <td><a href="<?= $informasi_presentasi->link_presentasi ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Ruang Audiensi Daring</a></td>
+                    </tr>
                   <?php endif; ?>
                 </tbody>
               </table>
@@ -340,49 +340,52 @@
                 </thead>
                 <tbody>
                   <?php if ($nama_pembimbing1 != "") : ?>
-                  <tr>
-                    <td>Nilai Pembimbing 1</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing1)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Pembimbing 1</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing1)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_pembimbing2 != "") : ?>
-                  <tr>
-                    <td>Nilai Pembimbing 2</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing2)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Pembimbing 2</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->nilai_pembimbing2)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji1 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 1</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji1)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 1</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->nilai_penguji1)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji2 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 2</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji2)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 2</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->nilai_penguji2)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji3 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 3</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->nilai_penguji3)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 3</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->nilai_penguji3)) ?></td>
+                    </tr>
                   <?php endif; ?>
 
                   <?php if ($penilaian->nilai_pembimbing1 != ',,,,,,,') : ?>
-                  <?php $pembagi = 1 ?>
-                  <tr>
-                    <th>Rata-rata</th>
-                    <th>:</th>
-                    <?php if ($penilaian->nilai_pembimbing2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji1 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji2 != ',,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->nilai_penguji3 != ',,,,,,,') $pembagi = $pembagi+1 ; ?>
-                    <th><?= ( array_sum(explode(",", $penilaian->nilai_pembimbing1)) + array_sum(explode(",", $penilaian->nilai_pembimbing2)) + array_sum(explode(",", $penilaian->nilai_penguji1)) + array_sum(explode(",", $penilaian->nilai_penguji2)) + array_sum(explode(",", $penilaian->nilai_penguji3)) ) / $pembagi ?></th>
-                  </tr>
+                    <?php $pembagi = 1 ?>
+                    <tr>
+                      <th>Rata-rata</th>
+                      <th>:</th>
+                      <?php if ($penilaian->nilai_pembimbing2 != ',,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->nilai_penguji1 != ',,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->nilai_penguji2 != ',,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->nilai_penguji3 != ',,,,,,,') $pembagi = $pembagi + 1; ?>
+                      <th><?= (array_sum(explode(",", $penilaian->nilai_pembimbing1)) + array_sum(explode(",", $penilaian->nilai_pembimbing2)) + array_sum(explode(",", $penilaian->nilai_penguji1)) + array_sum(explode(",", $penilaian->nilai_penguji2)) + array_sum(explode(",", $penilaian->nilai_penguji3))) / $pembagi ?></th>
+                    </tr>
                   <?php endif; ?>
 
                   <tr>
@@ -397,11 +400,11 @@
         </div>
         <div>
           <br>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px" <?php echo ($step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#grading" style="color:white; padding:5px; margin:2px" <?php echo ($step->status_preview == 'preview2') ? '' : 'hidden'; ?>><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
           <!-- </?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); $nilai2 = explode(",", $penilaian->nilai_pembimbing2); $nilai3 = explode(",", $penilaian->nilai_penguji1); $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
           <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" </?php echo (array_sum($nilai1) <= 60 or array_sum($nilai2) <= 60 or array_sum($nilai3) <= 60 or array_sum($nilai4) <= 60) ? 'disabled' : ''; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?>><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali1" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?>><span class="fas fa-undo"></span> Kembali</button>
           <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview2') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
@@ -411,7 +414,7 @@
       <div class="alert alert-warning">
         Preview 3. Tahap Bimbingan Lanjut
       </div>
-      
+
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -451,9 +454,9 @@
                       <button href="<?= base_url('thesis/setSesuai/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-success">Sesuai</button>
                       <button href="<?= base_url('thesis/setRevisi/' . $f['id'] . '/' . $guidance_id) ?>" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> class="btn badge badge-danger">Revisi</button>
                     <?php elseif ($f['status'] == 'Sesuai') : ?>
-                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Sesuai <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php elseif ($f['status'] == 'Revisi') : ?>
-                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?> >Reset</a>
+                      Revisi <a href="<?= base_url('thesis/resetBimbingan/' . $f['id'] . '/' . $guidance_id) ?>" class="btn badge badge-danger" style="margin-left:2px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview1') ? '' : 'hidden'; ?>>Reset</a>
                     <?php endif; ?>
                   </td>
                 </tr>
@@ -465,10 +468,10 @@
           <br>
 
           <button class="btn btn-primary" data-toggle="modal" data-target="#all_correction2" style="color:white; padding:10px; margin:2px"><span class="fas fa-tasks"></span> Semua Koreksi</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?> ><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#checklist2" style="color:white; padding:10px; margin:2px" <?php echo ($lecturers->dosen_pembimbing1 != $this->session->userdata('id')) ? 'hidden' : ''; ?>><span class="fas fa-check-square"></span> Checklist untuk Lanjut</button>
           <?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+          <button class="btn btn-success" data-toggle="modal" data-target="#lanjut3" <?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?>><span class="fas fa-check"></span> Lanjut</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#kembali2" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?>><span class="fas fa-undo"></span> Kembali</button>
           <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'preview3') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
         </div>
       </div>
@@ -480,7 +483,7 @@
       <div class="alert alert-warning">
         Tahap sidang
       </div>
-      
+
       <div class="table-responsive">
         <!-- <table class="table table-hover">
           <thead>
@@ -526,32 +529,34 @@
                 </thead>
                 <tbody>
                   <?php if ($informasi_sidang->tanggal_sidang != "0000-00-00") : ?>
-                  <tr>
-                    <td>Tanggal Sidang</td>
-                    <td>:</td>
-                    <td><?= $informasi_sidang->tanggal_sidang ?></td>
-                  </tr>
+                    <tr>
+                      <td>Tanggal Sidang</td>
+                      <td>:</td>
+                      <td><?= $informasi_sidang->tanggal_sidang ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($informasi_sidang->waktu_sidang != "00:00:00") : ?>
-                  <tr>
-                    <td>Waktu Sidang</td>
-                    <td>:</td>
-                    <td><?= $informasi_sidang->waktu_sidang ?></td>
-                  </tr>
+                    <tr>
+                      <td>Waktu Sidang</td>
+                      <td>:</td>
+                      <td><?= $informasi_sidang->waktu_sidang ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($informasi_sidang->link_sidang != "") : ?>
-                  <tr>
-                    <td>Link Sidang</td>
-                    <td>:</td>
-                    <td><a href="<?= $informasi_sidang->link_sidang ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Sidang Daring</a></td>
-                  </tr>
+                    <tr>
+                      <td>Link Sidang</td>
+                      <td>:</td>
+                      <td><a href="<?= $informasi_sidang->link_sidang ?>" target="_blank" class="badge badge-info" style="padding:5px; margin:5px">Link Sidang Daring</a></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($informasi_sidang->ruang_sidang != "") : ?>
-                  <tr>
-                    <td>Ruang Sidang</td>
-                    <td>:</td>
-                    <td><p><?= $informasi_presentasi->ruang_sidang ?></p></td>
-                  </tr>
+                    <tr>
+                      <td>Ruang Sidang</td>
+                      <td>:</td>
+                      <td>
+                        <p><?= $informasi_presentasi->ruang_sidang ?></p>
+                      </td>
+                    </tr>
                   <?php endif; ?>
                 </tbody>
               </table>
@@ -565,49 +570,52 @@
                 </thead>
                 <tbody>
                   <?php if ($nama_pembimbing1 != "") : ?>
-                  <tr>
-                    <td>Nilai Pembimbing 1</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->poin_pembimbing1)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Pembimbing 1</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->poin_pembimbing1)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_pembimbing2 != "") : ?>
-                  <tr>
-                    <td>Nilai Pembimbing 2</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->poin_pembimbing2)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Pembimbing 2</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->poin_pembimbing2)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji1 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 1</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->poin_penguji1)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 1</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->poin_penguji1)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji2 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 2</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->poin_penguji2)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 2</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->poin_penguji2)) ?></td>
+                    </tr>
                   <?php endif; ?>
                   <?php if ($nama_penguji3 != "") : ?>
-                  <tr>
-                    <td>Nilai Penguji 3</td>
-                    <td>:</td>
-                    <td><?= array_sum(explode(",", $penilaian->poin_penguji3)) ?></td>
-                  </tr>
+                    <tr>
+                      <td>Nilai Penguji 3</td>
+                      <td>:</td>
+                      <td><?= array_sum(explode(",", $penilaian->poin_penguji3)) ?></td>
+                    </tr>
                   <?php endif; ?>
 
                   <?php if ($penilaian->poin_pembimbing1 != ',,,,,,,,') : ?>
-                  <?php $pembagi = 1 ?>
-                  <tr>
-                    <th>Rata-rata</th>
-                    <th>:</th>
-                    <?php if ($penilaian->poin_pembimbing2 != ',,,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->poin_penguji1 != ',,,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->poin_penguji2 != ',,,,,,,,') $pembagi = $pembagi+1 ; if ($penilaian->poin_penguji3 != ',,,,,,,,') $pembagi = $pembagi+1 ; ?>
-                    <th><?= ( array_sum(explode(",", $penilaian->poin_pembimbing1)) + array_sum(explode(",", $penilaian->poin_pembimbing2)) + array_sum(explode(",", $penilaian->poin_penguji1)) + array_sum(explode(",", $penilaian->poin_penguji2)) + array_sum(explode(",", $penilaian->poin_penguji3)) ) / $pembagi ?></th>
-                  </tr>
+                    <?php $pembagi = 1 ?>
+                    <tr>
+                      <th>Rata-rata</th>
+                      <th>:</th>
+                      <?php if ($penilaian->poin_pembimbing2 != ',,,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->poin_penguji1 != ',,,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->poin_penguji2 != ',,,,,,,,') $pembagi = $pembagi + 1;
+                      if ($penilaian->poin_penguji3 != ',,,,,,,,') $pembagi = $pembagi + 1; ?>
+                      <th><?= (array_sum(explode(",", $penilaian->poin_pembimbing1)) + array_sum(explode(",", $penilaian->poin_pembimbing2)) + array_sum(explode(",", $penilaian->poin_penguji1)) + array_sum(explode(",", $penilaian->poin_penguji2)) + array_sum(explode(",", $penilaian->poin_penguji3))) / $pembagi ?></th>
+                    </tr>
                   <?php endif; ?>
 
                   <tr>
@@ -620,15 +628,15 @@
             </td>
           </table>
         </div>
-    
+
         <br>
         <button class="btn btn-primary" data-toggle="modal" data-target="#grading_sidang" style="color:white; padding:5px; margin:2px"><span class="fas fa-star-half-alt"></span> Berikan Penilaian</button>
         <!-- </?php $kelayakan2 = explode(",", $layak->kelayakan2); ?>
         <button class="btn btn-success" data-toggle="modal" data-target="#lulus" </?php echo (count($kelayakan2) == 8) ? '' : 'disabled'; ?> style="color:white; float:right; padding:10px; margin-left:10px"><span class="fas fa-check"></span> Lanjut</button> -->
-        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-check"></span> Lanjut</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-undo"></span> Kembali</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#lulus" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?>><span class="fas fa-check"></span> Lanjut</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#kembali3" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_penguji1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?>><span class="fas fa-undo"></span> Kembali</button>
         <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#ulangi" style="color:white; float:right; padding:10px; margin-left:10px" <?php echo ($lecturers->dosen_pembimbing1 == $this->session->userdata('id') and $step->status_preview == 'sidang') ? '' : 'hidden'; ?> ><span class="fas fa-times"></span> Ulangi</button> -->
-        
+
       </div>
     </div>
 
@@ -637,7 +645,7 @@
       <div class="alert alert-success">
         Mahasiswa sudah lulus
       </div>
-      
+
     </div>
 
   </div>
@@ -902,7 +910,7 @@
       <form action="<?= base_url('thesis/setKembali1/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-          <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 1</p>
+            <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 1</p>
           </div>
         </div>
         <div class="modal-footer">
@@ -948,7 +956,7 @@
       <form action="<?= base_url('thesis/setKembali3/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-          <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 3</p>
+            <p>Jika anda melanjutkan aksi ini, maka progres mahasiswa akan kembali ke preview 3</p>
           </div>
         </div>
         <div class="modal-footer">
@@ -967,7 +975,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Informasi Presentasi</h5>
       </div>
-      <form action="<?= base_url('thesis/saveInformasiPresentasi/'. encrypt_url($guidance_id)) ?>" method="POST">
+      <form action="<?= base_url('thesis/saveInformasiPresentasi/' . encrypt_url($guidance_id)) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
             <div class="form-group" style="padding-left:10px">
@@ -1099,52 +1107,71 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
       </div>
-      <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $peran = 'pembimbing1'; elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $peran = 'pembimbing2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $peran = 'penguji1'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $peran = 'penguji2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $peran = 'penguji3'; ?>
+      <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $peran = 'pembimbing1';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $peran = 'pembimbing2';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $peran = 'penguji1';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $peran = 'penguji2';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $peran = 'penguji3'; ?>
       <form action="<?= base_url('thesis/savePenilaian/' . encrypt_url($guidance_id) . '/' . $peran) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-            <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) {$file = explode(",", $penilaian->nilai_pembimbing1); $temp_penilaian = $penilaian->penilaian_pembimbing1;} elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) {$file = explode(",", $penilaian->nilai_pembimbing2); $temp_penilaian = $penilaian->penilaian_pembimbing2;}  elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) {$file = explode(",", $penilaian->nilai_penguji1); $temp_penilaian = $penilaian->penilaian_penguji1;} elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) {$file = explode(",", $penilaian->nilai_penguji2); $temp_penilaian = $penilaian->penilaian_penguji2;} elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) {$file = explode(",", $penilaian->nilai_penguji3); $temp_penilaian = $penilaian->penilaian_penguji3;} ?>
+            <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) {
+              $file = explode(",", $penilaian->nilai_pembimbing1);
+              $temp_penilaian = $penilaian->penilaian_pembimbing1;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) {
+              $file = explode(",", $penilaian->nilai_pembimbing2);
+              $temp_penilaian = $penilaian->penilaian_pembimbing2;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) {
+              $file = explode(",", $penilaian->nilai_penguji1);
+              $temp_penilaian = $penilaian->penilaian_penguji1;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) {
+              $file = explode(",", $penilaian->nilai_penguji2);
+              $temp_penilaian = $penilaian->penilaian_penguji2;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) {
+              $file = explode(",", $penilaian->nilai_penguji3);
+              $temp_penilaian = $penilaian->penilaian_penguji3;
+            } ?>
             <center><strong>Bab 1</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketepatan menjelaskan fenomena permasalahan *10</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketepatan mengidentifikasi dan merumuskan permasalahan *10</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kesesuaian kerangka pemikiran dengan tujuan penelitian/perancangan *10</label>
               </div>
             </div>
             <center><strong>Bab 2</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Relevansi pemilihan teori dengan lingkup penelitian/perancangan *10</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen) *10</label>
               </div>
             </div>
             <center><strong>Bab 3</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kelengkapan dan kesesuaian data yang diperoleh *20</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="20" name="nilai[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *20</label>
               </div>
             </div>
             <center><strong>Sistematika Penulisan</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="nilai[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kaidah tata tulis ilmiah *10</label>
               </div>
             </div>
@@ -1169,62 +1196,81 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
       </div>
-      <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $peran = 'pembimbing1'; elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $peran = 'pembimbing2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $peran = 'penguji1'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $peran = 'penguji2'; elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $peran = 'penguji3'; ?>
+      <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) $peran = 'pembimbing1';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) $peran = 'pembimbing2';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) $peran = 'penguji1';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) $peran = 'penguji2';
+      elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) $peran = 'penguji3'; ?>
       <form action="<?= base_url('thesis/savePoin/' . encrypt_url($guidance_id) . '/' . $peran) ?>" method="POST">
         <div class="modal-body">
           <div class="custom-form">
-          <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) {$file = explode(",", $penilaian->poin_pembimbing1); $temp_penilaian = $penilaian->evaluasi_pembimbing1;} elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) {$file = explode(",", $penilaian->poin_pembimbing2); $temp_penilaian = $penilaian->evaluasi_pembimbing2;}  elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) {$file = explode(",", $penilaian->poin_penguji1); $temp_penilaian = $penilaian->evaluasi_penguji1;} elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) {$file = explode(",", $penilaian->poin_penguji2); $temp_penilaian = $penilaian->evaluasi_penguji2;} elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) {$file = explode(",", $penilaian->poin_penguji3); $temp_penilaian = $penilaian->evaluasi_penguji3;} ?>
+            <?php if ($this->session->userdata('id') == $lecturers->dosen_pembimbing1) {
+              $file = explode(",", $penilaian->poin_pembimbing1);
+              $temp_penilaian = $penilaian->evaluasi_pembimbing1;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_pembimbing2) {
+              $file = explode(",", $penilaian->poin_pembimbing2);
+              $temp_penilaian = $penilaian->evaluasi_pembimbing2;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji1) {
+              $file = explode(",", $penilaian->poin_penguji1);
+              $temp_penilaian = $penilaian->evaluasi_penguji1;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji2) {
+              $file = explode(",", $penilaian->poin_penguji2);
+              $temp_penilaian = $penilaian->evaluasi_penguji2;
+            } elseif ($this->session->userdata('id') == $lecturers->dosen_penguji3) {
+              $file = explode(",", $penilaian->poin_penguji3);
+              $temp_penilaian = $penilaian->evaluasi_penguji3;
+            } ?>
             <center><strong>Bab 1</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[0] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan *10</label>
               </div>
             </div>
             <center><strong>Bab 2</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[1] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan *10</label>
               </div>
             </div>
             <center><strong>Bab 3</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[2] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kelengkapan dan kesesuaian data yang diperoleh *10</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[3] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan *10</label>
               </div>
             </div>
             <center><strong>Bab 4</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="15" name="poin[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="15" name="poin[]" value="<?= $file[4] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketepatan dalam merumuskan konsep perancangan *15</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="25" name="poin[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="25" name="poin[]" value="<?= $file[5] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Penyajian karya visual sesuai kaidah estetik *25</label>
               </div>
             </div>
             <center><strong>Bab 5</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="5" name="poin[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="5" name="poin[]" value="<?= $file[6] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Ketepatan dalam merumuskan kesimpulan dan saran *5</label>
               </div>
             </div>
             <center><strong>Sistematika Penulisan dan Presentasi</strong></center>
             <div style="padding:10px">
               <div class="form-group">
-                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="10" name="poin[]" value="<?= $file[7] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Kaidah tata tulis karya ilmiah *10</label>
               </div>
               <div class="form-group">
-                <input type="number" min="0" max="5" name="poin[]" value="<?= $file[8] ?>" class="form-control" placeholder="" autocomplete="off"/>
+                <input type="number" min="0" max="5" name="poin[]" value="<?= $file[8] ?>" class="form-control" placeholder="" autocomplete="off" />
                 <label>Presentasi *5</label>
               </div>
             </div>
@@ -1249,146 +1295,146 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Detail Nilai</h5>
       </div>
-        <div class="modal-body">
-          <div class="custom-form">
+      <div class="modal-body">
+        <div class="custom-form">
 
-            <?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
-            <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
-            <?php $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
-            <?php $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
-            <?php $nilai5 = explode(",", $penilaian->nilai_penguji3); ?>
-            
-            <table style="border-collapse: separate; border-spacing: 10px;">
-              <thead>
-                <th style="width:60px"></th>
-                <th style="width:600px"> Aspek </th>
-                <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
-                <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
-                <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
-                <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
-                <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
-                <br>
-              </thead>
-              <tbody>
-                <tr>
-                  <th rowspan="3">Bab1</th>
-                  <td>Ketetapan menjelaskan fenomena permasalahan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[0].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[0].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Ketetapan mengidentifikasi dan merumuskan permasalahan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[1].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[1].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[2].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[2].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2">Bab 2</th>
-                  <td>Relevansi pemilihan teori dengan lingkup penelitian/perancangan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[3].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[3].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen)</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[4].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[4].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2">Bab 3</th>
-                  <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[5].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[5].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[6].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[6].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[6].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[6].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[6].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2"></th>
-                  <td>Kaidah tata tulis karya ilmiah</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[7].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[7].'</td>' : ''; ?>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table style="border-collapse: separate; border-spacing: 10px;">
-              <thead>
-                <th style="width: 180px;"></th>
-                <th style="width: 10px;"></th>
-              </thead>
-              <tbody>
-                <?php if ($nama_pembimbing1 != "") : ?>
+          <?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+          <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+          <?php $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
+          <?php $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
+          <?php $nilai5 = explode(",", $penilaian->nilai_penguji3); ?>
+
+          <table style="border-collapse: separate; border-spacing: 10px;">
+            <thead>
+              <th style="width:60px"></th>
+              <th style="width:600px"> Aspek </th>
+              <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
+              <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
+              <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
+              <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
+              <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
+              <br>
+            </thead>
+            <tbody>
+              <tr>
+                <th rowspan="3">Bab1</th>
+                <td>Ketetapan menjelaskan fenomena permasalahan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[0] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[0] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Ketetapan mengidentifikasi dan merumuskan permasalahan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[1] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[1] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Kesesuaian kerangka pemikiran lingkum penelitian/perancangan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[2] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[2] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2">Bab 2</th>
+                <td>Relevansi pemilihan teori dengan lingkup penelitian/perancangan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[3] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[3] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Kemutakhiran teori yang digunakan (merujuk artikel/publikasi dosen)</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[4] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[4] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2">Bab 3</th>
+                <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[5] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[5] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[6] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[6] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[6] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[6] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[6] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2"></th>
+                <td>Kaidah tata tulis karya ilmiah</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[7] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[7] . '</td>' : ''; ?>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <table style="border-collapse: separate; border-spacing: 10px;">
+            <thead>
+              <th style="width: 180px;"></th>
+              <th style="width: 10px;"></th>
+            </thead>
+            <tbody>
+              <?php if ($nama_pembimbing1 != "") : ?>
                 <tr>
                   <td>Evaluasi Pembimbing 1</td>
                   <td>:</td>
                   <td><?= $penilaian->penilaian_pembimbing1 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_pembimbing2 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_pembimbing2 != "") : ?>
                 <tr>
                   <td>Evaluasi Pembimbing 2</td>
                   <td>:</td>
                   <td><?= $penilaian->penilaian_pembimbing2 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji1 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji1 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 1</td>
                   <td>:</td>
                   <td><?= $penilaian->penilaian_penguji1 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji2 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji2 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 2</td>
                   <td>:</td>
                   <td><?= $penilaian->penilaian_penguji2 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji3 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji3 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 3</td>
                   <td>:</td>
                   <td><?= $penilaian->penilaian_penguji3 ?></td>
                 </tr>
-                <?php endif; ?>
-              </tbody>
-            </table>
-          </div>
+              <?php endif; ?>
+            </tbody>
+          </table>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1400,157 +1446,157 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Detail Nilai</h5>
       </div>
-        <div class="modal-body">
-          <div class="custom-form">
+      <div class="modal-body">
+        <div class="custom-form">
 
-            <?php $nilai1 = explode(",", $penilaian->poin_pembimbing1); ?>
-            <?php $nilai2 = explode(",", $penilaian->poin_pembimbing2); ?>
-            <?php $nilai3 = explode(",", $penilaian->poin_penguji1); ?>
-            <?php $nilai4 = explode(",", $penilaian->poin_penguji2); ?>
-            <?php $nilai5 = explode(",", $penilaian->poin_penguji3); ?>
-            
-            <!-- <style>.bottom {border-bottom: 1px solid #ddd;}</style> -->
-            <table style="border-collapse: separate; border-spacing: 10px;">
-              <thead>
-                <th style="width:60px"></th>
-                <th style="width:600px"> Aspek </th>
-                <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
-                <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
-                <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
-                <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
-                <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
-                <br>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>Bab 1</th>
-                  <td>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[0].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[0].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[0].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th>Bab 2</th>
-                  <td>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[1].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[1].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[1].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2">Bab 3</th>
-                  <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[2].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[2].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[2].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[2].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[2].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2">Bab 4</th>
-                  <td>Ketepatan dalam merumuskan konsep perancangan</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[3].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[3].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[3].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Penyajian karya visual sesuai kaidah estetik</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[4].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[4].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[4].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th>Bab 5</th>
-                  <td>Ketepatan dalam merumuskan kesimpulan dan saran</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[5].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[5].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[5].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <th rowspan="2"></th>
-                  <td>Kaidah tata tulis karya ilmiah</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[7].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[7].'</td>' : ''; ?>
-                </tr>
-                <tr>
-                  <td>Presentasi</td>
-                  <?php echo ($nama_pembimbing1 != "") ? '<td>'.$nilai1[7].'</td>' : ''; ?>
-                  <?php echo ($nama_pembimbing2 != "") ? '<td>'.$nilai2[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji1 != "") ? '<td>'.$nilai3[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji2 != "") ? '<td>'.$nilai4[7].'</td>' : ''; ?>
-                  <?php echo ($nama_penguji3 != "") ? '<td>'.$nilai5[7].'</td>' : ''; ?>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table style="border-collapse: separate; border-spacing: 10px;">
-              <thead>
-                <th style="width: 180px;"></th>
-                <th style="width: 10px;"></th>
-              </thead>
-              <tbody>
-                <?php if ($nama_pembimbing1 != "") : ?>
+          <?php $nilai1 = explode(",", $penilaian->poin_pembimbing1); ?>
+          <?php $nilai2 = explode(",", $penilaian->poin_pembimbing2); ?>
+          <?php $nilai3 = explode(",", $penilaian->poin_penguji1); ?>
+          <?php $nilai4 = explode(",", $penilaian->poin_penguji2); ?>
+          <?php $nilai5 = explode(",", $penilaian->poin_penguji3); ?>
+
+          <!-- <style>.bottom {border-bottom: 1px solid #ddd;}</style> -->
+          <table style="border-collapse: separate; border-spacing: 10px;">
+            <thead>
+              <th style="width:60px"></th>
+              <th style="width:600px"> Aspek </th>
+              <?php echo ($nama_pembimbing1 != "") ? '<th>Pembimbing 1</th>' : ''; ?>
+              <?php echo ($nama_pembimbing2 != "") ? '<th>Pembimbing 2</th>' : ''; ?>
+              <?php echo ($nama_penguji1 != "") ? '<th>Penguji 1</th>' : ''; ?>
+              <?php echo ($nama_penguji2 != "") ? '<th>Penguji 2</th>' : ''; ?>
+              <?php echo ($nama_penguji3 != "") ? '<th>Penguji 3</th>' : ''; ?>
+              <br>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Bab 1</th>
+                <td>Ketepatan menjelaskan fenomena, serta merumuskan permasalahan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[0] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[0] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[0] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th>Bab 2</th>
+                <td>Relevansi dan kemutakhiran teori yang digunakan lingkup penelitian/perancangan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[1] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[1] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[1] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2">Bab 3</th>
+                <td>Kelengkapan dan kesesuaian data yang diperoleh</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[2] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[2] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Ketetapan pengolahan (klasifikasi, kategorisasi), ketajaman analisis, dan simpulan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[2] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[2] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[2] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2">Bab 4</th>
+                <td>Ketepatan dalam merumuskan konsep perancangan</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[3] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[3] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[3] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Penyajian karya visual sesuai kaidah estetik</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[4] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[4] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[4] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th>Bab 5</th>
+                <td>Ketepatan dalam merumuskan kesimpulan dan saran</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[5] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[5] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[5] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <th rowspan="2"></th>
+                <td>Kaidah tata tulis karya ilmiah</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[7] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[7] . '</td>' : ''; ?>
+              </tr>
+              <tr>
+                <td>Presentasi</td>
+                <?php echo ($nama_pembimbing1 != "") ? '<td>' . $nilai1[7] . '</td>' : ''; ?>
+                <?php echo ($nama_pembimbing2 != "") ? '<td>' . $nilai2[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji1 != "") ? '<td>' . $nilai3[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji2 != "") ? '<td>' . $nilai4[7] . '</td>' : ''; ?>
+                <?php echo ($nama_penguji3 != "") ? '<td>' . $nilai5[7] . '</td>' : ''; ?>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <table style="border-collapse: separate; border-spacing: 10px;">
+            <thead>
+              <th style="width: 180px;"></th>
+              <th style="width: 10px;"></th>
+            </thead>
+            <tbody>
+              <?php if ($nama_pembimbing1 != "") : ?>
                 <tr>
                   <td>Evaluasi Pembimbing 1</td>
                   <td>:</td>
                   <td><?= $penilaian->evaluasi_pembimbing1 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_pembimbing2 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_pembimbing2 != "") : ?>
                 <tr>
                   <td>Evaluasi Pembimbing 2</td>
                   <td>:</td>
                   <td><?= $penilaian->evaluasi_pembimbing2 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji1 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji1 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 1</td>
                   <td>:</td>
                   <td><?= $penilaian->evaluasi_penguji1 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji2 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji2 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 2</td>
                   <td>:</td>
                   <td><?= $penilaian->evaluasi_penguji2 ?></td>
                 </tr>
-                <?php endif; ?>
-                <?php if ($nama_penguji3 != "") : ?>
+              <?php endif; ?>
+              <?php if ($nama_penguji3 != "") : ?>
                 <tr>
                   <td>Evaluasi Penguji 3</td>
                   <td>:</td>
                   <td><?= $penilaian->evaluasi_penguji3 ?></td>
                 </tr>
-                <?php endif; ?>
-              </tbody>
-            </table>
-          </div>
+              <?php endif; ?>
+            </tbody>
+          </table>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1615,7 +1661,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
+                  <?php $nilai1 = explode(",", $penilaian->nilai_pembimbing1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($nilai1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -1675,7 +1721,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
+                  <?php $nilai2 = explode(",", $penilaian->nilai_pembimbing2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($nilai2) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -1737,7 +1783,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
+                  <?php $nilai3 = explode(",", $penilaian->nilai_penguji1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($nilai3) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -1796,7 +1842,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
+                  <?php $nilai4 = explode(",", $penilaian->nilai_penguji2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($nilai4) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -1890,7 +1936,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $poin1 = explode(",", $penilaian->poin_pembimbing1); ?>
+                  <?php $poin1 = explode(",", $penilaian->poin_pembimbing1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($poin1) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -1960,7 +2006,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $poin2 = explode(",", $penilaian->poin_pembimbing2); ?>
+                  <?php $poin2 = explode(",", $penilaian->poin_pembimbing2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($poin2) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -2032,7 +2078,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $poin3 = explode(",", $penilaian->poin_penguji1); ?>
+                  <?php $poin3 = explode(",", $penilaian->poin_penguji1); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($poin3) ?>" class="form-control" placeholder="" autocomplete="off" disabled />
@@ -2102,7 +2148,7 @@
                     </div>
                   </div>
                   <center><strong>Total</strong></center>
-                  <?php  $poin4 = explode(",", $penilaian->poin_penguji2); ?>
+                  <?php $poin4 = explode(",", $penilaian->poin_penguji2); ?>
                   <div style="padding:10px">
                     <div class="form-group" style="padding-left:10px">
                     <input type="number" name="" value="<?= array_sum($poin4) ?>" class="form-control" placeholder="" autocomplete="off" disabled />

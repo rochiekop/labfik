@@ -168,45 +168,6 @@ class Users extends CI_Controller
     }
   }
 
-  // public function file_check($str)
-  // {
-  //   $allowed_mime_type_arr = array('application/pdf');
-  //   $mime = get_mime_by_extension($_FILES['filependaftaran']['name']);
-  //   if (isset($_FILES['filependaftaran']['name']) && $_FILES['filependaftaran']['name'] != "") {
-  //     if (in_array($mime, $allowed_mime_type_arr)) {
-  //       return true;
-  //     } else {
-  //       $this->form_validation->set_message('file_check', 'Please select only pdf file.');
-  //       return false;
-  //     }
-  //   } else {
-  //     $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
-  //     return false;
-  //   }
-  // }
-  // public function inputformpendaftaranta()
-  // {
-  //   if (isset($_POST['submit'])) {
-  //     $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-  //     if (!is_dir($path)) {
-  //       $create = mkdir($path, 0777, TRUE);
-  //       if (!$create)
-  //         return;
-  //     }
-  //     $this->form_validation->set_rules('file', '', 'callback_file_check');
-  //     if ($this->form_validation->run() == true) {
-  //       $config['upload_path'] = $path;
-  //       $config['allowed_types'] = 'pdf';
-  //       $config['max_size'] = '20024';  //20MB max
-  //       $this->load->library('upload', $config);
-  //       if (!empty($_FILES['filependaftaran']['name'])) {
-  //         $this->upload->do_upload('filependaftaran');
-  //         $file1 = $this->upload->data();
-  //       }
-  //     } else {
-  //     }
-  //   }
-  // }
   public function pendaftarantugasakhir()
   {
     $mhs = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
@@ -292,22 +253,22 @@ class Users extends CI_Controller
     // $data['poin_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->poin;
     // $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
 
-    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null){
+    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null) {
       $data['poin_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->poin;
     } else {
       $data['poin_tak'] = '';
     }
-    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null){
+    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null) {
       $data['file_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->file;
     } else {
       $data['file_tak'] = '';
     }
-    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null){
+    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null) {
       $data['poin_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->poin;
     } else {
       $data['poin_eprt'] = '';
     }
-    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null){
+    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null) {
       $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
     } else {
       $data['file_eprt'] = '';
@@ -962,6 +923,19 @@ class Users extends CI_Controller
   }
 
   public function displayaction($id)
+  {
+    $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->view_doswal;
+    if ($data == "Belum Dilihat") {
+      $data = [
+        'view_doswal' => 'Dilihat'
+      ];
+      $this->db->update('file_pendaftaran', $data, ['id' => $id]);
+      $data1 = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->id_mhs;
+      redirect('users/daftarfile/' . $data1);
+    }
+  }
+
+  public function displayactionadminlaads($id)
   {
     $data = $this->db->get_where('file_pendaftaran', ['id' => $id])->row()->view_doswal;
     if ($data == "Belum Dilihat") {

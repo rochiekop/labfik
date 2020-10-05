@@ -9,7 +9,7 @@
 
     <div class="fik-section-title2">
       <span class="fas fa-door-open zzzz"></span>
-      <h4>Daftar Mahasiswa Preview 1</h4>
+      <h4>Daftar Mahasiswa Preview 3</h4>
     </div>
     <div class="input-group">
       <div class="input-group-append">
@@ -34,9 +34,7 @@
               <th scope="col">NIM</th>
               <th scope="col">Pembimbing 1</th>
               <th scope="col">Pembimbing 2</th>
-              <th scope="col">Ketepatan</th>
-              <th scope="col">Kesesuaian</th>
-              <th scope="col">Kaidah</th>
+              <th scope="col">Kelayakan</th>
               <th scope="col">Status</th>
             </tr>
           </thead>
@@ -53,16 +51,8 @@
                   <td><?= $t['nim'] ?></td>
                   <td><?= $t['dosbing1'] ?></td>
                   <td><?= $t['dosbing2'] ?></td>
-                  <?php if (empty($t['kelayakan'])) : ?>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  <?php else : ?>
-                    <td><?= in_array('kesesuaian', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('ketepatan', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('kaidah', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                  <?php endif; ?>
-                  <?php if ($t['status_preview'] == "preview1") : ?>
+                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $t['guidance_id'] ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
+                  <?php if ($t['status_preview'] == "preview3") : ?>
                     <td><b>On Progress</b></td>
                   <?php else : ?>
                     <td><b>Lulus</b></td>
@@ -75,7 +65,57 @@
       </table>
     </div>
   </main>
+  <!-- Modal for checklist -->
+  <?php foreach ($mahasiswa as $m) : ?>
+    <div class="modal fade" id="exampleModal<?= $m['guidance_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Checklist Kelayakan untuk Lanjut</h5>
+          </div>
+          <div class="modal-body">
+            <div class="custom-form">
+              <?php $check2 = explode(",", $t['kelayakan']); ?>
+              <div style="padding:10px">
+                <center><strong>Bab 1</strong></center>
+                <input type="checkbox" id="fenomena" name="kelayakan2[]" value="fenomena" <?php echo (in_array('fenomena', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="fenomena"> Fenomena Permasalahan</label><br>
+                <input type="checkbox" id="identifikasi" name="kelayakan2[]" value="identifikasi" <?php echo (in_array('identifikasi', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="identifikasi"> Identifikasi dan rumusan masalah</label><br>
+                <input type="checkbox" id="kerangka" name="kelayakan2[]" value="kerangka" <?php echo (in_array('kerangka', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="kerangka"> Kerangka pemikiran</label><br><br>
+              </div>
 
+              <div style="padding:10px">
+                <center><strong>Bab 2</strong></center>
+                <input type="checkbox" id="landasan" name="kelayakan2[]" value="landasan" <?php echo (in_array('landasan', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="landasan"> Landasan teori</label><br>
+              </div>
+              <div style="padding:10px">
+                <center><strong>Bab 3</strong></center>
+                <input type="checkbox" id="data" name="kelayakan2[]" value="data" <?php echo (in_array('data', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="data"> Data Primer dan sekunder</label><br>
+                <input type="checkbox" id="hasil" name="kelayakan2[]" value="hasil" <?php echo (in_array('hasil', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="hasil"> Hasil analisis</label><br>
+              </div>
+
+              <div style="padding:10px">
+                <center><strong>Bab 4</strong></center>
+                <input type="checkbox" id="konsep" name="kelayakan2[]" value="konsep" <?php echo (in_array('konsep', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="konsep"> Konsep perancangan</label><br>
+                <input type="checkbox" id="karya" name="kelayakan2[]" value="karya" <?php echo (in_array('karya', $check2)) ? 'checked' : ''; ?> disabled>
+                <label for="karya"> Karya visual</label><br>
+              </div>
+              <textarea disabled id="editable" class="editable" cols="30" rows="10"><?= $m['komentar_kelayakan2'] ?></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
   <script>
     $(document).ready(function() {
       $(".item").click(function() {
@@ -144,5 +184,20 @@
           return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
         };
       });
+    });
+  </script>
+  <!-- TinyMCE -->
+  <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    tinymce.init({
+      selector: '.editable',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: '',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      height: '350',
+      width: '470',
+      readonly: 1
     });
   </script>

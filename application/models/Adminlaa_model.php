@@ -43,6 +43,16 @@ class Adminlaa_model extends CI_Model
     return count($this->db->get()->result_array());
   }
 
+  public function countStatusDS($id_mhs, $status)
+  {
+    $this->db->select('id');
+    $this->db->from('file_pendaftaran');
+    $this->db->where('id_mhs', $id_mhs);
+    $this->db->where('status_adminlaa', $status);
+    $this->db->where('jenis_pendaftaran', 'pendaftaran_sidang');
+    return count($this->db->get()->result_array());
+  }
+
   public function getDosenWali($dosen_wali)
   {
     $this->db->select('name');
@@ -138,6 +148,39 @@ class Adminlaa_model extends CI_Model
     $this->db->where('status_preview', 'preview2');
     $this->db->or_where('status_preview', 'preview3');
     $this->db->or_where('status_preview', 'sidang');
+    return $this->db->get()->result_array();
+  }
+  public function getMhsPreview3()
+  {
+    $this->db->select('user.name,guidance.id, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan2,guidance.status_preview,guidance.komentar_kelayakan2');
+    $this->db->from('guidance');
+    $this->db->join('user', 'user.id = guidance.id_mhs');
+    $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
+    $this->db->where('status_preview', 'preview3');
+    $this->db->or_where('status_preview', 'sidang');
+    return $this->db->get()->result_array();
+  }
+  public function getMhsDaftarSidang()
+  {
+    $this->db->select('user.name,user.nim,user.prodi,user.id,guidance.peminatan,guidance.tahun,guidance.status_file,dosen_wali');
+    $this->db->from('user');
+    $this->db->join('guidance', 'guidance.id_mhs = user.id');
+    $this->db->join('file_pendaftaran', 'guidance.id_mhs = file_pendaftaran.id_mhs ');
+    $this->db->where('guidance.status_preview', 'sidang');
+    $this->db->where('jenis_pendaftaran', 'pendaftaran_sidang');
+    $this->db->group_by('guidance.id_mhs');
+    return $this->db->get()->result_array();
+  }
+
+  public function getFilesDaftarSidang($id, $jenis)
+  {
+    $this->db->select('file_pendaftaran.id,file_pendaftaran.id_mhs,file_pendaftaran.nama,file_pendaftaran.file,file_pendaftaran.status_doswal,user.username,file_pendaftaran.status_adminlaa,file_pendaftaran.komentar,file_pendaftaran.komentar, file_pendaftaran.view_adminlaa');
+    $this->db->from('file_pendaftaran');
+    $this->db->join('user', 'user.id = file_pendaftaran.id_mhs');
+    $this->db->where('id_mhs', $id);
+    $this->db->where('jenis_pendaftaran', $jenis);
+    $this->db->where('nama', 'Dokumen TAK');
+    $this->db->or_where('nama', 'Sertifikat EPRT');
     return $this->db->get()->result_array();
   }
 }
