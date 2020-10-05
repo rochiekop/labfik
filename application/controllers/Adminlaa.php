@@ -239,7 +239,7 @@ class Adminlaa extends CI_Controller
   public function preview1()
   {
     $data['title'] = "Daftar Mahasiswa Preview 1";
-    $name = $this->adminlaa_model->getMhsPreview('preview1');
+    $name = $this->adminlaa_model->getMhsPreview1();
     $userslist = [];
     foreach ($name as $u) {
       $userslist[] =
@@ -248,7 +248,8 @@ class Adminlaa extends CI_Controller
           'nim' => $u['nim'],
           'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
           'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
-          'kelayakan' => $u['kelayakan']
+          'kelayakan' => $u['kelayakan'],
+          'status_preview' => $u['status_preview']
         ];
     }
     $data['mahasiswa'] = $userslist;
@@ -262,7 +263,7 @@ class Adminlaa extends CI_Controller
   public function preview2()
   {
     $data['title'] = "Daftar Mahasiswa Preview 2";
-    $data['mahasiswa'] = $this->adminlaa_model->getMhsPreview2('preview2');
+    $data['mahasiswa'] = $this->adminlaa_model->getMhsPreview2();
     $this->load->view('templates/dashboard/headerAdminlaa', $data);
     $this->load->view('templates/dashboard/sidebarAdminlaa', $data);
     $this->load->view('dashboard/adminlaa/preview2', $data);
