@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Sep 2020 pada 14.14
+-- Waktu pembuatan: 05 Okt 2020 pada 04.04
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -33,6 +33,7 @@ CREATE TABLE `file_pendaftaran` (
   `id_mhs` varchar(64) NOT NULL,
   `nama` varchar(64) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `poin` int(64) NOT NULL,
   `view_adminlaa` varchar(64) NOT NULL,
   `status_adminlaa` varchar(64) NOT NULL,
   `view_doswal` varchar(64) NOT NULL,
@@ -47,22 +48,12 @@ CREATE TABLE `file_pendaftaran` (
 -- Dumping data untuk tabel `file_pendaftaran`
 --
 
-INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `view_adminlaa`, `status_adminlaa`, `view_doswal`, `status_doswal`, `komentar`, `date`, `date_edit`, `jenis_pendaftaran`) VALUES
-('5f5a4a6d5e4a1', '5f3e31113e0d3', 'KSM', 'Usecase.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5a4a6d6257c', '5f3e31113e0d3', 'Surat Pernyataan TA', 'Usecase2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020', 'pendaftaran_bimbingan'),
-('5f5a4a6d63df9', '5f3e31113e0d3', 'Bukti Pendaftaran Test EPRT', 'as_pdf.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5a4a6d6566f', '5f3e31113e0d3', 'Sertifikat TAK', 'Algo_GP1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '11-09-2020', 'pendaftaran_bimbingan'),
-('5f5a4a6d670fb', '5f3e31113e0d3', 'Proposal TA', 'Usecase1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '10-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b7d1bf39f4', '44', 'KSM', 'Algo_GP.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020', 'pendaftaran_bimbingan'),
-('5f5b7d1c0125d', '44', 'Surat Pernyataan TA', 'Usecase6.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b7d1c04336', '44', 'Bukti Pendaftaran Test EPRT', 'PrecipitFX1.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b7d1c05a84', '44', 'Sertifikat TAK', 'as_pdf2.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020', 'pendaftaran_bimbingan'),
-('5f5b7d1c071c7', '44', 'Proposal TA', 'Usecase8.pdf', 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '11-09-2020', '11-09-2020', 'pendaftaran_bimbingan'),
-('5f5b8feb74b7d', '5f59fbbcba3ff', 'KSM', 'Usecase.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b8feb76678', '5f59fbbcba3ff', 'Surat Pernyataan TA', 'as_pdf.pdf', 'Belum Dilihat', 'Dikirim', 'Dilihat', 'Dikirim', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b8feb78042', '5f59fbbcba3ff', 'Bukti Pendaftaran Test EPRT', 'Algo_GP.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b8feb7b465', '5f59fbbcba3ff', 'Sertifikat TAK', 'PrecipitFX.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '', 'pendaftaran_bimbingan'),
-('5f5b8feb7cca8', '5f59fbbcba3ff', 'Proposal TA', 'Algo_GP1.pdf', 'Belum Dilihat', 'Dikirim', 'Belum Dilihat', 'Dikirim', '', '11-09-2020', '', 'pendaftaran_bimbingan');
+INSERT INTO `file_pendaftaran` (`id`, `id_mhs`, `nama`, `file`, `poin`, `view_adminlaa`, `status_adminlaa`, `view_doswal`, `status_doswal`, `komentar`, `date`, `date_edit`, `jenis_pendaftaran`) VALUES
+('5f71fbc8d3229', '44', 'KSM', 'Business_Meeting_Script_Sultan_Aldi_Fikhri_Annisa_Iklima1.pdf', 0, 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '28-09-2020', '', 'pendaftaran_bimbingan'),
+('5f71fbc8dbc0c', '44', 'Surat Pernyataan TA', 'Business_Meeting_Script_Group3_Sultan,_Aldi,_Fikhri,_Annisa,_Iklima1.pdf', 0, 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '28-09-2020', '', 'pendaftaran_bimbingan'),
+('5f71fbc8e7b7e', '44', 'Bukti Pendaftaran Test EPRT', 'Business_model_canvas1.pdf', 0, 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '28-09-2020', '', 'pendaftaran_bimbingan'),
+('5f71fbc907c67', '44', 'Sertifikat TAK', 'CV_Muhammad_Sulthan_Angka_Kurniawan1.pdf', 0, 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '28-09-2020', '', 'pendaftaran_bimbingan'),
+('5f71fbc91ba73', '44', 'Proposal TA', 'EPrt_Muhammad_Sulthan_Angka_Kurniawan1.PDF', 0, 'Dilihat', 'Disetujui', 'Dilihat', 'Disetujui wali', '', '28-09-2020', '', 'pendaftaran_bimbingan');
 
 --
 -- Indexes for dumped tables

@@ -191,19 +191,44 @@ class Thesis_model extends CI_Model
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
-    public function savePoin($id_guidance)
+    public function savePoin($id_guidance, $peran)
     {
-        $data = array(
-            "poin_pembimbing1" => implode(',', $this->input->post('poin1', true)),
-            "poin_pembimbing2" => implode(',', $this->input->post('poin2', true)),
-            "evaluasi_pembimbing1" => $this->input->post('evaluasi1', true),
-            "evaluasi_pembimbing2" => $this->input->post('evaluasi2', true),
+        if ($peran == 'pembimbing1')
+        {
+            $data = array(
+                "poin_pembimbing1" => implode(',', $this->input->post('poin', true)),
+                "evaluasi_pembimbing1" => $this->input->post('evaluasi', true),
+            );
+        }
+        else if ($peran == 'pembimbing2')
+        {
+            $data = array(
+                "poin_pembimbing2" => implode(',', $this->input->post('poin', true)),
+                "evaluasi_pembimbing2" => $this->input->post('evaluasi', true),
+            );
+        }
+        else if ($peran == 'penguji1')
+        {
+            $data = array(
+                "poin_penguji1" => implode(',', $this->input->post('poin', true)),
+                "evaluasi_penguji1" => $this->input->post('evaluasi', true),
+            );
+        }
+        else if ($peran == 'penguji2')
+        {
+            $data = array(
+                "poin_penguji2" => implode(',', $this->input->post('poin', true)),
+                "evaluasi_penguji2" => $this->input->post('evaluasi', true),
+            );
+        }
+        else if ($peran == 'penguji3')
+        {
+            $data = array(
+                "poin_penguji3" => implode(',', $this->input->post('poin', true)),
+                "evaluasi_penguji3" => $this->input->post('evaluasi', true),
+            );
+        }
 
-            "poin_penguji1" => implode(',', $this->input->post('poin3', true)),
-            "poin_penguji2" => implode(',', $this->input->post('poin4', true)),
-            "evaluasi_penguji1" => implode(',', $this->input->post('evaluasi3', true)),
-            "evaluasi_penguji2" => implode(',', $this->input->post('evaluasi4', true)),
-        );
         $this->db->update('guidance', $data, array('id' => $id_guidance));
     }
 
@@ -219,7 +244,7 @@ class Thesis_model extends CI_Model
 
     public function getPenilaian($id_guidance)
     {
-        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, penilaian_penguji2, nilai_penguji2, penilaian_penguji3, nilai_penguji3, poin_pembimbing1, poin_pembimbing2, poin_penguji1, poin_penguji2, evaluasi_pembimbing1, evaluasi_pembimbing2, evaluasi_penguji1, evaluasi_penguji2');
+        $this->db->select('id, nilai_pembimbing1, penilaian_pembimbing1, nilai_pembimbing2, penilaian_pembimbing2, nilai_penguji1, penilaian_penguji1, nilai_penguji1, penilaian_penguji2, nilai_penguji2, penilaian_penguji3, nilai_penguji3, poin_pembimbing1, poin_pembimbing2, poin_penguji1, poin_penguji2, poin_penguji3, evaluasi_pembimbing1, evaluasi_pembimbing2, evaluasi_penguji1, evaluasi_penguji2, evaluasi_penguji3');
         $this->db->from('guidance');
         $this->db->where('id', $id_guidance);
         $query = $this->db->get();
