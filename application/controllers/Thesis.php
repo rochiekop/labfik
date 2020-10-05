@@ -144,5 +144,17 @@ class Thesis extends CI_Controller
         $this->thesis_model->setLulus($id_guidance);
         redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
     }
+
+    public function daftarSidangTak()
+    {
+        $this->thesis_model->daftarSidangTak();
+        redirect('users/bimbingantugasakhir');
+    }
+
+    public function daftarSidangEprt()
+    {
+        $this->thesis_model->daftarSidangEprt();
+        redirect('users/bimbingantugasakhir');
+    }
 }
 

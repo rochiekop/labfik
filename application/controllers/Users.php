@@ -287,6 +287,32 @@ class Users extends CI_Controller
     $data['layak'] = $this->thesis_model->getKelayakan($data['guidance_id']);
     $data['informasi_sidang'] = $this->thesis_model->getInformasiSidang($data['guidance_id']);
 
+    // $data['poin_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->poin;
+    // $data['file_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->file;
+    // $data['poin_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->poin;
+    // $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
+
+    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null){
+      $data['poin_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->poin;
+    } else {
+      $data['poin_tak'] = '';
+    }
+    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null){
+      $data['file_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->file;
+    } else {
+      $data['file_tak'] = '';
+    }
+    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null){
+      $data['poin_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->poin;
+    } else {
+      $data['poin_eprt'] = '';
+    }
+    if($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null){
+      $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
+    } else {
+      $data['file_eprt'] = '';
+    }
+
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/bimbinganta', $data);
