@@ -405,6 +405,15 @@ class User_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function fdsidang()
+	{
+		$this->db->select('id,id_mhs,file,nama, status_adminlaa');
+		$this->db->from('file_pendaftaran');
+		$this->db->where('id_mhs', $this->session->userdata('id'));
+		$this->db->where('jenis_pendaftaran', 'pendaftaran_sidang');
+		return $this->db->get()->result_array();
+	}
+
 	public function getfilekoor($id)
 	{
 		$this->db->select('file_pendaftaran.*, user.name, user.nim, user.prodi, user.username');
