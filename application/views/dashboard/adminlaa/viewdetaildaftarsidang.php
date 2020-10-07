@@ -113,7 +113,6 @@
             <?php endif; ?>
           </tbody>
         </table>
-        <?php var_dump($file) ?>
       </div>
     </div>
   </main>

@@ -18,6 +18,7 @@
           <a class="dropdown-item item" id="item">Semua</a>
           <a class="dropdown-item item" id="item">Nama</a>
           <a class="dropdown-item item" id="item">NIM</a>
+          <a class="dropdown-item item" id="item">Prodi</a>
           <a class="dropdown-item item" id="item">Pembimbing 1</a>
           <a class="dropdown-item item" id="item">Pembimbing 2</a>
         </div>
@@ -32,11 +33,10 @@
               <th scope="col" style="width:48px">No</th>
               <th scope="col">Nama</th>
               <th scope="col">NIM</th>
+              <th scope="col">Prodi</th>
               <th scope="col">Pembimbing 1</th>
               <th scope="col">Pembimbing 2</th>
-              <th scope="col">Ketepatan</th>
-              <th scope="col">Kesesuaian</th>
-              <th scope="col">Kaidah</th>
+              <th scope="col">Kelayakan</th>
               <th scope="col">Status</th>
             </tr>
           </thead>
@@ -51,17 +51,10 @@
                   <td><?= ++$no ?></td>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
+                  <td><?= $t['prodi'] ?></td>
                   <td><?= $t['dosbing1'] ?></td>
                   <td><?= $t['dosbing2'] ?></td>
-                  <?php if (empty($t['kelayakan'])) : ?>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  <?php else : ?>
-                    <td><?= in_array('kesesuaian', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('ketepatan', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                    <td><?= in_array('kaidah', explode(",", $t['kelayakan'])) ? 'Layak' : 'Tidak layak' ?></td>
-                  <?php endif; ?>
+                  <td> <a data-toggle="modal" data-target="#exampleModal<?= $t['guidance_id'] ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
                   <?php if ($t['status_preview'] == "preview1") : ?>
                     <td><b>On Progress</b></td>
                   <?php else : ?>
@@ -76,6 +69,35 @@
     </div>
   </main>
 
+  <?php foreach ($mahasiswa as $m) : ?>
+    <!-- Modal for checklist -->
+    <div class="modal fade" id="exampleModal<?= $m['guidance_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Checklist Kelayakan Preview 1</h5>
+          </div>
+          <div class="modal-body">
+            <div class="custom-form">
+              <?php $check = explode(",", $m['kelayakan']) ?>
+              <input type="checkbox" id="kesesuaian" value="kesesuaian" <?php echo (in_array('kesesuaian', $check)) ? 'checked' : ''; ?> disabled>
+              <label for="kesesuaian"> Kesesuaian fenomeda dan permasalahan yang diangkat</label><br>
+              <input type="checkbox" id="ketepatan" value="ketepatan" <?php echo (in_array('ketepatan', $check)) ? 'checked' : ''; ?> disabled>
+              <label for="ketepatan"> Ketepatan penyusunan hipotesa</label><br>
+              <input type="checkbox" id="kaidah" value="kaidah" <?php echo (in_array('kaidah', $check)) ? 'checked' : ''; ?> disabled>
+              <label for="kaidah"> Kaidah tata tulis karya ilmiah</label><br><br>
+              <textarea name="komentar_kelayakan" id="editable" class="editable" cols="30" rows="10"><?= $m['komentar_kelayakan'] ?></textarea>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
   <script>
     $(document).ready(function() {
       $(".item").click(function() {
@@ -99,6 +121,16 @@
         } else if (filter == "NIM") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Prodi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
               $(this).closest('tr').show();
@@ -144,5 +176,20 @@
           return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
         };
       });
+    });
+  </script>
+  <!-- TinyMCE -->
+  <script src="https://cdn.tiny.cloud/1/q9tneu2aax9fp91cvqlh7mqvx44p6ph4jb63xq6lax2ybita/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    tinymce.init({
+      selector: '.editable',
+      // plugins: 'save preview paste a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      plugins: 'save autosave preview autolink lists media table',
+      toolbar: '',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      height: '200',
+      width: '470',
+      readonly: 1
     });
   </script>

@@ -263,8 +263,7 @@ class Users extends CI_Controller
     } else {
       $data['eprt'] = '';
     }
-
-    $data['fdsidang'] = $this->user_model->fdsidang();
+    // $data['fdsidang'] = $this->user_model->fdsidang();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);
     $this->load->view('dashboard/users/bimbinganta', $data);

@@ -48,7 +48,7 @@
             <?php else : ?>
               <?php $no = 0;
               foreach ($mahasiswa as $t) : ?>
-                <?php if ($t['status_file'] != "Disetujui Adminlaa") : ?>
+                <?php if ($t['diterima'] != 5) : ?>
                   <tr style="background-color: #ebecf1;color:black">
                   <?php else : ?>
                   <tr>

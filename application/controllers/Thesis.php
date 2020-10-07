@@ -14,7 +14,6 @@ class Thesis extends CI_Controller
 
     public function index()
     {
-
     }
 
     public function openFile($thesis_id, $pdf_file)
@@ -33,60 +32,60 @@ class Thesis extends CI_Controller
     public function saveCorrection($thesis_id, $id_guidance)
     {
         $this->thesis_model->saveCorrection($thesis_id);
-        redirect('users/progressbimbingan/'.$id_guidance);
+        redirect('users/progressbimbingan/' . $id_guidance);
     }
 
     public function saveKelayakan($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->saveKelayakan($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function saveKelayakan2($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->saveKelayakan2($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function savePenilaian($id_guidance, $peran)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->savePenilaian($id_guidance, $peran);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function savePoin($id_guidance, $peran)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->savePoin($id_guidance, $peran);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function saveInformasiPresentasi($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->saveInformasiPresentasi($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setSesuai($thesis_id, $id_guidance)
     {
         $this->thesis_model->setSesuai($thesis_id);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setRevisi($thesis_id, $id_guidance)
     {
         $this->thesis_model->setRevisi($thesis_id);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function resetBimbingan($thesis_id, $id_guidance)
     {
         $this->thesis_model->resetBimbingan($thesis_id);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setUlangiBimbingan($id_guidance)
@@ -100,49 +99,49 @@ class Thesis extends CI_Controller
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setKembali1($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setKembali2($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setKembali2($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setKembali3($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setKembali3($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setLanjutKePreview2($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setLanjutKePreview2($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setLanjutKePreview3($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setLanjutKePreview3($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setLanjutKeSidang($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setLanjutKeSidang($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function setLulus($id_guidance)
     {
         $id_guidance = decrypt_url($id_guidance);
         $this->thesis_model->setLulus($id_guidance);
-        redirect('users/progressbimbingan/'.encrypt_url($id_guidance));
+        redirect('users/progressbimbingan/' . encrypt_url($id_guidance));
     }
 
     public function daftarSidangTak()
@@ -157,4 +156,3 @@ class Thesis extends CI_Controller
         redirect('users/bimbingantugasakhir');
     }
 }
-

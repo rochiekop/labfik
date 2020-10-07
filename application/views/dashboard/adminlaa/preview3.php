@@ -18,6 +18,7 @@
           <a class="dropdown-item item" id="item">Semua</a>
           <a class="dropdown-item item" id="item">Nama</a>
           <a class="dropdown-item item" id="item">NIM</a>
+          <a class="dropdown-item item" id="item">Prodi</a>
           <a class="dropdown-item item" id="item">Pembimbing 1</a>
           <a class="dropdown-item item" id="item">Pembimbing 2</a>
         </div>
@@ -32,6 +33,7 @@
               <th scope="col" style="width:48px">No</th>
               <th scope="col">Nama</th>
               <th scope="col">NIM</th>
+              <th scope="col">Prodi</th>
               <th scope="col">Pembimbing 1</th>
               <th scope="col">Pembimbing 2</th>
               <th scope="col">Kelayakan</th>
@@ -49,6 +51,7 @@
                   <td><?= ++$no ?></td>
                   <td><?= $t['name'] ?></td>
                   <td><?= $t['nim'] ?></td>
+                  <td><?= $t['prodi'] ?></td>
                   <td><?= $t['dosbing1'] ?></td>
                   <td><?= $t['dosbing2'] ?></td>
                   <td> <a data-toggle="modal" data-target="#exampleModal<?= $t['guidance_id'] ?>" id="view" class="btn badge badge-secondary" style="color: white;">Lihat</a></td>
@@ -78,32 +81,32 @@
               <?php $check2 = explode(",", $t['kelayakan']); ?>
               <div style="padding:10px">
                 <center><strong>Bab 1</strong></center>
-                <input type="checkbox" id="fenomena" name="kelayakan2[]" value="fenomena" <?php echo (in_array('fenomena', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="fenomena" value="fenomena" <?php echo (in_array('fenomena', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="fenomena"> Fenomena Permasalahan</label><br>
-                <input type="checkbox" id="identifikasi" name="kelayakan2[]" value="identifikasi" <?php echo (in_array('identifikasi', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="identifikasi" value="identifikasi" <?php echo (in_array('identifikasi', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="identifikasi"> Identifikasi dan rumusan masalah</label><br>
-                <input type="checkbox" id="kerangka" name="kelayakan2[]" value="kerangka" <?php echo (in_array('kerangka', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="kerangka" value="kerangka" <?php echo (in_array('kerangka', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="kerangka"> Kerangka pemikiran</label><br><br>
               </div>
 
               <div style="padding:10px">
                 <center><strong>Bab 2</strong></center>
-                <input type="checkbox" id="landasan" name="kelayakan2[]" value="landasan" <?php echo (in_array('landasan', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="landasan" value="landasan" <?php echo (in_array('landasan', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="landasan"> Landasan teori</label><br>
               </div>
               <div style="padding:10px">
                 <center><strong>Bab 3</strong></center>
-                <input type="checkbox" id="data" name="kelayakan2[]" value="data" <?php echo (in_array('data', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="data" value="data" <?php echo (in_array('data', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="data"> Data Primer dan sekunder</label><br>
-                <input type="checkbox" id="hasil" name="kelayakan2[]" value="hasil" <?php echo (in_array('hasil', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="hasil" value="hasil" <?php echo (in_array('hasil', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="hasil"> Hasil analisis</label><br>
               </div>
 
               <div style="padding:10px">
                 <center><strong>Bab 4</strong></center>
-                <input type="checkbox" id="konsep" name="kelayakan2[]" value="konsep" <?php echo (in_array('konsep', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="konsep" value="konsep" <?php echo (in_array('konsep', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="konsep"> Konsep perancangan</label><br>
-                <input type="checkbox" id="karya" name="kelayakan2[]" value="karya" <?php echo (in_array('karya', $check2)) ? 'checked' : ''; ?> disabled>
+                <input type="checkbox" id="karya" value="karya" <?php echo (in_array('karya', $check2)) ? 'checked' : ''; ?> disabled>
                 <label for="karya"> Karya visual</label><br>
               </div>
               <textarea disabled id="editable" class="editable" cols="30" rows="10"><?= $m['komentar_kelayakan2'] ?></textarea>
@@ -139,6 +142,16 @@
         } else if (filter == "NIM") {
           $('table tbody tr').hide();
           var len = $('table tbody tr:not(.notfound) td:nth-child(3):contains("' + search + '")').length;
+          if (len > 0) {
+            $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
+              $(this).closest('tr').show();
+            });
+          } else {
+            $('.notfound').show();
+          }
+        } else if (filter == "Prodi") {
+          $('table tbody tr').hide();
+          var len = $('table tbody tr:not(.notfound) td:nth-child(4):contains("' + search + '")').length;
           if (len > 0) {
             $('table tbody tr:not(.notfound) td:contains("' + search + '")').each(function() {
               $(this).closest('tr').show();
@@ -196,7 +209,7 @@
       toolbar: '',
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
-      height: '350',
+      height: '200',
       width: '470',
       readonly: 1
     });
