@@ -312,10 +312,13 @@ class Adminlaa extends CI_Controller
     foreach ($name as $u) {
       $userslist[] =
         [
+          'guidance_id' => $u['id'],
           'name' => $u['name'],
+          'komentar_kelayakan' => $u['komentar_kelayakan'],
           'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
           'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
-          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'dosbing2' => $u['dosen_pembimbing2'] != "" ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name : "",
           'kelayakan' => $u['kelayakan'],
           'status_preview' => $u['status_preview']
         ];
@@ -349,8 +352,9 @@ class Adminlaa extends CI_Controller
           'komentar_kelayakan2' => $u['komentar_kelayakan2'],
           'guidance_id' => $u['id'],
           'nim' => $u['nim'],
+          'prodi' => $u['prodi'],
           'dosbing1' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing1'])->name,
-          'dosbing2' => $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name,
+          'dosbing2' =>  $u['dosen_pembimbing2'] != "" ? $this->adminlaa_model->getDosenWali($u['dosen_pembimbing2'])->name : "",
           'kelayakan' => $u['kelayakan2'],
           'status_preview' => $u['status_preview']
         ];

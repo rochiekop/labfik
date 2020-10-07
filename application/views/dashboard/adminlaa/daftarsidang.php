@@ -48,7 +48,7 @@
             <?php else : ?>
               <?php $no = 0;
               foreach ($mahasiswa as $t) : ?>
-                <?php if ($t['status_file'] != "Disetujui Adminlaa") : ?>
+                <?php if ($t['diterima'] != 2) : ?>
                   <tr style="background-color: #ebecf1;color:black">
                   <?php else : ?>
                   <tr>
@@ -61,11 +61,11 @@
                   <td><?= $t['peminatan'] ?></td>
                   <td><?= $t['dosen_wali'] ?></td>
                   <td><?= $t['tahun'] ?></td>
-                  <?php if ($t['diterima'] == "0" and $t['ditolak'] == "0" and $t['updated'] == "0") : ?>
+                  <?php if ($t['diterima'] == 0 and $t['ditolak'] == 0 and $t['updated'] == 0) : ?>
                     <td><b>Menunggu Persetujuan</b></td>
-                  <?php elseif ($t['diterima'] != 5 and $t['updated'] == "0") : ?>
+                  <?php elseif ($t['diterima'] != 2 and $t['updated'] == 0) : ?>
                     <td><b><?= $t['diterima'] ?> Diterima, <?= $t['ditolak'] ?> Ditolak</b></td>
-                  <?php elseif ($t['updated'] != "0") : ?>
+                  <?php elseif ($t['updated'] != 0) : ?>
                     <td><b><?= $t['updated'] ?> File baru</b></td>
                   <?php else : ?>
                     <td><b>Disetujui</b></td>
@@ -78,7 +78,6 @@
               </tr>
           </tbody>
         </table>
-        <?php var_dump($mahasiswa) ?>
       </table>
     </div>
   </main>

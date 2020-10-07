@@ -40,6 +40,7 @@ class Adminlaa_model extends CI_Model
     $this->db->from('file_pendaftaran');
     $this->db->where('id_mhs', $id_mhs);
     $this->db->where('status_adminlaa', $status); // Disetujui, Ditolak
+    $this->db->where('jenis_pendaftaran', 'pendaftaran_bimbingan');
     return count($this->db->get()->result_array());
   }
 
@@ -128,7 +129,7 @@ class Adminlaa_model extends CI_Model
 
   public function getMhsPreview1()
   {
-    $this->db->select('user.name, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan,guidance.status_preview');
+    $this->db->select('user.name, user.nim,user.prodi, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan,guidance.status_preview,guidance.id,guidance.komentar_kelayakan');
     $this->db->from('guidance');
     $this->db->join('user', 'user.id = guidance.id_mhs');
     $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
@@ -152,7 +153,7 @@ class Adminlaa_model extends CI_Model
   }
   public function getMhsPreview3()
   {
-    $this->db->select('user.name,guidance.id, user.nim, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan2,guidance.status_preview,guidance.komentar_kelayakan2');
+    $this->db->select('user.name,guidance.id, user.nim,user.prodi, thesis_lecturers.dosen_pembimbing1, thesis_lecturers.dosen_pembimbing2, guidance.kelayakan2,guidance.status_preview,guidance.komentar_kelayakan2');
     $this->db->from('guidance');
     $this->db->join('user', 'user.id = guidance.id_mhs');
     $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');

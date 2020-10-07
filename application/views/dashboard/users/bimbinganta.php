@@ -5,7 +5,7 @@
   </div>
   <?= $this->session->flashdata('message'); ?>
   <?php echo ($nama_pembimbing1 != '') ? '<p>Pembimbing 1: ' . $nama_pembimbing1 . ' </p>' : ''; ?>
-  <?php echo ($nama_pembimbing2 != '') ? '<p>Pembimbing 2: ' . $nama_pembimbing1 . ' </p>' : ''; ?>
+  <?php echo ($nama_pembimbing2 != '') ? '<p>Pembimbing 2: ' . $nama_pembimbing2 . ' </p>' : ''; ?>
   <?php echo ($nama_penguji1 != '') ? '<p>Penguji 1: ' . $nama_penguji1 . ' </p>' : ''; ?>
   <?php echo ($nama_penguji2 != '') ? '<p>Penguji 2: ' . $nama_penguji2 . ' </p>' : ''; ?>
   <?php echo ($nama_penguji3 != '') ? '<p>Penguji 3: ' . $nama_penguji3 . ' </p>' : ''; ?>
@@ -401,8 +401,8 @@
         </div>
       <?php endif; ?>
       <div class="dropdown">
-        <button data-toggle="modal" data-target="#register_tak" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($tak->status_adminlaa == 'Dikirim' or $tak->status_adminlaa == 'Disetujui') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah TAK</button>
-        <button data-toggle="modal" data-target="#register_eprt" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($eprt->status_adminlaa == 'Dikirim' or $eprt->status_adminlaa == 'Disetujui') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah EPRT</button>
+        <button data-toggle="modal" data-target="#register_tak" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($tak->status_adminlaa == 'Dikirim' or $tak->status_adminlaa == 'Disetujui' or $tak->status_adminlaa == 'Update') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah TAK</button>
+        <button data-toggle="modal" data-target="#register_eprt" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($eprt->status_adminlaa == 'Dikirim' or $eprt->status_adminlaa == 'Disetujui' or $eprt->status_adminlaa == 'Update') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah EPRT</button>
       </div>
       <div class="table-responsive">
         <table class="table table-hover">
@@ -1095,7 +1095,7 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Unggah dokumen TAK</label>
-            <br><small style='float:right'><?= $tak->file ?></small>
+            <br><small style='float:right;color:red'>*file sekarang: <?= $tak->file ?></small>
             <input type="file" class="form-control" name="filependaftaran" id="file_tak" required style="padding:13px 16px" value="<?= $tak->file ?>">
             <span id="chk-error2"></span>
           </div>
@@ -1128,7 +1128,7 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Unggah dokumen EPRT</label>
-            <br><small style='float:right'><?= $eprt->file ?></small>
+            <br><small style='float:right;color:red'>*file sekarang: <?= $eprt->file ?></small>
             <input type="file" class="form-control" name="filependaftaran" id="file_eprt" required style="padding:13px 16px" value="<?= $eprt->file ?>">
             <span id="chk-error2"></span>
           </div>

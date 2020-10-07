@@ -138,8 +138,8 @@ class Thesis_model extends CI_Model
         $data = array(
             'correction1' => $post['correction1'],
             'correction2' => $post['correction2']
-		);
-		$this->db->update('thesis', $data, array('id' => $thesis_id));
+        );
+        $this->db->update('thesis', $data, array('id' => $thesis_id));
     }
 
     public function saveKelayakan($id_guidance)
@@ -162,36 +162,27 @@ class Thesis_model extends CI_Model
 
     public function savePenilaian($id_guidance, $peran)
     {
-        if ($peran == 'pembimbing1')
-        {
+        if ($peran == 'pembimbing1') {
             $data = array(
                 "nilai_pembimbing1" => implode(',', $this->input->post('nilai', true)),
                 "penilaian_pembimbing1" => $this->input->post('penilaian', true),
             );
-        }
-        else if ($peran == 'pembimbing2')
-        {
+        } else if ($peran == 'pembimbing2') {
             $data = array(
                 "nilai_pembimbing2" => implode(',', $this->input->post('nilai', true)),
                 "penilaian_pembimbing2" => $this->input->post('penilaian', true),
             );
-        }
-        else if ($peran == 'penguji1')
-        {
+        } else if ($peran == 'penguji1') {
             $data = array(
                 "nilai_penguji1" => implode(',', $this->input->post('nilai', true)),
                 "penilaian_penguji1" => $this->input->post('penilaian', true),
             );
-        }
-        else if ($peran == 'penguji2')
-        {
+        } else if ($peran == 'penguji2') {
             $data = array(
                 "nilai_penguji2" => implode(',', $this->input->post('nilai', true)),
                 "penilaian_penguji2" => $this->input->post('penilaian', true),
             );
-        }
-        else if ($peran == 'penguji3')
-        {
+        } else if ($peran == 'penguji3') {
             $data = array(
                 "nilai_penguji3" => implode(',', $this->input->post('nilai', true)),
                 "penilaian_penguji3" => $this->input->post('penilaian', true),
@@ -203,36 +194,27 @@ class Thesis_model extends CI_Model
 
     public function savePoin($id_guidance, $peran)
     {
-        if ($peran == 'pembimbing1')
-        {
+        if ($peran == 'pembimbing1') {
             $data = array(
                 "poin_pembimbing1" => implode(',', $this->input->post('poin', true)),
                 "evaluasi_pembimbing1" => $this->input->post('evaluasi', true),
             );
-        }
-        else if ($peran == 'pembimbing2')
-        {
+        } else if ($peran == 'pembimbing2') {
             $data = array(
                 "poin_pembimbing2" => implode(',', $this->input->post('poin', true)),
                 "evaluasi_pembimbing2" => $this->input->post('evaluasi', true),
             );
-        }
-        else if ($peran == 'penguji1')
-        {
+        } else if ($peran == 'penguji1') {
             $data = array(
                 "poin_penguji1" => implode(',', $this->input->post('poin', true)),
                 "evaluasi_penguji1" => $this->input->post('evaluasi', true),
             );
-        }
-        else if ($peran == 'penguji2')
-        {
+        } else if ($peran == 'penguji2') {
             $data = array(
                 "poin_penguji2" => implode(',', $this->input->post('poin', true)),
                 "evaluasi_penguji2" => $this->input->post('evaluasi', true),
             );
-        }
-        else if ($peran == 'penguji3')
-        {
+        } else if ($peran == 'penguji3') {
             $data = array(
                 "poin_penguji3" => implode(',', $this->input->post('poin', true)),
                 "evaluasi_penguji3" => $this->input->post('evaluasi', true),
@@ -378,7 +360,7 @@ class Thesis_model extends CI_Model
         if (!is_dir($path)) {
             $create = mkdir($path, 0777, TRUE);
             if (!$create)
-            return;
+                return;
         }
         if (!empty($_FILES['filependaftaran']['name'])) {
             $_FILES['file']['name'] = $_FILES['filependaftaran']['name'];
@@ -392,34 +374,35 @@ class Thesis_model extends CI_Model
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('file')) {
+                $check_tak = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Dokumen TAK'))->row_array();
+                if (!empty($check_tak)) {
+                    @unlink($path . '/' . $check_tak['file']);
+                }
                 $file = $this->upload->data();
                 $data = array(
-                'id' => uniqid(),
-                'id_mhs' => $this->session->userdata('id'),
-                'nama' => 'Dokumen TAK',
-                'file' => $file['file_name'],
-                'poin' => $this->input->post('tak'),
-                'view_adminlaa' => "Belum Dilihat",
-                'status_adminlaa' => "Dikirim",
-                // 'view_doswal' => "Belum Dilihat",
-                // 'status_doswal' => "Dikirim",
-                'date' => date('d-m-Y'),
-                'jenis_pendaftaran' => "pendaftaran_sidang"
+                    'id' => uniqid(),
+                    'id_mhs' => $this->session->userdata('id'),
+                    'nama' => 'Dokumen TAK',
+                    'file' => $file['file_name'],
+                    'poin' => $this->input->post('tak'),
+                    'view_adminlaa' => "Belum Dilihat",
+                    'status_adminlaa' => "Dikirim",
+                    'date' => date('d-m-Y'),
+                    'jenis_pendaftaran' => "pendaftaran_sidang"
                 );
                 $data2 = array(
                     'file' => $file['file_name'],
                     'poin' => $this->input->post('tak'),
+                    'view_adminlaa' => "Belum Dilihat",
                     'status_adminlaa' => "Update",
-                    'date' => date('d-m-Y'),
+                    'date_edit' => date('d-m-Y'),
                 );
 
-                $check_tak = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Dokumen TAK'));
-                if (empty($check_tak)){
+                if (empty($check_tak)) {
                     $this->db->insert('file_pendaftaran', $data);
                 } else {
                     $this->db->update('file_pendaftaran', $data2, array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Dokumen TAK'));
                 }
-
             } else {
                 echo $this->upload->display_errors();
             }
@@ -432,7 +415,7 @@ class Thesis_model extends CI_Model
         if (!is_dir($path)) {
             $create = mkdir($path, 0777, TRUE);
             if (!$create)
-            return;
+                return;
         }
         if (!empty($_FILES['filependaftaran']['name'])) {
             $_FILES['file']['name'] = $_FILES['filependaftaran']['name'];
@@ -446,170 +429,39 @@ class Thesis_model extends CI_Model
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('file')) {
+                $check_tak = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Sertifikat EPRT'))->row_array();
+                if (!empty($check_tak)) {
+                    @unlink($path . '/' . $check_tak['file']);
+                }
                 $file = $this->upload->data();
                 $data = array(
-                'id' => uniqid(),
-                'id_mhs' => $this->session->userdata('id'),
-                'nama' => 'Sertifikat EPRT',
-                'file' => $file['file_name'],
-                'poin' => $this->input->post('eprt'),
-                'view_adminlaa' => "Belum Dilihat",
-                'status_adminlaa' => "Dikirim",
-                // 'view_doswal' => "Belum Dilihat",
-                // 'status_doswal' => "Dikirim",
-                'date' => date('d-m-Y'),
-                'jenis_pendaftaran' => "pendaftaran_sidang"
+                    'id' => uniqid(),
+                    'id_mhs' => $this->session->userdata('id'),
+                    'nama' => 'Sertifikat EPRT',
+                    'file' => $file['file_name'],
+                    'poin' => $this->input->post('eprt'),
+                    'view_adminlaa' => "Belum Dilihat",
+                    'status_adminlaa' => "Dikirim",
+                    'date' => date('d-m-Y'),
+                    'jenis_pendaftaran' => "pendaftaran_sidang"
                 );
                 $data2 = array(
                     'file' => $file['file_name'],
                     'poin' => $this->input->post('eprt'),
+                    'view_adminlaa' => "Belum Dilihat",
                     'status_adminlaa' => "Update",
-                    'date' => date('d-m-Y'),
+                    'date_edit' => date('d-m-Y'),
                 );
 
                 $check_eprt = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Sertifikat EPRT'));
-                if (empty($check_eprt)){
+                if (empty($check_eprt)) {
                     $this->db->insert('file_pendaftaran', $data);
                 } else {
                     $this->db->update('file_pendaftaran', $data2, array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Sertifikat EPRT'));
                 }
-                
             } else {
                 echo $this->upload->display_errors();
             }
         }
     }
-
-    // public function daftarSidang()
-    // {
-    //     if (!empty($_FILES['filependaftaran']['name'])) 
-    //     {
-    //         $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-    //         if (!is_dir($path)) {
-    //             $create = mkdir($path, 0777, TRUE);
-    //             if (!$create)
-    //             return;
-    //         }
-    //         $allfile = count($_FILES['filependaftaran']['name']);
-    //         for ($i = 0; $i < $allfile; $i++) {
-    //             if (!empty($_FILES['filependaftaran']['name'][$i])) {
-    //                 $_FILES['file']['name'] = $_FILES['filependaftaran']['name'][$i];
-    //                 $_FILES['file']['type'] = $_FILES['filependaftaran']['type'][$i];
-    //                 $_FILES['file']['tmp_name'] = $_FILES['filependaftaran']['tmp_name'][$i];
-    //                 $_FILES['file']['error'] = $_FILES['filependaftaran']['error'][$i];
-    //                 $_FILES['file']['size'] = $_FILES['filependaftaran']['size'][$i];
-    //                 $config['upload_path'] = $path;
-    //                 $config['allowed_types'] = 'pdf';
-    //                 $config['max_size'] = '20024';  //20MB max
-    //                 $this->load->library('upload', $config);
-    //                 $this->upload->initialize($config);
-    //                 if ($this->upload->do_upload('file')) {
-    //                     $file = $this->upload->data();
-    //                     if ($i == 0) {
-    //                     $namafile = 'Dokumen TAK';
-    //                     } elseif ($i == 1) {
-    //                     $namafile = 'Sertifikat EPRT';
-    //                     }
-    //                     $data = array(
-    //                     'id' => uniqid(),
-    //                     'id_mhs' => $this->input->post('id_mhs'),
-    //                     'nama' => $namafile,
-    //                     'file' => $file['file_name'],
-    //                     'poin' => $this->input->post(''),
-    //                     'view_adminlaa' => "Belum Dilihat",
-    //                     'status_adminlaa' => "Dikirim",
-    //                     'view_doswal' => "Belum Dilihat",
-    //                     'status_doswal' => "Dikirim",
-    //                     'date' => date('d-m-Y'),
-    //                     'jenis_pendaftaran' => "pendaftaran_bimbingan"
-    //                     );
-    //                     $this->db->insert('file_pendaftaran', $data);
-    //                 } else {
-    //                     echo $this->upload->display_errors();
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-//     public function inputformpendaftaran()
-//     {
-//     $data['title'] = 'LABFIK | Pengajuan Tugas Akhir';
-//     $this->form_validation->set_rules('title', 'Judul', 'required|trim');
-//     if (!empty($_FILES['filependaftaran']['name'])) {
-//       $path = "./assets/upload/thesis/" . $this->session->userdata('username');
-//       if (!is_dir($path)) {
-//         $create = mkdir($path, 0777, TRUE);
-//         if (!$create)
-//           return;
-//       }
-
-//       $this->form_validation->set_rules('file', '', 'callback_file_check');
-//       // if ($this->form_validation->run() == true) {
-//       $data = [
-//         'id' => uniqid(),
-//         'id_mhs' => $this->input->post('id_mhs'),
-//         'judul_1' => $this->input->post('judul1'),
-//         'judul_2' => $this->input->post('judul2'),
-//         'judul_3' => $this->input->post('judul3'),
-//         'peminatan' => $this->input->post('peminatan'),
-//         'tahun' => date('Y'),
-//         'status_file' => "Dikirim",
-//         'date' => date("d-m-Y"),
-//       ];
-//       $this->db->insert('guidance', $data);
-//       $allfile = count($_FILES['filependaftaran']['name']);
-//       for ($i = 0; $i < $allfile; $i++) {
-//         if (!empty($_FILES['filependaftaran']['name'][$i])) {
-//           $_FILES['file']['name'] = $_FILES['filependaftaran']['name'][$i];
-//           $_FILES['file']['type'] = $_FILES['filependaftaran']['type'][$i];
-//           $_FILES['file']['tmp_name'] = $_FILES['filependaftaran']['tmp_name'][$i];
-//           $_FILES['file']['error'] = $_FILES['filependaftaran']['error'][$i];
-//           $_FILES['file']['size'] = $_FILES['filependaftaran']['size'][$i];
-//           $config['upload_path'] = $path;
-//           $config['allowed_types'] = 'pdf';
-//           $config['max_size'] = '20024';  //20MB max
-//           $this->load->library('upload', $config);
-//           $this->upload->initialize($config);
-//           if ($this->upload->do_upload('file')) {
-//             $file = $this->upload->data();
-//             if ($i == 0) {
-//               $namafile = 'KSM';
-//             } elseif ($i == 1) {
-//               $namafile = 'Surat Pernyataan TA';
-//             } elseif ($i == 2) {
-//               $namafile = 'Bukti Pendaftaran Test EPRT';
-//             } elseif ($i == 3) {
-//               $namafile = 'Sertifikat TAK';
-//             } else {
-//               $namafile = 'Proposal TA';
-//             }
-//             // $id_guidance = $this->db->get_where('guidance', ['id_mhs' => $this->input->post('id_mhs')])->row()->id;
-//             $data = array(
-//               'id' => uniqid(),
-//               'id_mhs' => $this->input->post('id_mhs'),
-//               'nama' => $namafile,
-//               'file' => $file['file_name'],
-//               'view_adminlaa' => "Belum Dilihat",
-//               'status_adminlaa' => "Dikirim",
-//               'view_doswal' => "Belum Dilihat",
-//               'status_doswal' => "Dikirim",
-//               'date' => date('d-m-Y'),
-//               'jenis_pendaftaran' => "pendaftaran_bimbingan"
-//             );
-//             $this->db->insert('file_pendaftaran', $data);
-//           } else {
-//             echo $this->upload->display_errors();
-//           }
-//         }
-//       }
-//       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
-//       redirect('users/pendaftarantugasakhir');
-//       // } else {
-//       //   $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pendaftaran berhasil dilakukan dan akan segera diproses</div>');
-//       //   redirect('users/pendaftarantugasakhir');
-//       // }
-//     }
-//   }
-    
 }
