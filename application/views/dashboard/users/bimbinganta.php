@@ -390,8 +390,9 @@
         </div>
       <?php elseif ($tak->status_adminlaa == 'Ditolak' or $eprt->status_adminlaa == 'Ditolak') : ?>
         <div class="alert alert-danger">
-          Ada File yang ditolak, silahkan unggah lagi 
-          <?php echo ($tak->komentar != '') ? '<br><br> Alasan File TAK ditolak : '.$tak->komentar.'<br>' : '' ?>
+          File yang anda unggah ditolak, silahkan unggah lagi 
+          <?php echo ($tak->komentar != '' or $eprt->komentar != '') ? '<br><br>' : '' ?>
+          <?php echo ($tak->komentar != '') ? 'Alasan File TAK ditolak : '.$tak->komentar.'<br>' : '' ?>
           <?php echo ($eprt->komentar != '') ? 'Alasan File EPRT ditolak : '.$eprt->komentar.'<br>' : '' ?>
         </div>
       <?php else : ?>
