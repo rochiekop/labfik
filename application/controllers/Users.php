@@ -254,25 +254,16 @@ class Users extends CI_Controller
     // $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
 
     if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null) {
-      $data['poin_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->poin;
+      $data['tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK');
     } else {
-      $data['poin_tak'] = '';
-    }
-    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK') != null) {
-      $data['file_tak'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Dokumen TAK')->file;
-    } else {
-      $data['file_tak'] = '';
+      $data['tak'] = '';
     }
     if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null) {
-      $data['poin_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->poin;
+      $data['eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT');
     } else {
-      $data['poin_eprt'] = '';
+      $data['eprt'] = '';
     }
-    if ($this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT') != null) {
-      $data['file_eprt'] = $this->thesis_model->getPendaftaranSidangByNama($this->session->userdata('id'), 'pendaftaran_sidang', 'Sertifikat EPRT')->file;
-    } else {
-      $data['file_eprt'] = '';
-    }
+
     $data['fdsidang'] = $this->user_model->fdsidang();
     $this->load->view('templates/dashboard/headerDosenMhs', $data);
     $this->load->view('templates/dashboard/sidebarDosenMhs', $data);

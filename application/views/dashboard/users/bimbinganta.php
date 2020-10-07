@@ -380,15 +380,29 @@
 
     <div class="tab-pane fade <?php echo ($step->status_preview == 'sidang') ? 'show active' : ''; ?>" id="pat" role="tabpanel" aria-labelledby="pat-tab">
       <!-- <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary" style="color:#fff">Ajukan Siap Sidang</a> -->
-      <div class="alert alert-warning">
-        Tahap sidang: silahkan unggah file pelengkap untuk mengikuti sidang
-      </div>
+      <?php if (($tak->status_adminlaa == 'Dikirim' and $eprt->status_adminlaa == 'Dikirim') or ($tak->status_adminlaa == 'Update' or $eprt->status_adminlaa == 'Update')) : ?>
+        <div class="alert alert-secondary">
+          File TAK dan EPRT telah dikirim
+        </div>
+      <?php elseif ($tak->status_adminlaa == 'Disetujui' and $eprt->status_adminlaa == 'Disetujui') : ?>
+        <div class="alert alert-success">
+          Pendaftaran sidang telah diterima
+        </div>
+      <?php elseif ($tak->status_adminlaa == 'Ditolak' or $eprt->status_adminlaa == 'Ditolak') : ?>
+        <div class="alert alert-danger">
+          Ada File yang ditolak, silahkan unggah lagi 
+          <?php echo ($tak->komentar != '') ? '<br><br> Alasan File TAK ditolak : '.$tak->komentar.'<br>' : '' ?>
+          <?php echo ($eprt->komentar != '') ? 'Alasan File EPRT ditolak : '.$eprt->komentar.'<br>' : '' ?>
+        </div>
+      <?php else : ?>
+        <div class="alert alert-warning">
+          Tahap sidang: silahkan unggah file pelengkap untuk mengikuti sidang
+        </div>
+      <?php endif; ?>
       <div class="dropdown">
-        <button data-toggle="modal" data-target="#register_tak" class="btn btn-primary btn-sm" style="color:#fff"> <span class="fas fa-file-upload"></span> Unggah TAK</button>
-        <button data-toggle="modal" data-target="#register_eprt" class="btn btn-primary btn-sm" style="color:#fff"> <span class="fas fa-file-upload"></span> Unggah EPRT</button>
+        <button data-toggle="modal" data-target="#register_tak" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($tak->status_adminlaa == 'Dikirim' or $tak->status_adminlaa == 'Disetujui') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah TAK</button>
+        <button data-toggle="modal" data-target="#register_eprt" class="btn btn-primary btn-sm" style="color:#fff" <?php echo ($eprt->status_adminlaa == 'Dikirim' or $eprt->status_adminlaa == 'Disetujui') ? 'disabled' : '' ?>> <span class="fas fa-file-upload"></span> Unggah EPRT</button>
       </div>
-
-
       <div class="table-responsive">
         <table class="table table-hover">
           <div>
@@ -1075,13 +1089,13 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="exampleFormControlFile1" id="tak">Nilai TAK</label>
-            <input name="tak" min="0" type="text" class="form-control" required value="<?= $poin_tak ?>">
-            <!-- </?= var_dump($poin_tak); die; ?> -->
+            <input name="tak" min="0" type="text" class="form-control" required value="<?= $tak->poin ?>">
             <?php echo form_error('judul', '<small class="text-danger">', '</small>'); ?>
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Unggah dokumen TAK</label>
-            <input type="file" class="form-control" name="filependaftaran" id="file_tak" required style="padding:13px 16px" value="<?= $file_tak ?>">
+            <br><small style='float:right'><?= $tak->file ?></small>
+            <input type="file" class="form-control" name="filependaftaran" id="file_tak" required style="padding:13px 16px" value="<?= $tak->file ?>">
             <span id="chk-error2"></span>
           </div>
         </div>
@@ -1108,12 +1122,13 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="exampleFormControlFile1" id="tak">Nilai EPRT</label>
-            <input name="eprt" min="0" type="number" class="form-control" required value="<?= $poin_eprt ?>">
+            <input name="eprt" min="0" type="number" class="form-control" required value="<?= $eprt->poin ?>">
             <?php echo form_error('judul', '<small class="text-danger">', '</small>'); ?>
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Unggah dokumen EPRT</label>
-            <input type="file" class="form-control" name="filependaftaran" id="file_eprt" required style="padding:13px 16px" value="<?= $file_eprt ?>">
+            <br><small style='float:right'><?= $eprt->file ?></small>
+            <input type="file" class="form-control" name="filependaftaran" id="file_eprt" required style="padding:13px 16px" value="<?= $eprt->file ?>">
             <span id="chk-error2"></span>
           </div>
         </div>

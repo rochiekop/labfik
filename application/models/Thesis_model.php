@@ -124,7 +124,7 @@ class Thesis_model extends CI_Model
 
     public function getPendaftaranSidangByNama($id_mhs, $jenis, $nama)
     {
-        $this->db->select('file, status_adminlaa, komentar, view_adminlaa, poin');
+        $this->db->select('file, status_adminlaa, komentar, view_adminlaa, poin, nama');
         $this->db->from('file_pendaftaran');
         $this->db->where('id_mhs', $id_mhs);
         $this->db->where('jenis_pendaftaran', $jenis);
@@ -406,7 +406,20 @@ class Thesis_model extends CI_Model
                 'date' => date('d-m-Y'),
                 'jenis_pendaftaran' => "pendaftaran_sidang"
                 );
-                $this->db->insert('file_pendaftaran', $data);
+                $data2 = array(
+                    'file' => $file['file_name'],
+                    'poin' => $this->input->post('tak'),
+                    'status_adminlaa' => "Update",
+                    'date' => date('d-m-Y'),
+                );
+
+                $check_tak = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Dokumen TAK'));
+                if (empty($check_tak)){
+                    $this->db->insert('file_pendaftaran', $data);
+                } else {
+                    $this->db->update('file_pendaftaran', $data2, array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Dokumen TAK'));
+                }
+
             } else {
                 echo $this->upload->display_errors();
             }
@@ -447,7 +460,20 @@ class Thesis_model extends CI_Model
                 'date' => date('d-m-Y'),
                 'jenis_pendaftaran' => "pendaftaran_sidang"
                 );
-                $this->db->insert('file_pendaftaran', $data);
+                $data2 = array(
+                    'file' => $file['file_name'],
+                    'poin' => $this->input->post('eprt'),
+                    'status_adminlaa' => "Update",
+                    'date' => date('d-m-Y'),
+                );
+
+                $check_eprt = $this->db->get_where('file_pendaftaran', array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Sertifikat EPRT'));
+                if (empty($check_eprt)){
+                    $this->db->insert('file_pendaftaran', $data);
+                } else {
+                    $this->db->update('file_pendaftaran', $data2, array('id_mhs' => $this->session->userdata('id'), 'nama' => 'Sertifikat EPRT'));
+                }
+                
             } else {
                 echo $this->upload->display_errors();
             }
