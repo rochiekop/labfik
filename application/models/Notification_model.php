@@ -11,292 +11,430 @@ class Notification_model extends CI_Model
         return [];
     }
 
-    public function getAllNotification($status)
+
+    public function getBorrowingNotif()
     {
-        if ($status == 'request') {
-            $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
 
-            $this->db->from('notification');
-
-            $this->db->join('borrowing', 'notification.borrowing_id = borrowing.id');
-            $this->db->join('item', 'borrowing.item_id = item.id');
-
-            $this->db->join('booking', 'notification.booking_id = booking.id');
-            $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
-
-            $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
-
-            $this->db->join('tb_info', 'notification.info_id = tb_info.id');
-
-            $this->db->join('guidance', 'notification.guidance_id = guidance.id');
-            $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
-
-            $this->db->where('notification.description', 'waiting');
-            $this->db->or_where('notification.description', 'Barang ini ingin dipinjam');
-
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-
-        } else if ($status == 'respond') {
-            // $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
-            $this->db->select('notification.*');
-
-            $this->db->from('notification');
-
-            $this->db->join('borrowing', 'notification.borrowing_id = borrowing.id');
-            $this->db->join('item', 'borrowing.item_id = item.id');
-
-            // $this->db->join('booking', 'notification.booking_id = booking.id');
-            // $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
-
-            // $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
-
-            // $this->db->join('tb_info', 'notification.info_id = tb_info.id');
-
-            // $this->db->join('guidance', 'notification.guidance_id = guidance.id');
-            // $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
-
-            $this->db->where('notification.user_id', $this->session->userdata('id'));
-            $this->db->group_start();
-                $this->db->where('notification.description', 'Peminjaman diizinkan');
-                $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
-                $this->db->or_where('notification.description', 'accepted');
-                $this->db->or_where('notification.description', 'declined');
-            $this->db->group_end();
-
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        }
     }
 
-    public function getAllBorrowingNotification($status, $user_id)
+    public function getBookingNotif()
     {
-        if ($status == 'request') {
-            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
-            $this->db->join('item', 'borrowing.item_id=item.id');
-            $this->db->where('notification.description', 'Barang ini ingin dipinjam');
+
+    }
+
+    public function getGalleryNotif()
+    {
+
+    }
+
+    public function getThesisNotif()
+    {
+        if ($this->session->userdata('role_id') == '4') // mahasiswa
+        {
+            // get file yang di upload mahasiswa
+            $this->db->select('*');
+            $this->db->from('file_pendaftaran');
+            $this->db->where('id_mhs', $this->session->userdata('id'));
             $this->db->order_by('date', 'ASC');
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        } else if ($status == 'respond') {
-            $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
-            $this->db->join('item', 'borrowing.item_id=item.id');
-            $this->db->where('borrowing.user_id', $user_id);
-            $this->db->group_start();
-            $this->db->where('notification.description', 'Peminjaman diizinkan');
-            $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
-            $this->db->group_end();
+            $file_pendaftaran = $this->db->get()->result();
+
+            // get progress guidance mahasiswa
+            $this->db->select('*');
+            $this->db->from('guidance');
+            $this->db->where('id_mhs', $this->session->userdata('id'));
             $this->db->order_by('date', 'ASC');
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
+            $guidance = $this->db->get()->result();
+
+            return array ($file_pendaftaran, $guidance);
+        }
+        else if ($this->session->userdata('dosen_wali') == '1' or (substr($this->session->userdata('koordinator'),0,5)) == 'Ketua') // ketua kk atau dosen wali
+        {
+            // get request dosen pembimbing
+            $this->db->select('id_guidance');
+            $this->db->from('thesis_lecturers');
+            $this->db->where('dosen_pembimbing1', $this->session->userdata('id'));
+            $this->db->or_where('dosen_pembimbing2', $this->session->userdata('id'));
+            $this->db->or_where('dosen_penguji1', $this->session->userdata('id'));
+            $this->db->or_where('dosen_penguji2', $this->session->userdata('id'));
+            $this->db->or_where('dosen_penguji3', $this->session->userdata('id'));
+            $this->db->order_by('date', 'ASC');
+            $thesis_lecturers = $this->db->get()->result();
+
+            // get file file pendaftaran bimbingan yang dikirim mahasiswa
+            $this->db->select('file_pendaftaran.*');
+            $this->db->from('file_pendaftaran');
+            $this->db->join('user', 'user.dosen_wali ='.$this->session->userdata('id'));
+            $this->db->order_by('file_pendaftaran.date', 'ASC');
+            $file_pendaftaran = $this->db->get()->result();
+
+            // get progress guidance mahasiswa
+            $this->db->select('guidance.status_preview');
+            $this->db->from('guidance');
+            $this->db->join('thesis_lecturers', 'thesis_lecturers.id_guidance = guidance.id');
+            $this->db->where('thesis_lecturers.dosen_pembimbing1', $this->session->userdata('id'));
+            $this->db->or_where('thesis_lecturers.dosen_pembimbing2', $this->session->userdata('id'));
+            $this->db->or_where('thesis_lecturers.dosen_penguji1', $this->session->userdata('id'));
+            $this->db->or_where('thesis_lecturers.dosen_penguji2', $this->session->userdata('id'));
+            $this->db->or_where('thesis_lecturers.dosen_penguji3', $this->session->userdata('id'));
+            $guidance = $this->db->get->result();
+
+            return array ($thesis_lecturers, $file_pendaftaran, $guidance);
+        } 
+        else if ($this->session->userdata('role_id') == '5' or $this->session->userdata('role_id') == '6') // admin laa atau koordinator ta
+        {
+            // get file file pendaftaran bimbingan yang dikirim mahasiswa
+            $this->db->select('file_pendaftaran.*');
+            $this->db->from('file_pendaftaran');
+            $this->db->order_by('file_pendaftaran.date', 'ASC');
+            $file_pendaftaran = $this->db->get()->result();
+
+            return $file_pendaftaran;
         }
     }
 
-    public function getAllBookingNotification($status, $user_id)
+    public function getChatNotif()
     {
-        if ($status == 'request') {
-            $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('booking', 'notification.booking_id = booking.id');
-            $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
-            $this->db->where('notification.description', 'waiting');
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        } else if ($status == 'respond') {
-            $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('booking', 'notification.booking_id = booking.id');
-            $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
-            $this->db->where('booking.id_peminjam', $user_id);
-            $this->db->group_start();
-            $this->db->where('notification.description', 'approved');
-            $this->db->or_where('notification.description', 'declined');
-            $this->db->group_end();
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        }
-    }
 
-    public function getAllCreationNotification($status)
-    {
-        if ($status == 'request') {
-            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
-            $this->db->where('notification.description', 'waiting');
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        } else if ($status == 'respond') {
-            $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
-            $this->db->from('notification');
-            $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
-            $this->db->where('tampilan.id', $this->session->userdata('id'));
-            $this->db->group_start();
-            $this->db->where('notification.description', 'approved');
-            $this->db->or_where('notification.description', 'declined');
-            $this->db->group_end();
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        }
-    }
-
-    public function getAllInfoNotification()
-    {
-        $this->db->select('tb_info.title, tb_info.images, notification.date');
-        $this->db->from('notification');
-        $this->db->join('tb_info', 'notification.info_id = tb_info.id');
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
-    }
-
-    public function getAllThesisNotification($status)
-    {
-        if ($status == 'request') {
-            $this->db->select('notification.*, guidance.*, thesis.*');
-            $this->db->from('notification');
-            $this->db->join('guidance', 'notification.guidance_id = guidance.id');
-            $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
-            $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
-            $this->db->where('dosbing.id_dosen', $this->session->userdata('id'));
-            $this->db->where('notification.description', 'waiting');
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        } else if ($status == 'respond') {
-            $this->db->select('notification.*, guidance.*, thesis.*');
-            $this->db->from('notification');
-            $this->db->join('guidance', 'notification.guidance_id = guidance.id');
-            $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
-            $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
-            $this->db->where('notification.user_id', $this->session->userdata('id'));
-            $this->db->group_start();
-            $this->db->where('notification.description', 'ready');
-            $this->db->or_where('notification.description', 'correction');
-            $this->db->group_end();
-            $query = $this->db->get();
-            $result = $query->result();
-            return $result;
-        }
-    }
-
-    public function saveNotification($feature, $description)
-    {
-        if ($feature == 'borrowing') {
-            $post = $this->input->post();
-            $this->id = uniqid();
-            $this->user_id = $post['user_id'];
-            $this->borrowing_id = $post['id'];
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'booking') {
-            $post = $this->input->post();
-            $this->id = uniqid();
-            $this->user_id = $post['user_id'];
-            $this->booking_id = $post['id'];
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'creation') {
-            $post = $this->input->post();
-            $this->id = uniqid();
-            $this->user_id = $post['user_id'];
-            $this->creation_id = $post['id'];
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'info') {
-            $post = $this->input->post();
-            $this->id = uniqid();
-            $this->user_id = $post['user_id'];
-            $this->info_id = $post['id'];
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'thesis') {
-            $post = $this->input->post();
-            $this->id = uniqid();
-            $this->user_id = $post['user_id'];
-            $this->thesis_id = $post['id'];
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        }
-    }
-
-    public function assignNotification($feature, $user_id, $feature_id, $description)
-    {
-        if ($feature == 'borrowing') {
-            $this->id = uniqid();
-            $this->user_id = $user_id;
-            $this->borrowing_id = $feature_id;
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'booking') {
-            $this->id = uniqid();
-            $this->user_id = $user_id;
-            $this->booking_id = $feature_id;
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'creation') {
-            $this->id = uniqid();
-            $this->user_id = $user_id;
-            $this->creation_id = $feature_id;
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        } else if ($feature == 'thesis') {
-            $this->id = uniqid();
-            $this->user_id = $user_id;
-            $this->thesis_id = $feature_id;
-            $this->description = $description;
-            $this->db->insert($this->_table, $this);
-        }
     }
 
 
-    public function saveBorrowingNotification($description)
-    {
-        $post = $this->input->post();
-        $this->id = uniqid();
-        $this->user_id = $post['user_id'];
-        $this->borrowing_id = $post['id'];
-        $this->description = $description;
-        $this->db->insert($this->_table, $this);
-    }
 
-    public function assignBorrowingNotification($user_id, $borrowing_id, $description)
-    {
-        $this->id = uniqid();
-        $this->user_id = $user_id;
-        $this->borrowing_id = $borrowing_id;
-        $this->description = $description;
-        $this->db->insert($this->_table, $this);
-    }
 
-    public function updateNotificationStatusRead($id)
-    {
-        $data = array(
-            'status' => 'read'
-        );
-        $this->db->update('notification', $data, array('id' => $id));
-    }
 
-    public function updateNotificationStatusReadAll()
-    {
-        $user_id = $this->session->userdata('id');
-        $data = array(
-            'status' => 'read'
-        );
-        $this->db->update('notification', $data, array('user_id' => $user_id));
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function getAllNotification($status)
+    // {
+    //     if ($status == 'request') {
+    //         $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
+
+    //         $this->db->from('notification');
+
+    //         $this->db->join('borrowing', 'notification.borrowing_id = borrowing.id');
+    //         $this->db->join('item', 'borrowing.item_id = item.id');
+
+    //         $this->db->join('booking', 'notification.booking_id = booking.id');
+    //         $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+
+    //         $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+
+    //         $this->db->join('tb_info', 'notification.info_id = tb_info.id');
+
+    //         $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+    //         $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+
+    //         $this->db->where('notification.description', 'waiting');
+    //         $this->db->or_where('notification.description', 'Barang ini ingin dipinjam');
+
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+
+    //     } else if ($status == 'respond') {
+    //         // $this->db->select('notification.*, item.*, borrowing.*, ruangan.*, booking.*, tampilan.*, tb_info.*, guidance.*, thesis.*');
+    //         $this->db->select('notification.*');
+
+    //         $this->db->from('notification');
+
+    //         $this->db->join('borrowing', 'notification.borrowing_id = borrowing.id');
+    //         $this->db->join('item', 'borrowing.item_id = item.id');
+
+    //         // $this->db->join('booking', 'notification.booking_id = booking.id');
+    //         // $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+
+    //         // $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+
+    //         // $this->db->join('tb_info', 'notification.info_id = tb_info.id');
+
+    //         // $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+    //         // $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+
+    //         $this->db->where('notification.user_id', $this->session->userdata('id'));
+    //         $this->db->group_start();
+    //             $this->db->where('notification.description', 'Peminjaman diizinkan');
+    //             $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+    //             $this->db->or_where('notification.description', 'accepted');
+    //             $this->db->or_where('notification.description', 'declined');
+    //         $this->db->group_end();
+
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     }
+    // }
+
+    // public function getAllBorrowingNotification($status, $user_id)
+    // {
+    //     if ($status == 'request') {
+    //         $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
+    //         $this->db->join('item', 'borrowing.item_id=item.id');
+    //         $this->db->where('notification.description', 'Barang ini ingin dipinjam');
+    //         $this->db->order_by('date', 'ASC');
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     } else if ($status == 'respond') {
+    //         $this->db->select('item.image, item.name, borrowing.quantity, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('borrowing', 'notification.borrowing_id=borrowing.id');
+    //         $this->db->join('item', 'borrowing.item_id=item.id');
+    //         $this->db->where('borrowing.user_id', $user_id);
+    //         $this->db->group_start();
+    //         $this->db->where('notification.description', 'Peminjaman diizinkan');
+    //         $this->db->or_where('notification.description', 'Peminjaman tidak diizinkan');
+    //         $this->db->group_end();
+    //         $this->db->order_by('date', 'ASC');
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     }
+    // }
+
+    // public function getAllBookingNotification($status, $user_id)
+    // {
+    //     if ($status == 'request') {
+    //         $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('booking', 'notification.booking_id = booking.id');
+    //         $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+    //         $this->db->where('notification.description', 'waiting');
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     } else if ($status == 'respond') {
+    //         $this->db->select('ruangan.ruangan, ruangan.images, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('booking', 'notification.booking_id = booking.id');
+    //         $this->db->join('ruangan', 'booking.id_ruangan = ruangan.id');
+    //         $this->db->where('booking.id_peminjam', $user_id);
+    //         $this->db->group_start();
+    //         $this->db->where('notification.description', 'approved');
+    //         $this->db->or_where('notification.description', 'declined');
+    //         $this->db->group_end();
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     }
+    // }
+
+    // public function getAllCreationNotification($status)
+    // {
+    //     if ($status == 'request') {
+    //         $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+    //         $this->db->where('notification.description', 'waiting');
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     } else if ($status == 'respond') {
+    //         $this->db->select('tampilan.gambar, tampilan.judul, notification.id, notification.description, notification.date, notification.status');
+    //         $this->db->from('notification');
+    //         $this->db->join('tampilan', 'notification.creation_id = tampilan.id_tampilan');
+    //         $this->db->where('tampilan.id', $this->session->userdata('id'));
+    //         $this->db->group_start();
+    //         $this->db->where('notification.description', 'approved');
+    //         $this->db->or_where('notification.description', 'declined');
+    //         $this->db->group_end();
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     }
+    // }
+
+    // public function getAllInfoNotification()
+    // {
+    //     $this->db->select('tb_info.title, tb_info.images, notification.date');
+    //     $this->db->from('notification');
+    //     $this->db->join('tb_info', 'notification.info_id = tb_info.id');
+    //     $query = $this->db->get();
+    //     $result = $query->result();
+    //     return $result;
+    // }
+
+    // public function getAllThesisNotification($status)
+    // {
+    //     if ($status == 'request') {
+    //         $this->db->select('notification.*, guidance.*, thesis.*');
+    //         $this->db->from('notification');
+    //         $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+    //         $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
+    //         $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+    //         $this->db->where('dosbing.id_dosen', $this->session->userdata('id'));
+    //         $this->db->where('notification.description', 'waiting');
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     } else if ($status == 'respond') {
+    //         $this->db->select('notification.*, guidance.*, thesis.*');
+    //         $this->db->from('notification');
+    //         $this->db->join('guidance', 'notification.guidance_id = guidance.id');
+    //         $this->db->join('dosbing', 'dosbing.id_guidance = dosbing.id');
+    //         $this->db->join('thesis', 'thesis.id_guidance = guidance.id');
+    //         $this->db->where('notification.user_id', $this->session->userdata('id'));
+    //         $this->db->group_start();
+    //         $this->db->where('notification.description', 'ready');
+    //         $this->db->or_where('notification.description', 'correction');
+    //         $this->db->group_end();
+    //         $query = $this->db->get();
+    //         $result = $query->result();
+    //         return $result;
+    //     }
+    // }
+
+    // public function saveNotification($feature, $description)
+    // {
+    //     if ($feature == 'borrowing') {
+    //         $post = $this->input->post();
+    //         $this->id = uniqid();
+    //         $this->user_id = $post['user_id'];
+    //         $this->borrowing_id = $post['id'];
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'booking') {
+    //         $post = $this->input->post();
+    //         $this->id = uniqid();
+    //         $this->user_id = $post['user_id'];
+    //         $this->booking_id = $post['id'];
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'creation') {
+    //         $post = $this->input->post();
+    //         $this->id = uniqid();
+    //         $this->user_id = $post['user_id'];
+    //         $this->creation_id = $post['id'];
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'info') {
+    //         $post = $this->input->post();
+    //         $this->id = uniqid();
+    //         $this->user_id = $post['user_id'];
+    //         $this->info_id = $post['id'];
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'thesis') {
+    //         $post = $this->input->post();
+    //         $this->id = uniqid();
+    //         $this->user_id = $post['user_id'];
+    //         $this->thesis_id = $post['id'];
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     }
+    // }
+
+    // public function assignNotification($feature, $user_id, $feature_id, $description)
+    // {
+    //     if ($feature == 'borrowing') {
+    //         $this->id = uniqid();
+    //         $this->user_id = $user_id;
+    //         $this->borrowing_id = $feature_id;
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'booking') {
+    //         $this->id = uniqid();
+    //         $this->user_id = $user_id;
+    //         $this->booking_id = $feature_id;
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'creation') {
+    //         $this->id = uniqid();
+    //         $this->user_id = $user_id;
+    //         $this->creation_id = $feature_id;
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     } else if ($feature == 'thesis') {
+    //         $this->id = uniqid();
+    //         $this->user_id = $user_id;
+    //         $this->thesis_id = $feature_id;
+    //         $this->description = $description;
+    //         $this->db->insert($this->_table, $this);
+    //     }
+    // }
+
+
+    // public function saveBorrowingNotification($description)
+    // {
+    //     $post = $this->input->post();
+    //     $this->id = uniqid();
+    //     $this->user_id = $post['user_id'];
+    //     $this->borrowing_id = $post['id'];
+    //     $this->description = $description;
+    //     $this->db->insert($this->_table, $this);
+    // }
+
+    // public function assignBorrowingNotification($user_id, $borrowing_id, $description)
+    // {
+    //     $this->id = uniqid();
+    //     $this->user_id = $user_id;
+    //     $this->borrowing_id = $borrowing_id;
+    //     $this->description = $description;
+    //     $this->db->insert($this->_table, $this);
+    // }
+
+    // public function updateNotificationStatusRead($id)
+    // {
+    //     $data = array(
+    //         'status' => 'read'
+    //     );
+    //     $this->db->update('notification', $data, array('id' => $id));
+    // }
+
+    // public function updateNotificationStatusReadAll()
+    // {
+    //     $user_id = $this->session->userdata('id');
+    //     $data = array(
+    //         'status' => 'read'
+    //     );
+    //     $this->db->update('notification', $data, array('user_id' => $user_id));
+    // }
 
 
 

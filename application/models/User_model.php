@@ -200,6 +200,16 @@ class User_model extends CI_Model
 		$result = $query->result_array();
 		return $result;
 	}
+	
+	public function AdminLaaList()
+	{
+		$this->db->select('id,name,is_active,status,images');
+		$this->db->from($this->User);
+		$this->db->where('role_id', '5');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result;
+	}
 
 	public function KoordinatorTAList()
 	{

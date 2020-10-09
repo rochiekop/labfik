@@ -12,7 +12,7 @@ class Chat extends CI_Controller {
 	
 	public function index()
 	{
-        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4')
+        if ($this->session->userdata('role_id') == '3' or $this->session->userdata('role_id') == '4') // dosen dan mahasiswa
         {
 			$list = $this->user_model->AdminList();
 			$data['strTitle']='Admin';
@@ -37,7 +37,7 @@ class Chat extends CI_Controller {
 			$this->load->view('templates/dashboard/sidebarDosenMhs');
 			$this->load->view('templates/dashboard/footer');
 		}
-        else if ($this->session->userdata('role_id') == '2')
+        else if ($this->session->userdata('role_id') == '2') // kepala urusan
         {
 			$list = $this->user_model->AdminList();
 			$data['strTitle']='Semua Admin';
@@ -62,9 +62,9 @@ class Chat extends CI_Controller {
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/footer'); 
         }
-        else if ($this->session->userdata('role_id') == '1')
+        else if ($this->session->userdata('role_id') == '1') // admin sistem
         {
-			$list = array_merge($this->user_model->KaurList(), $this->user_model->DosenMhsList());
+			$list = array_merge($this->user_model->KaurList(), $this->user_model->DosenMhsList(), $this->user_model->AdminLaaList(), $this->user_model->KoordinatorTAList());
 			$data['strTitle']='Dosen dan Mahasiswa';
 			$data['strsubTitle']='Dosen dan Mahasiswa';
 			$data['strsubTitle2']='Kepala Urusan';
@@ -85,6 +85,56 @@ class Chat extends CI_Controller {
 			$data['userslist']=$userslist;
 			$this->load->view('templates/dashboard/headerAdmin');
 			$this->load->view('templates/dashboard/sidebarAdmin');
+			$this->load->view('chat/chat',$data); 
+			$this->load->view('templates/dashboard/footer'); 
+		}
+		else if ($this->session->userdata('role_id') == '5') // admin laa
+		{
+			$list = $this->user_model->AdminList();
+			$data['strTitle']='Semua Admin';
+			$data['strsubTitle']='Admin';
+			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+
+			$userslist=[];
+			foreach($list as $u){
+				$userslist[]=
+				[
+					'id' => $u['id'],
+					'name' => $u['name'],
+					// 'images' => $this->user_model->ImagesById($u['id']),
+					'images' => $u['images'],
+					'status' => $u['status'],
+					'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
+				];
+			}
+			$data['userslist']=$userslist;
+			$this->load->view('templates/dashboard/headerAdminlaa');
+			$this->load->view('templates/dashboard/sidebarAdminlaa');
+			$this->load->view('chat/chat',$data); 
+			$this->load->view('templates/dashboard/footer'); 
+		}
+		else if ($this->session->userdata('role_id') == '6') // koordinator ta
+		{
+			$list = $this->user_model->AdminList();
+			$data['strTitle']='Semua Admin';
+			$data['strsubTitle']='Admin';
+			$data['chatTitle']='Pilih Admin yang ingin anda hubungi';
+
+			$userslist=[];
+			foreach($list as $u){
+				$userslist[]=
+				[
+					'id' => $u['id'],
+					'name' => $u['name'],
+					// 'images' => $this->user_model->ImagesById($u['id']),
+					'images' => $u['images'],
+					'status' => $u['status'],
+					'unread_messages' => $this->chat_model->CountUnreads($this->session->userdata('id'), $u['id']),
+				];
+			}
+			$data['userslist']=$userslist;
+			$this->load->view('templates/dashboard/headerKoorTa');
+			$this->load->view('templates/dashboard/sidebarKoorTa');
 			$this->load->view('chat/chat',$data); 
 			$this->load->view('templates/dashboard/footer'); 
 		}

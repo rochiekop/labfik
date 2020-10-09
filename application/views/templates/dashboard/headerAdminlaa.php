@@ -60,9 +60,9 @@
           </div>
           <div class="not-dropdown" style="margin-right:14px" id="active">
             <!-- <a class="btn btn-icon" href="<?= base_url('Notification/listBorrowingNotification/request/' . $this->session->userdata('id')) ?>"> -->
-            <a class="btn btn-icon" href="<?= base_url('Notification') ?>">
+            <!-- <a class="btn btn-icon" href="<?= base_url('Notification') ?>">
               <span class="fas fa-bell"></span>
-            </a>
+            </a> -->
           </div>
 
           <div class="dropdown not-dropdown">
